@@ -9,7 +9,7 @@ switch (internalConfig.env) {
     break
 
   case 'uat':
-    config.baseUrl = 'http://mall.bsxkj.com:9002'
+    config.baseUrl = 'https://mall.bsxkj.com:9002'
     config.publicBucketDomain = 'https://malls-admin-public-uat.oss-cn-shenzhen.aliyuncs.com/'
     break
 
