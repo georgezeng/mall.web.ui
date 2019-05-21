@@ -1,6 +1,5 @@
 <template>
-    <Spin v-if="!showRegister" size="large" style="width: 50%;"></Spin>
-    <Layout v-else style="margin: 0 auto; padding: 0;">
+    <Layout v-if="showRegister" style="margin: 0 auto; padding: 0;">
         <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
             <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back" />
             <div>绑定手机</div>
@@ -65,6 +64,7 @@
                 })
             },
             load() {
+                this.$Spin.show()
                 let code = UrlParams(window.location.href, "code")
                 this.token = UrlParams(window.location.href, "state")
                 alert(window.location.href);
