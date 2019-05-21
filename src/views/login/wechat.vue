@@ -80,10 +80,8 @@
             },
             login(info) {
                 this.loading = true
-                LoginAPI.login({
-                    ...info,
-                    type: 'ThirdParty'
-                }).then(res => {
+                info.type = 'ThirdParty'
+                LoginAPI.login(info).then(res => {
                     this.loading = false
                     this.goProfile()
                 }).catch(ex => {
