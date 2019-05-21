@@ -1,8 +1,9 @@
 <template>
-    <Layout style="margin: 0 auto; padding: 0;">
+    <Spin size="large" v-if="!showRegister"></Spin>
+    <Layout v-else style="margin: 0 auto; padding: 0;">
         <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
             <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back" />
-            <div>忘记密码</div>
+            <div>绑定手机</div>
         </Header>
         <Content :style="{padding: '20px', paddingTop: '100px', backgroundColor: '#fff'}">
             <Form ref="form" :model="form" :rules="rules" :label-width="0">
@@ -14,24 +15,27 @@
                            :enter-button="codeBtnText"
                            placeholder="输入验证码"></Input>
                 </FormItem>
-                <Button size="large" :loading="loading" long type="warning" @click="check">下一步</Button>
+                <Button size="large" :loading="loading" long type="warning" @click="register">绑定</Button>
             </Form>
         </Content>
     </Layout>
 </template>
 <script>
-    import API from '../../api/forget-password'
+    import API from '../../api/wechat.js'
+    import LoginAPI from '../../api/login.js'
     import {Message} from 'iview'
-
+    import UrlParams from 'get-url-param'
     export default {
         data() {
             return {
-                loading: false,
+                showRegister: false,
                 codeLoading: false,
                 codeBtnText: '获取验证码',
+                loading: false,
+                token: null,
                 form: {
-                    username: '',
-                    verifyCode: ''
+                    username: null,
+                    password: null
                 },
                 rules: {
                     username: [
@@ -50,18 +54,40 @@
             }
         },
         methods: {
-            sendCode() {
-                if (!this.form.username) {
-                    this.$refs.form.validateField('username')
-                    return
-                }
-                if (this.codeLoading) {
-                    return
-                }
-                this.disableVerifyCodeBtn(30)
-                API.sendCode(this.form.username).then(res => {
-                    Message.success("发送成功")
+            back() {
+                this.$router.push({
+                    name: 'Login'
+                })
+            },
+            goProfile() {
+                this.$router.push({
+                    name: 'Profile'
+                })
+            },
+            load() {
+                let code = UrlParams(window.location.href, "code")
+                this.token = UrlParams(window.location.href, "state")
+                API.info({
+                    username: code,
+                    password: this.token,
+                }).then(info => {
+                    if(info) {
+                        this.login(info)
+                    } else {
+                        this.showRegister = true
+                    }
+                })
+            },
+            login(info) {
+                this.loading = true
+                LoginAPI.login({
+                    ...info,
+                    type: 'ThirdParty'
+                }).then(res => {
+                    this.loading = false
+                    this.goProfile()
                 }).catch(ex => {
+                    this.loading = false
                 })
             },
             disableVerifyCodeBtn(second) {
@@ -77,32 +103,38 @@
                 this.codeLoading = false
                 this.codeBtnText = '获取验证码'
             },
-            check() {
+            sendCode() {
+                if (!this.form.username) {
+                    this.$refs.form.validateField('username')
+                    return
+                }
+                if (this.codeLoading) {
+                    return
+                }
+                this.disableVerifyCodeBtn(30)
+                API.sendCode(this.form.username).then(res => {
+                    Message.success("发送成功")
+                })
+            },
+            register() {
                 this.$refs.form.validate().then(valid => {
                     if (valid) {
                         this.loading = true
-                        API.next(this.form).then(res => {
+                        API.register(this.form).then(res => {
                             this.loading = false
-                            this.goStep2()
+                            this.login({
+                                username: this.form.username,
+                                password: this.token
+                            })
                         }).catch(ex => {
                             this.loading = false
                         })
                     }
                 })
-            },
-            back() {
-                this.$router.push({
-                    name: 'Login'
-                })
-            },
-            goStep2() {
-                this.$router.push({
-                    name: 'ForgetPasswordStep2',
-                    params: {
-                        info: this.form
-                    }
-                })
-            },
+            }
         },
+        mounted() {
+            this.load()
+        }
     }
 </script>

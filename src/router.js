@@ -23,6 +23,14 @@ const routers = [
         component: (resolve) => require(['./views/login/index.vue'], resolve)
     },
     {
+        path: '/WechatLogin',
+        name: 'WechatLogin',
+        meta: {
+            title: '微信登录'
+        },
+        component: (resolve) => require(['./views/login/wechat.vue'], resolve)
+    },
+    {
         path: '/ForgetPassword/Step1',
         name: 'ForgetPasswordStep1',
         meta: {

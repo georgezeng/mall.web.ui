@@ -12,7 +12,7 @@
                 <FormItem label="确认密码" prop="confirmPassword">
                     <Input size="large" type="password" v-model="form.confirmPassword"></Input>
                 </FormItem>
-                <Button size="large" long type="warning" @click="reset">重置</Button>
+                <Button size="large" :loading="loading" long type="warning" @click="reset">重置</Button>
             </Form>
         </Content>
     </Layout>

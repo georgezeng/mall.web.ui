@@ -63,7 +63,9 @@
                 })
             },
             goProfile() {
-
+                this.$router.push({
+                    name: 'Profile'
+                })
             }
         }
     }

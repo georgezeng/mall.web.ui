@@ -3,7 +3,6 @@ import axios from 'axios'
 import config from '../config/index'
 import router from '../router'
 import {Message} from 'iview'
-import UrlParams from 'get-url-param'
 
 const LOGIN_PAGE_NAME = 'Login'
 
