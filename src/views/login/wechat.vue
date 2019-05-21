@@ -67,7 +67,7 @@
             load() {
                 let code = UrlParams(window.location.href, "code")
                 this.token = UrlParams(window.location.href, "state")
-                Message.success(window.location.href);
+                alert(window.location.href);
                 API.info({
                     username: this.token,
                     password: code,
