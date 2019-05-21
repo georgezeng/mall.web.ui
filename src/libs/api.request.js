@@ -5,17 +5,13 @@ import router from '../router'
 import {Message} from 'iview'
 import UrlParams from 'get-url-param'
 
-let MID = UrlParams(window.location.href, "mid")
-MID = MID ? MID : ''
-
 const LOGIN_PAGE_NAME = 'Login'
 
 // const ajax = new HttpRequest(baseUrl)
 const ajax = axios.create({
     baseURL: config.baseUrl,
     headers: {
-        'Access-Control-Allow-Origin': '*',
-        'mid': MID
+        'Access-Control-Allow-Origin': '*'
     },
     withCredentials: true
 })

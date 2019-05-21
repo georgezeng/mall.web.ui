@@ -11,7 +11,8 @@
 <template>
     <Layout style="margin: 0 auto; padding: 0;">
         <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
-            登录商城
+            <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back" />
+            <div>登录商城</div>
         </Header>
         <Content :style="{padding: '0', backgroundColor: '#fff'}">
             <Tabs ref="tabs" style="margin-top: 100px;" value="password">
@@ -45,6 +46,12 @@
         data() {
             return {}
         },
-        methods: {},
+        methods: {
+            back() {
+                this.$router.push({
+                    name: 'Home'
+                })
+            }
+        },
     }
 </script>

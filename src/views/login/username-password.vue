@@ -36,12 +36,6 @@
                 rules: {
                     username: [
                         {required: true, message: '手机号不能为空', trigger: 'change'},
-                        {
-                            type: 'string',
-                            pattern: /^\d{11}$/,
-                            message: '手机号必须是11位数字',
-                            trigger: 'change'
-                        },
                     ],
                     password: [
                         {required: true, message: '密码不能为空', trigger: 'change'}
