@@ -68,8 +68,8 @@
                 let code = UrlParams(window.location.href, "code")
                 this.token = UrlParams(window.location.href, "state")
                 API.info({
-                    username: code,
-                    password: this.token,
+                    username: this.token,
+                    password: code,
                 }).then(info => {
                     if(info) {
                         this.login(info)
