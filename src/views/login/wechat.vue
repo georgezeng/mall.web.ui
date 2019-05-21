@@ -67,7 +67,7 @@
                 this.$Spin.show()
                 let code = UrlParams(window.location.href, "code")
                 this.token = UrlParams(window.location.href, "state")
-                alert(window.location.href);
+                alert(code + ":" + this.token);
                 API.info({
                     username: this.token,
                     password: code,
