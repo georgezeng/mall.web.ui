@@ -31,6 +31,14 @@ const routers = [
         component: (resolve) => require(['./views/login/wechat.vue'], resolve)
     },
     {
+        path: '/MyCenter',
+        name: 'MyCenter',
+        meta: {
+            title: '微信登录'
+        },
+        component: (resolve) => require(['./views/profile/mycenter.vue'], resolve)
+    },
+    {
         path: '/ForgetPassword/Step1',
         name: 'ForgetPasswordStep1',
         meta: {
