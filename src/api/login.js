@@ -7,8 +7,5 @@ export default {
     },
     login(user) {
         return axios.post('/login', qs.stringify(user))
-    },
-    loginToken() {
-        return axios.get('/client/login/token')
     }
 }

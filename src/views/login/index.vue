@@ -38,6 +38,7 @@
 </template>
 <script>
     import API from '../../api/login.js'
+    import WechatAPI from '../../api/wechat.js'
     import UsernamePasswordPanel from './username-password'
     import PhoneVerifyPanel from './phone-verify'
 
@@ -59,12 +60,9 @@
             },
             goWechatLogin() {
                 this.loading = true
-                API.loginToken().then(token => {
+                WechatAPI.loginUrl().then(url => {
                     this.loading = false
-                    window.location.href = 'https://open.weixin.qq.com/connect/qrconnect?' +
-                        'appid=wx137a61306b396b25' +
-                        '&redirect_uri=https%3a%2f%2fdobaishop.com%2f%23%2fWechatLogin' +
-                        '&response_type=code&scope=snsapi_login&state=' + token + '#wechat_redirect'
+                    window.location.href = url
                 }).catch(e => {
                     this.loading = false
 

@@ -10,5 +10,8 @@ export default {
     },
     register(user) {
         return axios.post('/client/wechat/register', user)
+    },
+    loginUrl() {
+        return axios.get('/client/wechat/loginUrl')
     }
 }
