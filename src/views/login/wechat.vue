@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!showRegister" align="center" style="padding-top: 300px;">
+    <div v-if="!showRegister" style="margin: 300px auto;">
         <Spin size="large"></Spin>
     </div>
     <Layout v-else style="margin: 0 auto; padding: 0;">
