@@ -1,5 +1,7 @@
 <template>
-    <Spin size="large" v-if="!showRegister"></Spin>
+    <div v-if="!showRegister" align="center" style="padding-top: 300px;">
+        <Spin size="large"></Spin>
+    </div>
     <Layout v-else style="margin: 0 auto; padding: 0;">
         <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
             <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back" />
