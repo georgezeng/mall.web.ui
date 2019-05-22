@@ -34,7 +34,8 @@
                 token: null,
                 form: {
                     username: null,
-                    password: null
+                    password: null,
+                    code: null
                 },
                 rules: {
                     username: [
@@ -65,11 +66,11 @@
             },
             load() {
                 this.$Spin.show()
-                let code = UrlParams(window.location.href, "code")
+                this.form.code = UrlParams(window.location.href, "code")
                 this.token = UrlParams(window.location.href, "state").replace('#/WechatLogin', '')
                 API.info({
                     username: this.token,
-                    password: code,
+                    password: this.form.code,
                 }).then(info => {
                     this.$Spin.hide()
                     if(info) {

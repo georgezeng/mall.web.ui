@@ -10,9 +10,9 @@ const LOGIN_PAGE_NAME = 'Login'
 const ajax = axios.create({
     baseURL: config.baseUrl,
     headers: {
-        'Access-Control-Allow-Origin': 'https://www.dobaishop.com',
+        'Access-Control-Allow-Origin': '*',
     },
-    withCredentials: true
+    withCredentials: false
 })
 
 ajax.interceptors.response.use(function (response) {
