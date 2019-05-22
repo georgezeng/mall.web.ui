@@ -71,6 +71,7 @@
                     username: this.token,
                     password: code,
                 }).then(info => {
+                    this.$Spin.hide()
                     if(info) {
                         this.login(info)
                     } else {
