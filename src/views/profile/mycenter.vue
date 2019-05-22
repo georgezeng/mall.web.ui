@@ -1,5 +1,7 @@
 <template>
-    <div><Button @click="test">测试</Button></div>
+    <div style="margin: 50px auto;">
+        <Button size="large" long type="success" @click="test">测试</Button>
+    </div>
 </template>
 <script>
     import API from '../../api/forget-password'
