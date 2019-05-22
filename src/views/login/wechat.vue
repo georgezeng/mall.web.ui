@@ -77,6 +77,8 @@
                     } else {
                         this.showRegister = true
                     }
+                }).catch(e => {
+                    this.$Spin.hide()
                 })
             },
             login(info) {
