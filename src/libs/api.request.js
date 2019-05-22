@@ -10,7 +10,7 @@ const LOGIN_PAGE_NAME = 'Login'
 const ajax = axios.create({
     baseURL: config.baseUrl,
     headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true
 })
