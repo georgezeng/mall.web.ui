@@ -32,6 +32,7 @@ ajax.interceptors.response.use(function (response) {
 })
 
 function alertError(error) {
+    alert(error)
     let errors = null
     if (error && error.msgs) {
         errors = '[' + error.traceId + '] '
