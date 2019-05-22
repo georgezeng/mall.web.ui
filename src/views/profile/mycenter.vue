@@ -12,7 +12,7 @@
         },
         methods: {
             test() {
-                API.test()
+                API.test().then(res=>Message.success('success'))
             }
         },
     }
