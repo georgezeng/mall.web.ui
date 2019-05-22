@@ -62,10 +62,9 @@
                 this.loading = true
                 WechatAPI.loginUrl().then(url => {
                     this.loading = false
-                    // window.location.href = url
+                    window.location.href = url
                 }).catch(e => {
                     this.loading = false
-
                 });
             }
         },

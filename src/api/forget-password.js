@@ -9,5 +9,8 @@ export default {
     },
     reset(user, code) {
         return axios.post('/client/forgetPassword/reset/' + code, user)
+    },
+    test() {
+        return axios.get('/client/test')
     }
 }

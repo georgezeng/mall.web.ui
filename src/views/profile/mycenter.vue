@@ -1,5 +1,5 @@
 <template>
-    <div>个人中心</div>
+    <div><Button @click="test">测试</Button></div>
 </template>
 <script>
     import API from '../../api/forget-password'
@@ -11,6 +11,9 @@
             }
         },
         methods: {
+            test() {
+                API.test()
+            }
         },
     }
 </script>
