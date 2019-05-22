@@ -13,8 +13,12 @@
             }
         },
         methods: {
-            test() {
-                API.test().then(res=>Message.success('success'))
+            test() {alert(2)
+                API.test().then(res=> {
+                    Message.success('success')
+                }).catch(e => {
+                    alert(e)
+                })
             }
         },
     }
