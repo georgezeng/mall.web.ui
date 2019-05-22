@@ -72,7 +72,6 @@
                     password: code,
                 }).then(info => {
                     this.$Spin.hide()
-                    alert(info.username + ":" + info.password)
                     if(info) {
                         this.login(info)
                     } else {

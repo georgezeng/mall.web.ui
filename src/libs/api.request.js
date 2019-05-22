@@ -25,11 +25,7 @@ ajax.interceptors.response.use(function (response) {
         alertError(response.data)
         return Promise.reject(response.data)
     }
-    if (response.data.data || response.data.datas) {
-        return response.data.data || response.data.datas
-    } else {
-        return response.data
-    }
+    return response.data.data || response.data.datas
 }, function (ex) {
     alertError(ex)
     return Promise.reject(ex)
