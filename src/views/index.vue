@@ -5,7 +5,7 @@
 
     export default {
         mounted() {
-            alert(navigator.userAgent)
+            // 解决ios下webview和safari不能获取跨域cookie的问题
             window.location.href = config.baseUrl + "/index"
         }
     }
