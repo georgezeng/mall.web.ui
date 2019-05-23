@@ -25,7 +25,6 @@ ajax.interceptors.response.use(function (response) {
         alertError(response.data)
         return Promise.reject(response.data)
     }
-    console.log(response)
     return response.data.data || response.data.datas
 }, function (ex) {
     return Promise.reject(ex)
