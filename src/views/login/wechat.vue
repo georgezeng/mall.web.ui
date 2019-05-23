@@ -34,9 +34,7 @@
                 token: null,
                 form: {
                     username: null,
-                    password: null,
-                    token: null,
-                    id: null
+                    password: null
                 },
                 rules: {
                     username: [
@@ -74,12 +72,10 @@
                     password: code,
                 }).then(info => {
                     this.$Spin.hide()
-                    if(info.username.length == 11) {
+                    if(info) {
                         this.login(info)
                     } else {
                         this.showRegister = true
-                        this.form.id = info.password
-                        this.form.token = info.username
                     }
                 }).catch(e => {
                     this.$Spin.hide()
