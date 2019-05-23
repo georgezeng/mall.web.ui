@@ -6,6 +6,8 @@ export default {
         return axios.get('/client/login/code/' + mobile)
     },
     login(user) {
-        return axios.post('/login', qs.stringify(user))
+        let payload = qs.stringify(user)
+        alert(payload)
+        return axios.post('/login', payload)
     }
 }
