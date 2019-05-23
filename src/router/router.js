@@ -1,7 +1,7 @@
 import Main from '../views/main'
 const routers = [
     {
-        path: '/Index',
+        path: '/',
         name: 'Index',
         meta: {
             title: '首页'
@@ -9,7 +9,7 @@ const routers = [
         component: (resolve) => require(['../views/index.vue'], resolve)
     },
     {
-        path: '/',
+        path: '/Home',
         component: Main,
         children: [
             {
