@@ -85,11 +85,11 @@
                     this.$Spin.hide()
                 })
             },
-            login(info) {alert(info)
+            login(info) {
                 this.loading = true
                 LoginAPI.login({
                     ...info,
-                    type: 'ThirdParty'
+                    type: 'Wechat'
                 }).then(res => {
                     this.loading = false
                     this.goProfile()
