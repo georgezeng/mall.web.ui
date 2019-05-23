@@ -34,7 +34,7 @@ const routers = [
         path: '/MyCenter',
         name: 'MyCenter',
         meta: {
-            title: '微信登录'
+            title: '个人中心'
         },
         component: (resolve) => require(['./views/profile/mycenter.vue'], resolve)
     },

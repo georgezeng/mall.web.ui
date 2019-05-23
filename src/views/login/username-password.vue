@@ -48,7 +48,7 @@
                 this.$refs.form.validate().then(valid => {
                     if (valid) {
                         this.loading = true
-                        API.login(this.form).then(res => {
+                        API.login(this.form).then(data => {
                             this.loading = false
                             this.goProfile()
                         }).catch(ex => {

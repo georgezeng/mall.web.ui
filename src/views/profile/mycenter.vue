@@ -1,5 +1,5 @@
 <template>
-    <div style="margin: 50px auto;">
+    <div style="margin: 300px auto;">
         <Button size="large" long type="success" @click="test">测试</Button>
     </div>
 </template>
@@ -17,7 +17,7 @@
                 API.test().then(res=> {
                     Message.success('success')
                 }).catch(e => {
-                    Message.error(e.message)
+                    Message.error('error')
                 })
             }
         },
