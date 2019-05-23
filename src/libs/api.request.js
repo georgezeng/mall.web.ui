@@ -15,15 +15,6 @@ const ajax = axios.create({
     withCredentials: true
 })
 
-axios.interceptors.request.use(function (config) {
-    for(let x in config)
-    alert(x + ':' + config[x])
-    return config;
-}, function (error) {
-    // 对请求错误做些什么
-    return Promise.reject(error);
-});
-
 ajax.interceptors.response.use(function (response) {
     if (response.data.code == -1) {
         router.push({
