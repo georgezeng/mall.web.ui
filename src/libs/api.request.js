@@ -1,7 +1,7 @@
 // import HttpRequest from '@/libs/axios'
 import axios from 'axios'
 import config from '../config/index'
-import router from '../router'
+import router from '../router/index'
 import {Message} from 'iview'
 
 const LOGIN_PAGE_NAME = 'Login'

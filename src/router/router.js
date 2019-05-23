@@ -1,4 +1,4 @@
-import Main from './views/main'
+import Main from '../views/main'
 const routers = [
     {
         path: '/',
@@ -10,7 +10,7 @@ const routers = [
                 meta: {
                     title: '首页'
                 },
-                component: (resolve) => require(['./views/index.vue'], resolve)
+                component: (resolve) => require(['../views/index.vue'], resolve)
             }
         ]
     },
@@ -20,7 +20,7 @@ const routers = [
         meta: {
             title: '登录'
         },
-        component: (resolve) => require(['./views/login/index.vue'], resolve)
+        component: (resolve) => require(['../views/login/index.vue'], resolve)
     },
     {
         path: '/WechatLogin',
@@ -28,7 +28,7 @@ const routers = [
         meta: {
             title: '微信登录'
         },
-        component: (resolve) => require(['./views/login/wechat.vue'], resolve)
+        component: (resolve) => require(['../views/login/wechat.vue'], resolve)
     },
     {
         path: '/MyCenter',
@@ -36,7 +36,7 @@ const routers = [
         meta: {
             title: '个人中心'
         },
-        component: (resolve) => require(['./views/profile/mycenter.vue'], resolve)
+        component: (resolve) => require(['../views/profile/mycenter.vue'], resolve)
     },
     {
         path: '/ForgetPassword/Step1',
@@ -44,7 +44,7 @@ const routers = [
         meta: {
             title: '忘记密码'
         },
-        component: (resolve) => require(['./views/forget-password/step1.vue'], resolve)
+        component: (resolve) => require(['../views/forget-password/step1.vue'], resolve)
     },
     {
         path: '/ForgetPassword/Step2',
@@ -52,7 +52,7 @@ const routers = [
         meta: {
             title: '重置密码'
         },
-        component: (resolve) => require(['./views/forget-password/step2.vue'], resolve)
+        component: (resolve) => require(['../views/forget-password/step2.vue'], resolve)
     }
 ];
 export default routers;
