@@ -1,10 +1,10 @@
 <template>
-    <Layout style="margin: 0 auto; padding: 0;">
-        <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
-            <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back" />
+    <Layout :style="commonStyles.layout">
+        <Header :style="commonStyles.header">
+            <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back" />
             <div>重置密码</div>
         </Header>
-        <Content :style="{padding: '20px', paddingTop: '100px', backgroundColor: '#fff'}">
+        <Content :style="commonStyles.content">
             <Form ref="form" :model="form" :rules="rules" :label-width="75">
                 <FormItem label="新密码" prop="password">
                     <Input size="large" type="password" v-model="form.password"></Input>
@@ -20,7 +20,7 @@
 <script>
     import API from '../../api/forget-password'
     import {Message} from 'iview'
-
+    import commonStyles from '../../styles/common.js'
     export default {
         data() {
             const confirmPwdCheck = (rule, value, callback) => {
@@ -31,6 +31,7 @@
                 }
             }
             return {
+                commonStyles,
                 loading: false,
                 info: null,
                 form: {

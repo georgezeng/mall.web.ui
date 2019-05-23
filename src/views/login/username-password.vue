@@ -23,7 +23,7 @@
 <script>
     import {Message} from 'iview'
     import API from '../../api/login'
-
+    import Util from '../../libs/util'
     export default {
         data() {
             return {
@@ -50,6 +50,7 @@
                         this.loading = true
                         API.login(this.form).then(data => {
                             this.loading = false
+                            Util.setToken(data.token)
                             this.goProfile()
                         }).catch(ex => {
                             this.loading = false

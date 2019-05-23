@@ -8,42 +8,37 @@
     }
 </style>
 <template>
-    <Footer style="position: relative; margin: 0; padding: 0;">
-        <div style="background-color: #F5F7F9; position: fixed; z-index: 100; width: 100%; padding: 5px 0; bottom: 0px;"
-             align="center">
-            <div @click="goHome"
-                 class="button margin-right">
+    <Footer>
+        <div align="center">
+            <div @click="goHome" class="button margin-right">
                 <div>
-                    <Icon type="md-home" size="30"/>
+                    <Icon :style="homeStyle" type="md-home" size="30"/>
                 </div>
-                <div>
+                <div :style="homeStyle">
                     首页
                 </div>
             </div>
-            <div @click="goCategory"
-                 class="button margin-right">
+            <div @click="goCategory" class="button margin-right">
                 <div>
-                    <Icon type="md-book" size="30"/>
+                    <Icon :style="categoryStyle" type="md-book" size="30"/>
                 </div>
-                <div>
+                <div :style="categoryStyle">
                     分类
                 </div>
             </div>
-            <div @click="goCart"
-                 class="button margin-right">
+            <div @click="goCart" class="button margin-right">
                 <div>
-                    <Icon type="md-cart" size="30"/>
+                    <Icon :style="cartStyle" type="md-cart" size="30"/>
                 </div>
-                <div>
+                <div :style="cartStyle">
                     购物车
                 </div>
             </div>
-            <div @click="goProfile"
-                 class="button">
+            <div @click="goProfile" class="button">
                 <div>
-                    <Icon type="md-contact" size="30"/>
+                    <Icon :style="mineStyle" type="md-contact" size="30"/>
                 </div>
-                <div>
+                <div :style="mineStyle">
                     我的
                 </div>
             </div>
@@ -52,9 +47,23 @@
 </template>
 <script>
     export default {
+        props: [
+          'selection'
+        ],
         data() {
             return {
-
+                mineStyle: {
+                    color: null
+                },
+                cartStyle: {
+                    color: null
+                },
+                categoryStyle: {
+                    color: null
+                },
+                homeStyle: {
+                    color: null
+                }
             }
         },
         methods: {
@@ -71,8 +80,16 @@
             },
             goProfile() {
                 this.$router.push({
-                    name: 'Login',
+                    name: 'MyCenter',
                 })
+            }
+        },
+        mounted() {
+            switch(this.selection) {
+                case 'mine': this.mineStyle.color = '#DA4935'; break
+                case 'cart': this.cartStyle.color = '#DA4935'; break
+                case 'category': this.categoryStyle.color = '#DA4935'; break
+                case 'home': this.homeStyle.color = '#DA4935'; break
             }
         }
     }

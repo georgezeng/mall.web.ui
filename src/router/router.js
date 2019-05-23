@@ -1,4 +1,3 @@
-import Main from '../views/main'
 const routers = [
     {
         path: '/',
@@ -10,17 +9,11 @@ const routers = [
     },
     {
         path: '/Home',
-        component: Main,
-        children: [
-            {
-                path: '',
-                name: 'Home',
-                meta: {
-                    title: '首页'
-                },
-                component: (resolve) => require(['../views/home.vue'], resolve)
-            }
-        ]
+        name: 'Home',
+        meta: {
+            title: '首页'
+        },
+        component: (resolve) => require(['../views/home.vue'], resolve)
     },
     {
         path: '/Login',

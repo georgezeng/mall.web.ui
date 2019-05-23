@@ -1,10 +1,10 @@
 <template>
-    <Layout style="margin: 0 auto; padding: 0;">
-        <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
-            <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back" />
+    <Layout :style="commonStyles.layout">
+        <Header :style="commonStyles.header">
+            <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back" />
             <div>忘记密码</div>
         </Header>
-        <Content :style="{padding: '20px', paddingTop: '100px', backgroundColor: '#fff'}">
+        <Content :style="commonStyles.content">
             <Form ref="form" :model="form" :rules="rules" :label-width="0">
                 <FormItem prop="username">
                     <Input size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
@@ -22,10 +22,11 @@
 <script>
     import API from '../../api/forget-password'
     import {Message} from 'iview'
-
+    import commonStyles from '../../styles/common.js'
     export default {
         data() {
             return {
+                commonStyles,
                 loading: false,
                 codeLoading: false,
                 codeBtnText: '获取验证码',

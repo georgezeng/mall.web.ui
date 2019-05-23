@@ -9,12 +9,12 @@
 
 </style>
 <template>
-    <Layout style="margin: 0 auto; padding: 0;">
-        <Header style="margin:0; padding: 0 10px; background-color: #DA4935; position: fixed; z-index: 100; width: 100%; color: #fff; font-size: 16pt; text-align: center;">
-            <Icon type="ios-arrow-back" size="30" style="position: absolute; top: 18px; left: 10px;" @click="back"/>
+    <Layout :style="commonStyles.layout">
+        <Header :style="commonStyles.header">
+            <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
             <div>登录商城</div>
         </Header>
-        <Content :style="{padding: '0', backgroundColor: '#fff'}">
+        <Content :style="commonStyles.content">
             <Tabs ref="tabs" style="margin-top: 100px;" value="password">
                 <TabPane label="密码登录" name="password">
                     <UsernamePasswordPanel/>
@@ -23,22 +23,23 @@
                     <PhoneVerifyPanel/>
                 </TabPane>
             </Tabs>
-        </Content>
-        <Footer style="width: 100%; position: absolute; bottom: 50px; background-color: #fff">
-            <div style="margin-bottom: 20px;" align="center">
-                <div class="gradient"></div>
-                <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
-                <div class="gradient"></div>
+
+            <div style="padding: 0 20px;">
+                <div style="margin-bottom: 20px;" align="center">
+                    <div class="gradient"></div>
+                    <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
+                    <div class="gradient"></div>
+                </div>
+                <Button icon="ios-chatbubbles" size="large" :loading="loading" long type="success" @click="goWechatLogin">
+                    微信登录
+                </Button>
             </div>
-            <Button icon="ios-chatbubbles" size="large" :loading="loading" long type="success" @click="goWechatLogin">
-                微信登录
-            </Button>
-        </Footer>
+        </Content>
     </Layout>
 </template>
 <script>
-    import API from '../../api/login.js'
     import WechatAPI from '../../api/wechat.js'
+    import commonStyles from '../../styles/common.js'
     import UsernamePasswordPanel from './username-password'
     import PhoneVerifyPanel from './phone-verify'
 
@@ -49,6 +50,7 @@
         },
         data() {
             return {
+                commonStyles,
                 loading: false
             }
         },

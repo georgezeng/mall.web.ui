@@ -11,6 +11,9 @@
                        :enter-button="codeBtnText"
                        placeholder="输入验证码"></Input>
             </FormItem>
+            <FormItem>
+                温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a href="javascript:;">《用户服务协议》</a>
+            </FormItem>
             <Button @click="login" long
                     size="large"
                     type="primary"
@@ -23,6 +26,7 @@
 <script>
     import {Message} from 'iview'
     import API from '../../api/login'
+    import Util from '../../libs/util'
     export default {
         data() {
             return {
@@ -55,8 +59,9 @@
                 this.$refs.form.validate().then(valid => {
                     if (valid) {
                         this.loading = true
-                        API.login(this.form).then(res => {
+                        API.login(this.form).then(data => {
                             this.loading = false
+                            Util.setToken(data.token)
                             this.goProfile()
                         }).catch(ex => {
                             this.loading = false

@@ -1,6 +1,8 @@
 import internalConfig from './config'
 
-const config = {}
+const config = {
+  tokenKey: 'token'
+}
 
 switch (internalConfig.env) {
   case 'development':
