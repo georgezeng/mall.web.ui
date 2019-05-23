@@ -17,7 +17,8 @@
                 API.test().then(res=> {
                     Message.success('success')
                 }).catch(e => {
-                    Message.error('error')
+                    for(let x in e)
+                    Message.error(x + ':' +e[x])
                 })
             }
         },
