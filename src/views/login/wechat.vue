@@ -85,7 +85,7 @@
                     this.$Spin.hide()
                 })
             },
-            login(info) {
+            login(info) {alert(info)
                 this.loading = true
                 LoginAPI.login({
                     ...info,
