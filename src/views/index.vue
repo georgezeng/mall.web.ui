@@ -5,6 +5,7 @@
 
     export default {
         mounted() {
+            alert(navigator.userAgent)
             window.location.href = config.baseUrl + "/index"
         }
     }
