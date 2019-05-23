@@ -4,7 +4,6 @@
     </div>
 </template>
 <script>
-    import API from '../../api/forget-password'
     import {Message} from 'iview'
 
     export default {
@@ -14,11 +13,6 @@
         },
         methods: {
             test() {
-                API.test().then(res=> {
-                    Message.success('success')
-                }).catch(e => {
-                    Message.error(e.msgs[0])
-                })
             }
         },
     }
