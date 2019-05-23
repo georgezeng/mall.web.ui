@@ -4,7 +4,7 @@ const config = {}
 
 switch (internalConfig.env) {
   case 'development':
-    config.baseUrl = 'http://backend.com:9002'
+    config.baseUrl = 'http://localhost:9002'
     config.publicBucketDomain = 'https://malls-admin-public-local.oss-cn-shenzhen.aliyuncs.com/'
     break
 
@@ -15,8 +15,7 @@ switch (internalConfig.env) {
 
   default:
     config.baseUrl = ''
-    // config.publicBucketDomain = 'https://malls-admin-public-live.oss-cn-shenzhen.aliyuncs.com/'
-    config.publicBucketDomain = 'https://malls-admin-public-local.oss-cn-shenzhen.aliyuncs.com/'
+    config.publicBucketDomain = 'https://malls-admin-public-live.oss-cn-shenzhen.aliyuncs.com/'
 }
 
 export default config
