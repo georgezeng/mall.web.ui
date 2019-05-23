@@ -1,6 +1,14 @@
 import Main from '../views/main'
 const routers = [
     {
+        path: '/Index',
+        name: 'Index',
+        meta: {
+            title: '首页'
+        },
+        component: (resolve) => require(['../views/index.vue'], resolve)
+    },
+    {
         path: '/',
         component: Main,
         children: [
@@ -10,7 +18,7 @@ const routers = [
                 meta: {
                     title: '首页'
                 },
-                component: (resolve) => require(['../views/index.vue'], resolve)
+                component: (resolve) => require(['../views/home.vue'], resolve)
             }
         ]
     },
