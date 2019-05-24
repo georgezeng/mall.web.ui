@@ -284,9 +284,9 @@
         },
         mounted() {
             if (this.isLogin) {
-                ProfileAPI.load().then(data => {
-                    this.info = data
-                })
+                // ProfileAPI.load().then(data => {
+                //     this.info = data
+                // })
             }
         }
     }
