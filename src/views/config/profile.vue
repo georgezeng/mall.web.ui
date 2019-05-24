@@ -23,9 +23,9 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header style="background-color: #fff; height: 40px;">
-            <Icon size="24" style="left: 10px; position: absolute; top: 10px;" type="ios-arrow-back" @click="back"/>
-            <div align="center" style="position: relative; top: -10px;">个人信息</div>
+        <Header style="background-color: #fff; height: 60px;">
+            <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
+            <div align="center" style="position: relative; top: 0px;">个人信息</div>
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine"></div>
