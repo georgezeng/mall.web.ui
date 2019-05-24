@@ -17,7 +17,7 @@ const router = new VueRouter(RouterConfig);
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
     Util.title(to.meta.title);
-    if(to.name.startsWith('My') || to.name.startsWith('Cart')) {
+    if(to.meta.needLogin) {
         const token = Util.getToken()
         if(!token) {
             next({

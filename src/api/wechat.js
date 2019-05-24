@@ -13,5 +13,11 @@ export default {
     },
     loginUrl() {
         return axios.get('/client/wechat/loginUrl')
+    },
+    jsConfig(url) {
+        return axios.get('/client/wechat/jsconfig?url=' + encodeURIComponent(url))
+    },
+    uploadFile(serverId) {
+        return axios.get('/client/wechat/fetchFile/' + serverId)
     }
 }

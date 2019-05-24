@@ -1,6 +1,6 @@
-<style lang="less">
+<style scoped lang="less">
     .info {
-        background-color: #E26143;
+        background-color: #DA4935;
         width: 100%;
         height: 80px;
         position: relative;
@@ -39,9 +39,10 @@
             display: inline-block;
             position: relative;
             top: 5px;
-            height: 80px;
-            width: 2px;
-            background: radial-gradient(gray 5%, white 80%);
+            height: 60px;
+            margin: 10px 0;
+            width: 1px;
+            background: radial-gradient(lightgray 5%, white 80%);
         }
 
         .numberBlock {
@@ -77,11 +78,15 @@
         }
         .box {
             display: inline-block;
-            width: 30%;
+            width: 22%;
             margin-bottom: 10px;
             .title {
                 font-size: 10pt;
                 color: #9B9B9B;
+            }
+            .img2 {
+                position: relative;
+                top: 3px;
             }
         }
     }
@@ -111,27 +116,29 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.tideHeader">
-            <div>我的</div>
-            <Icon size="24" style="right: 10px; position: absolute; top: 10px;"
+            <Icon v-if="isLogin" size="24" style="right: 10px; position: absolute; top: 10px;"
                   type="md-notifications-outline"/>
         </Header>
         <div style="height: 40px;"></div>
         <Content :style="commonStyles.content">
-            <div class="info">
+            <div class="info" @click="goProfile">
                 <Avatar size="large" class="avatar" :src="avatar"/>
                 <span class="nickname">{{nickname}}</span>
-                <span class="level">普通会员</span>
-                <div class="tip">点击查看或编辑个人信息</div>
+                <span v-if="isLogin" class="level">普通会员</span>
+                <div v-if="isLogin" class="tip">点击查看或编辑个人信息</div>
+                <div v-else class="tip">登录后购买商品</div>
                 <Icon type="ios-arrow-forward" size="30" class="goArrow"/>
             </div>
             <div class="finance">
-                <div align="center" class="numberBlock">
-                    <div class="number">￥0.00</div>
+                <div align="center" class="numberBlock" @click="goMyChange">
+                    <div v-if="isLogin" class="number">￥0.00</div>
+                    <div v-else><img :src="yuan" width="32" height="32"/></div>
                     <div class="title">余额</div>
                 </div>
                 <div class="gradient"></div>
-                <div align="center" class="numberBlock">
-                    <div class="number">0</div>
+                <div align="center" class="numberBlock" @click="goMyCoupon">
+                    <div v-if="isLogin" class="number">0</div>
+                    <div v-else><img :src="coupon" width="24" height="24"/></div>
                     <div class="title">优惠券</div>
                 </div>
             </div>
@@ -139,39 +146,51 @@
             <div class="orderPanel">
                 <div class="title-line">
                     <span style="font-weight: bold;">我的订单</span>
-                    <span class="more">查看全部 &gt;</span>
+                    <span class="more" @click="goOrders">查看全部 &gt;</span>
                 </div>
                 <div align="center">
-                    <div class="box">
+                    <div class="box" @click="goUnPayOrders">
                         <div class="img"><img :src="dfk" width="40" height="40"/></div>
-                        <div class="title">代付款</div>
+                        <div class="title">待付款</div>
                     </div>
-                    <div class="box">
+                    <div class="box" @click="goUnPickupOrders">
                         <div class="img"><img :src="dsh" width="40" height="40"/></div>
-                        <div class="title">代收货</div>
+                        <div class="title">待收货</div>
                     </div>
-                    <div class="box">
-                        <div class="img"><img :src="done" width="40" height="40"/></div>
-                        <div class="title">已完成</div>
+                    <div class="box" @click="goDoneOrders">
+                        <div class="img2"><img :src="evaluate" width="44" height="44"/></div>
+                        <div class="title">待评价</div>
+                    </div>
+                    <div class="box" @click="goDoneOrders">
+                        <div class="img2"><img :src="tuihuo" width="50" height="50"/></div>
+                        <div class="title">退款/售后</div>
                     </div>
                 </div>
             </div>
             <div class="blockLine"></div>
-            <div class="optionPanel">
+            <div class="optionPanel" @click="goInvite">
                 <img :src="invite" width="24" height="24" class="img"/> 邀请好友
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
-            <div class="optionPanel">
+            <div class="optionPanel" @click="goSetting">
                 <img :src="setting" width="24" height="24" class="img"/> 设置
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
+            </div>
+            <div class="blockLine2"></div>
+            <div v-if="isLogin" class="optionPanel" @click="exit">
+                <Icon size="24" type="md-exit"/>
+                退出
             </div>
         </Content>
         <Footer selection="mine" :style="commonStyles.footer"/>
     </Layout>
 </template>
 <script>
+    import API from '../../api/center.js'
+    import ProfileAPI from '../../api/profile.js'
     import config from '../../config/index.js'
+    import Util from '../../libs/util.js'
     import {Message} from 'iview'
     import Footer from '../footer'
     import commonStyles from '../../styles/common.js'
@@ -181,6 +200,10 @@
     import done from '../../images/done.png'
     import setting from '../../images/setting.png'
     import invite from '../../images/invite.png'
+    import yuan from '../../images/yuan.png'
+    import coupon from '../../images/coupon.png'
+    import evaluate from '../../images/evaluate.png'
+    import tuihuo from '../../images/tuihuo.png'
 
     export default {
         components: {
@@ -193,8 +216,13 @@
                 done,
                 setting,
                 invite,
+                yuan,
+                coupon,
+                evaluate,
+                tuihuo,
                 defaultAvatar,
                 commonStyles,
+                isLogin: Util.getToken() ? true : false,
                 info: {
                     avatar: null,
                     nickname: null
@@ -204,18 +232,62 @@
         computed: {
             avatar() {
                 return this.info.avatar ?
-                    (this.info.avatar.indexOf('http') > -1 ?
+                    (this.info.avatar.startsWith('http') ?
                         this.info.avatar
                         : config.baseUrl + '/' + this.info.avatar)
                     : defaultAvatar
             },
             nickname() {
-                return this.info.nickname ? this.info.nickname : '未设置昵称'
+                return this.info.nickname ? this.info.nickname : (this.isLogin ? '未设置昵称' : '立即登录')
             }
         },
         methods: {
-            test() {
+            exit() {
+                API.logout().then(res => {
+                    Util.setToken('')
+                    window.location.reload(true)
+                })
+            },
+            goMyChange() {
+                Util.go('MyChange')
+            },
+            goMyCoupon() {
+                Util.go('MyCoupon')
+            },
+            goOrders() {
+                Util.go('MyOrder')
+            },
+            goUnPayOrders() {
+                Util.go('MyOrder', {
+                    status: 'UnPay'
+                })
+            },
+            goUnPickupOrders() {
+                Util.go('MyOrder', {
+                    status: 'UnPickup'
+                })
+            },
+            goDoneOrders() {
+                Util.go('MyOrder', {
+                    status: 'Done'
+                })
+            },
+            goSetting() {
+                Util.go('MySetting')
+            },
+            goInvite() {
+                Util.go('MyInvite')
+            },
+            goProfile() {
+                Util.go('MyProfile')
             }
         },
+        mounted() {
+            if (this.isLogin) {
+                ProfileAPI.load().then(data => {
+                    this.info = data
+                })
+            }
+        }
     }
 </script>

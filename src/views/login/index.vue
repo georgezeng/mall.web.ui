@@ -57,7 +57,7 @@
         methods: {
             back() {
                 this.$router.push({
-                    name: 'Home'
+                    name: 'MyCenter'
                 })
             },
             goWechatLogin() {

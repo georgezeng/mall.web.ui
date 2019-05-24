@@ -36,6 +36,7 @@ const layout = {
 
 const content = {
     padding: '0',
+    position: 'relative',
     backgroundColor: '#fff'
 }
 

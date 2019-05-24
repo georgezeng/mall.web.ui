@@ -2,15 +2,13 @@
     .button {
         display: inline-block;
         cursor: pointer;
-    }
-    .margin-right {
-        margin-right: 40px;
+        width: 24%
     }
 </style>
 <template>
     <Footer>
         <div align="center">
-            <div @click="goHome" class="button margin-right">
+            <div @click="goHome" class="button">
                 <div>
                     <Icon :style="homeStyle" type="md-home" size="30"/>
                 </div>
@@ -18,7 +16,7 @@
                     首页
                 </div>
             </div>
-            <div @click="goCategory" class="button margin-right">
+            <div @click="goCategory" class="button">
                 <div>
                     <Icon :style="categoryStyle" type="md-book" size="30"/>
                 </div>
@@ -26,7 +24,7 @@
                     分类
                 </div>
             </div>
-            <div @click="goCart" class="button margin-right">
+            <div @click="goCart" class="button">
                 <div>
                     <Icon :style="cartStyle" type="md-cart" size="30"/>
                 </div>
