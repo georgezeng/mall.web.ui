@@ -62,7 +62,7 @@
                         API.login(this.form).then(data => {
                             this.loading = false
                             Util.setToken(data.token)
-                            this.goProfile()
+                            this.goCenter()
                         }).catch(ex => {
                             this.loading = false
                         })
@@ -95,7 +95,7 @@
                     Message.success("发送成功")
                 })
             },
-            goProfile() {
+            goCenter() {
                 this.$router.push({
                     name: 'MyCenter'
                 })

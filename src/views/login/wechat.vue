@@ -61,10 +61,8 @@
                     name: 'Login'
                 })
             },
-            goProfile() {
-                this.$router.push({
-                    name: 'MyCenter'
-                })
+            goCenter() {
+                window.location.href = '/#/MyCenter'
             },
             load() {
                 this.$Spin.show()
@@ -92,7 +90,7 @@
                 }).then(data => {
                     this.loading = false
                     Util.setToken(data.token)
-                    this.goProfile()
+                    this.goCenter()
                 }).catch(ex => {
                     this.loading = false
                 })

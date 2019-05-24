@@ -51,7 +51,7 @@
                         API.login(this.form).then(data => {
                             this.loading = false
                             Util.setToken(data.token)
-                            this.goProfile()
+                            this.goCenter()
                         }).catch(ex => {
                             this.loading = false
                         })
@@ -63,7 +63,7 @@
                     name: 'ForgetPasswordStep1'
                 })
             },
-            goProfile() {
+            goCenter() {
                 this.$router.push({
                     name: 'MyCenter'
                 })
