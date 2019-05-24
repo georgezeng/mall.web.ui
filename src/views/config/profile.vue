@@ -11,15 +11,11 @@
 
     .optionPanel {
         font-size: 11pt;
-        padding: 10px;
+        padding: 20px 10px;
         position: relative;
-        .img {
-            position: relative;
-            top: 5px;
-        }
         .goArrow {
             position: absolute;
-            top: 10px;
+            top: 20px;
             right: 7px;
             color: #414141;
         }
@@ -35,13 +31,13 @@
             <div class="blockLine"></div>
             <div class="optionPanel" @click="editAvatar">
                 <span>头像</span>
-                <Avatar style="position: absolute; right: 30px; top: 5px;" :src="avatar" />
+                <Avatar size="large" style="position: absolute; right: 30px; top: 10px;" :src="avatar" />
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
             <div class="optionPanel">
                 <span>账号</span>
-                <span style="position: absolute; right: 15px; top: 10px;">{{info.username}}</span>
+                <span style="position: absolute; right: 15px; top: 20px;">{{info.username}}</span>
             </div>
             <div class="blockLine2"></div>
             <div class="optionPanel" @click="editNickname">
@@ -103,7 +99,7 @@
                 Util.go('MyCenter')
             },
             editAvatar() {
-                wx.ready(function() {alert(2)
+                wx.ready(function() {
                     wx.chooseImage({
                         count: 1, // 默认9
                         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -138,12 +134,15 @@
             })
             WechatAPI.jsConfig(window.location.href).then(data => {
                 wx.config({
-                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: data.appId, // 必填，公众号的唯一标识
                     timestamp: data.timestamp, // 必填，生成签名的时间戳
                     nonceStr: data.nonce, // 必填，生成签名的随机串
                     signature: data.signature,// 必填，签名
-                    jsApiList: [] // 必填，需要使用的JS接口列表
+                    jsApiList: [
+                        'chooseImage',
+                        'uploadImage'
+                    ] // 必填，需要使用的JS接口列表
                 });
             })
         }
