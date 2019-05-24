@@ -67,6 +67,7 @@
     import Footer from '../footer'
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
+    import wx from 'weixin-js-sdk'
 
     export default {
         components: {
@@ -98,8 +99,8 @@
             back() {
                 Util.go('MyCenter')
             },
-            editAvatar() {alert(window.location.href.replace(/\#\/.*/i, ''))
-                wx.ready(function() {alert(1)
+            editAvatar() {
+                wx.ready(function() {
                     wx.chooseImage({
                         count: 1, // 默认9
                         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -132,26 +133,10 @@
             API.load().then(data => {
                 this.info = data
             })
-            WechatAPI.jsConfig(window.location.href.replace(/\#\/.*/i, '')).then(data => {
-                wx.config({
-                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                    appId: data.appId, // 必填，公众号的唯一标识
-                    timestamp: data.timestamp, // 必填，生成签名的时间戳
-                    nonceStr: data.nonce, // 必填，生成签名的随机串
-                    signature: data.signature,// 必填，签名
-                    jsApiList: [
-                        'checkJsApi',
-                        'chooseImage',
-                        'uploadImage'
-                    ] // 必填，需要使用的JS接口列表
-                });
-            })
-            wx.checkJsApi({
-                jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                success: function(res) {
-                   alert(res)
-                }
-            });
+            Util.wxConfig([
+                'chooseImage',
+                'uploadImage'
+            ])
         }
     }
 </script>
