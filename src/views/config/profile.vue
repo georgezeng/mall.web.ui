@@ -37,21 +37,24 @@
             <div class="blockLine2"></div>
             <div class="optionPanel">
                 <span>账号</span>
-                <span style="position: absolute; right: 15px; top: 20px;">{{info.username}}</span>
+                <span style="position: absolute; right: 30px; top: 20px;">{{info.username}}</span>
             </div>
             <div class="blockLine2"></div>
             <div class="optionPanel" @click="editNickname">
                 <span>昵称</span>
+                <span style="position: absolute; right: 30px; top: 20px;">{{info.nickname}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
             <div class="optionPanel" @click="editSex">
                 <span>性别</span>
+                <span style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
             <div class="optionPanel" @click="editBirthday">
                 <span>生日</span>
+                <span style="position: absolute; right: 30px; top: 20px;">{{info.birthday}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
         </Content>
@@ -91,8 +94,11 @@
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
-                        : config.baseUrl + '/' + this.info.avatar)
+                        : config.baseUrl + '/client/img/load?filePath=' + this.info.avatar)
                     : defaultAvatar
+            },
+            sex() {
+                return this.info.sex ? this.info.sex.text : null
             }
         },
         methods: {
