@@ -1,11 +1,11 @@
 <template>
-    <Layout :style="commonStyles.layout">
+    <Layout v-if="showRegister" :style="commonStyles.layout">
         <Header :style="commonStyles.header">
             <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back" />
             <div>绑定手机</div>
         </Header>
         <Content :style="commonStyles.content">
-            <Form ref="form" :model="form" :rules="rules" :label-width="0">
+            <Form ref="form" :model="form" :rules="rules" :label-width="0" style="margin-top: 80px; padding: 20px;">
                 <FormItem prop="username">
                     <Input size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
                 </FormItem>
