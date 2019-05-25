@@ -16,12 +16,12 @@
             <div>登录商城</div>
         </Header>
         <Content :style="commonStyles.content">
-            <Tabs ref="tabs" style="margin-top: 100px;" value="password">
-                <TabPane label="密码登录" name="password">
-                    <UsernamePasswordPanel/>
-                </TabPane>
+            <Tabs ref="tabs" style="margin-top: 100px;" value="verify">
                 <TabPane label="验证码登录" name="verify">
                     <PhoneVerifyPanel/>
+                </TabPane>
+                <TabPane label="密码登录" name="password">
+                    <UsernamePasswordPanel/>
                 </TabPane>
             </Tabs>
 
