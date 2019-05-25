@@ -17,7 +17,7 @@ export default {
     jsConfig(url) {
         return axios.get('/client/wechat/jsconfig?url=' + encodeURIComponent(url))
     },
-    uploadFile(serverId) {
-        return axios.get('/client/wechat/fetchFile/' + serverId)
+    uploadFile(serverId, filePath) {
+        return axios.get('/client/wechat/fetchFile/' + serverId + '?filePath=' + encodeURIComponent(filePath))
     }
 }
