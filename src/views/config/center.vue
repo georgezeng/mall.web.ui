@@ -122,7 +122,7 @@
         <div style="height: 40px;"></div>
         <Content :style="commonStyles.content">
             <div class="info" @click="goProfile">
-                <Avatar size="large" class="avatar" :src="avatar"/>
+                <Avatar size="large" class="avatar" :src="avatar" />
                 <span class="nickname">{{nickname}}</span>
                 <span v-if="isLogin" class="level">普通会员</span>
                 <div v-if="isLogin" class="tip">点击查看或编辑个人信息</div>

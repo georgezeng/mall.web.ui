@@ -31,7 +31,7 @@
             <div class="blockLine"></div>
             <div class="optionPanel" @click="editAvatar">
                 <span>头像</span>
-                <Avatar size="large" style="position: absolute; right: 30px; top: 10px;" :src="avatar" />
+                <Avatar ref="avatar" size="large" style="position: absolute; right: 30px; top: 10px;" :src="avatar" />
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
@@ -91,6 +91,9 @@
         },
         computed: {
             avatar() {
+                if(this.$refs.avatar) {
+                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                }
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
