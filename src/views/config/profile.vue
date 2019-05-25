@@ -105,6 +105,11 @@
             }
         },
         methods: {
+            load() {
+                API.load().then(data => {
+                    this.info = data
+                })
+            },
             back() {
                 Util.go('MyCenter')
             },
@@ -121,7 +126,10 @@
                                 isShowProgressTips: 1, // 默认为1，显示进度提示
                                 success: function (res) {
                                     let serverId = res.serverId; // 返回图片的服务器端ID
-                                    WechatAPI.uploadFile(serverId, 'avatar.png')
+                                    WechatAPI.uploadFile(serverId, 'avatar.png').then(res => {
+                                        Message.success('上传成功')
+                                        this.load()
+                                    })
                                 }
                             });
                         }
@@ -139,9 +147,7 @@
             },
         },
         mounted() {
-            API.load().then(data => {
-                this.info = data
-            })
+            this.load()
             Util.wxConfig([
                 'chooseImage',
                 'uploadImage'
