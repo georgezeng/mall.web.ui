@@ -234,7 +234,7 @@
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
-                        : config.baseUrl + '/client/img/load?filePath=' + this.info.avatar)
+                        : config.baseUrl + '/client/img/load.png?filePath=' + this.info.avatar)
                     : defaultAvatar
             },
             nickname() {
