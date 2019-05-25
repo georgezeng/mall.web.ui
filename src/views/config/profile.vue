@@ -128,7 +128,9 @@
                                     let serverId = res.serverId; // 返回图片的服务器端ID
                                     WechatAPI.uploadFile(serverId, 'avatar.png').then(res => {
                                         Message.success('上传成功')
-                                        this.load()
+                                        setTimeout(function() {
+                                            window.location.reload(true)
+                                        }, 1000)
                                     })
                                 }
                             });
