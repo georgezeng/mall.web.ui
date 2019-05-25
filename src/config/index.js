@@ -7,7 +7,7 @@ const config = {
 switch (internalConfig.env) {
     case 'development':
         config.baseUrl = 'http://localhost:9002'
-        config.debug = true
+        config.debug = false
         config.publicBucketDomain = 'https://malls-admin-public-local.oss-cn-shenzhen.aliyuncs.com/'
         break
 

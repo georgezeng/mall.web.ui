@@ -1,4 +1,4 @@
-<style>
+<style scoped lang="less">
     .gradient {
         display: inline-block;
         margin: 0 auto;
@@ -6,6 +6,7 @@
         width: 30%;
         background: radial-gradient(gray 10%, white 80%);
     }
+
 
 </style>
 <template>
@@ -24,7 +25,7 @@
                 </TabPane>
             </Tabs>
 
-            <div style="padding: 0 20px;">
+            <div v-if="isWechat" style="padding: 0 20px;">
                 <div style="margin-bottom: 20px;" align="center">
                     <div class="gradient"></div>
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
@@ -42,6 +43,7 @@
     import commonStyles from '../../styles/common.js'
     import UsernamePasswordPanel from './username-password'
     import PhoneVerifyPanel from './phone-verify'
+    import Util from '../../libs/util'
 
     export default {
         components: {
@@ -70,5 +72,10 @@
                 });
             }
         },
+        computed: {
+            isWechat() {
+                return Util.isInWechat()
+            }
+        }
     }
 </script>

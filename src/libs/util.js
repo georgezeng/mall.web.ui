@@ -32,6 +32,11 @@ util.go = function (name, params) {
     }
 }
 
+util.isInWechat = function() {
+    var ua = navigator.userAgent.toLowerCase()
+    return ua.indexOf('micromessenger') != -1
+}
+
 util.wxConfig = function (jsApiList) {
     WechatAPI.jsConfig(window.location.href.split('#')[0]).then(data => {
         wx.config({

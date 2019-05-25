@@ -31,7 +31,7 @@
             <div class="blockLine"></div>
             <div class="optionPanel" @click="editAvatar">
                 <span>头像</span>
-                <Avatar ref="avatar" size="large" style="position: absolute; right: 30px; top: 10px;" :src="avatar" />
+                <Avatar ref="avatar" size="large" style="position: absolute; right: 30px; top: 10px;" :src="avatar"/>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
@@ -91,7 +91,7 @@
         },
         computed: {
             avatar() {
-                if(this.$refs.avatar) {
+                if (this.$refs.avatar) {
                     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
                 }
                 return this.info.avatar ?
@@ -102,6 +102,9 @@
             },
             sex() {
                 return this.info.sex ? this.info.sex.text : null
+            },
+            isWechat() {
+                return Util.isInWechat()
             }
         },
         methods: {
@@ -114,29 +117,31 @@
                 Util.go('MyCenter')
             },
             editAvatar() {
-                wx.ready(function() {
-                    wx.chooseImage({
-                        count: 1, // 默认9
-                        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                        success: function (res) {
-                            let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                            wx.uploadImage({
-                                localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
-                                isShowProgressTips: 1, // 默认为1，显示进度提示
-                                success: function (res) {
-                                    let serverId = res.serverId; // 返回图片的服务器端ID
-                                    WechatAPI.uploadFile(serverId, 'avatar.png').then(res => {
-                                        Message.success('上传成功')
-                                        setTimeout(function() {
-                                            window.location.reload(true)
-                                        }, 1000)
-                                    })
-                                }
-                            });
-                        }
+                if (this.isWechat) {
+                    wx.ready(function () {
+                        wx.chooseImage({
+                            count: 1, // 默认9
+                            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                            success: function (res) {
+                                let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                                wx.uploadImage({
+                                    localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                                    success: function (res) {
+                                        let serverId = res.serverId; // 返回图片的服务器端ID
+                                        WechatAPI.uploadFile(serverId, 'avatar.png').then(res => {
+                                            Message.success('上传成功')
+                                            setTimeout(function () {
+                                                window.location.reload(true)
+                                            }, 1000)
+                                        })
+                                    }
+                                });
+                            }
+                        })
                     })
-                })
+                }
             },
             editNickname() {
 
@@ -150,10 +155,12 @@
         },
         mounted() {
             this.load()
-            Util.wxConfig([
-                'chooseImage',
-                'uploadImage'
-            ])
+            if (this.isWechat) {
+                Util.wxConfig([
+                    'chooseImage',
+                    'uploadImage'
+                ])
+            }
         }
     }
 </script>
