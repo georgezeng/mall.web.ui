@@ -59,6 +59,7 @@
             </div>
         </Content>
         <Footer :style="commonStyles.footer"/>
+    <div id="sex"></div>
     </Layout>
 </template>
 <script>
@@ -71,6 +72,7 @@
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
     import wx from 'weixin-js-sdk'
+    import MobileSelect from 'mobile-select'
 
     export default {
         components: {
@@ -161,6 +163,14 @@
                     'uploadImage'
                 ])
             }
+            new MobileSelect({
+                trigger: '#sex',
+                title: '性别',
+                wheels: [
+                    {data:['保密', '男', '女']}
+                ],
+                position:[2] //初始化定位
+            });
         }
     }
 </script>
