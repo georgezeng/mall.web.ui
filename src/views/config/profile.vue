@@ -48,7 +48,7 @@
             <div class="blockLine2"></div>
             <div class="optionPanel" @click="editSex">
                 <span>性别</span>
-                <span id="sex" style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
+                <span ref="sex" id="sex" style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
@@ -167,7 +167,7 @@
                 }
             },
             editSex() {
-
+                this.$refs.sex.$el.click()
             },
             editNickname() {
 
