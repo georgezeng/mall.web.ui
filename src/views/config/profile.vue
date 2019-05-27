@@ -121,7 +121,7 @@
                     : defaultAvatar
             },
             sex() {
-                return this.info.sex ? this.info.sex.text : null
+                return this.info.sex ? this.info.sex.text : '保密'
             },
             isWechat() {
                 return Util.isInWechat()
@@ -132,7 +132,10 @@
                 this.$refs.nicknameForm.validate().then(valid => {
                     if (valid) {
                         this.loading = true
-                        API.save(this.info).then(res => {
+                        API.save({
+                            ...this.info,
+                            sex: this.info.sex.name
+                        }).then(res => {
                             this.loading = false
                             this.closeNicknameModal()
                         }).catch(e => {
@@ -174,7 +177,10 @@
                                 name: data.id,
                                 text: data.value
                             }
-                            API.save(this.info);
+                            API.save({
+                                ...this.info,
+                                sex: this.info.sex.name
+                            });
                         }
                     });
                 })
