@@ -167,7 +167,8 @@
                 }
             },
             editSex() {
-                this.$refs.sex.$el.click()
+                console.log(this.$refs.sex)
+                this.$refs.sex.click()
             },
             editNickname() {
 
