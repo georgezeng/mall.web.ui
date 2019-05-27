@@ -4,4 +4,7 @@ export default {
     load() {
         return axios.get('/client/current')
     },
+    save(user) {
+        return axios.post('/client/save', user)
+    }
 }

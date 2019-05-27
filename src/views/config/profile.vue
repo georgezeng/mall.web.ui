@@ -28,6 +28,20 @@
             <div align="center" style="position: relative; top: 0px;">个人信息</div>
         </Header>
         <Content :style="commonStyles.content">
+            <Modal
+                    v-model="nicknameModal.open"
+                    :mask-closable="false"
+                    title="编辑昵称" :closable="false">
+                <Form ref="nicknameForm" :model="info" :rules="nicknameModal.rules" :label-width="80">
+                    <FormItem label="昵称" prop="nickname">
+                        <Input v-model="info.nickname"/>
+                    </FormItem>
+                </Form>
+                <div slot="footer">
+                    <Button type="warning" :loading="loading" @click="closeNicknameModal">取消</Button>
+                    <Button type="primary" :loading="loading" @click="save">保存</Button>
+                </div>
+            </Modal>
             <div class="blockLine"></div>
             <div class="optionPanel" @click="editAvatar">
                 <span>头像</span>
@@ -72,24 +86,32 @@
     import MobileSelect from 'mobile-select'
 
     export default {
-        components: {
-        },
+        components: {},
         data() {
             return {
                 defaultAvatar,
                 commonStyles,
+                loading: false,
                 info: {
                     avatar: null,
                     nickname: null,
                     username: null,
                     sex: null,
                     birthday: null
+                },
+                nicknameModal: {
+                    open: false,
+                    rules: {
+                        nickname: [
+                            {required: true, message: '昵称不能为空', trigger: 'change'},
+                        ],
+                    }
                 }
             }
         },
         computed: {
             avatar() {
-                if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
+                if (this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
                     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
                 }
                 return this.info.avatar ?
@@ -106,32 +128,53 @@
             }
         },
         methods: {
+            save() {
+                this.$refs.nicknameForm.validate().then(valid => {
+                    if (valid) {
+                        this.loading = true
+                        API.save(this.info).then(res => {
+                            this.loading = false
+                            this.closeNicknameModal()
+                        }).catch(e => {
+                            this.loading = false
+                        })
+                    }
+                })
+            },
+            closeNicknameModal() {
+                this.nicknameModal.open = false
+            },
             load() {
                 API.load().then(data => {
                     this.info = data
                     let pos = 0
-                    switch(data.sex.name) {
-                        case 'Male': pos = 1; break;
-                        case 'Female': pos = 2; break;
+                    switch (data.sex.name) {
+                        case 'Male':
+                            pos = 1;
+                            break;
+                        case 'Female':
+                            pos = 2;
+                            break;
                     }
                     new MobileSelect({
                         trigger: '#sex',
                         title: '性别',
                         wheels: [
                             {
-                                data:[
+                                data: [
                                     {id: 'Secret', value: '保密'},
                                     {id: 'Male', value: '男'},
                                     {id: 'Female', value: '女'}
                                 ]
                             }
                         ],
-                        position:[pos],
-                        callback: function(indexArr, data){
+                        position: [pos],
+                        callback: function (indexArr, data) {
                             this.info.sex = {
                                 name: data.id,
                                 text: data.value
                             }
+                            API.save(this.info);
                         }
                     });
                 })
@@ -167,11 +210,10 @@
                 }
             },
             editSex() {
-                console.log(this.$refs.sex)
                 this.$refs.sex.click()
             },
             editNickname() {
-
+                this.nicknameModal.open = true
             },
             editBirthday() {
 
