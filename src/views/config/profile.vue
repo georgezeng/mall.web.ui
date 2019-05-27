@@ -46,7 +46,7 @@
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
-            <div class="optionPanel" @click="editSex">
+            <div class="optionPanel" id="sex">
                 <span>性别</span>
                 <span style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
@@ -59,7 +59,6 @@
             </div>
         </Content>
         <Footer :style="commonStyles.footer"/>
-    <div id="sex">test</div>
     </Layout>
 </template>
 <script>
@@ -93,9 +92,9 @@
         },
         computed: {
             avatar() {
-                // if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
-                //     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
-                // }
+                if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
+                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                }
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
@@ -148,9 +147,6 @@
             editNickname() {
 
             },
-            editSex() {
-
-            },
             editBirthday() {
 
             },
@@ -163,14 +159,14 @@
                     'uploadImage'
                 ])
             }
-            new MobileSelect({
-                trigger: '#sex',
-                title: '性别',
-                wheels: [
-                    {data:['保密', '男', '女']}
-                ],
-                position:[0] //初始化定位
-            });
+            // new MobileSelect({
+            //     trigger: '#sex',
+            //     title: '性别',
+            //     wheels: [
+            //         {data:['保密', '男', '女']}
+            //     ],
+            //     position:[0] //初始化定位
+            // });
         }
     }
 </script>
