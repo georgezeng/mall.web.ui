@@ -46,9 +46,9 @@
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
-            <div class="optionPanel" id="sex">
+            <div class="optionPanel" @click="editSex">
                 <span>性别</span>
-                <span style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
+                <span id="sex" style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
             <div class="blockLine2"></div>
@@ -58,7 +58,6 @@
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
         </Content>
-        <Footer :style="commonStyles.footer"/>
     </Layout>
 </template>
 <script>
@@ -67,7 +66,6 @@
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import {Message} from 'iview'
-    import Footer from '../footer'
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
     import wx from 'weixin-js-sdk'
@@ -75,7 +73,6 @@
 
     export default {
         components: {
-            Footer
         },
         data() {
             return {
@@ -112,6 +109,31 @@
             load() {
                 API.load().then(data => {
                     this.info = data
+                    let pos = 0
+                    switch(data.sex.name) {
+                        case 'Male': pos = 1; break;
+                        case 'Female': pos = 2; break;
+                    }
+                    new MobileSelect({
+                        trigger: '#sex',
+                        title: '性别',
+                        wheels: [
+                            {
+                                data:[
+                                    {id: 'Secret', value: '保密'},
+                                    {id: 'Male', value: '男'},
+                                    {id: 'Female', value: '女'}
+                                ]
+                            }
+                        ],
+                        position:[pos],
+                        callback: function(indexArr, data){
+                            this.info.sex = {
+                                name: data.id,
+                                text: data.value
+                            }
+                        }
+                    });
                 })
             },
             back() {
@@ -144,6 +166,9 @@
                     })
                 }
             },
+            editSex() {
+
+            },
             editNickname() {
 
             },
@@ -159,14 +184,6 @@
                     'uploadImage'
                 ])
             }
-            new MobileSelect({
-                trigger: '#sex',
-                title: '性别',
-                wheels: [
-                    {data:['保密', '男', '女']}
-                ],
-                position:[0]
-            });
         }
     }
 </script>
