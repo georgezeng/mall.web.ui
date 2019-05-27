@@ -91,7 +91,7 @@
         },
         computed: {
             avatar() {
-                if (this.$refs.avatar) {
+                if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
                     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
                 }
                 return this.info.avatar ?
