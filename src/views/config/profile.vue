@@ -32,9 +32,9 @@
                     v-model="nicknameModal.open"
                     :mask-closable="false"
                     title="编辑昵称" :closable="false">
-                <Form ref="nicknameForm" :model="info" :rules="nicknameModal.rules" :label-width="80">
+                <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="80">
                     <FormItem label="昵称" prop="nickname">
-                        <Input v-model="info.nickname"/>
+                        <Input v-model="nicknameModal.value"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">
@@ -101,6 +101,7 @@
                 },
                 nicknameModal: {
                     open: false,
+                    value: null,
                     rules: {
                         nickname: [
                             {required: true, message: '昵称不能为空', trigger: 'change'},
@@ -137,6 +138,7 @@
                             sex: this.info.sex.name
                         }).then(res => {
                             this.loading = false
+                            this.info.nickname = nicknameModal.value
                             this.closeNicknameModal()
                         }).catch(e => {
                             this.loading = false
@@ -159,6 +161,7 @@
                             pos = 2;
                             break;
                     }
+                    let info = this.info
                     new MobileSelect({
                         trigger: '#sex',
                         title: '性别',
@@ -173,13 +176,13 @@
                         ],
                         position: [pos],
                         callback: function (indexArr, data) {
-                            this.info.sex = {
+                            info.sex = {
                                 name: data.id,
                                 text: data.value
                             }
                             API.save({
-                                ...this.info,
-                                sex: this.info.sex.name
+                                ...info,
+                                sex: info.sex.name
                             });
                         }
                     });
@@ -219,6 +222,7 @@
                 this.$refs.sex.click()
             },
             editNickname() {
+                nicknameModal.value = this.info.nickname
                 this.nicknameModal.open = true
             },
             editBirthday() {
