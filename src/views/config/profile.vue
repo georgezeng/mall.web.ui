@@ -152,21 +152,21 @@
             },
         },
         mounted() {
-            this.load()
-            if (this.isWechat) {
-                Util.wxConfig([
-                    'chooseImage',
-                    'uploadImage'
-                ])
-            }
-            new MobileSelect({
-                trigger: '#sex',
-                title: '性别',
-                wheels: [
-                    {data:['保密', '男', '女']}
-                ],
-                position:[0]
-            });
+            // this.load()
+            // if (this.isWechat) {
+            //     Util.wxConfig([
+            //         'chooseImage',
+            //         'uploadImage'
+            //     ])
+            // }
+            // new MobileSelect({
+            //     trigger: '#sex',
+            //     title: '性别',
+            //     wheels: [
+            //         {data:['保密', '男', '女']}
+            //     ],
+            //     position:[0]
+            // });
         }
     }
 </script>

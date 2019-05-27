@@ -282,12 +282,7 @@
                 Util.go('MyInvite')
             },
             goProfile() {
-                try{
-
                 Util.go('MyProfile')
-                } catch(e) {
-                    alert(e)
-                }
             }
         },
         mounted() {
