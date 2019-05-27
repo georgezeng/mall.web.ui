@@ -37,7 +37,7 @@
                 token: null,
                 form: {
                     username: null,
-                    password: null
+                    password: null,
                 },
                 rules: {
                     username: [
@@ -125,6 +125,7 @@
                 this.$refs.form.validate().then(valid => {
                     if (valid) {
                         this.loading = true
+                        this.form.token = this.token
                         API.register(this.form).then(res => {
                             this.loading = false
                             this.login({
