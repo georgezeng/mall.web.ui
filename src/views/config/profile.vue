@@ -59,7 +59,7 @@
             </div>
         </Content>
         <Footer :style="commonStyles.footer"/>
-    <div id="sex"></div>
+    <div id="sex">test</div>
     </Layout>
 </template>
 <script>
@@ -93,9 +93,9 @@
         },
         computed: {
             avatar() {
-                if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
-                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
-                }
+                // if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
+                //     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                // }
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
@@ -169,7 +169,7 @@
                 wheels: [
                     {data:['保密', '男', '女']}
                 ],
-                position:[2] //初始化定位
+                position:[0] //初始化定位
             });
         }
     }
