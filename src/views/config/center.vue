@@ -289,6 +289,8 @@
             if (this.isLogin) {
                 ProfileAPI.load().then(data => {
                     this.info = data
+                }).catch(e => {
+                    alert(e)
                 })
             }
         }
