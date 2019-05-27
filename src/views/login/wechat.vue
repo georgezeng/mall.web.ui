@@ -125,8 +125,10 @@
                 this.$refs.form.validate().then(valid => {
                     if (valid) {
                         this.loading = true
-                        this.form.token = this.token
-                        API.register(this.form).then(res => {
+                        API.register({
+                            ...this.form,
+                            token: this.token
+                        }).then(res => {
                             this.loading = false
                             this.login({
                                 username: this.form.username,
