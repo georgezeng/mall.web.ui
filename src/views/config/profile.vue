@@ -93,6 +93,7 @@
                 commonStyles,
                 loading: false,
                 info: {
+                    id: null,
                     avatar: null,
                     nickname: null,
                     username: null,
@@ -153,13 +154,15 @@
                 API.load().then(data => {
                     this.info = data
                     let pos = 0
-                    switch (data.sex.name) {
-                        case 'Male':
-                            pos = 1;
-                            break;
-                        case 'Female':
-                            pos = 2;
-                            break;
+                    if (data.sex) {
+                        switch (data.sex.name) {
+                            case 'Male':
+                                pos = 1;
+                                break;
+                            case 'Female':
+                                pos = 2;
+                                break;
+                        }
                     }
                     let info = this.info
                     new MobileSelect({
@@ -222,7 +225,7 @@
                 this.$refs.sex.click()
             },
             editNickname() {
-                nicknameModal.value = this.info.nickname
+                this.nicknameModal.value = this.info.nickname
                 this.nicknameModal.open = true
             },
             editBirthday() {
