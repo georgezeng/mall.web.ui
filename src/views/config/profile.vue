@@ -39,7 +39,7 @@
                 </Form>
                 <div slot="footer">
                     <Button type="warning" :loading="loading" @click="closeNicknameModal">取消</Button>
-                    <Button type="primary" :loading="loading" @click="save">保存</Button>
+                    <Button type="primary" :loading="loading" @click="saveNickname">保存</Button>
                 </div>
             </Modal>
             <div class="blockLine"></div>
@@ -136,7 +136,7 @@
             }
         },
         methods: {
-            save() {
+            saveNickname() {
                 this.$refs.nicknameForm.validate().then(valid => {
                     if (valid) {
                         this.loading = true
@@ -145,7 +145,7 @@
                             sex: this.info.sex.name
                         }).then(res => {
                             this.loading = false
-                            this.info.nickname = nicknameModal.value
+                            this.info.nickname = this.nicknameModal.value
                             this.closeNicknameModal()
                         }).catch(e => {
                             this.loading = false
