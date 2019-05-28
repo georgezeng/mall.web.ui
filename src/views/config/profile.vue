@@ -170,6 +170,7 @@
                                 break;
                         }
                     }
+                    let info = this.info
                     new MobileSelect({
                         trigger: '#sex',
                         title: '性别',
@@ -184,15 +185,13 @@
                         ],
                         position: [pos],
                         callback: function (indexArr, data) {
-                            this.info.sex = {
+                            info.sex = {
                                 name: data[0].id,
                                 text: data[0].value
                             }
-                            console.log(data[0])
-                            console.log(this.info.sex)
                             API.save({
-                                ...this.info,
-                                sex: this.info.sex.name
+                                ...info,
+                                sex: info.sex.name
                             });
                         }
                     });
