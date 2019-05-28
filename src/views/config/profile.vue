@@ -28,11 +28,10 @@
             <div align="center" style="position: relative; top: 0px;">个人信息</div>
         </Header>
         <Content :style="commonStyles.content">
-            <Modal
-                    v-model="nicknameModal.open"
-                    :mask-closable="false"
-                    title="编辑昵称" :closable="false">
-                <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="80">
+            <Modal v-model="nicknameModal.open"
+                   :mask-closable="false"
+                   title="编辑昵称" :closable="false">
+                <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="60">
                     <FormItem label="昵称" prop="nickname">
                         <Input v-model="nicknameModal.value"/>
                     </FormItem>
@@ -68,7 +67,8 @@
             <div class="blockLine2"></div>
             <div class="optionPanel" @click="editBirthday">
                 <span>生日</span>
-                <span style="position: absolute; right: 30px; top: 20px;">{{info.birthday}}</span>
+                <span ref="birthday" id="birthday"
+                      style="position: absolute; right: 30px; top: 20px;">{{info.birthday}}</span>
                 <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
             </div>
         </Content>
@@ -88,10 +88,18 @@
     export default {
         components: {},
         data() {
+            const nicknameCheck = (rule, value, callback) => {
+                if (!this.nicknameModal.value || this.nicknameModal.value == '') {
+                    callback(new Error('昵称不能为空'))
+                    return
+                }
+                callback()
+            }
             return {
                 defaultAvatar,
                 commonStyles,
                 loading: false,
+                dates: [],
                 info: {
                     id: null,
                     avatar: null,
@@ -105,7 +113,7 @@
                     value: null,
                     rules: {
                         nickname: [
-                            {required: true, message: '昵称不能为空', trigger: 'change'},
+                            {required: true, validator: nicknameCheck, trigger: 'change'},
                         ],
                     }
                 }
@@ -140,12 +148,12 @@
                 this.$refs.nicknameForm.validate().then(valid => {
                     if (valid) {
                         this.loading = true
+                        this.info.nickname = this.nicknameModal.value
                         API.save({
                             ...this.info,
                             sex: this.info.sex.name
                         }).then(res => {
                             this.loading = false
-                            this.info.nickname = this.nicknameModal.value
                             this.closeNicknameModal()
                         }).catch(e => {
                             this.loading = false
@@ -195,6 +203,22 @@
                             });
                         }
                     });
+                    new MobileSelect({
+                        trigger: '#birthday',
+                        title: '生日',
+                        wheels: [
+                            {
+                                data: this.dates
+                            }
+                        ],
+                        callback: function (indexArr, data) {
+                            info.birthday = data[2].id
+                            API.save({
+                                ...info,
+                                sex: info.sex.name
+                            });
+                        }
+                    });
                 })
             },
             back() {
@@ -235,7 +259,7 @@
                 this.nicknameModal.open = true
             },
             editBirthday() {
-
+                this.$refs.birthday.click()
             },
         },
         mounted() {
@@ -246,6 +270,66 @@
                     'uploadImage'
                 ])
             }
+            const dates = []
+            let index = 1
+            for (let i = 1950; i < 2100; i++) {
+                const year = i
+                const isLeap = i % 4 == 0 && i % 100 == 0
+                const months = []
+                for (let j = 1; j < 13; j++) {
+                    const currentMonth = j < 10 ? ('0' + j) : (j + '')
+                    const days = []
+                    for (let k = 1; k < 29; k++) {
+                        const currentDay = k < 10 ? ('0' + k) : (k + '')
+                        days.push({
+                            id: year + '-' + currentMonth + '-' + currentDay,
+                            value: currentDay
+                        })
+                    }
+                    for (let k = 29; k < 32; k++) {
+                        const currentDay = k + ''
+                        if (k == 29) {
+                            if (j != 2 || j == 2 && isLeap) {
+                                days.push({
+                                    id: year + '-' + currentMonth + '-' + currentDay,
+                                    value: currentDay
+                                })
+                            }
+                        } else if(k == 30 && j != 2) {
+                            days.push({
+                                id: year + '-' + currentMonth + '-' + currentDay,
+                                value: currentDay
+                            })
+                        } else if(k == 31 && j != 2) {
+                            switch(j) {
+                                case 1:
+                                case 3:
+                                case 5:
+                                case 7:
+                                case 8:
+                                case 10:
+                                case 12: {
+                                    days.push({
+                                        id: year + '-' + currentMonth + '-' + currentDay,
+                                        value: currentDay
+                                    })
+                                }
+                            }
+                        }
+                    }
+                    months.push({
+                        id: year + '-' + currentMonth,
+                        value: currentMonth,
+                        childs: days
+                    })
+                }
+                dates.push({
+                    id: year,
+                    value: year,
+                    childs: months
+                })
+            }
+            this.dates = dates
         }
     }
 </script>
