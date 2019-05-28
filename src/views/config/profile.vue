@@ -167,17 +167,7 @@
             load() {
                 API.load().then(data => {
                     this.info = data
-                    let pos = 0
-                    if (data.sex) {
-                        switch (data.sex.name) {
-                            case 'Male':
-                                pos = 1;
-                                break;
-                            case 'Female':
-                                pos = 2;
-                                break;
-                        }
-                    }
+                    let self = this
                     let info = this.info
                     new MobileSelect({
                         trigger: '#sex',
@@ -191,7 +181,6 @@
                                 ]
                             }
                         ],
-                        position: [pos],
                         callback: function (indexArr, data) {
                             info.sex = {
                                 name: data[0].id,
@@ -213,6 +202,7 @@
                         ],
                         callback: function (indexArr, data) {
                             info.birthday = data[2].id
+                            self.$refs.birthday.innerText = info.birthday
                             API.save({
                                 ...info,
                                 sex: info.sex.name
