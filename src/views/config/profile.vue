@@ -188,6 +188,8 @@
                                 name: data[0].id,
                                 text: data[0].value
                             }
+                            console.log(data[0])
+                            console.log(this.info.sex)
                             API.save({
                                 ...this.info,
                                 sex: this.info.sex.name
