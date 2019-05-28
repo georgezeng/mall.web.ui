@@ -32,7 +32,7 @@
                    :mask-closable="false"
                    title="编辑昵称" :closable="false">
                 <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="0">
-                    <FormItem label="昵称" prop="nickname">
+                    <FormItem prop="nickname">
                         <Input size="large" v-model="nicknameModal.value"/>
                     </FormItem>
                 </Form>
