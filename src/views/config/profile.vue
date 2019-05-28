@@ -185,12 +185,9 @@
                         ],
                         position: [pos],
                         callback: function (indexArr, data) {
-                            console.log(data)
-                            for(let x in data)
-                            console.log(x + ':' + data[x])
                             info.sex = {
-                                name: data.id,
-                                text: data.value
+                                name: data[0].id,
+                                text: data[0].value
                             }
                             API.save({
                                 ...info,
