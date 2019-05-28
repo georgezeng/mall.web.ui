@@ -186,6 +186,8 @@
                         position: [pos],
                         callback: function (indexArr, data) {
                             console.log(data)
+                            for(let x in data)
+                            console.log(x + ':' + data[x])
                             info.sex = {
                                 name: data.id,
                                 text: data.value
