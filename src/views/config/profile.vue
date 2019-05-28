@@ -123,7 +123,13 @@
                     : defaultAvatar
             },
             sex() {
-                return this.info.sex ? this.info.sex.text : '保密'
+                if (!this.info.sex) {
+                    this.info.sex = {
+                        name: 'Secret',
+                        text: '保密'
+                    }
+                }
+                return this.info.sex.text
             },
             isWechat() {
                 return Util.isInWechat()
