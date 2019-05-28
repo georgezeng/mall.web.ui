@@ -31,14 +31,14 @@
             <Modal v-model="nicknameModal.open"
                    :mask-closable="false"
                    title="编辑昵称" :closable="false">
-                <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="60">
+                <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="0">
                     <FormItem label="昵称" prop="nickname">
-                        <Input v-model="nicknameModal.value"/>
+                        <Input size="large" v-model="nicknameModal.value"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="warning" :loading="loading" @click="closeNicknameModal">取消</Button>
-                    <Button type="primary" :loading="loading" @click="saveNickname">保存</Button>
+                    <Button type="warning" size="large" :loading="loading" @click="closeNicknameModal">取消</Button>
+                    <Button type="primary" size="large" :loading="loading" @click="saveNickname">保存</Button>
                 </div>
             </Modal>
             <div class="blockLine"></div>
