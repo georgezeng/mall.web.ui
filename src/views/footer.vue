@@ -41,6 +41,9 @@
                 </div>
             </div>
         </div>
+        <div align="center">
+            <a href="http://www.beian.miit.gov.cn">粤ICP备17125109号</a>
+        </div>
     </Footer>
 </template>
 <script>
