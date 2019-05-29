@@ -72,6 +72,33 @@ const routers = [
         component: (resolve) => require(['../views/config/profile.vue'], resolve)
     },
     {
+        path: '/MySetting',
+        name: 'MySetting',
+        meta: {
+            title: '设置',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/config/setting/index.vue'], resolve)
+    },
+    {
+        path: '/MySecurity',
+        name: 'MySecurity',
+        meta: {
+            title: '账号安全',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/config/setting/security/index.vue'], resolve)
+    },
+    {
+        path: '/MyIdentity',
+        name: 'MyIdentity',
+        meta: {
+            title: '实名认证',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/config/setting/identity/index.vue'], resolve)
+    },
+    {
         path: '/404',
         name: 'NotFound',
         meta: {

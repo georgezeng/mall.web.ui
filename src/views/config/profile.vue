@@ -1,25 +1,4 @@
 <style scoped lang="less">
-    .blockLine {
-        height: 10px;
-        background-color: #F5F5F5;
-    }
-
-    .blockLine2 {
-        height: 2px;
-        background-color: #F5F5F5;
-    }
-
-    .optionPanel {
-        font-size: 11pt;
-        padding: 20px 10px;
-        position: relative;
-        .goArrow {
-            position: absolute;
-            top: 20px;
-            right: 7px;
-            color: #414141;
-        }
-    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -76,13 +55,11 @@
 </template>
 <script>
     import API from '../../api/profile.js'
-    import WechatAPI from '../../api/wechat.js'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import {Message} from 'iview'
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
-    import wx from 'weixin-js-sdk'
     import MobileSelect from 'mobile-select'
 
     export default {
@@ -215,31 +192,9 @@
                 Util.go('MyCenter')
             },
             editAvatar() {
-                if (this.isWechat) {
-                    wx.ready(function () {
-                        wx.chooseImage({
-                            count: 1, // 默认9
-                            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                            success: function (res) {
-                                let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                                wx.uploadImage({
-                                    localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
-                                    isShowProgressTips: 1, // 默认为1，显示进度提示
-                                    success: function (res) {
-                                        let serverId = res.serverId; // 返回图片的服务器端ID
-                                        WechatAPI.uploadFile(serverId, 'avatar.png').then(res => {
-                                            Message.success('上传成功')
-                                            setTimeout(function () {
-                                                window.location.reload(true)
-                                            }, 1000)
-                                        })
-                                    }
-                                });
-                            }
-                        })
-                    })
-                }
+                Util.uploadImageFromWechat('avatar.png', () => {
+                    window.location.reload(true)
+                })
             },
             editSex() {
                 this.$refs.sex.click()

@@ -6,3 +6,27 @@ body {
 .clearfix {
     clear: both;
 }
+
+.blockLine {
+    height: 10px;
+    background-color: #F5F5F5;
+}
+
+.blockLine2 {
+    height: 2px;
+    background-color: #F5F5F5;
+}
+
+.optionPanel {
+    font-size: 11pt;
+    padding: 20px 10px;
+    position: relative;
+
+}
+
+.optionPanel .goArrow {
+    position: absolute;
+    top: 20px;
+    right: 7px;
+    color: #414141;
+}
