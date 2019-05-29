@@ -33,7 +33,7 @@
                 <Button size="large" :loading="loading" long type="primary" @click="save">确认提交</Button>
             </div>
         </Content>
-        <Content v-if="data.status == 'Checking'" :style="commonStyles.content">
+        <Content v-if="data.status.name == 'Checking'" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #4090F7;" type="ios-information-circle-outline"/>
@@ -41,7 +41,7 @@
                 <div style="font-size: 11px; color: #9BA5B7;">身份认证信息已上传完成，我们会在1-3个工作日完成审核，请等待审核结果</div>
             </div>
         </Content>
-        <Content v-if="data.status == 'UnPassed'" :style="commonStyles.content">
+        <Content v-if="data.status.name == 'UnPassed'" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #E23C39;" type="ios-close-circle-outline"/>
@@ -49,7 +49,7 @@
                 <div style="font-size: 11px; color: #9BA5B7;">{{data.reason}}</div>
             </div>
         </Content>
-        <Content v-if="data.status == 'Passed'" :style="commonStyles.content">
+        <Content v-if="data.status.name == 'Passed'" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #72C040;" type="ios-checkmark-circle-outline"/>
