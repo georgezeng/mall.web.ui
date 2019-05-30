@@ -21,13 +21,13 @@
                 请上传你的身份证原件，确保照片清晰，四角完整
             </div>
             <div style="margin: 20px 0;" align="center">
-                <img :src="faceIdentity" width="300" height="182" @click="uploadFaceIdentity"/>
+                <img :src="faceIdentity" crossorigin="use-credentials" width="300" height="182" @click="uploadFaceIdentity"/>
             </div>
             <div style="margin: 20px 0;" align="center">
-                <img :src="badgeIdentity" width="300" height="182" @click="uploadBadgeIdentity"/>
+                <img :src="badgeIdentity" crossorigin="use-credentials" width="300" height="182" @click="uploadBadgeIdentity"/>
             </div>
             <div style="margin: 20px 0;" align="center">
-                <img :src="peopleIdentity" width="300" height="182" @click="uploadPeopleIdentity"/>
+                <img :src="peopleIdentity" crossorigin="use-credentials" width="300" height="182" @click="uploadPeopleIdentity"/>
             </div>
             <div style="margin: 20px;" align="center">
                 <Button size="large" :loading="loading" long type="primary" @click="save">确认提交</Button>
