@@ -60,14 +60,14 @@
     </Layout>
 </template>
 <script>
-    import API from '../../api/identity.js'
-    import config from '../../config/index.js'
-    import defaultBadgeIdentity from '../../images/badgeIdentity.png'
-    import defaultFaceIdentity from '../../images/faceIdentity.png'
-    import defaultPeopleIdentity from '../../images/peopleIdentity.png'
-    import Util from '../../libs/util.js'
+    import API from '../../../api/identity.js'
+    import config from '../../../config/index.js'
+    import defaultBadgeIdentity from '../../../images/badgeIdentity.png'
+    import defaultFaceIdentity from '../../../images/faceIdentity.png'
+    import defaultPeopleIdentity from '../../../images/peopleIdentity.png'
+    import Util from '../../../libs/util.js'
     import {Message} from 'iview'
-    import commonStyles from '../../styles/common.js'
+    import commonStyles from '../../../styles/common.js'
 
     export default {
         components: {},
