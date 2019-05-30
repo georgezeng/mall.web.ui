@@ -48,7 +48,7 @@
                 <div>实名认证失败</div>
                 <div style="font-size: 11px; color: #9BA5B7;">{{data.reason}}</div>
             </div>
-            <div>
+            <div style="padding: 20px;">
                 <Button size="large" :loading="loading" long type="primary" @click="reset">重新认证</Button>
             </div>
         </Content>
