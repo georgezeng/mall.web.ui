@@ -194,8 +194,19 @@
                 Util.go('MyCenter')
             },
             editAvatar() {
+                let info = this.info
                 Util.uploadImageFromWechat('avatar.png', () => {
-                    window.location.reload(true)
+                    this.loading = true
+                    API.save({
+                        ...info,
+                        sex: info.sex.name,
+                        avatar: 'avatar.png'
+                    }).then(res => {
+                        window.location.reload(true)
+                    }).catch(e => {
+                        this.loading = false
+                    })
+
                 })
             },
             editSex() {
