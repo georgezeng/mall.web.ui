@@ -8,16 +8,18 @@
         </Header>
         <Content :style="commonStyles.content">
             <Modal v-model="nicknameModal.open"
-                   :mask-closable="false"
-                   title="编辑昵称" :closable="false">
+                   :mask-closable="true"
+                   :closable="true">
+                <p slot="header" style="text-align: center;">
+                    <span>编辑昵称</span>
+                </p>
                 <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="0">
                     <FormItem prop="nickname">
                         <Input size="large" v-model="nicknameModal.value"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="warning" size="large" :loading="loading" @click="closeNicknameModal">取消</Button>
-                    <Button type="primary" size="large" :loading="loading" @click="saveNickname">保存</Button>
+                    <Button type="primary" size="large" long :loading="loading" @click="saveNickname">保存</Button>
                 </div>
             </Modal>
             <div class="blockLine"></div>
