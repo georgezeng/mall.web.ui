@@ -94,13 +94,13 @@
                 return Util.isInWechat()
             },
             badgeIdentity() {
-                return this.data.badgePhoto ? this.data.badgePhoto : this.defaultBadgeIdentity
+                return this.data.badgePhoto ? config.baseUrl + '/client/img/load?filePath=' + this.data.badgePhoto : this.defaultBadgeIdentity
             },
             faceIdentity() {
-                return this.data.facePhoto ? this.data.facePhoto : this.defaultFaceIdentity
+                return this.data.facePhoto ? config.baseUrl + '/client/img/load?filePath=' + this.data.facePhoto : this.defaultFaceIdentity
             },
             peopleIdentity() {
-                return this.data.peoplePhoto ? this.data.peoplePhoto : this.defaultPeopleIdentity
+                return this.data.peoplePhoto ? config.baseUrl + '/client/img/load?filePath=' + this.data.peoplePhoto : this.defaultPeopleIdentity
             }
         },
         methods: {
@@ -140,17 +140,17 @@
             },
             uploadFaceIdentity() {
                 Util.uploadImageFromWechat('identity/face.png', () => {
-                    this.data.facePhoto = config.baseUrl + '/client/img/load?filePath=identity/face.png'
+                    this.data.facePhoto = 'identity/face.png'
                 })
             },
             uploadBadgeIdentity() {
                 Util.uploadImageFromWechat('identity/badge.png', () => {
-                    this.data.badgePhoto = config.baseUrl + '/client/img/load?filePath=identity/badge.png'
+                    this.data.badgePhoto = 'identity/badge.png'
                 })
             },
             uploadPeopleIdentity() {
                 Util.uploadImageFromWechat('identity/people.png', () => {
-                    this.data.peoplePhoto = config.baseUrl + '/client/img/load?filePath=identity/people.png'
+                    this.data.peoplePhoto = 'identity/people.png'
                 })
             }
         },
