@@ -139,18 +139,18 @@
                 Util.go('MySetting')
             },
             uploadFaceIdentity() {
-                Util.uploadImageFromWechat('identity/face.png', (url) => {
-                    this.data.facePhoto = config.baseUrl + '/' + url
+                Util.uploadImageFromWechat('identity/face.png', () => {
+                    this.data.facePhoto = config.baseUrl + '/client/img/load?filePath=identity/face.png'
                 })
             },
             uploadBadgeIdentity() {
-                Util.uploadImageFromWechat('identity/badge.png', (url) => {
-                    this.data.badgePhoto = config.baseUrl + '/' + url
+                Util.uploadImageFromWechat('identity/badge.png', () => {
+                    this.data.badgePhoto = config.baseUrl + '/client/img/load?filePath=identity/badge.png'
                 })
             },
             uploadPeopleIdentity() {
-                Util.uploadImageFromWechat('identity/people.png', (url) => {
-                    this.data.peoplePhoto = config.baseUrl + '/' + url
+                Util.uploadImageFromWechat('identity/people.png', () => {
+                    this.data.peoplePhoto = config.baseUrl + '/client/img/load?filePath=identity/people.png'
                 })
             }
         },
