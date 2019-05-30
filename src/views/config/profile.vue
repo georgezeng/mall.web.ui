@@ -195,9 +195,9 @@
             },
             editAvatar() {
                 let info = this.info
-                Util.uploadImageFromWechat('avatar.png', () => {
+                Util.uploadImageFromWechat('avatar.png', (url) => {
                     this.loading = true
-                    info.avatar = 'avatar.png'
+                    info.avatar = url
                     API.save({
                         ...info,
                         sex: info.sex.name

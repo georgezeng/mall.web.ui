@@ -54,12 +54,10 @@ util.uploadImageFromWechat = function (filePath, callback) {
                     isShowProgressTips: 1, // 默认为1，显示进度提示
                     success: function (res) {
                         let serverId = res.serverId; // 返回图片的服务器端ID
-                        WechatAPI.uploadFile(serverId, filePath).then(res => {
+                        WechatAPI.uploadFile(serverId, filePath).then(url => {
                             Message.success('上传成功')
                             if (callback) {
-                                setTimeout(function () {
-                                    callback()
-                                }, 1000)
+                                callback(url)
                             }
                         })
                     }
