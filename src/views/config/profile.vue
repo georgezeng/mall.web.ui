@@ -197,10 +197,10 @@
                 let info = this.info
                 Util.uploadImageFromWechat('avatar.png', () => {
                     this.loading = true
+                    info.avatar = 'avatar.png'
                     API.save({
                         ...info,
-                        sex: info.sex.name,
-                        avatar: 'avatar.png'
+                        sex: info.sex.name
                     }).then(res => {
                         window.location.reload(true)
                     }).catch(e => {
