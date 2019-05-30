@@ -21,13 +21,13 @@
                 请上传你的身份证原件，确保照片清晰，四角完整
             </div>
             <div style="margin: 20px 0;" align="center">
-                <img :src="faceIdentity" width="300" height="182"/>
+                <img :src="faceIdentity" width="300" height="182" @click="uploadFaceIdentity"/>
             </div>
             <div style="margin: 20px 0;" align="center">
-                <img :src="badgeIdentity" width="300" height="182"/>
+                <img :src="badgeIdentity" width="300" height="182" @click="uploadBadgeIdentity"/>
             </div>
             <div style="margin: 20px 0;" align="center">
-                <img :src="peopleIdentity" width="300" height="182"/>
+                <img :src="peopleIdentity" width="300" height="182" @click="uploadPeopleIdentity"/>
             </div>
             <div style="margin: 20px;" align="center">
                 <Button size="large" :loading="loading" long type="primary" @click="save">确认提交</Button>
@@ -60,14 +60,14 @@
     </Layout>
 </template>
 <script>
-    import API from '../../../../api/identity.js'
-    import config from '../../../../config/index.js'
-    import defaultBadgeIdentity from '../../../../images/badgeIdentity.png'
-    import defaultFaceIdentity from '../../../../images/faceIdentity.png'
-    import defaultPeopleIdentity from '../../../../images/peopleIdentity.png'
-    import Util from '../../../../libs/util.js'
+    import API from '../../api/identity.js'
+    import config from '../../config/index.js'
+    import defaultBadgeIdentity from '../../images/badgeIdentity.png'
+    import defaultFaceIdentity from '../../images/faceIdentity.png'
+    import defaultPeopleIdentity from '../../images/peopleIdentity.png'
+    import Util from '../../libs/util.js'
     import {Message} from 'iview'
-    import commonStyles from '../../../../styles/common.js'
+    import commonStyles from '../../styles/common.js'
 
     export default {
         components: {},

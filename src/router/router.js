@@ -96,7 +96,7 @@ const routers = [
             title: '实名认证',
             needLogin: true
         },
-        component: (resolve) => require(['../views/config/setting/identity/index.vue'], resolve)
+        component: (resolve) => require(['../views/config/setting/identity.vue'], resolve)
     },
     {
         path: '/404',
