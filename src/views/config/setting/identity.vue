@@ -106,16 +106,16 @@
                 return this.data.peoplePhoto ? config.baseUrl + '/client/img/load?filePath=' + this.data.peoplePhoto : this.defaultPeopleIdentity
             },
             isInit() {
-                return !data || !data.status
+                return !this.data || !this.data.status
             },
             isChecking() {
-                return data.status && data.status.name == 'Checking'
+                return this.data.status && this.data.status.name == 'Checking'
             },
             isPassed() {
-                return data.status && data.status.name == 'Passed'
+                return this.data.status && this.data.status.name == 'Passed'
             },
             isUnPassed() {
-                return data.status && data.status.name == 'UnPassed'
+                return this.data.status && this.data.status.name == 'UnPassed'
             }
         },
         methods: {
