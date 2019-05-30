@@ -92,18 +92,12 @@
     }
 
     .optionPanel {
-        font-size: 11pt;
-        padding: 10px;
-        position: relative;
         .img {
             position: relative;
             top: 5px;
         }
         .goArrow {
-            position: absolute;
-            top: 15px;
-            right: 7px;
-            color: #414141;
+            top: 28px;
         }
     }
 
