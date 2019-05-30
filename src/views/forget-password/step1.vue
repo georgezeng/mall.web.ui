@@ -5,7 +5,7 @@
             <div>忘记密码</div>
         </Header>
         <Content :style="commonStyles.content">
-            <Form ref="form" :model="form" :rules="rules" :label-width="0">
+            <Form ref="form" style="margin-top: 100px; padding: 20px;" :model="form" :rules="rules" :label-width="0">
                 <FormItem prop="username">
                     <Input size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
                 </FormItem>

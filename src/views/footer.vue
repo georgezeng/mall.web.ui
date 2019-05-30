@@ -18,7 +18,7 @@
             </div>
             <div @click="goCategory" class="button">
                 <div>
-                    <Icon :style="categoryStyle" type="md-book" size="30"/>
+                    <Icon :style="categoryStyle" type="md-apps" size="30"/>
                 </div>
                 <div :style="categoryStyle">
                     分类

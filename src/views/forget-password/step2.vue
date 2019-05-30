@@ -5,7 +5,7 @@
             <div>重置密码</div>
         </Header>
         <Content :style="commonStyles.content">
-            <Form ref="form" :model="form" :rules="rules" :label-width="75">
+            <Form ref="form" style="margin-top: 100px; padding: 20px;" :model="form" :rules="rules" :label-width="75">
                 <FormItem label="新密码" prop="password">
                     <Input size="large" type="password" v-model="form.password"></Input>
                 </FormItem>
@@ -21,6 +21,7 @@
     import API from '../../api/forget-password'
     import {Message} from 'iview'
     import commonStyles from '../../styles/common.js'
+    import Util from '../../libs/util.js'
     export default {
         data() {
             const confirmPwdCheck = (rule, value, callback) => {
@@ -57,6 +58,11 @@
         },
         methods: {
             reset() {
+                if(!this.info || !this.info.username) {
+                    Message.error('没有提交手机号，请重新提交')
+                    back()
+                    return
+                }
                 this.$refs.form.validate().then(valid => {
                     if (valid) {
                         this.loading = true
@@ -72,14 +78,10 @@
                 })
             },
             back() {
-                this.$router.push({
-                    name: 'ForgetPasswordStep1'
-                })
+                Util.go('ForgetPasswordStep1')
             },
             goLogin() {
-                this.$router.push({
-                    name: 'Login'
-                })
+                Util.go('Login')
             },
         },
         mounted() {

@@ -8,14 +8,17 @@
         </Header>
         <Content :style="commonStyles.content">
             <Modal v-model="passwordModal.open"
-                   :mask-closable="false"
-                   :title="passwordModalTitle" :closable="false">
+                   :mask-closable="true"
+                   :closable="true">
+                <p slot="header" style="text-align: center;">
+                    <span>{{passwordModalTitle}}</span>
+                </p>
                 <Form ref="passwordForm" :model="passwordModal.form" :rules="passwordModal.rules" :label-width="80">
                     <FormItem v-if="passwordModal.toEdit" label="旧密码" prop="oldPassword">
                         <Input size="large" type="password" v-model="passwordModal.form.oldPassword"></Input>
                     </FormItem>
                     <FormItem v-else label="验证码" prop="verifyCode">
-                        <Input size="large" v-model="passwordModal.form.oldPassword" @on-search="sendCode" search
+                        <Input size="large" v-model="passwordModal.form.verifyCode" @on-search="sendCode" search
                                :enter-button="passwordModal.codeBtnText"
                                placeholder="输入验证码"></Input>
                     </FormItem>
@@ -27,8 +30,7 @@
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="warning" size="large" :loading="loading" @click="closePasswordModal">取消</Button>
-                    <Button type="primary" size="large" :loading="loading" @click="savePassword">保存</Button>
+                    <Button type="primary" size="large" long :loading="loading" @click="savePassword">保存</Button>
                 </div>
             </Modal>
             <div class="blockLine"></div>
@@ -79,6 +81,7 @@
                     open: false,
                     toEdit: false,
                     form: {
+                        verifyCode: null,
                         oldPassword: null,
                         password: null,
                         confirmPassword: null
@@ -120,10 +123,12 @@
             },
             toEditPassword(toEdit) {
                 this.passwordModal.form = {
-                    oldPassword: null,
-                    password: null,
-                    confirmPassword: null
+                    verifyCode: '',
+                    oldPassword: '',
+                    password: '',
+                    confirmPassword: ''
                 }
+                this.$refs.passwordForm.resetFields()
                 this.passwordModal.toEdit = toEdit
                 this.passwordModal.open = true
             },
@@ -135,7 +140,10 @@
                     if (valid) {
                         this.loading = true
                         if (!this.passwordModal.toEdit) {
-                            API.resetPassword(this.passwordModal.form).then(res => {
+                            API.resetPassword({
+                                ...this.passwordModal.form,
+                                oldPassword: this.passwordModal.fom.verifyCode
+                            }).then(res => {
                                 this.loading = false
                                 this.closePasswordModal()
                                 Message.success('保存成功')
