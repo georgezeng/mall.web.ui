@@ -6,7 +6,7 @@
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">实名认证</div>
         </Header>
-        <Content v-if="!data || !data.status" :style="commonStyles.content">
+        <Content v-if="isInit" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div class="optionPanel">
                 <span>真实姓名</span>
@@ -33,7 +33,7 @@
                 <Button size="large" :loading="loading" long type="primary" @click="save">确认提交</Button>
             </div>
         </Content>
-        <Content v-if="data.status && data.status.name == 'Checking'" :style="commonStyles.content">
+        <Content v-if="isChecking" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #4090F7;" type="ios-information-circle-outline"/>
@@ -41,15 +41,18 @@
                 <div style="font-size: 11px; color: #9BA5B7;">身份认证信息已上传完成，我们会在1-3个工作日完成审核，请等待审核结果</div>
             </div>
         </Content>
-        <Content v-if="data.status && data.status.name == 'UnPassed'" :style="commonStyles.content">
+        <Content v-if="isUnPassed" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #E23C39;" type="ios-close-circle-outline"/>
                 <div>实名认证失败</div>
                 <div style="font-size: 11px; color: #9BA5B7;">{{data.reason}}</div>
             </div>
+            <div>
+                <Button size="large" :loading="loading" long type="primary" @click="reset">重新认证</Button>
+            </div>
         </Content>
-        <Content v-if="data.status && data.status.name == 'Passed'" :style="commonStyles.content">
+        <Content v-if="isPassed" :style="commonStyles.content">
             <div class="blockLine"></div>
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #72C040;" type="ios-checkmark-circle-outline"/>
@@ -101,6 +104,18 @@
             },
             peopleIdentity() {
                 return this.data.peoplePhoto ? config.baseUrl + '/client/img/load?filePath=' + this.data.peoplePhoto : this.defaultPeopleIdentity
+            },
+            isInit() {
+                return !data || !data.status
+            },
+            isChecking() {
+                return data.status && data.status.name == 'Checking'
+            },
+            isPassed() {
+                return data.status && data.status.name == 'Passed'
+            },
+            isUnPassed() {
+                return data.status && data.status.name == 'UnPassed'
             }
         },
         methods: {
@@ -123,6 +138,17 @@
                 }).catch(e => {
                     this.loading = false
                 })
+            },
+            reset() {
+              this.data = {
+                  name: null,
+                  number: null,
+                  status: null,
+                  facePhoto: null,
+                  badgePhoto: null,
+                  peoplePhoto: null,
+                  reason: null
+              }
             },
             load() {
                 this.loading = true
