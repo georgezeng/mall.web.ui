@@ -51,10 +51,10 @@
         <Content :style="commonStyles.content">
             <div class="blockLine"></div>
             <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+                    <swipeout>
                 <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
                              ref="loadmore">
-                    <swipeout>
                         <swipeout-item v-for="(address, index) in list" transition-mode="follow">
                             <div slot="content" class="item vux-1px-t">
                                 <table width="100%">
@@ -84,7 +84,6 @@
                                 <swipeout-button @click.native="remove(address.id)" type="warn">删除</swipeout-button>
                             </div>
                         </swipeout-item>
-                    </swipeout>
                     <div slot="bottom" class="mint-loadmore-bottom">
                         <span v-show="bottomStatus !== 'loading'"
                               :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
@@ -93,6 +92,7 @@
                         </span>
                     </div>
                 </mt-loadmore>
+                    </swipeout>
             </div>
             <div style="height: 60px;">
             </div>
