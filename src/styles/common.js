@@ -3,7 +3,7 @@ const header = {
     padding: '0 10px',
     backgroundColor: '#DA4935',
     position: 'fixed',
-    'z-index': 100,
+    zIndex: 100,
     width: '100%',
     color: '#fff',
     fontSize: '16pt',
