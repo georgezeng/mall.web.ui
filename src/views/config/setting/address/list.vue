@@ -60,7 +60,7 @@
         <Content :style="commonStyles.content">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
             <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-                <mt-loadmore style="margin-top: 80px;" :bottom-method="load" @bottom-status-change="handleBottomChange"
+                <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
                              ref="loadmore">
                     <swipeout>
@@ -185,15 +185,6 @@
                     }
                     this.$refs.loadmore.onBottomLoaded()
                 })
-            },
-            swipeButtons(id) {
-                return [
-                    {
-                        content: '删除',
-                        style: {background: 'red', color: '#fff'},
-                        handler: () => this.remove(id)
-                    }
-                ]
             }
         },
         created() {
@@ -201,7 +192,7 @@
             this.contentStyle.marginTop = "80px"
         },
         mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 160
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
         }
     }
 </script>
