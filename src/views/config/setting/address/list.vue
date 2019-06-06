@@ -42,10 +42,8 @@
     }
 
     .wrapper {
-        position: fixed;
-        top: 80px;
+        margin-top: 80px;
         overflow: scroll;
-        width: 100%;
         -webkit-overflow-scrolling : touch;
     }
 
@@ -188,7 +186,7 @@
                     }
                     this.$refs.loadmore.onBottomLoaded()
                 })
-            }
+            },
         },
         created() {
             this.footerStyle.padding = "20px"
