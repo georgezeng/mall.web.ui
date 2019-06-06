@@ -46,6 +46,7 @@
         top: 80px;
         overflow: scroll;
         width: 100%;
+        -webkit-overflow-scrolling : touch;
     }
 
     .mint-spinner {
