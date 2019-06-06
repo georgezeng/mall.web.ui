@@ -53,13 +53,12 @@
         },
         methods: {
             resetUI() {
-                window.scrollTo(0, 0)
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
             back() {
                 Util.go('MyAddressList')
             },
             save() {
-                window.scrollTo(0, 0)
                 if (!this.form.name || this.form.name == '') {
                     Message.error('收货人不能为空')
                     return
