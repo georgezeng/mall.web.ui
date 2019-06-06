@@ -29,7 +29,7 @@
         font-size: 11pt;
     }
 
-    .mint-loadmore-bottom {
+    @component mint-loadmore-bottom {
         text-align: center;
         span {
             display: inline-block;
@@ -41,7 +41,7 @@
         }
     }
 
-    .wrapper {
+    @descendent wrapper {
         margin-top: 80px;
         overflow: scroll;
         -webkit-overflow-scrolling : touch;
