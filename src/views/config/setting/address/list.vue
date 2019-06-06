@@ -50,7 +50,7 @@
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine"></div>
-            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
                 <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
                              ref="loadmore">
@@ -93,7 +93,7 @@
                         </span>
                     </div>
                 </mt-loadmore>
-            </div>
+            <!--</div>-->
             <div style="height: 60px;">
             </div>
         </Content>
@@ -185,7 +185,7 @@
             this.commonStyles.footer.padding = "20px"
         },
         mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
         }
     }
 </script>
