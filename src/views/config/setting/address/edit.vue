@@ -11,7 +11,7 @@
             <div class="blockLine"></div>
             <group>
                 <x-input class="optionalLine optionalCell" title="收货人" v-model="form.name"></x-input>
-                <x-input class="optionalLine optionalCell" title="手机号码" v-model="form.phone"></x-input>
+                <x-input class="optionalLine optionalCell" title="联系电话" v-model="form.phone"></x-input>
                 <x-address :list="addressData" class="optionalLine optionalPicker" title="所在地区"
                            v-model="form.area"></x-address>
                 <x-textarea @on-blur="resetUI" class="optionalLine optionalCell" title="详细地址"
@@ -64,11 +64,11 @@
                     return
                 }
                 if (!this.form.phone || this.form.phone == '') {
-                    Message.error('手机号码不能为空')
+                    Message.error('联系电话不能为空')
                     return
                 }
-                if (!/\d{11}/.test(this.form.phone)) {
-                    Message.error('手机号码必须是11位数字')
+                if (this.form.phone.length < 11) {
+                    Message.error('联系电话必须是手机号码或者座机号')
                     return
                 }
                 if (!this.form.area || this.form.area.length < 3) {
