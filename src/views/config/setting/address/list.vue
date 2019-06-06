@@ -33,6 +33,7 @@
     }
 
     .wrapper {
+        margin-top: 20px;
         overflow: scroll;
     }
 
