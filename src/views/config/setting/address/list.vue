@@ -31,13 +31,15 @@
 
     .mint-loadmore-bottom {
         text-align: center;
+        
         span {
             display: inline-block;
             transition: .2s linear;
             vertical-align: middle;
-            .rotate {
-                transform: rotate(180deg);
-            }
+        }
+
+        .rotate {
+            transform: rotate(180deg);
         }
     }
 
