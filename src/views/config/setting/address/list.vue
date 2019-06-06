@@ -29,22 +29,22 @@
         font-size: 11pt;
     }
 
-    @component mint-loadmore-bottom {
+    .mint-loadmore-bottom {
         text-align: center;
         span {
             display: inline-block;
             transition: .2s linear;
             vertical-align: middle;
-        @when rotate {
-            transform: rotate(180deg);
-        }
+            .rotate {
+                transform: rotate(180deg);
+            }
         }
     }
 
-    @descendent wrapper {
+    .wrapper {
         margin-top: 80px;
         overflow: scroll;
-        -webkit-overflow-scrolling : touch;
+        -webkit-overflow-scrolling: touch;
     }
 
     .mint-spinner {
@@ -97,7 +97,7 @@
                     </swipeout>
                     <div slot="bottom" class="mint-loadmore-bottom" align="center">
                         <span v-show="bottomStatus !== 'loading'"
-                              :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
+                              :class="{ 'rotate': bottomStatus === 'drop' }">↑</span>
                         <span v-show="bottomStatus === 'loading'">
                             <mt-spinner class="mint-spinner" type="snake"></mt-spinner>
                         </span>
@@ -136,7 +136,7 @@
                 list: [],
                 pageInfo: {
                     num: 1,
-                    size: 1,
+                    size: 10,
                     order: 'DESC',
                     property: 'createTime'
                 }
