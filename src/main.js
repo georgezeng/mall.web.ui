@@ -3,6 +3,7 @@ import store from './store';
 import router from './router/index';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
+import 'mint-ui/lib/style.css'
 import { WechatPlugin } from 'vux'
 import Mint from 'mint-ui'
 import { PopupPicker } from 'vux'
