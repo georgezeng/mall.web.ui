@@ -25,6 +25,7 @@
             display: inline-block;
             transition: .2s linear;
             vertical-align: middle;
+            text-align: center;
         @when rotate {
             transform: rotate(180deg);
         }
@@ -87,8 +88,8 @@
                         <span v-show="bottomStatus !== 'loading'"
                               :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
                         <span v-show="bottomStatus === 'loading'">
-                        <mt-spinner class="mint-spinner" type="snake"></mt-spinner>
-                    </span>
+                            <mt-spinner class="mint-spinner" type="snake"></mt-spinner>
+                        </span>
                     </div>
                 </mt-loadmore>
             </div>
@@ -125,7 +126,7 @@
         computed: {},
         methods: {
             handleBottomChange(status) {
-                this.bottomStatus = status;
+                this.bottomStatus = status
             },
             back() {
                 Util.go('MySetting')
