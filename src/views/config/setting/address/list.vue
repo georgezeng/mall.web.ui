@@ -40,16 +40,9 @@
 
         .rotate {
             transform: rotate(180deg);
-            -webkit-transform: translate3d(0,0,0);
             -webkit-transform-style: preserve-3d;
             -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -ms-backface-visibility: hidden;
-            backface-visibility: hidden;
             -webkit-perspective: 1000;
-            -moz-perspective: 1000;
-            -ms-perspective: 1000;
-            perspective: 1000;
         }
     }
 
