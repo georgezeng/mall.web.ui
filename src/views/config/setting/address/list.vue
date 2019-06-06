@@ -167,7 +167,6 @@
                         }
                     } else {
                         this.allLoaded = true;
-                        document.body.scrollTop = document.documentElement.scrollTop = 0
                     }
                     this.$refs.loadmore.onBottomLoaded()
                 })
@@ -177,7 +176,7 @@
             this.commonStyles.footer.padding = "20px"
         },
         mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 60
         }
     }
 </script>
