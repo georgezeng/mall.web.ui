@@ -101,7 +101,7 @@
                         </span>
                 </div>
             </mt-loadmore>
-            <div style="height: 60px;">
+            <div style="height: 80px;">
             </div>
         </Content>
         <Footer :style="footerStyle">
