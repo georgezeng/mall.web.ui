@@ -14,7 +14,8 @@
                 <x-input class="optionalLine optionalCell" title="手机号码" v-model="form.phone"></x-input>
                 <x-address :list="addressData" class="optionalLine optionalPicker" title="所在地区"
                            v-model="form.area"></x-address>
-                <x-textarea @blur.native="window.scrollTo(0, 0)" class="optionalLine optionalCell" title="详细地址" v-model="form.location"></x-textarea>
+                <x-textarea @on-blur="resetUI" class="optionalLine optionalCell" title="详细地址"
+                            v-model="form.location"></x-textarea>
             </group>
         </Content>
         <Footer :style="commonStyles.footer">
@@ -51,6 +52,9 @@
             }
         },
         methods: {
+            resetUI() {
+                window.scrollTo(0, 0)
+            },
             back() {
                 Util.go('MyAddressList')
             },
