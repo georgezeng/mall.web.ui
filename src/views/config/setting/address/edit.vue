@@ -18,7 +18,7 @@
                             v-model="form.location"></x-textarea>
             </group>
         </Content>
-        <Footer :style="commonStyles.footer">
+        <Footer :style="footerStyle">
             <Button :loading="loading" type="primary" size="large" long @click="save">保存</Button>
         </Footer>
     </Layout>
@@ -37,6 +37,9 @@
                 commonStyles,
                 addressData: ChinaAddressV4Data,
                 loading: false,
+                footerStyle: {
+                    ...commonStyles.footer
+                },
                 form: {
                     id: null,
                     name: null,
@@ -108,7 +111,7 @@
             }
         },
         created() {
-            this.commonStyles.footer.padding = "20px"
+            this.footerStyle.padding = "20px"
             this.form.id = this.$router.currentRoute.params.id
             this.form.id = this.form.id > 0 ? this.form.id : null
         },

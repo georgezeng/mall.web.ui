@@ -59,8 +59,7 @@
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
-            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
-            <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
+            <mt-loadmore style="margin-top: 80px;" :bottom-method="load" @bottom-status-change="handleBottomChange"
                          :bottom-all-loaded="allLoaded"
                          ref="loadmore">
                 <swipeout>
@@ -102,11 +101,10 @@
                         </span>
                 </div>
             </mt-loadmore>
-            <!--</div>-->
             <div style="height: 60px;">
             </div>
         </Content>
-        <Footer :style="commonStyles.footer">
+        <Footer :style="footerStyle">
             <Button type="primary" size="large" long @click="goEdit(0)">新建收货地址</Button>
         </Footer>
     </Layout>
@@ -122,6 +120,12 @@
         data() {
             return {
                 commonStyles,
+                footerStyle: {
+                    ...commonStyles.footer
+                },
+                contentStyle: {
+                    ...commonStyles.content
+                },
                 isDefault: [],
                 bottomStatus: '',
                 allLoaded: false,
@@ -191,11 +195,8 @@
             }
         },
         created() {
-            this.commonStyles.footer.padding = "20px"
-            this.commonStyles.content.marginTop = "80px"
+            this.footerStyle.padding = "20px"
+            this.contentStyle.marginTop = "80px"
         },
-        mounted() {
-            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
-        }
     }
 </script>
