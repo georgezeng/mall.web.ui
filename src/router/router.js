@@ -99,6 +99,24 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/identity.vue'], resolve)
     },
     {
+        path: '/MyAddress/List',
+        name: 'MyAddressList',
+        meta: {
+            title: '收货地址',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/config/setting/address/list.vue'], resolve)
+    },
+    {
+        path: '/MyAddress/Edit/:id',
+        name: 'MyAddressEdit',
+        meta: {
+            title: '编辑收货地址',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/config/setting/address/edit.vue'], resolve)
+    },
+    {
         path: '/404',
         name: 'NotFound',
         meta: {

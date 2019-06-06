@@ -1,5 +1,6 @@
 <style scoped>
     @import 'styles/common.css';
+    @import '~vux/src/styles/1px.less';
 </style>
 <template>
     <div>
@@ -7,6 +8,7 @@
     </div>
 </template>
 <script>
+
     export default {
         data () {
             return {}

@@ -1,0 +1,178 @@
+<style scoped lang="less">
+    .item {
+        padding: 20px 10px;
+        position: relative;
+    }
+
+    .checker {
+        position: relative;
+    }
+
+    .wrap {
+        text-align: left;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+        font-size: 11pt;
+    }
+
+    .address {
+        font-size: 11pt;
+    }
+
+    @component mint-loadmore-bottom {
+        span {
+            display: inline-block;
+            transition: .2s linear;
+            vertical-align: middle;
+        @when rotate {
+            transform: rotate(180deg);
+        }
+        }
+    }
+
+    .wrapper {
+        overflow: scroll;
+    }
+
+    .mint-spinner {
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>
+<template>
+    <Layout :style="commonStyles.layout">
+        <Header style="background-color: #fff; height: 60px;">
+            <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
+            <div align="center" style="position: relative; top: 0px;">收货地址</div>
+        </Header>
+        <Content :style="commonStyles.content">
+            <div class="blockLine"></div>
+            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+                <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
+                             :bottom-all-loaded="allLoaded"
+                             ref="loadmore">
+                    <swipeout>
+                        <swipeout-item v-for="(address, index) in list" transition-mode="follow">
+                            <div slot="content" class="item vux-1px-t">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30" rowspan="2">
+                                            <check-icon class="checker"
+                                                        :value.sync="isDefault[index]"
+                                                        @click.native="checkAsDefault(address.id, index)"></check-icon>
+                                        </td>
+                                        <td class="wrap">
+                                            <span>{{address.name}}</span>
+                                            <span>*******{{address.phone.length > 7 ? address.phone.substring(7, 11) : address.phone}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrap address">
+                                            {{address.province+address.city.replace('市辖区',
+                                            '')+address.district+address.location}}
+                                        </td>
+                                        <td width="30" rowspan="2" style="text-align: right;">
+                                            <Icon @click="goEdit(address.id)" size="30" type="ios-create-outline"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div slot="right-menu">
+                                <swipeout-button @click.native="remove(address.id)" type="warn">删除</swipeout-button>
+                            </div>
+                        </swipeout-item>
+                    </swipeout>
+                    <div slot="bottom" class="mint-loadmore-bottom">
+                        <span v-show="bottomStatus !== 'loading'"
+                              :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
+                        <span v-show="bottomStatus === 'loading'">
+                        <mt-spinner class="mint-spinner" type="snake"></mt-spinner>
+                    </span>
+                    </div>
+                </mt-loadmore>
+            </div>
+        </Content>
+        <Footer :style="commonStyles.footer">
+            <Button type="primary" size="large" long @click="goEdit(0)">新建收货地址</Button>
+        </Footer>
+    </Layout>
+</template>
+<script>
+    import API from '../../../../api/address.js'
+    import Util from '../../../../libs/util.js'
+    import {Message} from 'iview'
+    import commonStyles from '../../../../styles/common.js'
+
+    export default {
+        components: {},
+        data() {
+            return {
+                commonStyles,
+                isDefault: [],
+                bottomStatus: '',
+                allLoaded: false,
+                wrapperHeight: 0,
+                list: [],
+                pageInfo: {
+                    num: 1,
+                    size: 5,
+                    order: 'DESC',
+                    property: 'createTime'
+                }
+            }
+        },
+        computed: {},
+        methods: {
+            handleBottomChange(status) {
+                this.bottomStatus = status;
+            },
+            back() {
+                Util.go('MySetting')
+            },
+            goEdit(id) {
+                Util.go('MyAddressEdit', {
+                    id
+                })
+            },
+            checkAsDefault(id, index) {
+                for (let i in this.isDefault) {
+                    if (i != index) {
+                        this.isDefault[i] = false
+                    }
+                }
+                this.isDefault[index] = true
+                API.asDefault(id).then(res => {
+                    Message.success('默认地址保存成功')
+                })
+            },
+            remove(id) {
+                API.delete(id).then(res => {
+                    window.location.reload(true)
+                })
+            },
+            load() {
+                API.list(this.pageInfo).then(data => {
+                    if (data && data.length > 0) {
+                        this.pageInfo.num++
+                        for (let i in data) {
+                            this.list.push(data[i])
+                        }
+                        for (let i in data) {
+                            this.isDefault.push(data[i].default)
+                        }
+                    } else {
+                        this.allLoaded = true;
+                    }
+                    this.$refs.loadmore.onBottomLoaded()
+                })
+            }
+        },
+        created() {
+            this.commonStyles.footer.padding = "20px"
+        },
+        mounted() {
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top
+        }
+    }
+</script>

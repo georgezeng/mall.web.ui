@@ -8,8 +8,11 @@ body {
 }
 
 .blockLine {
-    height: 10px;
+    height: 20px;
     background-color: #F5F5F5;
+    position: absolute;
+    top: 0px;
+    width: 100%;
 }
 
 .blockLine2 {
@@ -21,12 +24,25 @@ body {
     font-size: 11pt;
     padding: 20px 10px;
     position: relative;
-
 }
 
-.optionPanel .goArrow {
+.goArrow {
     position: absolute;
     top: 20px;
     right: 7px;
     color: #414141;
+}
+
+.optionalPicker {
+    padding: 10px 0px !important;
+}
+
+.optionalLine {
+    font-size: 11pt !important;
+    color: #535A6C !important;
+}
+
+.optionalCell {
+    padding: 18px 15px !important;
+    position: relative !important;
 }

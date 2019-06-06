@@ -23,35 +23,28 @@
                 </div>
             </Modal>
             <div class="blockLine"></div>
-            <div class="optionPanel" @click="editAvatar">
-                <span>头像</span>
-                <Avatar ref="avatar" size="large" style="position: absolute; right: 30px; top: 10px;" :src="avatar"/>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel">
-                <span>账号</span>
-                <span style="position: absolute; right: 30px; top: 20px;">{{info.username}}</span>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="editNickname">
-                <span>昵称</span>
-                <span style="position: absolute; right: 30px; top: 20px;">{{info.nickname}}</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="editSex">
-                <span>性别</span>
-                <span ref="sex" id="sex" style="position: absolute; right: 30px; top: 20px;">{{sex}}</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="editBirthday">
-                <span>生日</span>
-                <span ref="birthday" id="birthday"
-                      style="position: absolute; right: 30px; top: 20px;">{{info.birthday}}</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
+            <group>
+                <cell class="optionalLine optionalCell" is-link title="头像" @click.native="editAvatar">
+                    <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -20px;"
+                            :src="avatar"/>
+                </cell>
+                <cell class="optionalLine optionalCell" :value="info.username" title="账号">
+                </cell>
+                <cell class="optionalLine optionalCell" is-link title="昵称" :value="info.nickname"
+                      @click.native="editNickname">
+                </cell>
+                <popup-picker show-name
+                              @on-change="changeSex"
+                              class="optionalLine optionalPicker" title="性别"
+                              :value="sex"
+                              :data="sexList">
+                </popup-picker>
+                <datetime popup-title="生日"
+                          @on-change="changeBirthday"
+                          class="optionalLine optionalCell" title="生日"
+                          :min-year="1900" :max-year="2100"
+                          v-model="info.birthday"/>
+            </group>
         </Content>
     </Layout>
 </template>
@@ -62,7 +55,6 @@
     import {Message} from 'iview'
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
-    import MobileSelect from 'mobile-select'
 
     export default {
         components: {},
@@ -78,7 +70,20 @@
                 defaultAvatar,
                 commonStyles,
                 loading: false,
-                dates: [],
+                sexList: [[
+                    {
+                        name: '保密',
+                        value: 'Secret'
+                    },
+                    {
+                        name: '男',
+                        value: 'Male'
+                    },
+                    {
+                        name: '女',
+                        value: 'Female'
+                    }
+                ]],
                 info: {
                     id: null,
                     avatar: null,
@@ -116,11 +121,8 @@
                         text: '保密'
                     }
                 }
-                return this.info.sex.text
+                return [this.info.sex.name]
             },
-            isWechat() {
-                return Util.isInWechat()
-            }
         },
         methods: {
             saveNickname() {
@@ -148,52 +150,15 @@
                     this.info = data
                     let self = this
                     let info = this.info
-                    new MobileSelect({
-                        trigger: '#sex',
-                        title: '性别',
-                        wheels: [
-                            {
-                                data: [
-                                    {id: 'Secret', value: '保密'},
-                                    {id: 'Male', value: '男'},
-                                    {id: 'Female', value: '女'}
-                                ]
-                            }
-                        ],
-                        callback: function (indexArr, data) {
-                            info.sex = {
-                                name: data[0].id,
-                                text: data[0].value
-                            }
-                            API.save({
-                                ...info,
-                                sex: info.sex.name
-                            });
-                        }
-                    });
-                    new MobileSelect({
-                        trigger: '#birthday',
-                        title: '生日',
-                        wheels: [
-                            {
-                                data: this.dates
-                            }
-                        ],
-                        callback: function (indexArr, data) {
-                            info.birthday = data[2].id
-                            self.$refs.birthday.innerText = info.birthday
-                            API.save({
-                                ...info,
-                                sex: info.sex.name
-                            });
-                        }
-                    });
                 })
             },
             back() {
                 Util.go('MyCenter')
             },
             editAvatar() {
+                if (!Util.isInWechat()) {
+                    return
+                }
                 let info = this.info
                 Util.uploadImageFromWechat('avatar.png', (url) => {
                     this.loading = true
@@ -206,88 +171,53 @@
                     }).catch(e => {
                         this.loading = false
                     })
-
                 })
             },
-            editSex() {
-                this.$refs.sex.click()
+            changeSex(option) {
+                this.loading = true
+                for (let i = 0; i < this.sexList[0].length; i++) {
+                    let item = this.sexList[0][i]
+                    if (item.value == option[0]) {
+                        this.info.sex = {
+                            name: item.value,
+                            text: item.name
+                        }
+                        break;
+                    }
+                }
+                API.save({
+                    ...this.info,
+                    sex: this.info.sex.name
+                }).then(res => {
+                    this.loading = false
+                }).catch(e => {
+                    this.loading = false
+                })
             },
             editNickname() {
                 this.nicknameModal.value = this.info.nickname
                 this.nicknameModal.open = true
             },
-            editBirthday() {
-                this.$refs.birthday.click()
+            changeBirthday(value) {
+                this.loading = true
+                API.save({
+                    ...this.info,
+                    sex: this.info.sex.name
+                }).then(res => {
+                    this.loading = false
+                }).catch(e => {
+                    this.loading = false
+                })
             },
         },
         mounted() {
             this.load()
-            if (this.isWechat) {
+            if (Util.isInWechat()) {
                 Util.wxConfig([
                     'chooseImage',
                     'uploadImage'
                 ])
             }
-            const dates = []
-            let index = 1
-            for (let i = 1950; i < 2100; i++) {
-                const year = i
-                const isLeap = i % 4 == 0 && i % 100 == 0
-                const months = []
-                for (let j = 1; j < 13; j++) {
-                    const currentMonth = j < 10 ? ('0' + j) : (j + '')
-                    const days = []
-                    for (let k = 1; k < 29; k++) {
-                        const currentDay = k < 10 ? ('0' + k) : (k + '')
-                        days.push({
-                            id: year + '-' + currentMonth + '-' + currentDay,
-                            value: currentDay
-                        })
-                    }
-                    for (let k = 29; k < 32; k++) {
-                        const currentDay = k + ''
-                        if (k == 29) {
-                            if (j != 2 || j == 2 && isLeap) {
-                                days.push({
-                                    id: year + '-' + currentMonth + '-' + currentDay,
-                                    value: currentDay
-                                })
-                            }
-                        } else if(k == 30 && j != 2) {
-                            days.push({
-                                id: year + '-' + currentMonth + '-' + currentDay,
-                                value: currentDay
-                            })
-                        } else if(k == 31 && j != 2) {
-                            switch(j) {
-                                case 1:
-                                case 3:
-                                case 5:
-                                case 7:
-                                case 8:
-                                case 10:
-                                case 12: {
-                                    days.push({
-                                        id: year + '-' + currentMonth + '-' + currentDay,
-                                        value: currentDay
-                                    })
-                                }
-                            }
-                        }
-                    }
-                    months.push({
-                        id: year + '-' + currentMonth,
-                        value: currentMonth,
-                        childs: days
-                    })
-                }
-                dates.push({
-                    id: year,
-                    value: year,
-                    childs: months
-                })
-            }
-            this.dates = dates
         }
     }
 </script>

@@ -8,15 +8,10 @@
         </Header>
         <Content v-if="isInit" :style="commonStyles.content">
             <div class="blockLine"></div>
-            <div class="optionPanel">
-                <span>真实姓名</span>
-                <Input size="large" v-model="data.name" placeholder="申请人真实姓名" style="width: 80%;"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel">
-                <span>身份证号</span>
-                <Input size="large" v-model="data.number" placeholder="申请人身份证号" style="width: 80%;"/>
-            </div>
+            <group>
+                <x-input class="optionalLine" title="真实姓名" v-model="data.name" placeholder="申请人真实姓名"></x-input>
+                <x-input class="optionalLine" title="身份证号" v-model="data.number" placeholder="申请人身份证号"></x-input>
+            </group>
             <div style="background-color: #F5F5F5; padding: 10px;">
                 请上传你的身份证原件，确保照片清晰，四角完整
             </div>

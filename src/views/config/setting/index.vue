@@ -8,25 +8,12 @@
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine"></div>
-            <div class="optionPanel" @click="goSecurity">
-                <span>账号安全</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="goIdentify">
-                <span>实名认证</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="goAddress">
-                <span>收货地址</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="goAbout">
-                <span>关于我们</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
+            <group>
+                <cell class="optionalLine optionalCell" is-link title="账号安全" @click.native="goSecurity" />
+                <cell class="optionalLine optionalCell" is-link title="实名认证" @click.native="goIdentity" />
+                <cell class="optionalLine optionalCell" is-link title="收货地址" @click.native="goAddress" />
+                <cell class="optionalLine optionalCell" is-link title="关于我们" @click.native="goAbout" />
+            </group>
         </Content>
     </Layout>
 </template>
@@ -59,11 +46,11 @@
             goSecurity() {
                 Util.go('MySecurity')
             },
-            goIdentify() {
+            goIdentity() {
                 Util.go('MyIdentity')
             },
             goAddress() {
-                Util.go('MyAddress')
+                Util.go('MyAddressList')
             },
             goAbout() {
                 Util.go('AboutUs')

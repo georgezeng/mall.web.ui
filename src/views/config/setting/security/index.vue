@@ -33,27 +33,20 @@
                     <Button type="primary" size="large" long :loading="loading" @click="savePassword">保存</Button>
                 </div>
             </Modal>
+
             <div class="blockLine"></div>
-            <div class="optionPanel" @click="editPassword">
-                <span>修改密码</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="resetPassword">
-                <span>重置密码</span>
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
+            <group>
+                <cell class="optionalLine optionalCell" is-link title="修改密码" @click.native="editPassword" />
+                <cell class="optionalLine optionalCell" is-link title="重置密码" @click.native="resetPassword" />
+            </group>
         </Content>
     </Layout>
 </template>
 <script>
     import API from '../../../../api/security.js'
-    import WechatAPI from '../../../../api/wechat.js'
-    import config from '../../../../config/index.js'
     import Util from '../../../../libs/util.js'
     import {Message} from 'iview'
     import commonStyles from '../../../../styles/common.js'
-    import wx from 'weixin-js-sdk'
 
     export default {
         components: {},

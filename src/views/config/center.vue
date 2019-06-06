@@ -31,6 +31,7 @@
             position: absolute;
             top: 25px;
             right: 7px;
+            color: #fff !important;
         }
     }
 
@@ -66,6 +67,7 @@
     .blockLine {
         height: 10px;
         background-color: #F5F5F5;
+        position: relative;
     }
 
     .orderPanel {
@@ -92,12 +94,14 @@
     }
 
     .optionPanel {
+        font-size: 11pt;
+        padding: 20px 10px;
         .img {
             position: relative;
-            top: 5px;
+            top: 0px;
         }
         .goArrow {
-            top: 28px;
+            top: 21px;
         }
     }
 
@@ -105,6 +109,10 @@
         height: 2px;
         background-color: #F5F5F5;
         margin-left: 10px;
+    }
+
+    .weui-cell_access.vux-cell-box:after {
+        display: none;
     }
 </style>
 <template>
@@ -161,20 +169,22 @@
                     </div>
                 </div>
             </div>
-            <div class="blockLine"></div>
-            <div class="optionPanel" @click="goInvite">
-                <img :src="invite" width="24" height="24" class="img"/> 邀请好友
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div class="optionPanel" @click="goSetting">
-                <img :src="setting" width="24" height="24" class="img"/> 设置
-                <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-            </div>
-            <div class="blockLine2"></div>
-            <div v-if="isLogin" class="optionPanel" @click="exit">
-                <Icon size="24" type="md-exit"/>
-                退出
+            <div style="position: relative;">
+                <div class="blockLine" style="position:absolute; top: 0px;"></div>
+                <group style="position: absolute; width: 100%; top: -10px;">
+                    <cell-box class="optionPanel" is-link @click.native="goInvite">
+                        <img :src="invite" width="24" height="24" class="img"/> 邀请好友
+                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
+                    </cell-box>
+                    <cell-box class="optionPanel" is-link @click.native="goSetting">
+                        <img :src="setting" width="24" height="24" class="img"/> 设置
+                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
+                    </cell-box>
+                    <cell-box class="optionPanel" is-link @click.native="exit">
+                        <Icon size="24" type="md-exit"/>
+                        退出
+                    </cell-box>
+                </group>
             </div>
         </Content>
         <Footer selection="mine" :style="commonStyles.footer"/>
