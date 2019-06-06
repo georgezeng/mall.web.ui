@@ -93,6 +93,8 @@
                     </div>
                 </mt-loadmore>
             </div>
+            <div style="height: 60px;">
+            </div>
         </Content>
         <Footer :style="commonStyles.footer">
             <Button type="primary" size="large" long @click="goEdit(0)">新建收货地址</Button>
