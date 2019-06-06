@@ -20,7 +20,7 @@
         font-size: 11pt;
     }
 
-    @component mint-loadmore-bottom {
+    .mint-loadmore-bottom {
         span {
             display: inline-block;
             transition: .2s linear;

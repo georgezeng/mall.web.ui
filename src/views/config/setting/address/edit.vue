@@ -110,6 +110,7 @@
         created() {
             this.commonStyles.footer.padding = "20px"
             this.form.id = this.$router.currentRoute.params.id
+            this.form.id = this.form.id > 0 ? this.form.id : null
         },
         mounted() {
             this.load()
