@@ -53,7 +53,7 @@
         },
         methods: {
             resetUI() {
-                document.body.scrollTop = document.documentElement.scrollTop = 0;
+                document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             back() {
                 Util.go('MyAddressList')
