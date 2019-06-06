@@ -42,7 +42,7 @@
     }
 
     .wrapper {
-        margin-top: 20px;
+        margin-top: 80px;
         overflow: scroll;
     }
 
@@ -59,48 +59,50 @@
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
-            <mt-loadmore style="margin-top: 80px;" :bottom-method="load" @bottom-status-change="handleBottomChange"
-                         :bottom-all-loaded="allLoaded"
-                         ref="loadmore">
-                <swipeout>
-                    <swipeout-item v-for="(address, index) in list" transition-mode="follow">
-                        <div slot="content" class="item vux-1px-t">
-                            <table width="100%">
-                                <tr>
-                                    <td width="30" rowspan="2">
-                                        <check-icon class="checker"
-                                                    :value.sync="isDefault[index]"
-                                                    @click.native="checkAsDefault(address.id, index)"></check-icon>
-                                    </td>
-                                    <td class="wrap">
-                                        <span>{{address.name}}</span>
-                                        <span>*******{{address.phone.substring(7, 11)}}</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="wrap address">
-                                        {{address.province+address.city.replace('市辖区',
-                                        '')+address.district+address.location}}
-                                    </td>
-                                    <td width="30" rowspan="2" style="text-align: right;">
-                                        <Icon @click="goEdit(address.id)" size="30" type="ios-create-outline"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div slot="right-menu">
-                            <swipeout-button @click.native="remove(address.id)" type="warn">删除</swipeout-button>
-                        </div>
-                    </swipeout-item>
-                </swipeout>
-                <div slot="bottom" class="mint-loadmore-bottom" align="center">
+            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+                <mt-loadmore style="margin-top: 80px;" :bottom-method="load" @bottom-status-change="handleBottomChange"
+                             :bottom-all-loaded="allLoaded"
+                             ref="loadmore">
+                    <swipeout>
+                        <swipeout-item v-for="(address, index) in list" transition-mode="follow">
+                            <div slot="content" class="item vux-1px-t">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30" rowspan="2">
+                                            <check-icon class="checker"
+                                                        :value.sync="isDefault[index]"
+                                                        @click.native="checkAsDefault(address.id, index)"></check-icon>
+                                        </td>
+                                        <td class="wrap">
+                                            <span>{{address.name}}</span>
+                                            <span>*******{{address.phone.substring(7, 11)}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrap address">
+                                            {{address.province+address.city.replace('市辖区',
+                                            '')+address.district+address.location}}
+                                        </td>
+                                        <td width="30" rowspan="2" style="text-align: right;">
+                                            <Icon @click="goEdit(address.id)" size="30" type="ios-create-outline"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div slot="right-menu">
+                                <swipeout-button @click.native="remove(address.id)" type="warn">删除</swipeout-button>
+                            </div>
+                        </swipeout-item>
+                    </swipeout>
+                    <div slot="bottom" class="mint-loadmore-bottom" align="center">
                         <span v-show="bottomStatus !== 'loading'"
                               :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
-                    <span v-show="bottomStatus === 'loading'">
+                        <span v-show="bottomStatus === 'loading'">
                             <mt-spinner class="mint-spinner" type="snake"></mt-spinner>
                         </span>
-                </div>
-            </mt-loadmore>
+                    </div>
+                </mt-loadmore>
+            </div>
             <div style="height: 80px;">
             </div>
         </Content>
@@ -198,5 +200,8 @@
             this.footerStyle.padding = "20px"
             this.contentStyle.marginTop = "80px"
         },
+        mounted() {
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 160
+        }
     }
 </script>
