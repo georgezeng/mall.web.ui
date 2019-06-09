@@ -67,6 +67,8 @@
             <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
                 <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
+                             :auto-fill="false"
+                             style="margin-top: 80px;"
                              ref="loadmore">
                     <swipeout>
                         <swipeout-item v-for="(address, index) in list" transition-mode="follow">
