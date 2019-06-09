@@ -40,7 +40,6 @@
 
         .rotate {
             transform: rotate(180deg);
-            -webkit-transform-style: preserve-3d;
             -webkit-backface-visibility: hidden;
             -webkit-perspective: 1000;
         }
