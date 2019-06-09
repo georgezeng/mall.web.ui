@@ -62,9 +62,9 @@
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">收货地址</div>
         </Header>
-        <Content :style="commonStyles.content">
+        <Content :style="contentStyle">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
-            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
                 <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
                              ref="loadmore">
@@ -99,17 +99,8 @@
                             </div>
                         </swipeout-item>
                     </swipeout>
-                    <!--<div slot="bottom" class="mint-loadmore-bottom" align="center">-->
-                        <!--<span v-show="bottomStatus !== 'loading'"-->
-                              <!--:class="{ 'rotate': bottomStatus === 'drop' }">↑</span>-->
-                        <!--<span v-show="bottomStatus === 'loading'">-->
-                            <!--<mt-spinner class="mint-spinner" type="snake"></mt-spinner>-->
-                        <!--</span>-->
-                    <!--</div>-->
                 </mt-loadmore>
-            </div>
-            <div style="height: 80px;">
-            </div>
+            <!--</div>-->
         </Content>
         <Footer :style="footerStyle">
             <Button type="primary" size="large" long @click="goEdit(0)">新建收货地址</Button>
@@ -195,9 +186,10 @@
         created() {
             this.footerStyle.padding = "20px"
             this.contentStyle.marginTop = "80px"
+            this.contentStyle.marginBottom = "80px"
         },
         mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
         }
     }
 </script>
