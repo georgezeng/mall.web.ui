@@ -29,7 +29,7 @@
         font-size: 11pt;
     }
 
-    @component mint-loadmore-bottom {
+    .mint-loadmore-bottom {
         text-align: center;
 
         span {
@@ -38,8 +38,10 @@
             vertical-align: middle;
         }
 
-        @when .rotate {
+        .rotate {
             transform: rotate(180deg);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
         }
     }
 
@@ -97,13 +99,6 @@
                             </div>
                         </swipeout-item>
                     </swipeout>
-                    <div slot="bottom" class="mint-loadmore-bottom" align="center">
-                        <span v-show="bottomStatus !== 'loading'"
-                              :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
-                        <span v-show="bottomStatus === 'loading'">
-                            <mt-spinner class="mint-spinner" type="snake"></mt-spinner>
-                        </span>
-                    </div>
                 </mt-loadmore>
             </div>
             <div style="height: 80px;">
