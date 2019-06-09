@@ -64,11 +64,9 @@
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
-            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
+            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
                 <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
-                             :auto-fill="false"
-                             style="margin-top: 80px;"
                              ref="loadmore">
                     <swipeout>
                         <swipeout-item v-for="(address, index) in list" transition-mode="follow">
@@ -101,8 +99,15 @@
                             </div>
                         </swipeout-item>
                     </swipeout>
+                    <!--<div slot="bottom" class="mint-loadmore-bottom" align="center">-->
+                        <!--<span v-show="bottomStatus !== 'loading'"-->
+                              <!--:class="{ 'rotate': bottomStatus === 'drop' }">↑</span>-->
+                        <!--<span v-show="bottomStatus === 'loading'">-->
+                            <!--<mt-spinner class="mint-spinner" type="snake"></mt-spinner>-->
+                        <!--</span>-->
+                    <!--</div>-->
                 </mt-loadmore>
-            <!--</div>-->
+            </div>
             <div style="height: 80px;">
             </div>
         </Content>
@@ -192,7 +197,7 @@
             this.contentStyle.marginTop = "80px"
         },
         mounted() {
-            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
         }
     }
 </script>
