@@ -46,7 +46,6 @@
     }
 
     .wrapper {
-        margin-top: 80px;
         overflow: scroll;
         -webkit-overflow-scrolling: touch;
     }
@@ -64,7 +63,7 @@
         </Header>
         <Content :style="contentStyle">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
-            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
+            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
                 <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
                              :bottom-all-loaded="allLoaded"
                              ref="loadmore">
@@ -100,7 +99,7 @@
                         </swipeout-item>
                     </swipeout>
                 </mt-loadmore>
-            <!--</div>-->
+            </div>
         </Content>
         <Footer :style="footerStyle">
             <Button type="primary" size="large" long @click="goEdit(0)">新建收货地址</Button>
@@ -189,7 +188,7 @@
             this.contentStyle.marginBottom = "80px"
         },
         mounted() {
-            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
         }
     }
 </script>
