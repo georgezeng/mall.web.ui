@@ -47,6 +47,7 @@
     </Footer>
 </template>
 <script>
+    import Util from '../libs/util.js'
     export default {
         props: [
           'selection'
@@ -69,20 +70,16 @@
         },
         methods: {
             goHome() {
-                this.$router.push({
-                    name: 'Home',
-                })
+                Util.go('Home')
             },
             goCategory() {
-
+                Util.go('GoodsCategory')
             },
             goCart() {
 
             },
             goProfile() {
-                this.$router.push({
-                    name: 'MyCenter',
-                })
+                Util.go('MyCenter')
             }
         },
         mounted() {
