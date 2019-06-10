@@ -47,3 +47,8 @@ body {
     padding: 18px 15px !important;
     position: relative !important;
 }
+
+.wrapper {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}

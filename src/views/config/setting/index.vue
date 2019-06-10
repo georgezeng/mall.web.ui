@@ -8,7 +8,6 @@
         </Header>
         <Content :style="commonStyles.content">
             <div class="blockLine"></div>
-            <mt-cell title="标题文字" is-link value="带链接"></mt-cell>
             <group>
                 <cell class="optionalLine optionalCell" is-link title="账号安全" @click.native="goSecurity" />
                 <cell class="optionalLine optionalCell" is-link title="实名认证" @click.native="goIdentity" />

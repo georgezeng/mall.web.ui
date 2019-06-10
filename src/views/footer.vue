@@ -4,9 +4,13 @@
         cursor: pointer;
         width: 24%
     }
+
+    .footer {
+        box-shadow: 0 0px 3px -1px;
+    }
 </style>
 <template>
-    <Footer>
+    <Footer class="footer">
         <div align="center">
             <div @click="goHome" class="button">
                 <div>

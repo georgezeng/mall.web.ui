@@ -45,11 +45,6 @@
         }
     }
 
-    .wrapper {
-        overflow: scroll;
-        -webkit-overflow-scrolling: touch;
-    }
-
     .mint-spinner {
         display: inline-block;
         vertical-align: middle;

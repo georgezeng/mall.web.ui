@@ -54,6 +54,15 @@ const routers = [
         component: (resolve) => require(['../views/forget-password/step2.vue'], resolve)
     },
     {
+        path: '/Goods/Category',
+        name: 'GoodsCategory',
+        meta: {
+            title: '商品分类',
+            needLogin: false
+        },
+        component: (resolve) => require(['../views/goods/category.vue'], resolve)
+    },
+    {
         path: '/MyCenter',
         name: 'MyCenter',
         meta: {
