@@ -161,7 +161,7 @@
             this.contentStyle.marginTop = '64px'
             this.contentStyle.marginBottom = '80px'
             this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
-            this.contentStyle.height = this.wrapperHeight + "px"
+            this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.load()
         }
     }
