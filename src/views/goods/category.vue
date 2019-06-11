@@ -4,7 +4,7 @@
         background-color: #F5F5F5;
         text-align: center;
         position: fixed;
-        top: 60px;
+        top: 64px;
         z-index: 100;
     }
 
