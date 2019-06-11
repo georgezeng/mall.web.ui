@@ -5,6 +5,7 @@
         text-align: center;
         position: fixed;
         top: 60px;
+        z-index: 100;
     }
 
     .firstCategory {
