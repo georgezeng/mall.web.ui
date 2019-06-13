@@ -15,7 +15,7 @@
                 </p>
                 <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="0">
                     <FormItem prop="nickname">
-                        <Input size="large" v-model="nicknameModal.value"/>
+                        <Input clearable size="large" v-model="nicknameModal.value"/>
                     </FormItem>
                 </Form>
                 <div slot="footer">

@@ -4,10 +4,10 @@
     <div style="border: none; padding: 20px;">
         <Form ref="form" :model="form" :rules="rules" :label-width="0">
             <FormItem prop="username">
-                <Input size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
+                <Input clearable size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
             </FormItem>
             <FormItem prop="password">
-                <Input size="large" v-model="form.password" @on-search="sendCode" search
+                <Input clearable size="large" v-model="form.password" @on-search="sendCode" search
                        :enter-button="codeBtnText"
                        placeholder="输入验证码"></Input>
             </FormItem>

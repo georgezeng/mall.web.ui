@@ -15,18 +15,18 @@
                 </p>
                 <Form ref="passwordForm" :model="passwordModal.form" :rules="passwordModal.rules" :label-width="80">
                     <FormItem v-if="passwordModal.toEdit" label="旧密码" prop="oldPassword">
-                        <Input size="large" type="password" v-model="passwordModal.form.oldPassword"></Input>
+                        <Input clearable size="large" type="password" v-model="passwordModal.form.oldPassword"></Input>
                     </FormItem>
                     <FormItem v-else label="验证码" prop="verifyCode">
-                        <Input size="large" v-model="passwordModal.form.verifyCode" @on-search="sendCode" search
+                        <Input clearable size="large" v-model="passwordModal.form.verifyCode" @on-search="sendCode" search
                                :enter-button="passwordModal.codeBtnText"
                                placeholder="输入验证码"></Input>
                     </FormItem>
                     <FormItem label="新密码" prop="password">
-                        <Input size="large" type="password" v-model="passwordModal.form.password"></Input>
+                        <Input clearable size="large" type="password" v-model="passwordModal.form.password"></Input>
                     </FormItem>
                     <FormItem label="确认密码" prop="confirmPassword">
-                        <Input size="large" type="password" v-model="passwordModal.form.confirmPassword"></Input>
+                        <Input clearable size="large" type="password" v-model="passwordModal.form.confirmPassword"></Input>
                     </FormItem>
                 </Form>
                 <div slot="footer">

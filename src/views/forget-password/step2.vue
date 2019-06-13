@@ -7,10 +7,10 @@
         <Content :style="commonStyles.content">
             <Form ref="form" style="margin-top: 100px; padding: 20px;" :model="form" :rules="rules" :label-width="75">
                 <FormItem label="新密码" prop="password">
-                    <Input size="large" type="password" v-model="form.password"></Input>
+                    <Input clearable size="large" type="password" v-model="form.password"></Input>
                 </FormItem>
                 <FormItem label="确认密码" prop="confirmPassword">
-                    <Input size="large" type="password" v-model="form.confirmPassword"></Input>
+                    <Input clearable size="large" type="password" v-model="form.confirmPassword"></Input>
                 </FormItem>
                 <Button size="large" :loading="loading" long type="warning" @click="reset">重置</Button>
             </Form>

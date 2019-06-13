@@ -13,7 +13,7 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.header">
-            <Input search placeholder="搜索商品"/>
+            <Input size="large" clearable search placeholder="搜索商品"/>
         </Header>
         <Content :style="{padding: '64px 0 0 0', backgroundColor: '#fff'}">
             <Carousel autoplay loop>

@@ -59,7 +59,7 @@
         <Content :style="contentStyle">
             <div class="blockLine" style="z-index: 100; position: fixed; top: 60px;"></div>
             <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-                <mt-loadmore :bottom-method="load" @bottom-status-change="handleBottomChange"
+                <mt-loadmore :bottom-method="load"
                              :bottom-all-loaded="allLoaded"
                              ref="loadmore">
                     <!--
@@ -147,7 +147,6 @@
                     ...commonStyles.content
                 },
                 isDefault: [],
-                bottomStatus: '',
                 allLoaded: false,
                 wrapperHeight: 0,
                 list: [],
@@ -161,9 +160,6 @@
         },
         computed: {},
         methods: {
-            handleBottomChange(status) {
-                this.bottomStatus = status
-            },
             back() {
                 Util.go('MySetting')
             },

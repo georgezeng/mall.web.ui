@@ -1,0 +1,235 @@
+<style scoped lang="less">
+    .searchInput {
+        position: relative;
+        top: -5px;
+        right: -10px;
+    }
+
+    .orderTab {
+        position: relative;
+        margin: 10px 40px;
+        font-size: 12pt;
+        color: #5C6677;
+    }
+
+    .selected {
+        color: orangered;
+    }
+
+    .orderUpBtn {
+        left: 30px;
+        position: absolute;
+        top: -2px;
+    }
+
+    .orderDownBtn {
+        left: 30px;
+        position: absolute;
+        top: 5px;
+    }
+
+    .backArrow {
+        left: 10px;
+        position: absolute;
+        top: 20px;
+        color: #5C6677;
+    }
+
+    .item {
+        background-color: #fff;
+        margin-bottom: 8px;
+        margin-right: 8px;
+        display: inline-block;
+        .name {
+            font-size: 11pt;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+        .marketPrice {
+            display: inline-block;
+            font-size: 11pt;
+            color: #c5c8ce;
+            text-decoration: line-through;
+        }
+        .realPrice {
+            display: inline-block;
+            font-size: 12pt;
+            color: orangered;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .stat {
+        color: gray;
+        font-size: 10pt;
+        margin: 0 10px 10px;
+    }
+</style>
+<template>
+    <Layout :style="commonStyles.layout">
+        <Header :style="headerStyle">
+            <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
+            <Input size="large" class="searchInput" clearable :style="{width: searchInputWidth + 'px'}" search
+                   placeholder="搜索商品"/>
+            <div style="position: relative; top: -25px;">
+                <span class="orderTab" :class="{selected: isSelected.default}" @click="orderBy('default', true)">默认</span>
+                <span class="orderTab" @click="orderBy('putTime', true)">
+                    <span :class="{selected: isSelected.putTime[0]}">时间</span>
+                    <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.putTime[1]}"
+                          type="md-arrow-dropup"/>
+                    <Icon size="15" class="orderDownBtn" :class="{selected: isSelected.putTime[2]}"
+                          type="md-arrow-dropdown"/>
+                </span>
+                <span class="orderTab" @click="orderBy('realPrice', true)">
+                    <span :class="{selected: isSelected.realPrice[0]}">价格</span>
+                    <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.realPrice[1]}"
+                          type="md-arrow-dropup"/>
+                    <Icon size="15" class="orderDownBtn" :class="{selected: isSelected.realPrice[2]}"
+                          type="md-arrow-dropdown"/>
+                </span>
+            </div>
+        </Header>
+        <Content ref="wrapper" class="wrapper" :style="contentStyle">
+            <mt-loadmore :bottom-method="load"
+                         :bottom-all-loaded="allLoaded"
+                         ref="loadmore">
+                <div ref="grid" style="padding-left: 8px;">
+                    <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}">
+                        <div align="center">
+                            <img :src="config.publicBucketDomain + item.thumbnail"
+                                 width="168" height="168"/>
+                        </div>
+                        <div class="name">{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
+                        </div>
+                        <div class="realPrice">￥{{item.realPrice}}</div>
+                        <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
+                        <div class="stat">
+                            <span>{{item.orderNums}}人已购买, </span>
+                            <span>好评率: {{item.goodPointsRate}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </mt-loadmore>
+        </Content>
+    </Layout>
+</template>
+<script>
+    import API from '../../api/goods-list.js'
+    import config from '../../config/index.js'
+    import Util from '../../libs/util.js'
+    import {Message} from 'iview'
+    import commonStyles from '../../styles/common.js'
+    import Masonry from 'masonry-layout'
+
+    export default {
+        components: {},
+        data() {
+            return {
+                config,
+                commonStyles,
+                headerStyle: {
+                    ...commonStyles.header
+                },
+                contentStyle: {
+                    ...commonStyles.content
+                },
+                categoryId: null,
+                wrapperHeight: 0,
+                searchInputWidth: 0,
+                isSelected: {
+                    default: false,
+                    putTime: [false, false, false],
+                    realPrice: [false, false, false]
+                },
+                searchType: null,
+                allLoaded: false,
+                itemWidth: 160,
+                pageInfo: {
+                    num: 1,
+                    size: 10,
+                    order: 'DESC'
+                },
+                list: []
+            }
+        },
+        computed: {},
+        methods: {
+            back() {
+                window.history.back()
+            },
+            load() {
+                if (this.categoryId) {
+                    API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
+                        if (data && data.length > 0) {
+                            this.pageInfo.num++
+                            this.list = data
+                            setTimeout(() => {
+                                new Masonry(this.$refs.grid, {});
+                            }, 100)
+                        }
+                    })
+                }
+            },
+            orderBy(searchType, load) {
+                this.searchType = searchType
+                switch (searchType) {
+                    case 'default': {
+                        this.isSelected.default = true
+                        this.isSelected.putTime = [false, false, false]
+                        this.isSelected.realPrice = [false, false, false]
+                        this.pageInfo.order = 'DESC'
+                    }
+                        break;
+                    case 'putTime': {
+                        this.isSelected.default = false
+                        this.isSelected.realPrice = [false, false, false]
+                        this.isSelected.putTime[0] = true
+                        if (!this.isSelected.putTime[1] && this.isSelected.putTime[2]) {
+                            this.isSelected.putTime[1] = true;
+                            this.isSelected.putTime[2] = false;
+                            this.pageInfo.order = 'ASC'
+                        } else {
+                            this.isSelected.putTime[1] = false;
+                            this.isSelected.putTime[2] = true;
+                            this.pageInfo.order = 'DESC'
+                        }
+                    }
+                        break;
+                    case 'realPrice': {
+                        this.isSelected.default = false
+                        this.isSelected.putTime = [false, false, false]
+                        this.isSelected.realPrice[0] = true
+                        if (!this.isSelected.realPrice[1] && this.isSelected.realPrice[2]) {
+                            this.isSelected.realPrice[1] = true;
+                            this.isSelected.realPrice[2] = false;
+                            this.pageInfo.order = 'ASC'
+                        } else {
+                            this.isSelected.realPrice[1] = false;
+                            this.isSelected.realPrice[2] = true;
+                            this.pageInfo.order = 'DESC'
+                        }
+                    }
+                        break;
+                }
+                if (load) {
+                    this.pageInfo.num = 1
+                    this.load()
+                }
+            }
+        },
+        mounted() {
+            this.contentStyle.marginTop = '100px'
+            this.headerStyle.height = '90px'
+            this.headerStyle.backgroundColor = '#fff'
+            this.contentStyle.backgroundColor = '#F5F5F5'
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.$el.getBoundingClientRect().top
+            this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
+            this.itemWidth = (document.documentElement.clientWidth - 24) / 2
+            this.contentStyle.height = this.wrapperHeight + "px"
+            this.categoryId = this.$router.currentRoute.params.id
+            this.categoryId = this.categoryId > 0 ? this.categoryId : null
+            this.orderBy('default')
+        }
+    }
+</script>

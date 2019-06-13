@@ -6,7 +6,7 @@
     }
 
     .footer {
-        box-shadow: 0 0px 3px -1px;
+        box-shadow: 0px 0px 3px -1px gray;
     }
 </style>
 <template>
@@ -45,9 +45,9 @@
                 </div>
             </div>
         </div>
-        <div align="center">
-            <a href="http://www.beian.miit.gov.cn">粤ICP备17125109号</a>
-        </div>
+        <!--<div align="center">-->
+            <!--<a href="http://www.beian.miit.gov.cn">粤ICP备17125109号</a>-->
+        <!--</div>-->
     </Footer>
 </template>
 <script>

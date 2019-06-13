@@ -67,8 +67,8 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header :style="commonStyles.header">
-            <Input search placeholder="搜索商品"/>
+        <Header :style="headerStyle">
+            <Input size="large" clearable search placeholder="搜索商品"/>
         </Header>
         <Content :style="contentStyle">
             <div class="wrapper leftPanel" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -100,7 +100,7 @@
                 </div>
                 <div v-for="item in level2Categories">
                     <div class="secondCategory">{{item.name}}</div>
-                    <div v-for="third in item.attrs" align="center" class="thirdCategory">
+                    <div v-for="third in item.attrs" align="center" class="thirdCategory" @click="goGoodsList(third.id)">
                         <img :src="img(third.icon)" width="64" height="64" />
                         <div style="margin-top: 5px; font-size: 10pt;">{{third.name}}</div>
                     </div>
@@ -128,6 +128,9 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
+                headerStyle: {
+                    ...commonStyles.header
+                },
                 isSelect: [],
                 wrapperHeight: 0,
                 level1Categories: [],
@@ -136,8 +139,13 @@
         },
         computed: {},
         methods: {
+            goGoodsList(id) {
+                Util.go('GoodsList', {
+                    id
+                })
+            },
             img(url) {
-                return config.publicBucketDomain + "/" + url
+                return config.publicBucketDomain + url
             },
             load() {
                 API.level1().then(data => {
@@ -160,8 +168,10 @@
         },
         mounted() {
             this.contentStyle.marginTop = '64px'
-            this.contentStyle.marginBottom = '80px'
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            this.contentStyle.marginBottom = '60px'
+            this.headerStyle.backgroundColor = '#fff'
+            this.headerStyle.boxShadow = '0px 0px 3px -1px gray'
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 60
             this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.load()
         }

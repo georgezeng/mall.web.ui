@@ -12,7 +12,6 @@ import { Cell } from 'vux'
 import { CellBox } from 'vux'
 import { Datetime } from 'vux'
 import { XInput } from 'vux'
-import { Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
 import { Checker, CheckerItem } from 'vux'
 import { CheckIcon } from 'vux'
 import { XAddress } from 'vux'
@@ -23,9 +22,6 @@ Vue.component('x-address', XAddress)
 Vue.component('check-icon', CheckIcon)
 Vue.component('checker', Checker)
 Vue.component('checker-item', CheckerItem)
-Vue.component('swipeout', Swipeout)
-Vue.component('swipeout-item', SwipeoutItem)
-Vue.component('swipeout-button', SwipeoutButton)
 Vue.component('x-input', XInput)
 Vue.component('datetime', Datetime)
 Vue.component('popup-picker', PopupPicker)
