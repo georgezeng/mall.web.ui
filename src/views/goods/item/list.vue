@@ -92,6 +92,7 @@
             </div>
         </Header>
         <Content ref="wrapper" class="wrapper" :style="contentStyle">
+            <Spin size="large" fix v-if="show"></Spin>
             <mt-loadmore :bottom-method="load"
                          :bottom-all-loaded="allLoaded"
                          ref="loadmore">
@@ -153,7 +154,7 @@
                     order: 'DESC'
                 },
                 list: [],
-                init: false,
+                show: true,
             }
         },
         computed: {},
@@ -175,17 +176,13 @@
             },
             load() {
                 if (this.categoryId) {
-                    if (!this.init) {
-                        this.$Spin.show()
-                    }
                     API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
                         if (data && data.length > 0) {
                             this.pageInfo.num++
                             this.list = data
                             setTimeout(() => {
                                 new Masonry(this.$refs.grid, {});
-                                this.init = true
-                                this.$Spin.hide()
+                                this.show = false
                             }, 100)
                         }
                     })
@@ -234,7 +231,7 @@
                 }
                 if (load) {
                     this.pageInfo.num = 1
-                    this.$Spin.show()
+                    this.show = true
                     this.load()
                 }
             }
