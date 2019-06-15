@@ -91,29 +91,31 @@
                 </span>
             </div>
         </Header>
-        <Content ref="wrapper" class="wrapper" :style="contentStyle">
+        <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
-            <mt-loadmore :bottom-method="load"
-                         :bottom-all-loaded="allLoaded"
-                         ref="loadmore">
-                <div ref="grid" style="padding-left: 8px;">
-                    <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
-                         @click="goDetail(item.id)">
-                        <div align="center">
-                            <img :src="config.publicBucketDomain + item.thumbnail"
-                                 width="168" height="168"/>
-                        </div>
-                        <div class="name">{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
-                        </div>
-                        <div class="realPrice">￥{{priceRange(item)}}</div>
-                        <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
-                        <div class="stat">
-                            <span>{{item.orderNums}}人已购买, </span>
-                            <span>好评率: {{item.goodPointsRate}}%</span>
+            <div ref="wrapper" class="wrapper" :style="{height: wrapperHeight + 'px'}">
+                <mt-loadmore :bottom-method="load"
+                             :bottom-all-loaded="allLoaded"
+                             ref="loadmore">
+                    <div ref="grid" style="padding-left: 8px;">
+                        <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
+                             @click="goDetail(item.id)">
+                            <div align="center">
+                                <img :src="config.publicBucketDomain + item.thumbnail"
+                                     width="168" height="168"/>
+                            </div>
+                            <div class="name">{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
+                            </div>
+                            <div class="realPrice">￥{{priceRange(item)}}</div>
+                            <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
+                            <div class="stat">
+                                <span>{{item.orderNums}}人已购买, </span>
+                                <span>好评率: {{item.goodPointsRate}}%</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </mt-loadmore>
+                </mt-loadmore>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -246,10 +248,10 @@
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.$el.getBoundingClientRect().top
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
-            this.contentStyle.height = this.wrapperHeight + "px"
+            this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : null
             this.orderBy('default')
