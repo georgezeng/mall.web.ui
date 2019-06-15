@@ -45,7 +45,6 @@ const footer = {
     backgroundColor: '#fff',
     position: 'fixed',
     zIndex: 1000,
-    width: '100%',
     padding: '5px 0',
     bottom: '0px'
 }

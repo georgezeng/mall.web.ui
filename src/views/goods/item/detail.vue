@@ -81,6 +81,16 @@
         width: 50%;
     }
 
+    .confirmBtn {
+        background: linear-gradient(to right, #E55138, #E66C36);
+        padding: 10px 0;
+        display: inline-block;
+        color: #fff;
+        text-align: center;
+        margin: 0px;
+        width: 100%;
+    }
+
     .buyBtn {
         background: linear-gradient(to right, #E55138, #E66C36);
         padding: 10px 0;
@@ -123,6 +133,34 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle">
+            <div v-transfer-dom>
+                <popup v-model="show" style="background-color: #fff;">
+                    <div class="popup" :style="{height: popupHeight + 'px'}">
+                        <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
+                        <img style="vertical-align: bottom;" :src="config.publicBucketDomain + item.thumbnail" width="80"
+                             height="80"/>
+                        <div style="display: inline-block; margin-left: 10px;">
+                            <div class="price">￥{{popupPriceRange}}</div>
+                            <div class="inventory">库存{{property.inventory}}件</div>
+                        </div>
+                        <div style="margin: 10px;" v-for="(definition, index) in definitions">
+                            <div class="definition">{{definition.name}}</div>
+                            <div>
+                            <span @click="toggleValue(definition, value)"
+                                  :class="{selected: value.checked}"
+                                  class="value"
+                                  v-for="value in definition.values">{{value.name}}</span>
+                            </div>
+                        </div>
+                        <group>
+                            <x-number title="数量" v-model="nums" :min="0"></x-number>
+                        </group>
+                        <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
+                            <div class="confirmBtn" @click="confirmSpec">确定</div>
+                        </div>
+                    </div>
+                </popup>
+            </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <mt-swipe :auto="0" style="height: 375px;">
                 <mt-swipe-item v-for="photo in item.photos">
@@ -166,38 +204,12 @@
             </div>
             <div class="blockLine"></div>
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
-            <div v-html="item.content"></div>
+            <div v-html="item.content" style="margin-bottom: 40px;"></div>
         </Content>
-
-        <div v-transfer-dom>
-            <popup v-model="show" style="background-color: #fff;">
-                <div class="popup" :style="{height: popupHeight + 'px'}">
-                    <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
-                    <img style="vertical-align: bottom;" :src="config.publicBucketDomain + item.thumbnail" width="80"
-                         height="80"/>
-                    <div style="display: inline-block; margin-left: 10px;">
-                        <div class="price">￥{{popupPriceRange}}</div>
-                        <div class="inventory">库存{{property.inventory}}件</div>
-                    </div>
-                    <div style="margin: 10px;" v-for="(definition, index) in definitions">
-                        <div class="definition">{{definition.name}}</div>
-                        <div>
-                            <span @click="toggleValue(definition, value)"
-                                  :class="{selected: value.checked}"
-                                  class="value"
-                                  v-for="value in definition.values">{{value.name}}</span>
-                        </div>
-                    </div>
-                    <group>
-                        <x-number title="数量" v-model="nums" :min="0"></x-number>
-                    </group>
-                    <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
-                        <div class="addToCartBtn" @click="addToCart">加入购物车</div>
-                        <div class="buyBtn" @click="buy">立即购买</div>
-                    </div>
-                </div>
-            </popup>
-        </div>
+        <Footer style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
+            <div class="addToCartBtn" @click="addToCart">加入购物车</div>
+            <div class="buyBtn" @click="buy">立即购买</div>
+        </Footer>
     </Layout>
 </template>
 <script>
@@ -245,6 +257,8 @@
                         remark: null
                     }
                 },
+                tempValues: [],
+                tempProperty: null,
                 definitionIds: [],
                 definitions: [],
                 show: false,
@@ -311,13 +325,13 @@
             },
             addToCart() {
                 if (!this.property || !this.property.id) {
-                    Message.error('请先选择完整规格')
+                    this.showPopup()
                     return
                 }
             },
             buy() {
                 if (!this.property || !this.property.id) {
-                    Message.error('请先选择完整规格')
+                    this.showPopup()
                     return
                 }
             },
@@ -333,8 +347,8 @@
                 if (value.checked) {
                     definition.selected = value
                 } else {
-                    this.property = this.totalProperty
-                    this.values = []
+                    this.tempValues = []
+                    this.tempProperty = this.totalProperty
                 }
 
                 const values = []
@@ -364,11 +378,24 @@
                     }
                 }
                 if (found) {
-                    this.values = values
-                    this.property = property
+                    this.tempValues = values
+                    this.tempProperty = property
                 }
 
                 this.refreshPopup()
+            },
+            confirmSpec() {
+                if(this.tempValues.length == 0) {
+                    Message.error('请先选择规格');
+                    return
+                }
+                if(this.nums == 0) {
+                    Message.error('请先选择数量');
+                    return
+                }
+                this.values = this.tempValues
+                this.property = this.tempProperty
+                this.closePopup()
             },
             refreshPopup() {
                 // 强制刷新
