@@ -258,7 +258,6 @@
                     }
                 },
                 tempValues: [],
-                tempProperty: null,
                 definitionIds: [],
                 definitions: [],
                 show: false,
@@ -324,13 +323,13 @@
                 Window.history.back()
             },
             addToCart() {
-                if (!this.property || !this.property.id) {
+                if (this.values.length == 0) {
                     this.showPopup()
                     return
                 }
             },
             buy() {
-                if (!this.property || !this.property.id) {
+                if (this.values.length == 0) {
                     this.showPopup()
                     return
                 }
@@ -348,7 +347,7 @@
                     definition.selected = value
                 } else {
                     this.tempValues = []
-                    this.tempProperty = this.totalProperty
+                    this.property = this.totalProperty
                 }
 
                 const values = []
@@ -379,7 +378,7 @@
                 }
                 if (found) {
                     this.tempValues = values
-                    this.tempProperty = property
+                    this.property = property
                 }
 
                 this.refreshPopup()
@@ -394,7 +393,7 @@
                     return
                 }
                 this.values = this.tempValues
-                this.property = this.tempProperty
+                this.tempValues = []
                 this.closePopup()
             },
             refreshPopup() {
