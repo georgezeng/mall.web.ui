@@ -206,7 +206,7 @@
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
             <div v-html="item.content" style="margin-bottom: 40px;"></div>
         </Content>
-        <Footer style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
+        <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">加入购物车</div>
             <div class="buyBtn" @click="buy">立即购买</div>
         </Footer>
