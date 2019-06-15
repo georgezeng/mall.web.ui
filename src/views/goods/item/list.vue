@@ -73,7 +73,8 @@
             <Input size="large" class="searchInput" clearable :style="{width: searchInputWidth + 'px'}" search
                    placeholder="搜索商品"/>
             <div style="position: relative; top: -25px;">
-                <span class="orderTab" :class="{selected: isSelected.default}" @click="orderBy('default', true)">默认</span>
+                <span class="orderTab" :class="{selected: isSelected.default}"
+                      @click="orderBy('default', true)">默认</span>
                 <span class="orderTab" @click="orderBy('putTime', true)">
                     <span :class="{selected: isSelected.putTime[0]}">时间</span>
                     <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.putTime[1]}"
@@ -95,7 +96,8 @@
                          :bottom-all-loaded="allLoaded"
                          ref="loadmore">
                 <div ref="grid" style="padding-left: 8px;">
-                    <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}" @click="goDetail(item.id)">
+                    <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
+                         @click="goDetail(item.id)">
                         <div align="center">
                             <img :src="config.publicBucketDomain + item.thumbnail"
                                  width="168" height="168"/>
@@ -150,7 +152,8 @@
                     size: 10,
                     order: 'DESC'
                 },
-                list: []
+                list: [],
+                init: false,
             }
         },
         computed: {},
@@ -172,12 +175,16 @@
             },
             load() {
                 if (this.categoryId) {
+                    if (!this.init) {
+                        this.$Spin.show()
+                    }
                     API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
                         if (data && data.length > 0) {
                             this.pageInfo.num++
                             this.list = data
                             setTimeout(() => {
                                 new Masonry(this.$refs.grid, {});
+                                this.init = true
                                 this.$Spin.hide()
                             }, 100)
                         }
@@ -225,14 +232,14 @@
                     }
                         break;
                 }
-                this.$Spin.show()
                 if (load) {
                     this.pageInfo.num = 1
+                    this.$Spin.show()
                     this.load()
                 }
             }
         },
-        mounted() {
+        mounted() {Message.error(window.location.href)
             this.contentStyle.marginTop = '100px'
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'

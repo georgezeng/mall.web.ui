@@ -113,6 +113,12 @@
     .avatar {
         margin-left: 10px;
     }
+
+    .sellingPoints {
+        margin-left: 12px;
+        font-size: 11pt;
+        color: #A8A8A8;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -130,9 +136,10 @@
                 <span class="marketPrice">￥{{item.marketPrice}}</span>
             </div>
             <div class="name">{{item.name}}</div>
+            <div class="sellingPoints">{{sellingPoints}}</div>
             <div class="blockLine"></div>
             <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择规格">
-                <div slot="title" class="specification_title" v-if="values.length > 0">
+                <div slot="title" class="specification_title" :class="{hidden: values.length == 0}">
                     <span style="color: gray;">已选</span>
                     <span>{{pickupTitle}}</span>
                 </div>
@@ -226,6 +233,7 @@
                     enabled: true,
                     thumbnail: null,
                     content: null,
+                    sellingPoints: null,
                     minPrice: 0,
                     maxPrice: 0,
                     marketPrice: 0,
@@ -244,6 +252,13 @@
             }
         },
         computed: {
+            sellingPoints() {
+                let sp = this.item.sellingPoints
+                if (sp) {
+                    sp = '"' + sp + '"'
+                }
+                return sp ? sp : ''
+            },
             remark() {
                 let remark = this.item.topEvaluation.remark
                 if (remark && remark.length > 45) {
