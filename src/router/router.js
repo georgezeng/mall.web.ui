@@ -63,13 +63,22 @@ const routers = [
         component: (resolve) => require(['../views/goods/category.vue'], resolve)
     },
     {
-        path: '/Goods/List/:id',
-        name: 'GoodsList',
+        path: '/Goods/Item/List/:id',
+        name: 'GoodsItemList',
         meta: {
             title: '商品列表',
             needLogin: false
         },
-        component: (resolve) => require(['../views/goods/list.vue'], resolve)
+        component: (resolve) => require(['../views/goods/item/list.vue'], resolve)
+    },
+    {
+        path: '/Goods/Item/Detail/:id',
+        name: 'GoodsItemDetail',
+        meta: {
+            title: '商品详情',
+            needLogin: false
+        },
+        component: (resolve) => require(['../views/goods/item/detail.vue'], resolve)
     },
     {
         path: '/MyCenter',

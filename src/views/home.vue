@@ -1,4 +1,4 @@
-<style>
+<style scoped lang="less">
     .demo-carousel {
         height: 150px;
         width: 100%;
@@ -15,21 +15,18 @@
         <Header :style="commonStyles.header">
             <Input size="large" clearable search placeholder="搜索商品"/>
         </Header>
-        <Content :style="{padding: '64px 0 0 0', backgroundColor: '#fff'}">
-            <Carousel autoplay loop>
-                <CarouselItem>
+        <Content :style="contentStyle">
+            <mt-swipe :auto="4000" style="height: 300px; background-color: #556B9A;">
+                <mt-swipe-item>
                     <div class="demo-carousel">1</div>
-                </CarouselItem>
-                <CarouselItem>
+                </mt-swipe-item>
+                <mt-swipe-item>
                     <div class="demo-carousel">2</div>
-                </CarouselItem>
-                <CarouselItem>
+                </mt-swipe-item>
+                <mt-swipe-item>
                     <div class="demo-carousel">3</div>
-                </CarouselItem>
-                <CarouselItem>
-                    <div class="demo-carousel">4</div>
-                </CarouselItem>
-            </Carousel>
+                </mt-swipe-item>
+            </mt-swipe>
         </Content>
         <Footer selection="home" :style="commonStyles.footer" />
     </Layout>
@@ -44,10 +41,17 @@
         },
         data() {
             return {
-                commonStyles
+                commonStyles,
+                contentStyle: {
+                    ...commonStyles.content
+                },
             }
         },
         methods: {
+        },
+        created() {
+            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
+            this.contentStyle.marginTop = '64px'
         }
     }
 </script>

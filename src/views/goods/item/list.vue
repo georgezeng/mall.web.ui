@@ -81,7 +81,7 @@
                     <Icon size="15" class="orderDownBtn" :class="{selected: isSelected.putTime[2]}"
                           type="md-arrow-dropdown"/>
                 </span>
-                <span class="orderTab" @click="orderBy('realPrice', true)">
+                <span class="orderTab" @click="orderBy('price', true)">
                     <span :class="{selected: isSelected.realPrice[0]}">价格</span>
                     <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.realPrice[1]}"
                           type="md-arrow-dropup"/>
@@ -95,14 +95,14 @@
                          :bottom-all-loaded="allLoaded"
                          ref="loadmore">
                 <div ref="grid" style="padding-left: 8px;">
-                    <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}">
+                    <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}" @click="goDetail(item.id)">
                         <div align="center">
                             <img :src="config.publicBucketDomain + item.thumbnail"
                                  width="168" height="168"/>
                         </div>
                         <div class="name">{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
                         </div>
-                        <div class="realPrice">￥{{item.realPrice}}</div>
+                        <div class="realPrice">￥{{priceRange(item)}}</div>
                         <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
                         <div class="stat">
                             <span>{{item.orderNums}}人已购买, </span>
@@ -115,11 +115,11 @@
     </Layout>
 </template>
 <script>
-    import API from '../../api/goods-list.js'
-    import config from '../../config/index.js'
-    import Util from '../../libs/util.js'
+    import API from '../../../api/goods-item-list.js'
+    import config from '../../../config/index.js'
+    import Util from '../../../libs/util.js'
     import {Message} from 'iview'
-    import commonStyles from '../../styles/common.js'
+    import commonStyles from '../../../styles/common.js'
     import Masonry from 'masonry-layout'
 
     export default {
@@ -155,8 +155,20 @@
         },
         computed: {},
         methods: {
+            priceRange(item) {
+                if (item.minPrice == item.maxPrice) {
+                    return item.minPrice
+                } else {
+                    return item.minPrice + ' - ' + item.maxPrice
+                }
+            },
+            goDetail(id) {
+                Util.go('GoodsItemDetail', {
+                    id
+                })
+            },
             back() {
-                window.history.back()
+                Util.go('GoodsCategory')
             },
             load() {
                 if (this.categoryId) {
@@ -166,6 +178,7 @@
                             this.list = data
                             setTimeout(() => {
                                 new Masonry(this.$refs.grid, {});
+                                this.$Spin.hide()
                             }, 100)
                         }
                     })
@@ -196,7 +209,7 @@
                         }
                     }
                         break;
-                    case 'realPrice': {
+                    case 'price': {
                         this.isSelected.default = false
                         this.isSelected.putTime = [false, false, false]
                         this.isSelected.realPrice[0] = true
@@ -214,6 +227,7 @@
                 }
                 if (load) {
                     this.pageInfo.num = 1
+                    this.$Spin.show()
                     this.load()
                 }
             }

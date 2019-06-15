@@ -58,7 +58,7 @@
     }
 
     .thirdCategory {
-        width: 27%;
+        width: 25%;
         margin: 0 10px;
         margin-bottom: 20px;
         display: inline-block;
@@ -78,20 +78,17 @@
                 </div>
             </div>
             <div style="margin-left: 80px;">
-                <Carousel autoplay loop style="margin:10px;">
-                    <CarouselItem>
+                <mt-swipe :auto="4000" style="height: 150px; background-color: #556B9A;">
+                    <mt-swipe-item>
                         <div class="demo-carousel">1</div>
-                    </CarouselItem>
-                    <CarouselItem>
+                    </mt-swipe-item>
+                    <mt-swipe-item>
                         <div class="demo-carousel">2</div>
-                    </CarouselItem>
-                    <CarouselItem>
+                    </mt-swipe-item>
+                    <mt-swipe-item>
                         <div class="demo-carousel">3</div>
-                    </CarouselItem>
-                    <CarouselItem>
-                        <div class="demo-carousel">4</div>
-                    </CarouselItem>
-                </Carousel>
+                    </mt-swipe-item>
+                </mt-swipe>
                 <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
                 <div align="center">
                     <div class="demo-carousel2">1</div>
@@ -140,7 +137,7 @@
         computed: {},
         methods: {
             goGoodsList(id) {
-                Util.go('GoodsList', {
+                Util.go('GoodsItemList', {
                     id
                 })
             },

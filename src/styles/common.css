@@ -52,3 +52,26 @@ body {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
 }
+
+.hidden {
+    display: none;
+}
+
+.vux-number-selector-plus svg {
+    position: relative;
+    top: -10px;
+}
+
+
+.vux-number-selector-sub svg {
+    position: relative;
+    top: -8px;
+}
+
+a.vux-number-selector {
+    padding: 15px 10px;
+}
+
+input.vux-number-input {
+    padding: 15px 10px;
+}

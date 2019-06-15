@@ -16,7 +16,13 @@ import { Checker, CheckerItem } from 'vux'
 import { CheckIcon } from 'vux'
 import { XAddress } from 'vux'
 import { XTextarea } from 'vux'
+import { Popup } from 'vux'
+import { TransferDom } from 'vux'
+import { XNumber } from 'vux'
 
+Vue.component('x-number', XNumber)
+Vue.directive('transfer-dom', TransferDom)
+Vue.component('popup', Popup)
 Vue.component('x-textarea', XTextarea)
 Vue.component('x-address', XAddress)
 Vue.component('check-icon', CheckIcon)
