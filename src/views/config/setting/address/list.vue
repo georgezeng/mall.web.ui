@@ -197,14 +197,16 @@
                     } else {
                         this.allLoaded = true;
                     }
-                    this.$refs.loadmore.onBottomLoaded()
+                    setTimeout(() => {
+                        this.$refs.loadmore.onBottomLoaded()
+                    }, 100)
                 })
             },
             swipeButtons(id) {
                 return [
                     {
                         content: '删除',
-                        style: { background: 'red', color: '#fff' },
+                        style: {background: 'red', color: '#fff'},
                         handler: () => this.remove(id)
                     }
                 ]

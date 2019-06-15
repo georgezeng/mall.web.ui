@@ -184,7 +184,12 @@
                                 new Masonry(this.$refs.grid, {});
                                 this.show = false
                             }, 100)
+                        } else {
+                            this.allLoaded = true;
                         }
+                        setTimeout(() => {
+                            this.$refs.loadmore.onBottomLoaded()
+                        }, 100)
                     })
                 }
             },
