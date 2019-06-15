@@ -239,7 +239,7 @@
                 }
             }
         },
-        mounted() {Message.error(window.location.href)
+        mounted() {
             this.contentStyle.marginTop = '100px'
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'
