@@ -225,9 +225,9 @@
                     }
                         break;
                 }
+                this.$Spin.show()
                 if (load) {
                     this.pageInfo.num = 1
-                    this.$Spin.show()
                     this.load()
                 }
             }
