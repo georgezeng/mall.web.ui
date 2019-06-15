@@ -115,7 +115,7 @@
     }
 
     .sellingPoints {
-        margin-left: 12px;
+        margin: 0 12px;
         font-size: 11pt;
         color: #A8A8A8;
     }
