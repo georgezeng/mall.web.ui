@@ -183,7 +183,7 @@
                             this.pageInfo.num++
                             this.list = data
                             setTimeout(() => {
-                                new Masonry(this.$refs.grid, {});
+                                // new Masonry(this.$refs.grid, {});
                                 this.show = false
                             }, 100)
                         } else {
@@ -251,7 +251,7 @@
             this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
-            this.contentStyle.minHeight = this.wrapperHeight + "px"
+            // this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : null
             this.orderBy('default')
