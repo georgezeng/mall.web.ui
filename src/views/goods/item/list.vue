@@ -183,7 +183,7 @@
                             this.pageInfo.num++
                             this.list = data
                             setTimeout(() => {
-                                // new Masonry(this.$refs.grid, {});
+                                new Masonry(this.$refs.grid, {});
                                 this.show = false
                             }, 100)
                         } else {
