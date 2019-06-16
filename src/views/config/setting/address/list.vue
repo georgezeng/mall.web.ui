@@ -176,7 +176,7 @@
                 }
                 this.isDefault[index] = true
                 API.asDefault(id).then(res => {
-                    Message.success('默认地址保存成功')
+                    this.$vux.toast.show({text: "默认地址保存成功"})
                 })
             },
             remove(id) {

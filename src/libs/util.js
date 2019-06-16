@@ -55,7 +55,7 @@ util.uploadImageFromWechat = function (filePath, callback) {
                     success: function (res) {
                         let serverId = res.serverId; // 返回图片的服务器端ID
                         WechatAPI.uploadFile(serverId, filePath).then(url => {
-                            Message.success('上传成功')
+                            this.$vux.toast.show({text:"上传成功"})
                             if (callback) {
                                 callback(url)
                             }

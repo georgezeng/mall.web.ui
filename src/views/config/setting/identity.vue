@@ -116,15 +116,15 @@
         methods: {
             save() {
                 if (!this.data.name) {
-                    Message.error('真实姓名不能为空')
+                    this.$vux.toast.show({text: '真实姓名不能为空', type: 'warn'})
                     return
                 }
                 if (!this.data.number) {
-                    Message.error('身份证号不能为空')
+                    this.$vux.toast.show({text: '身份证号不能为空', type: 'warn'})
                     return
                 }
                 if (!this.data.facePhoto || !this.data.badgePhoto || !this.data.peoplePhoto) {
-                    Message.error('请上传身份证照片')
+                    this.$vux.toast.show({text: '请上传身份证照片', type: 'warn'})
                     return
                 }
                 this.loading = true

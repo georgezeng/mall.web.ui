@@ -59,8 +59,8 @@
         methods: {
             reset() {
                 if(!this.info || !this.info.username) {
-                    Message.error('没有提交手机号，请重新提交')
-                    back()
+                    this.$vux.toast.show({text: '没有提交手机号，请重新提交', type: 'warn'})
+                    this.back()
                     return
                 }
                 this.$refs.form.validate().then(valid => {
@@ -69,7 +69,7 @@
                         this.form.username = this.info.username
                         API.reset(this.form, this.info.password).then(res => {
                             this.loading = false
-                            Message.success('重置成功')
+                            this.$vux.toast.show({text:'重置成功'})
                             this.goLogin()
                         }).catch(ex => {
                             this.loading = false

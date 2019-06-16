@@ -63,23 +63,23 @@
             },
             save() {
                 if (!this.form.name || this.form.name == '') {
-                    Message.error('收货人不能为空')
+                    this.$vux.toast.show({text: '收货人不能为空', type: 'warn'})
                     return
                 }
                 if (!this.form.phone || this.form.phone == '') {
-                    Message.error('联系电话不能为空')
+                    this.$vux.toast.show({text: '联系电话不能为空', type: 'warn'})
                     return
                 }
                 if (this.form.phone.length < 11) {
-                    Message.error('联系电话必须是手机号码或者座机号')
+                    this.$vux.toast.show({text: '联系电话必须是手机号码或者座机号', type: 'warn'})
                     return
                 }
                 if (!this.form.area || this.form.area.length < 3) {
-                    Message.error('所在地区不能为空')
+                    this.$vux.toast.show({text: '所在地区不能为空', type: 'warn'})
                     return
                 }
                 if (!this.form.location || this.form.location == '') {
-                    Message.error('详细地址不能为空')
+                    this.$vux.toast.show({text: '详细地址不能为空', type: 'warn'})
                     return
                 }
                 this.loading = true
@@ -90,7 +90,7 @@
                     city: area[1],
                     district: area[2]
                 }).then(res => {
-                    Message.success('保存成功')
+                    this.$vux.toast.show({text:'保存成功'})
                     this.back()
                     this.loading = false
                 }).catch(e => {

@@ -118,7 +118,7 @@
                 }
                 this.disableVerifyCodeBtn(30)
                 API.sendCode(this.form.username).then(res => {
-                    Message.success("发送成功")
+                    this.$vux.toast.show({text: "发送成功"})
                 })
             },
             register() {

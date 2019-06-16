@@ -19,7 +19,9 @@ import { XTextarea } from 'vux'
 import { Popup } from 'vux'
 import { TransferDom } from 'vux'
 import { XNumber } from 'vux'
+import  { ToastPlugin } from 'vux'
 
+Vue.use(ToastPlugin)
 Vue.component('x-number', XNumber)
 Vue.directive('transfer-dom', TransferDom)
 Vue.component('popup', Popup)

@@ -139,7 +139,7 @@
                             }).then(res => {
                                 this.loading = false
                                 this.closePasswordModal()
-                                Message.success('保存成功')
+                                this.$vux.toast.show({text:'保存成功'})
                             }).catch(e => {
                                 this.loading = false
                             })
@@ -174,7 +174,7 @@
                 }
                 this.disableVerifyCodeBtn(30)
                 API.sendCode().then(res => {
-                    Message.success("发送成功")
+                    this.$vux.toast.show({text:'发送成功'})
                 })
             },
         },

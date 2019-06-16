@@ -216,8 +216,6 @@
 <script>
     import API from '../../../api/goods-item-detail.js'
     import config from '../../../config/index.js'
-    import Util from '../../../libs/util.js'
-    import {Message} from 'iview'
     import commonStyles from '../../../styles/common.js'
     import defaultAvatar from '../../../images/avatar.png'
 
@@ -386,11 +384,11 @@
             },
             confirmSpec() {
                 if(this.tempValues.length == 0) {
-                    Message.error('请先选择规格');
+                    this.$vux.toast.text('请先选择规格', 'middle')
                     return
                 }
                 if(this.nums == 0) {
-                    Message.error('请先选择数量');
+                    this.$vux.toast.text('请先选择数量', 'middle')
                     return
                 }
                 this.values = this.tempValues
@@ -418,7 +416,7 @@
                     API.load(this.id).then(item => {
                         if (!item.enabled) {
                             setTimeout(() => {
-                                Message.error('商品已下架，2秒后返回列表页')
+                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn'})
                                 this.back()
                             }, 2000)
                             return
