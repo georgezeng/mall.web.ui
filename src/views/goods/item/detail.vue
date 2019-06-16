@@ -25,6 +25,7 @@
         height: 10px;
         background-color: #F5F5F5;
         position: relative;
+        z-index: 1;
     }
 
     .close {
