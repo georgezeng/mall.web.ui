@@ -248,7 +248,7 @@
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 100
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             // this.contentStyle.minHeight = this.wrapperHeight + "px"
