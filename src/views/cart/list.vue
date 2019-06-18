@@ -69,7 +69,7 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
-            <div v-show="showEmpty && !show" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
+            <div v-if="showEmpty && !show" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
                 <div>
                     <img :src="Cart" width="200px" height="200"/>
                 </div>
@@ -90,13 +90,13 @@
                         <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
                             <img :src="config.publicBucketDomain + cartItem.item.thumbnail" width="72" height="72"/>
-                            <div class="disabledTitle" v-show="!cartItem.item.enabled">
+                            <div class="disabledTitle" v-if="!cartItem.item.enabled">
                                 商品已下架
                             </div>
                         </div>
                         <div @click="goItem(cartItem.item.id)" style="display: inline-block; position: relative; left: -20px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
-                                {{cartItem.item.name.length > 15 ? cartItem.item.name.substring(0, 15) + '...' : cartItem.item.name}}
+                                {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' : cartItem.item.name}}
                             </div>
                             <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 10px;">
                                 {{specText(cartItem.attrs)}}
@@ -112,7 +112,7 @@
             </div>
 
         </Content>
-        <div class="cartFooter" v-show="!showEmpty">
+        <div class="cartFooter" v-if="!showEmpty">
             <div style="display: inline-block; padding: 10px 20px 10px 10px;">
                 <check-icon @click.native="checkAll" :value.sync="allSelected"></check-icon>
                 <span>全选</span>
