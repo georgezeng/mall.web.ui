@@ -72,6 +72,7 @@
             </div>
         </Header>
         <Content :style="contentStyle">
+            <Spin size="large" fix v-if="show"></Spin>
             <div v-show="showEmpty" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
                 <div>
                     <img :src="Cart" width="200px" height="200"/>
@@ -147,6 +148,7 @@
                 },
                 items: [],
                 allSelected: false,
+                show: true,
             }
         },
         computed: {
@@ -224,9 +226,11 @@
                         })
                         Util.saveCart(cart)
                         this.showEmpty = this.items.length == 0
+                        this.show = false
                     })
                 } else {
                     this.showEmpty = true
+                    this.show = false
                 }
             },
             goGoodsList() {
