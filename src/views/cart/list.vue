@@ -82,7 +82,7 @@
             </div>
             <div v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
-                        :right="swipeButtons(index)" style="padding: 10px;">
+                        :right="swipeButtons(index)" style="padding: 10px; position: relative;">
                     <div slot="title">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
                             <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
@@ -104,7 +104,7 @@
                             <div style="font-size: 11pt; color: orangered;">￥{{cartItem.property.price}}</div>
                         </div>
                     </div>
-                    <div style="float: right; position: relative; top: 24px;">
+                    <div style="float: right; position: absolute; top: 52px; right: 10px;">
                         <wv-number-spinner :min="1" :max="99" input-width="30px"
                                            v-model="cartItem.nums"></wv-number-spinner>
                     </div>
@@ -226,7 +226,8 @@
                         title += attr
                     }
                 }
-                return title.length > 7 ? title.substring(0, 7) + '...' : title
+                // return title.length > 7 ? title.substring(0, 7) + '...' : title
+                return title
             }
         },
         mounted() {
