@@ -162,7 +162,7 @@
                         total += item.property.price * item.nums
                     }
                 })
-                return total > 0 ? total : '0.00'
+                return total > 0 ? total.toFixed(2) : '0.00'
             },
             selectedNums() {
                 let count = 0
