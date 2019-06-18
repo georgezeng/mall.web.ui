@@ -111,7 +111,7 @@
                 </div>
             </mt-cell-swipe>
         </Content>
-        <div class="cartFooter">
+        <div class="cartFooter" v-show="!showEmpty">
             <div style="display: inline-block; padding: 10px 20px 10px 10px;">
                 <check-icon @click.native="checkAll" :value.sync="allSelected"></check-icon>
                 <span>全选</span>
@@ -145,12 +145,14 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
-                showEmpty: false,
                 items: [],
                 allSelected: false,
             }
         },
         computed: {
+            showEmpty() {
+                return this.items.length == 0
+            },
             totalPrice() {
                 let total = 0
                 this.items.map(item => {
