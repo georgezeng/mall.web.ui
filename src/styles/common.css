@@ -75,3 +75,7 @@ a.vux-number-selector {
 input.vux-number-input {
     padding: 15px 10px;
 }
+
+.mint-cell-wrapper {
+    background-image: none;
+}

@@ -279,7 +279,7 @@
                 definitions: [],
                 show: false,
                 popupHeight: 500,
-                addedToCart: false,
+                confirmAddToCart: false,
                 cartItems: 0,
             }
         },
@@ -367,8 +367,10 @@
                 }
                 if (this.values.length == 0) {
                     this.showPopup()
+                    this.confirmAddToCart = true
                     return
                 }
+                this.confirmAddToCart = false
                 cart.items.push({
                     id: this.item.id,
                     propertyId: this.property.id,
@@ -448,6 +450,9 @@
                     return
                 }
                 this.values = this.tempValues
+                if (this.confirmAddToCart) {
+                    this.addToCart()
+                }
                 this.closePopup()
             },
             refreshPopup() {

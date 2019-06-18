@@ -82,7 +82,7 @@
             </div>
             <div v-for="(item, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
-                        :right="swipeButtons(index)" style="padding: 10px; background-image: none;">
+                        :right="swipeButtons(index)" style="padding: 10px;">
                     <div slot="title">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
                             <check-icon class="checker" :value.sync="item.selected"></check-icon>
@@ -97,14 +97,15 @@
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
                                 {{item.name.length > 7 ? item.name.substring(0, 7) + '...' : item.name}}
                             </div>
-                            <div style="background-color: #F5F5F5;display: inline-block; padding: 5px 10px; font-size: 11pt; margin-bottom: 10px;">
+                            <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 10px;">
                                 {{specText(item.attrs)}}
                             </div>
-                            <div style="font-size: 11pt;">￥{{item.property.price}}</div>
+                            <div style="font-size: 11pt; color: orangered;">￥{{item.property.price}}</div>
                         </div>
                     </div>
                     <div style="float: right; position: relative; top: 24px;">
-                        <wv-number-spinner :min="1" :max="99" input-width="30px" v-model="item.nums"></wv-number-spinner>
+                        <wv-number-spinner :min="1" :max="99" input-width="30px"
+                                           v-model="item.nums"></wv-number-spinner>
                     </div>
                 </mt-cell-swipe>
             </div>
@@ -259,7 +260,7 @@
                         title += attr
                     }
                 }
-                return title
+                return title.length > 9 ? title.substring(0, 9) + '...' : title
             }
         },
         mounted() {
