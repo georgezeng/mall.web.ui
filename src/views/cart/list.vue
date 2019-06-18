@@ -69,7 +69,7 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
-            <div v-show="showEmpty" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
+            <div v-show="showEmpty && !show" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
                 <div>
                     <img :src="Cart" width="200px" height="200"/>
                 </div>
@@ -80,33 +80,33 @@
                     <div class="goAroundBtn" @click="goGoodsList">去逛逛</div>
                 </div>
             </div>
-            <div v-for="(item, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
+            <div v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
                         :right="swipeButtons(index)" style="padding: 10px;">
                     <div slot="title">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
-                            <check-icon class="checker" :value.sync="item.selected"></check-icon>
+                            <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
                         </div>
-                        <div @click="goItem(item.id)"
+                        <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
-                            <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72"/>
-                            <div class="disabledTitle" v-show="!item.enabled">
+                            <img :src="config.publicBucketDomain + cartItem.item.thumbnail" width="72" height="72"/>
+                            <div class="disabledTitle" v-show="!cartItem.item.enabled">
                                 商品已下架
                             </div>
                         </div>
-                        <div @click="goItem(item.id)" style="display: inline-block; position: relative; left: -20px;">
+                        <div @click="goItem(cartItem.item.id)" style="display: inline-block; position: relative; left: -20px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
-                                {{item.name.length > 7 ? item.name.substring(0, 7) + '...' : item.name}}
+                                {{cartItem.item.name.length > 7 ? cartItem.item.name.substring(0, 7) + '...' : cartItem.item.name}}
                             </div>
                             <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 10px;">
-                                {{specText(item.attrs)}}
+                                {{specText(cartItem.attrs)}}
                             </div>
-                            <div style="font-size: 11pt; color: orangered;">￥{{item.property.price}}</div>
+                            <div style="font-size: 11pt; color: orangered;">￥{{cartItem.property.price}}</div>
                         </div>
                     </div>
                     <div style="float: right; position: relative; top: 24px;">
                         <wv-number-spinner :min="1" :max="99" input-width="30px"
-                                           v-model="item.nums"></wv-number-spinner>
+                                           v-model="cartItem.nums"></wv-number-spinner>
                     </div>
                 </mt-cell-swipe>
             </div>
@@ -191,50 +191,10 @@
                 })
             },
             load() {
-                const cart = Util.getCart()
-                if (cart.items.length > 0) {
-                    const indexes = []
-                    API.list(cart.items.map(item => item.id)).then(data => {
-                        this.items = data.map((item, index) => {
-                            let property = null
-                            out: for (let i in item.properties) {
-                                if (cart.items[index].propertyId == item.properties[i].id) {
-                                    property = item.properties[i]
-                                    break out
-                                }
-                            }
-                            return {
-                                ...item,
-                                selected: false,
-                                property,
-                                nums: cart.items[index].nums,
-                                attrs: property.values.map(value => value.name)
-                            }
-                        }).filter((item, index) => {
-                            const cartItem = cart.items[index]
-                            const lastingTime = cartItem.updateTime + 1000 * 3600 * 24 * 7
-                            const valid = lastingTime > new Date().getTime()
-                            if (!valid) {
-                                indexes.push(index)
-                            }
-                            return valid
-                        })
-                        cart.items = cart.items.filter((item, index) => {
-                            for (let i in indexes) {
-                                if (indexes[i] == index) {
-                                    return false
-                                }
-                            }
-                            return true
-                        })
-                        Util.saveCart(cart)
-                        this.showEmpty = this.items.length == 0
-                        this.show = false
-                    })
-                } else {
-                    this.showEmpty = true
+                API.list().then(data => {
+                    this.items = data
                     this.show = false
-                }
+                })
             },
             goGoodsList() {
                 Util.go('GoodsItemList', {
@@ -271,6 +231,9 @@
         },
         mounted() {
             this.contentStyle.marginTop = '60px'
+            this.contentStyle.backgroundColor = '#F5F5F5'
+            const wrapperHeight = document.documentElement.clientHeight - 120
+            this.contentStyle.minHeight = wrapperHeight + 'px'
             this.load()
         }
     }

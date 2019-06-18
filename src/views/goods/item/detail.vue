@@ -231,6 +231,7 @@
 </template>
 <script>
     import API from '../../../api/goods-item-detail.js'
+    import CartAPI from '../../../api/cart.js'
     import config from '../../../config/index.js'
     import commonStyles from '../../../styles/common.js'
     import defaultAvatar from '../../../images/avatar.png'
@@ -352,34 +353,19 @@
                 if (!token) {
                     Util.go('Login')
                 }
-                const cart = Util.getCart()
-                let found = false
-                out: for (let i in cart.items) {
-                    const cartItem = cart.items[i]
-                    if (cartItem.uid == this.property.uid) {
-                        found = true
-                        break out;
-                    }
-                }
-                if (found) {
-                    this.$vux.toast.text('已加入购物车')
-                    return
-                }
                 if (this.values.length == 0) {
                     this.showPopup()
                     this.confirmAddToCart = true
                     return
                 }
                 this.confirmAddToCart = false
-                cart.items.push({
-                    id: this.item.id,
+                CartAPI.save({
+                    itemId: this.item.id,
                     propertyId: this.property.id,
-                    nums: this.nums,
-                    uid: this.property.uid,
-                    updateTime: new Date().getTime()
+                    nums: this.nums
+                }).then(nums => {
+                    this.cartItems = nums
                 })
-                Util.saveCart(cart)
-                this.cartItems = cart.items.length
             },
             buy() {
                 const token = Util.getToken()
@@ -473,6 +459,12 @@
             },
             load() {
                 if (this.item.id) {
+                    const token = Util.getToken()
+                    if (token) {
+                        CartAPI.total().then(nums => {
+                            this.cartItems = nums
+                        })
+                    }
                     API.load(this.item.id).then(item => {
                         if (!item.enabled) {
                             setTimeout(() => {
@@ -533,8 +525,6 @@
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
-            const cart = Util.getCart()
-            this.cartItems = cart.items.length
             this.load()
         }
     }
