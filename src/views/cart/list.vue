@@ -87,13 +87,14 @@
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
                             <check-icon class="checker" :value.sync="item.selected"></check-icon>
                         </div>
-                        <div style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
+                        <div @click="goItem(item.id)"
+                             style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
                             <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72"/>
                             <div class="disabledTitle" v-show="!item.enabled">
                                 商品已下架
                             </div>
                         </div>
-                        <div style="display: inline-block; position: relative; left: -20px;">
+                        <div @click="goItem(item.id)" style="display: inline-block; position: relative; left: -20px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
                                 {{item.name.length > 7 ? item.name.substring(0, 7) + '...' : item.name}}
                             </div>
@@ -179,6 +180,11 @@
             }
         },
         methods: {
+            goItem(id) {
+                Util.go('GoodsItemDetail', {
+                    id
+                })
+            },
             checkAll() {
                 this.items.map(item => {
                     item.selected = this.allSelected
@@ -260,7 +266,7 @@
                         title += attr
                     }
                 }
-                return title.length > 9 ? title.substring(0, 9) + '...' : title
+                return title.length > 7 ? title.substring(0, 7) + '...' : title
             }
         },
         mounted() {
