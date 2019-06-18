@@ -206,7 +206,7 @@
                 return [
                     {
                         content: '删除',
-                        style: {background: 'red', color: '#fff'},
+                        style: {background: 'red', color: '#fff', padding: '20px 10px 0 10px'},
                         handler: () => this.remove(id)
                     }
                 ]

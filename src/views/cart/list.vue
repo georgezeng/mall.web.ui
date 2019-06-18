@@ -27,10 +27,6 @@
         position: relative;
     }
 
-    a:active {
-        color: #505A6D !important;
-    }
-
     .disabledTitle {
         background-color: rgba(0, 0, 0, 0.5);
         padding: 5px 0px;
@@ -84,33 +80,35 @@
                     <div class="goAroundBtn" @click="goGoodsList">去逛逛</div>
                 </div>
             </div>
-            <mt-cell-swipe
-                    v-for="(item, index) in items"
-                    :right="swipeButtons(index)" style="padding: 10px;">
-                <div slot="title">
-                    <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
-                        <check-icon class="checker" :value.sync="item.selected"></check-icon>
-                    </div>
-                    <div style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
-                        <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72"/>
-                        <div class="disabledTitle" v-show="!item.enabled">
-                            商品已下架
+            <div v-for="(item, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
+                <mt-cell-swipe
+                        :right="swipeButtons(index)" style="padding: 10px;">
+                    <div slot="title">
+                        <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
+                            <check-icon class="checker" :value.sync="item.selected"></check-icon>
+                        </div>
+                        <div style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
+                            <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72"/>
+                            <div class="disabledTitle" v-show="!item.enabled">
+                                商品已下架
+                            </div>
+                        </div>
+                        <div style="display: inline-block; position: relative; left: -20px;">
+                            <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
+                                {{item.name.length > 7 ? item.name.substring(0, 7) + '...' : item.name}}
+                            </div>
+                            <div style="background-color: #F5F5F5;display: inline-block; padding: 5px 10px; font-size: 11pt; margin-bottom: 10px;">
+                                {{specText(item.attrs)}}
+                            </div>
+                            <div style="font-size: 11pt;">￥{{item.property.price}}</div>
                         </div>
                     </div>
-                    <div style="display: inline-block; position: relative; left: -20px;">
-                        <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
-                            {{item.name.length > 7 ? item.name.substring(0, 7) + '...' : item.name}}
-                        </div>
-                        <div style="background-color: #F5F5F5;display: inline-block; padding: 5px 10px; font-size: 11pt; margin-bottom: 10px;">
-                            {{specText(item.attrs)}}
-                        </div>
-                        <div style="font-size: 11pt;">￥{{item.property.price}}</div>
+                    <div style="float: right; position: relative; top: 24px;">
+                        <wv-number-spinner :min="1" :max="99" input-width="30px" v-model="item.nums"></wv-number-spinner>
                     </div>
-                </div>
-                <div style="float: right; position: relative; top: 24px;">
-                    <wv-number-spinner :min="1" :max="99" input-width="30px" v-model="item.nums"></wv-number-spinner>
-                </div>
-            </mt-cell-swipe>
+                </mt-cell-swipe>
+            </div>
+
         </Content>
         <div class="cartFooter" v-show="!showEmpty">
             <div style="display: inline-block; padding: 10px 20px 10px 10px;">
@@ -193,11 +191,9 @@
                         this.items = data.map((item, index) => {
                             let property = null
                             out: for (let i in item.properties) {
-                                for (let j in cart.items) {
-                                    if (cart.items[j].propertyId == item.properties[i].id) {
-                                        property = item.properties[i]
-                                        break out
-                                    }
+                                if (cart.items[index].propertyId == item.properties[i].id) {
+                                    property = item.properties[i]
+                                    break out
                                 }
                             }
                             return {
@@ -248,7 +244,7 @@
                 return [
                     {
                         content: '删除',
-                        style: {background: 'red', color: '#fff'},
+                        style: {background: 'red', color: '#fff', padding: '20px 10px 0 10px'},
                         handler: () => this.remove(index)
                     }
                 ]

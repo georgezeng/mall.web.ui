@@ -352,7 +352,16 @@
                 if (!token) {
                     Util.go('Login')
                 }
-                if (this.addedToCart) {
+                const cart = Util.getCart()
+                let found = false
+                out: for (let i in cart.items) {
+                    const cartItem = cart.items[i]
+                    if (cartItem.uid == this.property.uid) {
+                        found = true
+                        break out;
+                    }
+                }
+                if (found) {
                     this.$vux.toast.text('已加入购物车')
                     return
                 }
@@ -360,16 +369,15 @@
                     this.showPopup()
                     return
                 }
-                const cart = Util.getCart()
                 cart.items.push({
                     id: this.item.id,
                     propertyId: this.property.id,
                     nums: this.nums,
+                    uid: this.property.uid,
                     updateTime: new Date().getTime()
                 })
                 Util.saveCart(cart)
                 this.cartItems = cart.items.length
-                this.addedToCart = true
             },
             buy() {
                 const token = Util.getToken()
@@ -440,7 +448,6 @@
                     return
                 }
                 this.values = this.tempValues
-                this.tempValues = []
                 this.closePopup()
             },
             refreshPopup() {
@@ -523,12 +530,6 @@
             this.item.id = this.item.id > 0 ? this.item.id : null
             const cart = Util.getCart()
             this.cartItems = cart.items.length
-            cart.items.map(item => {
-                if (item.id == this.item.id) {
-                    this.addedToCart = true
-                    return false
-                }
-            })
             this.load()
         }
     }
