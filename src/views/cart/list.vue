@@ -96,7 +96,7 @@
                         </div>
                         <div @click="goItem(cartItem.item.id)" style="display: inline-block; position: relative; left: -20px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
-                                {{cartItem.item.name.length > 7 ? cartItem.item.name.substring(0, 7) + '...' : cartItem.item.name}}
+                                {{cartItem.item.name.length > 15 ? cartItem.item.name.substring(0, 15) + '...' : cartItem.item.name}}
                             </div>
                             <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 10px;">
                                 {{specText(cartItem.attrs)}}
