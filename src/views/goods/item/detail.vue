@@ -364,6 +364,7 @@
                 cart.items.push({
                     id: this.item.id,
                     propertyId: this.property.id,
+                    nums: this.nums,
                     updateTime: new Date().getTime()
                 })
                 Util.saveCart(cart)

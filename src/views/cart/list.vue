@@ -157,7 +157,7 @@
                 let total = 0
                 this.items.map(item => {
                     if (item.selected) {
-                        total += item.property.price
+                        total += item.property.price * item.nums
                     }
                 })
                 return total > 0 ? total : '0.00'
@@ -188,15 +188,7 @@
                 if (cart.items.length > 0) {
                     const indexes = []
                     API.list(cart.items.map(item => item.id)).then(data => {
-                        this.items = data.filter((item, index) => {
-                            const cartItem = cart.items[index]
-                            const lastingTime = cartItem.updateTime + 1000 * 3600 * 24 * 7
-                            const valid = lastingTime > new Date().getTime()
-                            if (!valid) {
-                                indexes.push(index)
-                            }
-                            return valid
-                        }).map(item => {
+                        this.items = data.map((item, index) => {
                             let property = null
                             out: for (let i in item.properties) {
                                 for (let j in cart.items) {
@@ -210,8 +202,17 @@
                                 ...item,
                                 selected: false,
                                 property,
+                                nums: cart.items[index].nums,
                                 attrs: property.values.map(value => value.name)
                             }
+                        }).filter((item, index) => {
+                            const cartItem = cart.items[index]
+                            const lastingTime = cartItem.updateTime + 1000 * 3600 * 24 * 7
+                            const valid = lastingTime > new Date().getTime()
+                            if (!valid) {
+                                indexes.push(index)
+                            }
+                            return valid
                         })
                         cart.items = cart.items.filter((item, index) => {
                             for (let i in indexes) {
