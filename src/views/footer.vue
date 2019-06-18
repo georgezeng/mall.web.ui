@@ -80,7 +80,7 @@
                 Util.go('GoodsCategory')
             },
             goCart() {
-
+                Util.go('MyCart')
             },
             goProfile() {
                 Util.go('MyCenter')

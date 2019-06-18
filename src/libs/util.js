@@ -55,7 +55,7 @@ util.uploadImageFromWechat = function (filePath, callback) {
                     success: function (res) {
                         let serverId = res.serverId; // 返回图片的服务器端ID
                         WechatAPI.uploadFile(serverId, filePath).then(url => {
-                            this.$vux.toast.show({text:"上传成功"})
+                            this.$vux.toast.show({text: "上传成功"})
                             if (callback) {
                                 callback(url)
                             }
@@ -78,6 +78,23 @@ util.wxConfig = function (jsApiList) {
             jsApiList: jsApiList // 必填，需要使用的JS接口列表
         });
     })
+}
+
+util.getCart = function () {
+    const cartJson = window.localStorage.getItem('MyCart')
+    let cart = {}
+    if (cartJson) {
+        cart = JSON.parse(cartJson)
+    } else {
+        cart.items = []
+    }
+    return cart
+}
+
+util.saveCart = function (cart) {
+    if (cart) {
+        window.localStorage.setItem('MyCart', JSON.stringify(cart))
+    }
 }
 
 export default util;

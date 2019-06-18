@@ -20,7 +20,12 @@ import { Popup } from 'vux'
 import { TransferDom } from 'vux'
 import { XNumber } from 'vux'
 import  { ToastPlugin } from 'vux'
+import { InlineXNumber } from 'vux'
+import WeVue from 'we-vue'
+import 'we-vue/lib/style.css'
 
+Vue.use(WeVue)
+Vue.component('inline-x-number', InlineXNumber)
 Vue.use(ToastPlugin)
 Vue.component('x-number', XNumber)
 Vue.directive('transfer-dom', TransferDom)

@@ -173,15 +173,15 @@
                 <div class="blockLine" style="position:absolute; top: 0px;"></div>
                 <group style="position: absolute; width: 100%; top: -10px;">
                     <cell-box class="optionPanel" is-link @click.native="goInvite">
-                        <img :src="invite" width="24" height="24" class="img"/> 邀请好友
+                        <img :src="invite" width="24" height="24" class="img" style="margin-right: 10px;"/> 邀请好友
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box class="optionPanel" is-link @click.native="goSetting">
-                        <img :src="setting" width="24" height="24" class="img"/> 设置
+                        <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 设置
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box class="optionPanel" is-link @click.native="exit">
-                        <Icon size="24" type="md-exit"/>
+                        <Icon size="24" type="md-exit" style="margin-right: 10px;"/>
                         退出
                     </cell-box>
                 </group>

@@ -7,7 +7,8 @@ const header = {
     width: '100%',
     color: '#fff',
     fontSize: '16pt',
-    textAlign: 'center'
+    textAlign: 'center',
+    boxShadow: '0px 0px 3px -1px gray'
 }
 
 const tideHeader = {

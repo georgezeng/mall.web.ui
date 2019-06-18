@@ -174,26 +174,24 @@
                 })
             },
             back() {
-                Util.go('GoodsCategory')
+                window.history.back()
             },
             load() {
-                if (this.categoryId) {
-                    API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
-                        if (data && data.length > 0) {
-                            this.pageInfo.num++
-                            this.list = data
-                            setTimeout(() => {
-                                new Masonry(this.$refs.grid, {});
-                                this.show = false
-                            }, 100)
-                        } else {
-                            this.allLoaded = true;
-                        }
+                API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
+                    if (data && data.length > 0) {
+                        this.pageInfo.num++
+                        this.list = data
                         setTimeout(() => {
-                            this.$refs.loadmore.onBottomLoaded()
+                            new Masonry(this.$refs.grid, {});
+                            this.show = false
                         }, 100)
-                    })
-                }
+                    } else {
+                        this.allLoaded = true;
+                    }
+                    setTimeout(() => {
+                        this.$refs.loadmore.onBottomLoaded()
+                    }, 100)
+                })
             },
             orderBy(searchType, load) {
                 this.searchType = searchType
@@ -253,7 +251,7 @@
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             // this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.categoryId = this.$router.currentRoute.params.id
-            this.categoryId = this.categoryId > 0 ? this.categoryId : null
+            this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             this.orderBy('default')
         }
     }

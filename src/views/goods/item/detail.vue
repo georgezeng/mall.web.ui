@@ -1,4 +1,5 @@
 <style scoped lang="less">
+
     .marketPrice {
         display: inline-block;
         font-size: 11pt;
@@ -118,7 +119,8 @@
         z-index: 100;
         left: 10px;
         background-color: rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
+        border-radius: 15px;
+        padding: 5px;
     }
 
     .avatar {
@@ -130,6 +132,16 @@
         font-size: 11pt;
         color: #A8A8A8;
     }
+
+    .cart {
+        position: absolute;
+        top: 10px;
+        z-index: 100;
+        right: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        padding: 5px;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -138,7 +150,8 @@
                 <popup v-model="show" style="background-color: #fff;">
                     <div class="popup" :style="{height: popupHeight + 'px'}">
                         <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
-                        <img style="vertical-align: bottom;" :src="config.publicBucketDomain + item.thumbnail" width="80"
+                        <img style="vertical-align: bottom;" :src="config.publicBucketDomain + item.thumbnail"
+                             width="80"
                              height="80"/>
                         <div style="display: inline-block; margin-left: 10px;">
                             <div class="price">￥{{popupPriceRange}}</div>
@@ -154,7 +167,7 @@
                             </div>
                         </div>
                         <group>
-                            <x-number title="数量" v-model="nums" :min="0"></x-number>
+                            <x-number title="数量" v-model="nums" :max="99" :min="0"></x-number>
                         </group>
                         <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
                             <div class="confirmBtn" @click="confirmSpec">确定</div>
@@ -163,6 +176,7 @@
                 </popup>
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
+            <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <mt-swipe :auto="0" style="height: 375px;">
                 <mt-swipe-item v-for="photo in item.photos">
                     <div align="center">
@@ -208,7 +222,9 @@
             <div v-html="item.content" style="margin-bottom: 40px;"></div>
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
-            <div class="addToCartBtn" @click="addToCart">加入购物车</div>
+            <div class="addToCartBtn" @click="addToCart">
+                加入购物车{{cartNums}}
+            </div>
             <div class="buyBtn" @click="buy">立即购买</div>
         </Footer>
     </Layout>
@@ -218,6 +234,7 @@
     import config from '../../../config/index.js'
     import commonStyles from '../../../styles/common.js'
     import defaultAvatar from '../../../images/avatar.png'
+    import Util from '../../../libs/util.js'
 
     export default {
         components: {},
@@ -228,7 +245,6 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
-                id: null,
                 nums: 0,
                 values: [],
                 totalProperty: {
@@ -241,7 +257,9 @@
                     id: null
                 },
                 item: {
+                    id: null,
                     enabled: true,
+                    name: null,
                     thumbnail: null,
                     content: null,
                     sellingPoints: null,
@@ -261,9 +279,14 @@
                 definitions: [],
                 show: false,
                 popupHeight: 500,
+                addedToCart: false,
+                cartItems: 0,
             }
         },
         computed: {
+            cartNums() {
+                return this.cartItems > 0 ? '(' + this.cartItems + ')' : ''
+            },
             sellingPoints() {
                 let sp = this.item.sellingPoints
                 if (sp) {
@@ -318,16 +341,40 @@
             }
         },
         methods: {
+            goCart() {
+                Util.go('MyCart')
+            },
             back() {
                 Window.history.back()
             },
             addToCart() {
+                const token = Util.getToken()
+                if (!token) {
+                    Util.go('Login')
+                }
+                if (this.addedToCart) {
+                    this.$vux.toast.text('已加入购物车')
+                    return
+                }
                 if (this.values.length == 0) {
                     this.showPopup()
                     return
                 }
+                const cart = Util.getCart()
+                cart.items.push({
+                    id: this.item.id,
+                    propertyId: this.property.id,
+                    updateTime: new Date().getTime()
+                })
+                Util.saveCart(cart)
+                this.cartItems = cart.items.length
+                this.addedToCart = true
             },
             buy() {
+                const token = Util.getToken()
+                if (!token) {
+                    Util.go('Login')
+                }
                 if (this.values.length == 0) {
                     this.showPopup()
                     return
@@ -383,11 +430,11 @@
                 this.refreshPopup()
             },
             confirmSpec() {
-                if(this.tempValues.length == 0) {
+                if (this.tempValues.length == 0) {
                     this.$vux.toast.text('请先选择规格', 'middle')
                     return
                 }
-                if(this.nums == 0) {
+                if (this.nums == 0) {
                     this.$vux.toast.text('请先选择数量', 'middle')
                     return
                 }
@@ -412,8 +459,8 @@
                 window.history.back()
             },
             load() {
-                if (this.id) {
-                    API.load(this.id).then(item => {
+                if (this.item.id) {
+                    API.load(this.item.id).then(item => {
                         if (!item.enabled) {
                             setTimeout(() => {
                                 this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn'})
@@ -471,8 +518,16 @@
         created() {
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
-            this.id = this.$router.currentRoute.params.id
-            this.id = this.id > 0 ? this.id : null
+            this.item.id = this.$router.currentRoute.params.id
+            this.item.id = this.item.id > 0 ? this.item.id : null
+            const cart = Util.getCart()
+            this.cartItems = cart.items.length
+            cart.items.map(item => {
+                if (item.id == this.item.id) {
+                    this.addedToCart = true
+                    return false
+                }
+            })
             this.load()
         }
     }

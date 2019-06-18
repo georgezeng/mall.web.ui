@@ -81,6 +81,15 @@ const routers = [
         component: (resolve) => require(['../views/goods/item/detail.vue'], resolve)
     },
     {
+        path: '/MyCart',
+        name: 'MyCart',
+        meta: {
+            title: '购物车',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/cart/list.vue'], resolve)
+    },
+    {
         path: '/MyCenter',
         name: 'MyCenter',
         meta: {
