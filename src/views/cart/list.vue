@@ -82,7 +82,7 @@
             </div>
             <div v-for="(item, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
-                        :right="swipeButtons(index)" style="padding: 10px;">
+                        :right="swipeButtons(index)" style="padding: 10px; background-image: none;">
                     <div slot="title">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
                             <check-icon class="checker" :value.sync="item.selected"></check-icon>
