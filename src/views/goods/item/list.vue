@@ -47,16 +47,21 @@
         }
         .marketPrice {
             display: inline-block;
-            font-size: 11pt;
+            font-size: 10px;
             color: #c5c8ce;
             text-decoration: line-through;
         }
         .realPrice {
             display: inline-block;
-            font-size: 12pt;
+            font-size: 14px;
             color: orangered;
             margin-left: 10px;
             margin-bottom: 10px;
+        }
+        .discount {
+            display: inline-block;
+            font-size: 10px;
+            color: gray;
         }
     }
 
@@ -104,10 +109,11 @@
                                 <img :src="config.publicBucketDomain + item.thumbnail"
                                      width="168" height="168"/>
                             </div>
-                            <div class="name">{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
-                            </div>
                             <div class="realPrice">￥{{priceRange(item)}}</div>
                             <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
+                            <div class="discount">{{discount(item)}}</div>
+                            <div class="name">{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
+                            </div>
                             <div class="stat">
                                 <span>{{item.orderNums}}人已购买, </span>
                                 <span>好评率: {{item.goodPointsRate}}%</span>
@@ -161,11 +167,19 @@
         },
         computed: {},
         methods: {
+            discount(item) {
+                let discount = 0
+                if(item.marketPrice > 0) {
+                    discount = item.minPrice / item.marketPrice * 10
+                    discount = discount.toFixed(1)
+                }
+                return discount > 0 ? discount + '折' : ''
+            },
             priceRange(item) {
                 if (item.minPrice == item.maxPrice) {
                     return item.minPrice
                 } else {
-                    return item.minPrice + ' - ' + item.maxPrice
+                    return item.minPrice + '-' + item.maxPrice
                 }
             },
             goDetail(id) {
