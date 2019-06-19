@@ -62,11 +62,11 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header class="header">
-            <div align="center" style="font-weight: bold;">
-                购物车
-            </div>
-        </Header>
+        <!--<Header class="header">-->
+            <!--<div align="center" style="font-weight: bold;">-->
+                <!--购物车-->
+            <!--</div>-->
+        <!--</Header>-->
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
             <div v-if="showEmpty && !show" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
@@ -231,7 +231,7 @@
             }
         },
         mounted() {
-            this.contentStyle.marginTop = '60px'
+            // this.contentStyle.marginTop = '60px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             const wrapperHeight = document.documentElement.clientHeight - 120
             this.contentStyle.minHeight = wrapperHeight + 'px'

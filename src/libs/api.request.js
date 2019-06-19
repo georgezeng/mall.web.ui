@@ -3,6 +3,7 @@ import axios from 'axios'
 import config from '../config/index'
 import router from '../router/index'
 import {Message} from 'iview'
+import Vue from 'vue'
 
 const LOGIN_PAGE_NAME = 'Login'
 
@@ -42,11 +43,12 @@ function alertError(error) {
         }
     }
     var message = errors || '服务请求失败,请稍后重试'
-    Message.error({
-        content: message,
-        duration: 5,
-        closable: true
-    })
+    Vue.$vux.toast.text(message)
+    // Message.error({
+    //     content: message,
+    //     duration: 5,
+    //     closable: true
+    // })
 }
 
 export default ajax

@@ -118,9 +118,10 @@
         top: 10px;
         z-index: 100;
         left: 10px;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.4);
         border-radius: 15px;
         padding: 5px;
+        color: #fff;
     }
 
     .avatar {
@@ -138,9 +139,17 @@
         top: 10px;
         z-index: 100;
         right: 10px;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.4);
         border-radius: 15px;
         padding: 5px;
+        color: #fff;
+    }
+
+    .cartItems {
+        position: absolute;
+        right: 5px;
+        z-index: 1000;
+        top: 5px;
     }
 </style>
 <template>
@@ -177,6 +186,7 @@
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
+            <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <mt-swipe :auto="0" style="height: 375px;">
                 <mt-swipe-item v-for="photo in item.photos">
                     <div align="center">
@@ -223,7 +233,7 @@
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">
-                加入购物车{{cartNums}}
+                加入购物车{{totalNums}}
             </div>
             <div class="buyBtn" @click="buy">立即购买</div>
         </Footer>
@@ -282,9 +292,13 @@
                 popupHeight: 500,
                 confirmAddToCart: false,
                 cartItems: 0,
+                itemNums: 0
             }
         },
         computed: {
+            totalNums() {
+                return this.itemNums > 0 ? '(' + this.itemNums + ')' : ''
+            },
             cartNums() {
                 return this.cartItems > 0 ? '(' + this.cartItems + ')' : ''
             },
@@ -358,13 +372,14 @@
                     this.confirmAddToCart = true
                     return
                 }
-                this.confirmAddToCart = false
                 CartAPI.save({
                     itemId: this.item.id,
                     propertyId: this.property.id,
                     nums: this.nums
-                }).then(nums => {
-                    this.cartItems = nums
+                }).then(data => {
+                    this.cartItems = data.total
+                    this.itemNums = this.itemNums
+                    this.confirmAddToCart = false
                 })
             },
             buy() {
@@ -461,8 +476,9 @@
                 if (this.item.id) {
                     const token = Util.getToken()
                     if (token) {
-                        CartAPI.total().then(nums => {
-                            this.cartItems = nums
+                        CartAPI.itemInfo(this.item.id).then(data => {
+                            this.cartItems = data.total
+                            this.itemNums = data.itemNums
                         })
                     }
                     API.load(this.item.id).then(item => {

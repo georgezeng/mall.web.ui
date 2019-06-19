@@ -7,7 +7,7 @@ export default {
     save(cart) {
         return axios.post('/client/cart/save', cart)
     },
-    total() {
-        return axios.get('/client/cart/total')
+    itemInfo(id) {
+        return axios.get('/client/cart/item/params/' + id)
     }
 }
