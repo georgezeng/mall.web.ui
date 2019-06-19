@@ -380,6 +380,7 @@
                     this.cartItems = data.total
                     this.itemNums = this.itemNums
                     this.confirmAddToCart = false
+                    this.$vux.toast.show({text:'添加成功'})
                 })
             },
             buy() {
