@@ -9,11 +9,17 @@
 
     .realPrice {
         display: inline-block;
-        font-size: 12pt;
+        font-size: 13pt;
         color: orangered;
         font-weight: bold;
         margin-top: 10px;
         margin-left: 12px;
+    }
+
+    .discount {
+        display: inline-block;
+        font-size: 11pt;
+        color: gray;
     }
 
     .name {
@@ -202,6 +208,7 @@
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
                 <span class="marketPrice">￥{{item.marketPrice}}</span>
+                <span class="discount">{{discount}}</span>
             </div>
             <div class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
@@ -301,6 +308,14 @@
             }
         },
         computed: {
+            discount() {
+                let discount = 0
+                if (this.item.marketPrice > 0) {
+                    discount = this.item.minPrice / this.item.marketPrice * 10
+                    discount = discount.toFixed(1)
+                }
+                return discount > 0 ? discount + '折' : ''
+            },
             totalNums() {
                 return this.itemNums > 0 ? '(' + this.itemNums + ')' : ''
             },
@@ -385,7 +400,7 @@
                     this.cartItems = data.total
                     this.itemNums = this.itemNums
                     this.confirmAddToCart = false
-                    this.$vux.toast.show({text:'添加成功'})
+                    this.$vux.toast.show({text: '添加成功'})
                 })
             },
             buy() {
