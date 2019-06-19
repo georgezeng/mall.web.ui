@@ -114,7 +114,7 @@
     }
 
     .backArrow {
-        position: absolute;
+        position: fixed;
         top: 10px;
         z-index: 100;
         left: 10px;
@@ -135,7 +135,7 @@
     }
 
     .cart {
-        position: absolute;
+        position: fixed;
         top: 10px;
         z-index: 100;
         right: 10px;
@@ -146,10 +146,14 @@
     }
 
     .cartItems {
-        position: absolute;
+        position: fixed;
         right: 5px;
         z-index: 1000;
         top: 5px;
+        border-radius: 10px !important;
+        padding: 0px 0px !important;
+        width: 18px !important;
+        height: 16px !important;
     }
 </style>
 <template>

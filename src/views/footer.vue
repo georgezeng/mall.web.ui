@@ -13,6 +13,15 @@
         position: absolute;
         left: 50px;
         top: -3px;
+        color: red;
+        border-radius: 10px !important;
+        background-color: #fff !important;
+        border: 1px solid red;
+        padding: 0px 0px !important;
+        font-size: 6px !important;
+        width: 18px;
+        height: 16px;
+        line-height: 14px;
     }
 </style>
 <template>
@@ -37,7 +46,7 @@
             <div @click="goCart" class="button" style="position: relative;">
                 <div>
                     <Icon :style="cartStyle" type="md-cart" size="30"/>
-                    <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
+                    <mt-badge class="cartItems" v-if="cartItems > 0" size="small" >{{cartItems}}</mt-badge>
                 </div>
                 <div :style="cartStyle">
                     购物车
