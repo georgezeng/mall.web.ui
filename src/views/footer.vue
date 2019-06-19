@@ -18,7 +18,6 @@
         background-color: #fff !important;
         border: 1px solid red;
         padding: 0px 0px !important;
-        font-size: 6px !important;
         width: 18px;
         height: 16px;
         line-height: 14px;

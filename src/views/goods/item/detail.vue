@@ -154,6 +154,7 @@
         padding: 0px 0px !important;
         width: 18px !important;
         height: 16px !important;
+        line-height: 14px;
     }
 </style>
 <template>
