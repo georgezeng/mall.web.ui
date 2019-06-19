@@ -82,7 +82,7 @@
             </div>
             <div v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
-                        :right="swipeButtons(index)" style="padding: 10px; position: relative;">
+                        :right="swipeButtons(cartItem.id)" style="padding: 10px; position: relative;">
                     <div slot="title">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
                             <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
@@ -201,18 +201,18 @@
                     id: 0
                 })
             },
-            remove(index) {
-                this.items.splice(index, 1)
-                const cart = Util.getCart()
-                cart.items = this.items
-                Util.saveCart(cart)
+            remove(id) {
+                this.show = true
+                API.delete(id).then(res => {
+                    this.load()
+                })
             },
-            swipeButtons(index) {
+            swipeButtons(id) {
                 return [
                     {
                         content: '删除',
                         style: {background: 'red', color: '#fff', padding: '20px 10px 0 10px'},
-                        handler: () => this.remove(index)
+                        handler: () => this.remove(id)
                     }
                 ]
             },

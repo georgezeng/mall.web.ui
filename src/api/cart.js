@@ -9,5 +9,8 @@ export default {
     },
     itemInfo(id) {
         return axios.get('/client/cart/item/params/' + id)
+    },
+    delete(id) {
+        return axios.get('/client/cart/delete/params/' + id)
     }
 }
