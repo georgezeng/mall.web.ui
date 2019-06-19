@@ -47,7 +47,7 @@
         }
         .marketPrice {
             display: inline-block;
-            font-size: 10px;
+            font-size: 11px;
             color: #c5c8ce;
             text-decoration: line-through;
         }
@@ -60,7 +60,7 @@
         }
         .discount {
             display: inline-block;
-            font-size: 10px;
+            font-size: 11px;
             color: gray;
         }
     }
