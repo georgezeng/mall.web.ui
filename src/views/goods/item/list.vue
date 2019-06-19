@@ -112,7 +112,7 @@
                             <div class="realPrice">￥{{priceRange(item)}}</div>
                             <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
                             <div class="discount">{{discount(item)}}</div>
-                            <div class="name">{{item.brand}}|{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
+                            <div class="name">{{brand(item)}}{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
                             </div>
                             <div class="stat">
                                 <span>{{item.orderNums}}人已购买, </span>
@@ -167,6 +167,9 @@
         },
         computed: {},
         methods: {
+            brand(item) {
+              return item.brand ? item.brand + '|' : ''
+            },
             discount(item) {
                 let discount = 0
                 if(item.marketPrice > 0) {
