@@ -43,24 +43,25 @@
         .name {
             font-size: 11pt;
             margin-left: 10px;
-            margin-bottom: 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
         .marketPrice {
             display: inline-block;
-            font-size: 11px;
+            font-size: 12px;
             color: #c5c8ce;
             text-decoration: line-through;
         }
         .realPrice {
             display: inline-block;
-            font-size: 14px;
+            font-size: 16px;
             color: orangered;
             margin-left: 10px;
             margin-bottom: 10px;
         }
         .discount {
             display: inline-block;
-            font-size: 11px;
+            font-size: 12px;
             color: gray;
         }
     }
