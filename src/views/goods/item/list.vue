@@ -251,6 +251,7 @@
                 if (load) {
                     this.pageInfo.num = 1
                     this.show = true
+                    this.allLoaded = false
                     this.load()
                 }
             }
