@@ -8,6 +8,12 @@
     .footer {
         box-shadow: 0px 0px 3px -1px gray;
     }
+
+    .cartItems {
+        position: absolute;
+        left: 50px;
+        top: -3px;
+    }
 </style>
 <template>
     <Footer class="footer">
@@ -28,9 +34,10 @@
                     分类
                 </div>
             </div>
-            <div @click="goCart" class="button">
+            <div @click="goCart" class="button" style="position: relative;">
                 <div>
                     <Icon :style="cartStyle" type="md-cart" size="30"/>
+                    <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
                 </div>
                 <div :style="cartStyle">
                     购物车
@@ -52,6 +59,7 @@
 </template>
 <script>
     import Util from '../libs/util.js'
+    import CartAPI from '../api/cart.js'
     export default {
         props: [
           'selection'
@@ -69,7 +77,8 @@
                 },
                 homeStyle: {
                     color: null
-                }
+                },
+                cartItems: 0,
             }
         },
         methods: {
@@ -92,6 +101,12 @@
                 case 'cart': this.cartStyle.color = '#DA4935'; break
                 case 'category': this.categoryStyle.color = '#DA4935'; break
                 case 'home': this.homeStyle.color = '#DA4935'; break
+            }
+            const token = Util.getToken()
+            if (token) {
+                CartAPI.itemInfo(0).then(data => {
+                    this.cartItems = data.total
+                })
             }
         }
     }

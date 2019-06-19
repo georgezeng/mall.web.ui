@@ -34,16 +34,18 @@ ajax.interceptors.response.use(function (response) {
 function alertError(error) {
     let errors = null
     if (error && error.msgs) {
-        errors = '[' + error.traceId + '] '
+        errors = ''
         if (error.msgs.length > 1) {
             errors += '<br/>'
         }
         for (let i in error.msgs) {
             errors += error.msgs[i] + '<br />'
         }
+        console.log(error.traceId + ": " + errors)
+    } else {
+        errors = '服务请求失败,请稍后重试'
     }
-    var message = errors || '服务请求失败,请稍后重试'
-    Vue.$vux.toast.text(message)
+    Vue.$vux.toast.text(errors)
     // Message.error({
     //     content: message,
     //     duration: 5,
