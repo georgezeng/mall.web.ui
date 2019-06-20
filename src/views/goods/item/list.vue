@@ -205,6 +205,7 @@
                         }, 100)
                     } else {
                         this.allLoaded = true;
+                        this.show = false
                     }
                     setTimeout(() => {
                         this.$refs.loadmore.onBottomLoaded()
