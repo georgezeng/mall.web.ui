@@ -41,6 +41,7 @@
                         </div>
                     </mt-cell-swipe>
                 </mt-loadmore>
+                <div v-if="allLoaded" style="color: gray; font-size: 14px; text-align: center; margin: 10px;">------ 我是有底线的 >_< ------</div>
             </div>
         </Content>
         <Footer :style="footerStyle">
