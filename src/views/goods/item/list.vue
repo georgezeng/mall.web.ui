@@ -118,7 +118,7 @@
                             </div>
                             <div class="stat">
                                 <span>{{item.orderNums}}人已购买, </span>
-                                <span>好评率: {{item.goodPointsRate}}%</span>
+                                <span>好评率: {{item.goodEvaluationRate}}%</span>
                             </div>
                         </div>
                     </div>
@@ -212,9 +212,7 @@
                         this.allLoaded = true;
                         this.show = false
                     }
-                    setTimeout(() => {
-                        this.$refs.loadmore.onBottomLoaded()
-                    }, 100)
+                    this.$refs.loadmore.onBottomLoaded()
                 })
             },
             orderBy(searchType, load) {
