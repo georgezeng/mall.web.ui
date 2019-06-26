@@ -193,7 +193,11 @@
                 })
             },
             back() {
-                Util.go('GoodsCategory')
+                if (this.categoryId > 0) {
+                    Util.go('GoodsCategory')
+                } else {
+                    Util.go('MyCart')
+                }
             },
             load() {
                 API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
