@@ -80,21 +80,24 @@ util.wxConfig = function (jsApiList) {
     })
 }
 
-util.getCart = function () {
-    const cartJson = window.localStorage.getItem('MyCart')
-    let cart = {}
-    if (cartJson) {
-        cart = JSON.parse(cartJson)
-    } else {
-        cart.items = []
-    }
-    return cart
+util.get = function (key) {
+    return window.localStorage.getItem(key)
 }
 
-util.saveCart = function (cart) {
-    if (cart) {
-        window.localStorage.setItem('MyCart', JSON.stringify(cart))
+util.getJson = function (key) {
+    let value = window.localStorage.getItem(key)
+    if(value) {
+        value = JSON.parse(value)
     }
+    return value
+}
+
+util.put = function (key, value) {
+    window.localStorage.setItem(key, value)
+}
+
+util.putJson = function (key, value) {
+    window.localStorage.setItem(key, JSON.stringify(value))
 }
 
 export default util;

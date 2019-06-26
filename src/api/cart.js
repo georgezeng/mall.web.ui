@@ -7,6 +7,9 @@ export default {
     save(cart) {
         return axios.post('/client/cart/save', cart)
     },
+    updateNums(id, nums) {
+        return axios.get('/client/cart/updateNums/params/' + id + '/' + nums)
+    },
     itemInfo(id) {
         return axios.get('/client/cart/item/params/' + id)
     },

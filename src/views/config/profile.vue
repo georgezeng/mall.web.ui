@@ -1,12 +1,20 @@
 <style scoped lang="less">
+    .header {
+        background-color: #fff;
+        height: 60px;
+        box-shadow: 0px 0px 3px -1px gray;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header style="background-color: #fff; height: 60px;">
+        <Header class="header">
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">个人信息</div>
         </Header>
-        <Content :style="commonStyles.content">
+        <Content :style="commonStyles.content" style="margin-top: 40px;">
             <Modal v-model="nicknameModal.open"
                    :mask-closable="true"
                    :closable="true">
@@ -22,7 +30,6 @@
                     <Button type="primary" size="large" long :loading="loading" @click="saveNickname">保存</Button>
                 </div>
             </Modal>
-            <div class="blockLine"></div>
             <group>
                 <cell class="optionalLine optionalCell" is-link title="头像" @click.native="editAvatar">
                     <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -20px;"

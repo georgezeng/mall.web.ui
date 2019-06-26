@@ -15,7 +15,8 @@ const tideHeader = {
     ...header,
     height: '40px',
     fontSize: '11pt',
-    lineHeight: '40px'
+    lineHeight: '40px',
+    boxShadow: 'none'
 }
 
 const backArrow = {

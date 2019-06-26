@@ -1,13 +1,20 @@
 <style scoped lang="less">
+    .header {
+        background-color: #fff;
+        height: 60px;
+        box-shadow: 0px 0px 3px -1px gray;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header style="background-color: #fff; height: 60px;">
+        <Header class="header">
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">实名认证</div>
         </Header>
-        <Content v-if="isInit" :style="commonStyles.content">
-            <div class="blockLine"></div>
+        <Content v-if="isInit" :style="commonStyles.content" style="margin-top: 40px;">
             <group>
                 <x-input class="optionalLine" title="真实姓名" v-model="data.name" placeholder="申请人真实姓名"></x-input>
                 <x-input class="optionalLine" title="身份证号" v-model="data.number" placeholder="申请人身份证号"></x-input>

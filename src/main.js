@@ -23,7 +23,9 @@ import  { ToastPlugin } from 'vux'
 import { InlineXNumber } from 'vux'
 import WeVue from 'we-vue'
 import 'we-vue/lib/style.css'
+import { Checklist } from 'vux'
 
+Vue.component('checklist', Checklist)
 Vue.use(WeVue)
 Vue.component('inline-x-number', InlineXNumber)
 Vue.use(ToastPlugin)

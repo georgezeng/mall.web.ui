@@ -6,18 +6,6 @@
         width: 160px;
     }
 
-    .header {
-        background-color: #fff;
-        height: 60px;
-        width: 100%;
-        box-shadow: 0px 0px 3px -1px gray;
-        font-weight: bold;
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        z-index: 1000;
-    }
-
     .item {
         padding: 20px 10px;
         position: relative;
@@ -62,11 +50,6 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <!--<Header class="header">-->
-            <!--<div align="center" style="font-weight: bold;">-->
-                <!--购物车-->
-            <!--</div>-->
-        <!--</Header>-->
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
             <div v-if="showEmpty && !show" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
@@ -88,15 +71,17 @@
                             <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
                         </div>
                         <div @click="goItem(cartItem.item.id)"
-                             style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px; position: relative;">
+                             style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px;">
                             <img :src="config.publicBucketDomain + cartItem.item.thumbnail" width="72" height="72"/>
                             <div class="disabledTitle" v-if="!cartItem.item.enabled">
                                 商品已下架
                             </div>
                         </div>
-                        <div @click="goItem(cartItem.item.id)" style="display: inline-block; position: relative; left: -20px;">
+                        <div @click="goItem(cartItem.item.id)"
+                             style="display: inline-block; position: relative; left: -20px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
-                                {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' : cartItem.item.name}}
+                                {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
+                                cartItem.item.name}}
                             </div>
                             <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 10px;">
                                 {{specText(cartItem.attrs)}}
@@ -105,7 +90,7 @@
                         </div>
                     </div>
                     <div style="float: right; position: absolute; top: 52px; right: 10px;">
-                        <wv-number-spinner :min="1" :max="99" input-width="30px"
+                        <wv-number-spinner @change="updateNums(cartItem)" :min="1" :max="99" input-width="30px"
                                            v-model="cartItem.nums"></wv-number-spinner>
                     </div>
                 </mt-cell-swipe>
@@ -117,7 +102,7 @@
                 <check-icon @click.native="checkAll" :value.sync="allSelected"></check-icon>
                 <span>全选</span>
             </div>
-            <div class="checkBtn">去结算{{selectedNums}}</div>
+            <div class="checkBtn" @click="goSettleAccount">去结算{{selectedNums}}</div>
             <div class="totalPanel">
                 合计: <span style="color: orangered;">￥{{totalPrice}}</span>
             </div>
@@ -127,6 +112,7 @@
 </template>
 <script>
     import API from '../../api/cart.js'
+    import OrderAPI from '../../api/order.js'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import {Message} from 'iview'
@@ -149,6 +135,7 @@
                 items: [],
                 allSelected: false,
                 show: true,
+                clearId: null
             }
         },
         computed: {
@@ -180,6 +167,34 @@
             }
         },
         methods: {
+            goSettleAccount() {
+                OrderAPI.settleAccount({
+                    fromCart: true,
+                    items: this.items.filter(item => {
+                        return item.selected
+                    }).map(item => {
+                        return {
+                            itemId: item.item.id,
+                            propertyId: item.property.id,
+                            nums: item.nums
+                        }
+                    })
+                }).then(key => {
+                    Util.put('settleAccountData', null)
+                    Util.put('settleAccountKey', key)
+                    Util.go('OrderPreview', {
+                        key
+                    })
+                })
+            },
+            updateNums(cartItem) {
+                if (this.clearId) {
+                    clearTimeout(this.clearId)
+                }
+                this.clearId = setTimeout(() => {
+                    API.updateNums(cartItem.id, cartItem.nums)
+                }, 1000)
+            },
             goItem(id) {
                 Util.go('GoodsItemDetail', {
                     id

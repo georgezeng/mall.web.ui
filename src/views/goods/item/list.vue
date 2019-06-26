@@ -113,7 +113,8 @@
                             <div class="realPrice">￥{{priceRange(item)}}</div>
                             <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
                             <div class="discount">{{discount(item)}}</div>
-                            <div class="name">{{brand(item)}}{{item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name}}
+                            <div class="name">{{brand(item)}}{{item.name.length > 20 ? item.name.substring(0, 20) +
+                                '...' : item.name}}
                             </div>
                             <div class="stat">
                                 <span>{{item.orderNums}}人已购买, </span>
@@ -164,16 +165,17 @@
                 },
                 list: [],
                 show: true,
+                fromOrderPreview: false
             }
         },
         computed: {},
         methods: {
             brand(item) {
-              return item.brand ? item.brand + '|' : ''
+                return item.brand ? item.brand + '|' : ''
             },
             discount(item) {
                 let discount = 0
-                if(item.marketPrice > 0) {
+                if (item.marketPrice > 0) {
                     discount = item.minPrice / item.marketPrice * 10
                     discount = discount.toFixed(1)
                 }
@@ -192,7 +194,11 @@
                 })
             },
             back() {
-                window.history.back()
+                if (this.fromOrderPreview) {
+                    Util.go('GoodsCategory')
+                } else {
+                    window.history.back()
+                }
             },
             load() {
                 API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
@@ -272,6 +278,7 @@
             // this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
+            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview
             this.orderBy('default')
         }
     }

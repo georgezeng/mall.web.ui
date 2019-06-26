@@ -90,6 +90,33 @@ const routers = [
         component: (resolve) => require(['../views/cart/list.vue'], resolve)
     },
     {
+        path: '/MyInvoice/List',
+        name: 'MyInvoiceList',
+        meta: {
+            title: '发票列表',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/invoice/list.vue'], resolve)
+    },
+    {
+        path: '/MyInvoice/Edit/:id',
+        name: 'MyInvoiceEdit',
+        meta: {
+            title: '编辑发票',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/invoice/edit.vue'], resolve)
+    },
+    {
+        path: '/Order/Preview/:key',
+        name: 'OrderPreview',
+        meta: {
+            title: '商品结算',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/settleAccount.vue'], resolve)
+    },
+    {
         path: '/MyCenter',
         name: 'MyCenter',
         meta: {
@@ -135,7 +162,7 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/identity.vue'], resolve)
     },
     {
-        path: '/MyAddress/List',
+        path: '/MyAddress/List/:fromOrderPreview',
         name: 'MyAddressList',
         meta: {
             title: '收货地址',

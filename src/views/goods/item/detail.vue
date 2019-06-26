@@ -213,14 +213,11 @@
             <div class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
             <div class="blockLine"></div>
-            <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择规格">
-                <div slot="title" class="specification_title" :class="{hidden: values.length == 0}">
-                    <span style="color: gray;">已选</span>
-                    <span>{{pickupTitle}}</span>
+            <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择">
+                <div slot="title">
+                    <span>规格</span>
                 </div>
-                <div slot="title" class="specification_title" v-if="!item.enabled">
-                    <div style="color: orangered;">商品已下架</div>
-                </div>
+                <div v-if="values.length > 0">{{pickupTitle}}</div>
             </cell>
             <div class="blockLine"></div>
             <div style="font-size: 11pt; margin: 10px;">
@@ -253,6 +250,7 @@
 </template>
 <script>
     import API from '../../../api/goods-item-detail.js'
+    import OrderAPI from '../../../api/order.js'
     import CartAPI from '../../../api/cart.js'
     import config from '../../../config/index.js'
     import commonStyles from '../../../styles/common.js'
@@ -304,7 +302,8 @@
                 popupHeight: 500,
                 confirmAddToCart: false,
                 cartItems: 0,
-                itemNums: 0
+                itemNums: 0,
+                confirmBuy: false
             }
         },
         computed: {
@@ -398,7 +397,7 @@
                     nums: this.nums
                 }).then(data => {
                     this.cartItems = data.total
-                    this.itemNums = this.itemNums
+                    this.itemNums = data.itemNums
                     this.confirmAddToCart = false
                     this.$vux.toast.show({text: '添加成功'})
                 })
@@ -410,8 +409,25 @@
                 }
                 if (this.values.length == 0) {
                     this.showPopup()
+                    this.confirmBuy = true
                     return
                 }
+                OrderAPI.settleAccount({
+                    fromCart: false,
+                    items: [
+                        {
+                            itemId: this.item.id,
+                            propertyId: this.property.id,
+                            nums: this.nums
+                        }
+                    ]
+                }).then(key => {
+                    Util.put('settleAccountData', null)
+                    Util.put('settleAccountKey', key)
+                    Util.go('OrderPreview', {
+                        key
+                    })
+                })
             },
             toggleValue(definition, value) {
                 definition.selected = null
@@ -474,6 +490,8 @@
                 this.values = this.tempValues
                 if (this.confirmAddToCart) {
                     this.addToCart()
+                } else if(this.confirmBuy) {
+                    this.buy()
                 }
                 this.closePopup()
             },

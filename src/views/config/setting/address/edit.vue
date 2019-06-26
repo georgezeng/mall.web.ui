@@ -1,20 +1,27 @@
 <style scoped lang="less">
-
+    .header {
+        background-color: #fff;
+        height: 60px;
+        position: fixed;
+        top: 0px;
+        z-index: 100;
+        width: 100%;
+        box-shadow: 0px 0px 3px -1px gray;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header style="background-color: #fff; height: 60px;">
+        <Header class="header">
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">{{action}}收货地址</div>
         </Header>
-        <Content :style="commonStyles.content">
-            <div class="blockLine"></div>
+        <Content :style="commonStyles.content" style="margin-top: 40px;">
             <group>
-                <x-input class="optionalLine optionalCell" title="收货人" v-model="form.name"></x-input>
-                <x-input class="optionalLine optionalCell" title="联系电话" v-model="form.phone"></x-input>
+                <x-input class="optionalLine optionalCell" placeholder="请输入收货人" title="收货人" v-model="form.name"></x-input>
+                <x-input class="optionalLine optionalCell" placeholder="请输入联系电话" title="联系电话" v-model="form.phone"></x-input>
                 <x-address :list="addressData" class="optionalLine optionalPicker" title="所在地区"
                            v-model="form.area"></x-address>
-                <x-textarea @on-blur="resetUI" class="optionalLine optionalCell" title="详细地址"
+                <x-textarea @on-blur="resetUI" placeholder="请输入详细地址" class="optionalLine optionalCell" title="详细地址"
                             v-model="form.location"></x-textarea>
             </group>
         </Content>
