@@ -278,6 +278,7 @@
             // this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
+            Util.put('goodsCategoryId', this.categoryId)
             this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview
             this.orderBy('default')
         }

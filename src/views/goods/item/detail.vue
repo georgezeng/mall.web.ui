@@ -379,7 +379,9 @@
                 Util.go('MyCart')
             },
             back() {
-                Window.history.back()
+                Util.go('GoodsItemList', {
+                    id: Util.get('goodsCategoryId')
+                })
             },
             addToCart() {
                 const token = Util.getToken()
