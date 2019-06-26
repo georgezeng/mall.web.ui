@@ -121,9 +121,7 @@
                     } else {
                         this.allLoaded = true;
                     }
-                    setTimeout(() => {
-                        this.$refs.loadmore.onBottomLoaded()
-                    }, 100)
+                    this.$refs.loadmore.onBottomLoaded()
                 })
             },
             swipeButtons(id) {
