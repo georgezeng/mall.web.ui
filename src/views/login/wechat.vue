@@ -57,9 +57,7 @@
         },
         methods: {
             back() {
-                this.$router.push({
-                    name: 'Login'
-                })
+                Util.go('Login')
             },
             goCenter() {
                 window.location.href = '/#/MyCenter'

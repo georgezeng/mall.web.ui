@@ -58,9 +58,7 @@
         },
         methods: {
             back() {
-                this.$router.push({
-                    name: 'MyCenter'
-                })
+                Util.go('MyCenter')
             },
             goWechatLogin() {
                 this.loading = true

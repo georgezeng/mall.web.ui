@@ -30,7 +30,7 @@
         },
         methods: {
             back() {
-                window.history.go(-1)
+                window.history.back()
             }
         },
         computed: {

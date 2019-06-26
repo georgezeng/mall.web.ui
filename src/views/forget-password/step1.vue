@@ -23,6 +23,8 @@
     import API from '../../api/forget-password'
     import {Message} from 'iview'
     import commonStyles from '../../styles/common.js'
+    import Util from '../../libs/util.js'
+
     export default {
         data() {
             return {
@@ -92,9 +94,7 @@
                 })
             },
             back() {
-                this.$router.push({
-                    name: 'Login'
-                })
+                Util.go('Login')
             },
             goStep2() {
                 this.$router.push({

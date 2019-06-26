@@ -510,9 +510,6 @@
                     this.show = true
                 }
             },
-            back() {
-                window.history.back()
-            },
             load() {
                 if (this.item.id) {
                     const token = Util.getToken()

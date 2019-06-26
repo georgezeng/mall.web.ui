@@ -165,7 +165,6 @@
                 },
                 list: [],
                 show: true,
-                fromOrderPreview: false
             }
         },
         computed: {},
@@ -194,11 +193,7 @@
                 })
             },
             back() {
-                if (this.fromOrderPreview) {
-                    Util.go('GoodsCategory')
-                } else {
-                    window.history.back()
-                }
+                Util.go('GoodsCategory')
             },
             load() {
                 API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
@@ -279,7 +274,6 @@
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
-            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview
             this.orderBy('default')
         }
     }
