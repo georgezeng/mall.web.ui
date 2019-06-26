@@ -40,7 +40,7 @@
             <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
                 <mt-loadmore :bottom-method="load"
                              :bottom-all-loaded="allLoaded"
-                             :bottom-distance="30"
+                             :bottom-distance="10"
                              ref="loadmore">
                     <mt-cell-swipe
                             @click.native="getItem(item)"

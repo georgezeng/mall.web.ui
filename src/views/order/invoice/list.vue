@@ -26,7 +26,7 @@
                 <mt-cell title="不开发票" style="margin-bottom: 10px;" @click.native="getItem(null)"></mt-cell>
                 <mt-loadmore :bottom-method="load"
                              :bottom-all-loaded="allLoaded"
-                             :bottom-distance="30"
+                             :bottom-distance="10"
                              ref="loadmore">
                     <mt-cell-swipe
                             style="margin-bottom: 10px;"
