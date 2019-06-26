@@ -102,6 +102,7 @@
             <div ref="wrapper" class="wrapper" :style="{height: wrapperHeight + 'px'}">
                 <mt-loadmore :bottom-method="load"
                              :bottom-all-loaded="allLoaded"
+                             :bottom-distance="30"
                              ref="loadmore">
                     <div ref="grid" style="padding-left: 8px;">
                         <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
