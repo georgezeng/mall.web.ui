@@ -64,6 +64,11 @@
         margin-top: 10px;
     }
 
+    .coupon {
+        padding: 10px 0 10px;
+        margin-top: 2px;
+    }
+
     .payline {
         background-image: none !important;
     }
@@ -187,14 +192,26 @@
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
-                <group style="position: relative; top: -10px; left: -5px;">
-                    <x-textarea style="font-size: 12pt;" @on-blur="resetUI" placeholder="选填(限30字)" title="买家留言"
+                <mt-cell class="coupon">
+                    <div slot="title">
+                        优惠券
+                    </div>
+                    <div>
+                        <span>暂无可用</span>
+                        <img :src="More" width="32" height="32"/>
+                    </div>
+                </mt-cell>
+                <group style="position: relative; top: -19px;">
+                    <x-textarea style="font-size: 12pt; position: relative; left: -5px;" @on-blur="resetUI"
+                                placeholder="选填(限30字)" title="买家留言"
                                 v-model="data.remark"></x-textarea>
                 </group>
             </div>
         </Content>
         <Footer :style="footerStyle">
-            <div style="font-style: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">订单金额: ￥{{totalPrice}}</div>
+            <div style="font-style: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">订单金额:
+                ￥{{totalPrice}}
+            </div>
             <div @click="createOrder"
                  style="float: right; display: inline-block; padding: 10px 20px; background-color: #E55038; color: #fff;">
                 提交订单
@@ -277,11 +294,11 @@
                 const data = {
                     ...this.data,
                     items: this.data.items.map(item => {
-                       return {
-                           itemId: item.item.id,
-                           propertyId: item.property.id,
-                           nums: item.nums
-                       }
+                        return {
+                            itemId: item.item.id,
+                            propertyId: item.property.id,
+                            nums: item.nums
+                        }
                     }),
                     payment: this.data.payment.name
                 }
