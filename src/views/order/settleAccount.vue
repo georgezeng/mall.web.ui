@@ -185,7 +185,7 @@
                 </mt-cell>
                 <mt-cell class="gallery" @click.native="showItemPopup">
                     <div slot="title">
-                        <img style="margin-right: 8px;" :key="item.property.id" v-for="item in orderItems"
+                        <img style="margin-right: 8px; margin-bottom: 5px;" :key="item.property.id" v-for="item in orderItems"
                              :src="config.publicBucketDomain + item.item.thumbnail" width="60" height="60"/>
                     </div>
                     <div>

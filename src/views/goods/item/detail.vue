@@ -168,7 +168,7 @@
         <Content :style="contentStyle">
             <div v-transfer-dom>
                 <popup v-model="show" style="background-color: #fff;">
-                    <div class="popup" :style="{height: popupHeight + 'px'}">
+                    <div class="popup wrapper" :style="{height: popupHeight + 'px'}">
                         <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
                         <img style="vertical-align: bottom;" :src="config.publicBucketDomain + item.thumbnail"
                              width="80"
