@@ -26,9 +26,11 @@
 
         .name {
             font-size: 18px;
+            font-weight: bold;
         }
 
         .phone {
+            font-weight: bold;
             font-size: 16px;
         }
 
@@ -38,6 +40,7 @@
     }
 
     .payment {
+        margin-top: 10px;
         padding: 10px 0 10px;
     }
 
@@ -173,8 +176,8 @@
                     <div>请选择</div>
                 </mt-cell>
                 <mt-cell class="payment" @click.native="showPaymentPopup">
-                    <div slot="title">支付方式</div>
-                    <div>
+                    <div slot="title" style="font-size: 11pt;">支付方式</div>
+                    <div style="font-size: 11pt;">
                         <span v-if="data.payment.text == null">请选择</span>
                         <span v-else>{{data.payment.text}}</span>
                         <img :src="More" width="32" height="32"/>
@@ -182,58 +185,58 @@
                 </mt-cell>
                 <mt-cell class="gallery" @click.native="showItemPopup">
                     <div slot="title">
-                        <img style="margin-right: 10px;" :key="item.item.id" v-for="item in orderItems"
-                             :src="config.publicBucketDomain + item.item.thumbnail" width="42" height="42"/>
+                        <img style="margin-right: 5px;" :key="item.item.id" v-for="item in orderItems"
+                             :src="config.publicBucketDomain + item.item.thumbnail" width="60" height="60"/>
                     </div>
                     <div>
-                        <span>共{{data.items.length}}件</span>
+                        <span style="font-size: 11pt;">共{{data.items.length}}件</span>
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
                 <mt-cell class="invoice" @click.native="goInvoice">
-                    <div slot="title">
+                    <div slot="title" style="font-size: 11pt;">
                         发票
                     </div>
-                    <div>
+                    <div style="font-size: 11pt;">
                         <span v-if="data.invoice.title == null">不开发票</span>
                         <span v-else>{{data.invoice.title}}</span>
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
                 <mt-cell class="coupon">
-                    <div slot="title">
+                    <div slot="title" style="font-size: 11pt;">
                         优惠券
                     </div>
-                    <div>
+                    <div style="font-size: 11pt;">
                         <span>暂无可用</span>
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
                 <group style="position: relative; top: -19px;">
-                    <x-textarea style="font-size: 12pt; position: relative; left: -5px;" @on-blur="resetUI"
+                    <x-textarea style="font-size: 11pt; position: relative; left: -5px;" @on-blur="resetUI"
                                 placeholder="选填(限30字)" title="买家留言"
                                 v-model="data.remark"></x-textarea>
                 </group>
                 <mt-cell class="totalPrice">
-                    <div slot="title">
+                    <div slot="title" style="font-size: 11pt;">
                         商品金额
                     </div>
-                    <div>
+                    <div style="font-size: 11pt;">
                         <span>{{totalPrice}}</span>
                     </div>
                 </mt-cell>
                 <mt-cell class="couponPrice">
-                    <div slot="title">
-                        优惠券金额
+                    <div slot="title" style="font-size: 11pt;">
+                        优惠金额
                     </div>
-                    <div>
+                    <div style="font-size: 11pt;">
                         <span style="color: orangered;">-￥{{couponPrice}}</span>
                     </div>
                 </mt-cell>
             </div>
         </Content>
         <Footer :style="footerStyle">
-            <div style="font-style: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">订单金额:
+            <div style="font-size: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">订单金额:
                 ￥{{finalPrice}}
             </div>
             <div @click="createOrder"
