@@ -15,21 +15,28 @@
             <div align="center" style="position: relative; top: 0px;">个人信息</div>
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 40px;">
-            <Modal v-model="nicknameModal.open"
-                   :mask-closable="true"
-                   :closable="true">
-                <p slot="header" style="text-align: center;">
-                    <span>编辑昵称</span>
-                </p>
-                <Form ref="nicknameForm" :rules="nicknameModal.rules" :label-width="0">
-                    <FormItem prop="nickname">
-                        <Input clearable size="large" v-model="nicknameModal.value"/>
-                    </FormItem>
-                </Form>
-                <div slot="footer">
-                    <Button type="primary" size="large" long :loading="loading" @click="saveNickname">保存</Button>
-                </div>
-            </Modal>
+            <div v-transfer-dom>
+                <popup v-model="nicknameModal.open" style="background-color: #fff;">
+                    <div style="height: 200px; position: relative;">
+                        <Icon size="30" type="ios-close" class="popup-close" @click="closePopup"/>
+                        <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+                            编辑昵称
+                        </div>
+                        <group>
+                            <x-input class="optionalLine optionalCell" title="昵称" placeholder="请输入昵称"
+                                     v-model="nicknameModal.value"></x-input>
+                        </group>
+                        <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
+                            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                                      :show-loading="loading"
+                                      @click.native="saveNickname">
+                                <span style="font-size: 11pt; color: #fff;">保存</span>
+                            </x-button>
+                        </div>
+                    </div>
+                </popup>
+            </div>
+
             <group>
                 <cell class="optionalLine optionalCell" is-link title="头像" @click.native="editAvatar">
                     <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -20px;"
@@ -132,25 +139,25 @@
             },
         },
         methods: {
-            saveNickname() {
-                this.$refs.nicknameForm.validate().then(valid => {
-                    if (valid) {
-                        this.loading = true
-                        this.info.nickname = this.nicknameModal.value
-                        API.save({
-                            ...this.info,
-                            sex: this.info.sex.name
-                        }).then(res => {
-                            this.loading = false
-                            this.closeNicknameModal()
-                        }).catch(e => {
-                            this.loading = false
-                        })
-                    }
-                })
-            },
-            closeNicknameModal() {
+            closePopup() {
                 this.nicknameModal.open = false
+            },
+            saveNickname() {
+                if (!this.nicknameModal.value || this.nicknameModal.value == '') {
+                    this.$vux.toast.show({text: '昵称不能为空', type: 'warn'})
+                    return
+                }
+                this.loading = true
+                this.info.nickname = this.nicknameModal.value
+                API.save({
+                    ...this.info,
+                    sex: this.info.sex.name
+                }).then(res => {
+                    this.loading = false
+                    this.closePopup()
+                }).catch(e => {
+                    this.loading = false
+                })
             },
             load() {
                 API.load().then(data => {

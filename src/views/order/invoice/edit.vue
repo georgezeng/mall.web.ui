@@ -36,7 +36,7 @@
                 <cell class="optionalLine optionalCell">
                     <div slot="title">
                         <div>发票内容</div>
-                        <div v-for="(item, index) in contentList" style="margin: 10px 0;">
+                        <div :key="item.id" v-for="(item, index) in contentList" style="margin: 10px 0;">
                             <check-icon class="checker"
                                         :value.sync="content[index]"
                                         @click.native.stop="check(index)"></check-icon>

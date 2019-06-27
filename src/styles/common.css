@@ -62,7 +62,6 @@ body {
     top: -10px;
 }
 
-
 .vux-number-selector-sub svg {
     position: relative;
     top: -8px;
@@ -78,4 +77,18 @@ input.vux-number-input {
 
 .mint-cell-wrapper {
     border-top: 1px solid #fff;
+    background-image: none !important;
+}
+
+.loadMoreBaseLine {
+    color: gray;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px;
+}
+
+.popup-close {
+    position: absolute;
+    float: right;
+    right: 0px;
 }

@@ -105,15 +105,15 @@
                              :bottom-distance="10"
                              ref="loadmore">
                     <div ref="grid" style="padding-left: 8px;">
-                        <div v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
+                        <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                              @click="goDetail(item.id)">
                             <div align="center">
                                 <img :src="config.publicBucketDomain + item.thumbnail"
                                      width="168" height="168"/>
                             </div>
                             <div class="realPrice">￥{{priceRange(item)}}</div>
-                            <div class="marketPrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
-                            <div class="discount">{{discount(item)}}</div>
+                            <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
+                            <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
                             <div class="name">{{brand(item)}}{{item.name.length > 20 ? item.name.substring(0, 20) +
                                 '...' : item.name}}
                             </div>
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </mt-loadmore>
-                <div v-if="allLoaded" style="color: gray; font-size: 14px; text-align: center; margin: 10px;">------ 我是有底线的 >_< ------</div>
+                <div v-if="allLoaded" class="loadMoreBaseLine">------ 我是有底线的 >_< ------</div>
             </div>
         </Content>
     </Layout>
@@ -181,6 +181,9 @@
                     discount = discount.toFixed(1)
                 }
                 return discount > 0 ? discount + '折' : ''
+            },
+            isSinglePrice(item) {
+                return item.minPrice == item.maxPrice
             },
             priceRange(item) {
                 if (item.minPrice == item.maxPrice) {

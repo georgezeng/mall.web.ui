@@ -8,12 +8,9 @@
                 <Input clearable size="large" v-model="form.password" prefix="ios-lock" type="password"
                        placeholder="输入密码"></Input>
             </FormItem>
-            <Button @click="login" long
-                    size="large"
-                    type="primary"
-                    class="margin-right"
-                    :loading="loading">登录
-            </Button>
+            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;" :show-loading="loading" @click.native="login">
+                <span style="font-size: 11pt; color: #fff;">登录</span>
+            </x-button>
             <a href="javascript:;"
                style="float: right; margin-top: 10px;"
                @click="goForgetPassword">忘记密码?</a>

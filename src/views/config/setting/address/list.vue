@@ -42,7 +42,7 @@
                              :bottom-all-loaded="allLoaded"
                              :bottom-distance="10"
                              ref="loadmore">
-                    <mt-cell-swipe
+                    <!--<mt-cell-swipe
                             @click.native="getItem(item)"
                             v-for="(item, index) in list"
                             :right="swipeButtons(item.id)">
@@ -67,9 +67,41 @@
                                 </td>
                             </tr>
                         </table>
-                    </mt-cell-swipe>
+                    </mt-cell-swipe>-->
+
+                    <swipeout>
+                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list" transition-mode="follow">
+                            <div slot="content" class="item vux-1px-t">
+                                <table width="100%">
+                                    <tr>
+                                        <td width="30" rowspan="2">
+                                            <check-icon class="checker"
+                                                        :value.sync="isDefault[index]"
+                                                        @click.native.stop="checkAsDefault(item.id, index)"></check-icon>
+                                        </td>
+                                        <td class="wrap">
+                                            <span>{{item.name}}</span>
+                                            <span>{{item.phone.substring(0, 3)}}****{{item.phone.substring(7, item.phone.length)}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrap address">
+                                            {{item.province+item.city.replace('市辖区',
+                                            '')+item.district+item.location}}
+                                        </td>
+                                        <td width="30" rowspan="2" style="text-align: right;">
+                                            <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div slot="right-menu">
+                                <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除</swipeout-button>
+                            </div>
+                        </swipeout-item>
+                    </swipeout>
                 </mt-loadmore>
-                <div v-if="allLoaded" style="color: gray; font-size: 14px; text-align: center; margin: 10px;">------ 我是有底线的 >_< ------</div>
+                <div v-if="allLoaded" class="loadMoreBaseLine">------ 我是有底线的 >_< ------</div>
             </div>
         </Content>
         <Footer :style="footerStyle">
@@ -131,7 +163,8 @@
             },
             goEdit(id) {
                 Util.go('MyAddressEdit', {
-                    id
+                    id,
+                    fromOrderPreview: this.fromOrderPreview ? 'true' : 'false'
                 })
             },
             checkAsDefault(id, index) {
@@ -182,9 +215,9 @@
             this.footerStyle.padding = "20px"
             this.contentStyle.marginTop = "60px"
             this.contentStyle.marginBottom = "80px"
-            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview == 'true'
         },
         mounted() {
+            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview == 'true'
             this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
         }
     }

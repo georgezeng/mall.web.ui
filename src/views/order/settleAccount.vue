@@ -25,11 +25,11 @@
         padding: 10px 0 10px;
 
         .name {
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .phone {
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .location {
@@ -39,18 +39,6 @@
 
     .payment {
         padding: 10px 0 10px;
-    }
-
-    .close {
-        position: absolute;
-        float: left;
-        left: 10px;
-    }
-
-    .close-right {
-        position: absolute;
-        float: right;
-        right: 0px;
     }
 
     .checker {
@@ -75,6 +63,10 @@
         padding: 10px 0 10px;
         margin-top: 10px;
     }
+
+    .payline {
+        background-image: none !important;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -87,7 +79,7 @@
             <div v-transfer-dom>
                 <popup v-model="showPayment" style="background-color: #fff;">
                     <div style="height: 300px; position: relative;">
-                        <Icon size="30" type="ios-close" class="close" @click="closePaymentPopup"/>
+                        <Icon size="30" type="ios-close" class="popup-close" @click="closePaymentPopup"/>
                         <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
                             选择支付方式
                         </div>
@@ -118,7 +110,7 @@
                 <popup v-model="showItem" style="background-color: #fff;">
                     <div style="position: relative;">
                         <div style="padding: 0 10px;">
-                            <Icon size="30" type="ios-close" class="close-right" @click="closeItemPopup"/>
+                            <Icon size="30" type="ios-close" class="popup-close" @click="closeItemPopup"/>
                             <div style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
                                 商品清单
                                 <span class="itemNums">共{{data.items.length}}件</span>
@@ -127,7 +119,7 @@
                         <mt-cell>
                             <div style="overflow: auto; padding: 0 10px;" :style="{height: popupHeight + 'px'}"
                                  slot="title">
-                                <div v-for="item in data.items" style="margin-bottom: 20px;">
+                                <div :key="item.property.id" v-for="item in data.items" style="margin-bottom: 20px;">
                                     <div style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; ">
                                         <img :src="config.publicBucketDomain + item.item.thumbnail" width="72"
                                              height="72"/>
@@ -142,8 +134,8 @@
                                         </div>
                                         <div style="font-size: 11pt; color: orangered;">￥{{item.property.price}}</div>
                                     </div>
-                                    <div style="float:right; color: gray; font-size: 12px; position: relative; top: 60px;">
-                                        共{{item.nums}}件
+                                    <div style="float:right; color: gray; font-size: 14px; position: relative; top: 60px;">
+                                        x{{item.nums}}
                                     </div>
                                 </div>
                             </div>
@@ -167,32 +159,32 @@
                     <div slot="title">收货地址</div>
                     <div>请选择</div>
                 </mt-cell>
-                <mt-cell class="payment">
+                <mt-cell class="payment" @click.native="showPaymentPopup">
                     <div slot="title">支付方式</div>
                     <div>
                         <span v-if="data.payment.text == null">请选择</span>
                         <span v-else>{{data.payment.text}}</span>
-                        <img @click="showPaymentPopup" :src="More" width="32" height="32"/>
+                        <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
-                <mt-cell class="gallery">
+                <mt-cell class="gallery" @click.native="showItemPopup">
                     <div slot="title">
-                        <img style="margin-right: 10px;" v-for="item in orderItems"
+                        <img style="margin-right: 10px;" :key="item.item.id" v-for="item in orderItems"
                              :src="config.publicBucketDomain + item.item.thumbnail" width="42" height="42"/>
                     </div>
                     <div>
                         <span>共{{data.items.length}}件</span>
-                        <img @click="showItemPopup" :src="More" width="32" height="32"/>
+                        <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
-                <mt-cell class="invoice">
+                <mt-cell class="invoice" @click.native="goInvoice">
                     <div slot="title">
                         发票
                     </div>
                     <div>
                         <span v-if="data.invoice.title == null">不开发票</span>
                         <span v-else>{{data.invoice.title}}</span>
-                        <img @click="goInvoice" :src="More" width="32" height="32"/>
+                        <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
                 <group style="position: relative; top: -10px; left: -5px;">

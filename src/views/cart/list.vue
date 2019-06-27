@@ -63,7 +63,7 @@
                     <div class="goAroundBtn" @click="goGoodsList">去逛逛</div>
                 </div>
             </div>
-            <div v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
+            <div :key="cartItem.id" v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
                         :right="swipeButtons(cartItem.id)" style="padding: 10px; position: relative;">
                     <div slot="title">

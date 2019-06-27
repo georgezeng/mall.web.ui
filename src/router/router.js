@@ -171,7 +171,7 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/address/list.vue'], resolve)
     },
     {
-        path: '/MyAddress/Edit/:id',
+        path: '/MyAddress/Edit/:id/:fromOrderPreview',
         name: 'MyAddressEdit',
         meta: {
             title: '编辑收货地址',

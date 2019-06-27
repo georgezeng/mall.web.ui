@@ -14,7 +14,9 @@
                            :enter-button="codeBtnText"
                            placeholder="输入验证码"></Input>
                 </FormItem>
-                <Button size="large" :loading="loading" long type="warning" @click="check">下一步</Button>
+                <x-button :disabled="loading" style="width: 100%; background-color: #FF992D;" :show-loading="loading" @click.native="check">
+                    <span style="font-size: 11pt; color: #fff;">下一步</span>
+                </x-button>
             </Form>
         </Content>
     </Layout>

@@ -54,6 +54,7 @@
                     area: [],
                     location: null
                 },
+                fromOrderPreview: false
             }
         },
         computed: {
@@ -65,8 +66,10 @@
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
-            back() {
-                Util.go('MyAddressList')
+            back() {console.log(this.fromOrderPreview)
+                Util.go('MyAddressList', {
+                    fromOrderPreview: this.fromOrderPreview ? 'true' : 'false'
+                })
             },
             save() {
                 if (!this.form.name || this.form.name == '') {
@@ -119,10 +122,11 @@
         },
         created() {
             this.footerStyle.padding = "20px"
-            this.form.id = this.$router.currentRoute.params.id
-            this.form.id = this.form.id > 0 ? this.form.id : null
         },
         mounted() {
+            this.form.id = this.$router.currentRoute.params.id
+            this.form.id = this.form.id > 0 ? this.form.id : null
+            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview == 'true'
             this.load()
         }
     }

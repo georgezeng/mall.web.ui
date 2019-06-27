@@ -14,7 +14,9 @@
                            :enter-button="codeBtnText"
                            placeholder="输入验证码"></Input>
                 </FormItem>
-                <Button size="large" :loading="loading" long type="warning" @click="register">绑定</Button>
+                <x-button :disabled="loading" style="width: 100%; background-color: #FF992D;" :show-loading="loading" @click.native="register">
+                    <span style="font-size: 11pt; color: #fff;">绑定</span>
+                </x-button>
             </Form>
         </Content>
     </Layout>

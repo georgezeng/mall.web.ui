@@ -177,12 +177,13 @@
                             <div class="price">￥{{popupPriceRange}}</div>
                             <div class="inventory">库存{{property.inventory}}件</div>
                         </div>
-                        <div style="margin: 10px;" v-for="(definition, index) in definitions">
+                        <div style="margin: 10px;" :key="definition.id" v-for="(definition, index) in definitions">
                             <div class="definition">{{definition.name}}</div>
                             <div>
                             <span @click="toggleValue(definition, value)"
                                   :class="{selected: value.checked}"
                                   class="value"
+                                  :key="value.id"
                                   v-for="value in definition.values">{{value.name}}</span>
                             </div>
                         </div>
@@ -199,7 +200,7 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <mt-swipe :auto="0" style="height: 375px;">
-                <mt-swipe-item v-for="photo in item.photos">
+                <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
                     <div align="center">
                         <img :src="config.publicBucketDomain + photo" width="375" height="375"/>
                     </div>
@@ -207,8 +208,8 @@
             </mt-swipe>
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
-                <span class="marketPrice">￥{{item.marketPrice}}</span>
-                <span class="discount">{{discount}}</span>
+                <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
+                <span class="discount" v-if="isSinglePrice">{{discount}}</span>
             </div>
             <div class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
@@ -307,6 +308,9 @@
             }
         },
         computed: {
+            isSinglePrice() {
+                return this.item.minPrice == this.item.marketPrice
+            },
             discount() {
                 let discount = 0
                 if (this.item.marketPrice > 0) {
@@ -492,7 +496,7 @@
                 this.values = this.tempValues
                 if (this.confirmAddToCart) {
                     this.addToCart()
-                } else if(this.confirmBuy) {
+                } else if (this.confirmBuy) {
                     this.buy()
                 }
                 this.closePopup()

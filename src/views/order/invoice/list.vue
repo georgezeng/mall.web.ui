@@ -28,7 +28,7 @@
                              :bottom-all-loaded="allLoaded"
                              :bottom-distance="10"
                              ref="loadmore">
-                    <mt-cell-swipe
+                    <!--<mt-cell-swipe
                             style="margin-bottom: 10px;"
                             @click.native="getItem(item)"
                             v-for="(item, index) in list"
@@ -39,9 +39,26 @@
                         <div>
                             <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
                         </div>
-                    </mt-cell-swipe>
+                    </mt-cell-swipe>-->
+
+                    <swipeout>
+                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list" transition-mode="follow">
+                            <div slot="content" class="item vux-1px-t">
+                                <div style="font-size: 11pt;">
+                                    <div style="margin-bottom: 5px;">{{item.title}}</div>
+                                    <div style="font-size: 12px; color: gray;">{{item.content}}</div>
+                                </div>
+                                <div style="float: right; position: relative; top: -35px;">
+                                    <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
+                                </div>
+                            </div>
+                            <div slot="right-menu">
+                                <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除</swipeout-button>
+                            </div>
+                        </swipeout-item>
+                    </swipeout>
                 </mt-loadmore>
-                <div v-if="allLoaded" style="color: gray; font-size: 14px; text-align: center; margin: 10px;">------ 我是有底线的 >_< ------</div>
+                <div v-if="allLoaded" class="loadMoreBaseLine">------ 我是有底线的 >_< ------</div>
             </div>
         </Content>
         <Footer :style="footerStyle">

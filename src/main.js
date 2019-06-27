@@ -24,7 +24,13 @@ import { InlineXNumber } from 'vux'
 import WeVue from 'we-vue'
 import 'we-vue/lib/style.css'
 import { Checklist } from 'vux'
+import { Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
+import { XButton } from 'vux'
 
+Vue.component('x-button', XButton)
+Vue.component('swipeout', Swipeout)
+Vue.component('swipeout-item', SwipeoutItem)
+Vue.component('swipeout-button', SwipeoutButton)
 Vue.component('checklist', Checklist)
 Vue.use(WeVue)
 Vue.component('inline-x-number', InlineXNumber)

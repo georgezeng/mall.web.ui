@@ -101,7 +101,7 @@
             top: 0px;
         }
         .goArrow {
-            top: 21px;
+            top: 23px;
         }
     }
 

@@ -14,12 +14,9 @@
             <FormItem>
                 温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a href="javascript:;">《用户服务协议》</a>
             </FormItem>
-            <Button @click="login" long
-                    size="large"
-                    type="primary"
-                    class="margin-right"
-                    :loading="loading">登录/注册
-            </Button>
+            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;" :show-loading="loading" @click.native="login">
+                <span style="font-size: 11pt; color: #fff;">登录/注册</span>
+            </x-button>
         </Form>
     </div>
 </template>
@@ -96,9 +93,7 @@
                 })
             },
             goCenter() {
-                this.$router.push({
-                    name: 'MyCenter'
-                })
+                Util.go('MyCenter')
             }
         }
     }

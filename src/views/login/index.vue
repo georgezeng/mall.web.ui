@@ -25,15 +25,16 @@
                 </TabPane>
             </Tabs>
 
-            <div v-if="isWechat" style="padding: 0 20px;">
+            <div v-if="!isWechat" style="padding: 0 20px; margin-top: 20px;">
                 <div style="margin-bottom: 20px;" align="center">
                     <div class="gradient"></div>
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
                     <div class="gradient"></div>
                 </div>
-                <Button icon="ios-chatbubbles" size="large" :loading="loading" long type="success" @click="goWechatLogin">
-                    微信登录
-                </Button>
+                <x-button :disabled="loading" type="primary" style="width: 100%;" :show-loading="loading" @click.native="goWechatLogin">
+                    <Icon type="ios-chatbubbles" style="color: #fff;" />
+                    <span style="font-size: 11pt;">微信登录</span>
+                </x-button>
             </div>
         </Content>
     </Layout>

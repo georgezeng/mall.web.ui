@@ -73,6 +73,7 @@
         <Content :style="contentStyle">
             <div class="wrapper leftPanel" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
                 <div class="firstCategory" :class="{selected: isSelect[index]}" @click="select(item.id, index)"
+                     :key="item.id"
                      v-for="(item, index) in level1Categories">
                     {{item.name}}
                 </div>
@@ -95,9 +96,9 @@
                     <div class="demo-carousel2">2</div>
                     <div class="demo-carousel2">3</div>
                 </div>
-                <div v-for="item in level2Categories">
+                <div :key="item.id" v-for="item in level2Categories">
                     <div class="secondCategory">{{item.name}}</div>
-                    <div v-for="third in item.attrs" align="center" class="thirdCategory" @click="goGoodsList(third.id)">
+                    <div :key="third.id" v-for="third in item.attrs" align="center" class="thirdCategory" @click="goGoodsList(third.id)">
                         <img :src="img(third.icon)" width="64" height="64" />
                         <div style="margin-top: 5px; font-size: 10pt;">{{third.name}}</div>
                     </div>

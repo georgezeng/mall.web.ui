@@ -12,7 +12,9 @@
                 <FormItem label="确认密码" prop="confirmPassword">
                     <Input clearable size="large" type="password" v-model="form.confirmPassword"></Input>
                 </FormItem>
-                <Button size="large" :loading="loading" long type="warning" @click="reset">重置</Button>
+                <x-button :disabled="loading" style="width: 100%; background-color: #FF992D;" :show-loading="loading" @click.native="reset">
+                    <span style="font-size: 11pt; color: #fff;">重置</span>
+                </x-button>
             </Form>
         </Content>
     </Layout>

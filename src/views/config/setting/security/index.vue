@@ -15,36 +15,71 @@
             <div align="center" style="position: relative; top: 0px;">账号安全</div>
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 40px;">
-            <Modal v-model="passwordModal.open"
-                   :mask-closable="true"
-                   :closable="true">
-                <p slot="header" style="text-align: center;">
-                    <span>{{passwordModalTitle}}</span>
-                </p>
-                <Form ref="passwordForm" :model="passwordModal.form" :rules="passwordModal.rules" :label-width="80">
-                    <FormItem v-if="passwordModal.toEdit" label="旧密码" prop="oldPassword">
-                        <Input clearable size="large" type="password" v-model="passwordModal.form.oldPassword"></Input>
-                    </FormItem>
-                    <FormItem v-else label="验证码" prop="verifyCode">
-                        <Input clearable size="large" v-model="passwordModal.form.verifyCode" @on-search="sendCode" search
-                               :enter-button="passwordModal.codeBtnText"
-                               placeholder="输入验证码"></Input>
-                    </FormItem>
-                    <FormItem label="新密码" prop="password">
-                        <Input clearable size="large" type="password" v-model="passwordModal.form.password"></Input>
-                    </FormItem>
-                    <FormItem label="确认密码" prop="confirmPassword">
-                        <Input clearable size="large" type="password" v-model="passwordModal.form.confirmPassword"></Input>
-                    </FormItem>
-                </Form>
-                <div slot="footer">
-                    <Button type="primary" size="large" long :loading="loading" @click="savePassword">保存</Button>
-                </div>
-            </Modal>
+            <div v-transfer-dom>
+                <popup v-model="passwordModal.editOpen" style="background-color: #fff;">
+                    <div style="height: 300px; position: relative;">
+                        <Icon size="30" type="ios-close" class="popup-close" @click="closePasswordPopup"/>
+                        <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+                            修改密码
+                        </div>
+                        <group>
+                            <x-input class="optionalLine optionalCell" type="password" title="旧密码" placeholder="请输入旧密码"
+                                     v-model="passwordModal.form.oldPassword"></x-input>
+                            <x-input class="optionalLine optionalCell" type="password" title="新密码" placeholder="请输入新密码"
+                                     v-model="passwordModal.form.password"></x-input>
+                            <x-input class="optionalLine optionalCell" type="password" title="确认密码"
+                                     placeholder="请输入确认密码"
+                                     v-model="passwordModal.form.confirmPassword"></x-input>
+                        </group>
+                        <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
+                            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                                      :show-loading="loading"
+                                      @click.native="savePassword">
+                                <span style="font-size: 11pt; color: #fff;">保存</span>
+                            </x-button>
+                        </div>
+                    </div>
+                </popup>
+
+                <popup v-model="passwordModal.resetOpen" style="background-color: #fff;">
+                    <div style="height: 300px; position: relative;">
+                        <Icon size="30" type="ios-close" class="popup-close" @click="closePasswordPopup"/>
+                        <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+                            重置密码
+                        </div>
+                        <group>
+                            <x-input class="optionalLine optionalCell" style="width: 65%; float: left;"
+                                     title="验证码" placeholder="请输入验证码"
+                                     v-model="passwordModal.form.verifyCode">
+                            </x-input>
+                            <x-button
+                                    :disabled="passwordModal.loading"
+                                    style="position: relative; top: 10px; left: -10px;float: right; width: 35%; background-color: #008CEB;"
+                                    @click.native="sendCode">
+                                <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
+                            </x-button>
+                            <x-input style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
+                                     placeholder="请输入新密码"
+                                     v-model="passwordModal.form.password"></x-input>
+                            <x-input class="optionalLine optionalCell" type="password" title="确认密码"
+                                     placeholder="请输入确认密码"
+                                     v-model="passwordModal.form.confirmPassword"></x-input>
+                        </group>
+                        <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
+                            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                                      :show-loading="loading"
+                                      @click.native="savePassword">
+                                <span style="font-size: 11pt; color: #fff;">保存</span>
+                            </x-button>
+                        </div>
+                    </div>
+                </popup>
+            </div>
+
 
             <group>
-                <cell class="optionalLine optionalCell" is-link title="修改密码" @click.native="editPassword" />
-                <cell class="optionalLine optionalCell" is-link title="重置密码" @click.native="resetPassword" />
+                <cell class="optionalLine optionalCell" is-link title="修改密码" @click.native="editPassword"/>
+                <cell class="optionalLine optionalCell" is-link title="重置密码" @click.native="resetPassword"/>
             </group>
         </Content>
     </Layout>
@@ -58,130 +93,109 @@
     export default {
         components: {},
         data() {
-            const pwdCheck = (rule, value, callback) => {
-                if (this.passwordModal.form.password !== '' && this.passwordModal.form.password !== value) {
-                    callback(new Error('确认密码与新密码不相同'));
-                } else {
-                    callback();
-                }
-            }
-            const codeCheck = (rule, value, callback) => {
-                if (!this.passwordModal.form.oldPassword) {
-                    callback(new Error('验证码不能为空'));
-                } else {
-                    callback();
-                }
-            }
             return {
                 commonStyles,
                 loading: false,
                 passwordModal: {
+                    loading: false,
                     codeLoading: false,
                     codeBtnText: '获取验证码',
-                    open: false,
-                    toEdit: false,
+                    editOpen: false,
+                    resetOpen: false,
                     form: {
                         verifyCode: null,
                         oldPassword: null,
                         password: null,
                         confirmPassword: null
-                    },
-                    rules: {
-                        oldPassword: [
-                            {required: true, message: '旧密码不能为空', trigger: 'change'},
-                        ],
-                        password: [
-                            {required: true, message: '新密码不能为空', trigger: 'change'},
-                        ],
-                        confirmPassword: [
-                            {required: true, validator: pwdCheck, trigger: 'change'},
-                        ],
-                        verifyCode: [
-                            {required: true, validator: codeCheck, trigger: 'change'},
-                        ],
                     }
                 }
             }
         },
-        computed: {
-            isWechat() {
-                return Util.isInWechat()
-            },
-            passwordModalTitle() {
-                return this.passwordModal.toEdit ? '修改密码' : '重置密码'
-            }
-        },
+        computed: {},
         methods: {
             back() {
                 Util.go('MySetting')
             },
             editPassword() {
-                this.toEditPassword(true)
+                this.resetPasswordPopup()
+                this.passwordModal.editOpen = true
             },
             resetPassword() {
-                this.toEditPassword(false)
+                this.resetPasswordPopup()
+                this.passwordModal.resetOpen = true
             },
-            toEditPassword(toEdit) {
+            resetPasswordPopup() {
                 this.passwordModal.form = {
                     verifyCode: '',
                     oldPassword: '',
                     password: '',
                     confirmPassword: ''
                 }
-                this.$refs.passwordForm.resetFields()
-                this.passwordModal.toEdit = toEdit
-                this.passwordModal.open = true
             },
-            closePasswordModal() {
-                this.passwordModal.open = false
+            closePasswordPopup() {
+                this.passwordModal.editOpen = false
+                this.passwordModal.resetOpen = false
             },
             savePassword() {
-                this.$refs.passwordForm.validate().then(valid => {
-                    if (valid) {
-                        this.loading = true
-                        if (!this.passwordModal.toEdit) {
-                            API.resetPassword({
-                                ...this.passwordModal.form,
-                                oldPassword: this.passwordModal.fom.verifyCode
-                            }).then(res => {
-                                this.loading = false
-                                this.closePasswordModal()
-                                this.$vux.toast.show({text:'保存成功'})
-                            }).catch(e => {
-                                this.loading = false
-                            })
-                        } else {
-                            API.updatePassword(this.passwordModal.form).then(res => {
-                                this.loading = false
-                                this.closePasswordModal()
-                                Message.success('保存成功')
-                            }).catch(e => {
-                                this.loading = false
-                            })
-                        }
+                if (this.passwordModal.resetOpen) {
+                    if (!this.passwordModal.form.verifyCode || this.passwordModal.form.verifyCode == '') {
+                        this.$vux.toast.show({text: '验证码不能为空', type: 'warn'})
+                        return
                     }
-                })
+                } else {
+                    if (!this.passwordModal.form.oldPassword || this.passwordModal.form.oldPassword == '') {
+                        this.$vux.toast.show({text: '旧密码不能为空', type: 'warn'})
+                        return
+                    }
+                }
+                if (!this.passwordModal.form.password || this.passwordModal.form.password == '') {
+                    this.$vux.toast.show({text: '新密码不能为空', type: 'warn'})
+                    return
+                }
+                if (!this.passwordModal.form.confirmPassword || this.passwordModal.form.confirmPassword == '') {
+                    this.$vux.toast.show({text: '确认密码不能为空', type: 'warn'})
+                    return
+                }
+
+                this.loading = true
+                if (this.passwordModal.resetOpen) {
+                    API.resetPassword({
+                        ...this.passwordModal.form,
+                        oldPassword: this.passwordModal.fom.verifyCode
+                    }).then(res => {
+                        this.loading = false
+                        this.closePasswordPopup()
+                        this.$vux.toast.show({text: '保存成功'})
+                    }).catch(e => {
+                        this.loading = false
+                    })
+                } else {
+                    API.updatePassword(this.passwordModal.form).then(res => {
+                        this.loading = false
+                        this.closePasswordPopup()
+                        this.$vux.toast.show({text: '保存成功'})
+                    }).catch(e => {
+                        this.loading = false
+                    })
+                }
             },
             disableVerifyCodeBtn(second) {
                 if (second > 0) {
-                    this.codeLoading = true
-                    this.codeBtnText = second + '秒后重试'
+                    this.passwordModal.codeBtnText = second + '秒后重试'
                     let self = this
                     setTimeout(function () {
                         self.disableVerifyCodeBtn(second - 1)
                     }, 1000)
                     return
                 }
-                this.codeLoading = false
-                this.codeBtnText = '获取验证码'
+                this.passwordModal.loading = false
+                this.passwordModal.codeBtnText = '获取验证码'
             },
             sendCode() {
-                if (this.codeLoading) {
-                    return
-                }
+                this.passwordModal.loading = true
                 this.disableVerifyCodeBtn(30)
                 API.sendCode().then(res => {
-                    this.$vux.toast.show({text:'发送成功'})
+                    this.$vux.toast.show({text: '发送成功'})
                 })
             },
         },
