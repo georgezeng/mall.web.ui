@@ -91,6 +91,7 @@
                     order: 'DESC',
                     property: 'updateTime'
                 },
+                init: false
             }
         },
         computed: {},
@@ -141,6 +142,12 @@
                         this.allLoaded = true;
                     }
                     this.$refs.loadmore.onBottomLoaded()
+                    if (!this.init) {
+                        this.init = true
+                        setTimeout(() => {
+                            this.$refs.wrapper.scrollTop = 0
+                        }, 100)
+                    }
                 })
             },
             swipeButtons(id) {

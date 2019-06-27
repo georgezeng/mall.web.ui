@@ -70,7 +70,8 @@
                     </mt-cell-swipe>-->
 
                     <swipeout>
-                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list" transition-mode="follow">
+                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list"
+                                       transition-mode="follow">
                             <div slot="content" class="item vux-1px-t">
                                 <table width="100%">
                                     <tr>
@@ -136,7 +137,8 @@
                     order: 'DESC',
                     property: 'createTime'
                 },
-                fromOrderPreview: false
+                fromOrderPreview: false,
+                init: false
             }
         },
         computed: {},
@@ -199,6 +201,12 @@
                         this.allLoaded = true;
                     }
                     this.$refs.loadmore.onBottomLoaded()
+                    if (!this.init) {
+                        this.init = true
+                        setTimeout(() => {
+                            this.$refs.wrapper.scrollTop = 0
+                        }, 100)
+                    }
                 })
             },
             swipeButtons(id) {
