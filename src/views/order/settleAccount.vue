@@ -194,7 +194,7 @@
             </div>
         </Content>
         <Footer :style="footerStyle">
-            <div style="display: inline-block;color: orangered; padding: 10px 10px;">订单金额: ￥{{totalPrice}}</div>
+            <div style="font-style: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">订单金额: ￥{{totalPrice}}</div>
             <div @click="createOrder"
                  style="float: right; display: inline-block; padding: 10px 20px; background-color: #E55038; color: #fff;">
                 提交订单

@@ -58,7 +58,7 @@
                         </swipeout-item>
                     </swipeout>
                 </mt-loadmore>
-                <div v-if="allLoaded" class="loadMoreBaseLine">------ 我是有底线的 >_< ------</div>
+                <div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>
             </div>
         </Content>
         <Footer :style="footerStyle">
