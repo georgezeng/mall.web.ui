@@ -93,7 +93,7 @@ const routers = [
         path: '/MyInvoice/List',
         name: 'MyInvoiceList',
         meta: {
-            title: '发票列表',
+            title: '选择发票',
             needLogin: true
         },
         component: (resolve) => require(['../views/order/invoice/list.vue'], resolve)
@@ -111,7 +111,7 @@ const routers = [
         path: '/Order/Preview/:key',
         name: 'OrderPreview',
         meta: {
-            title: '商品结算',
+            title: '填写订单',
             needLogin: true
         },
         component: (resolve) => require(['../views/order/settleAccount.vue'], resolve)

@@ -19,7 +19,7 @@
     <Layout :style="commonStyles.layout">
         <Header class="header">
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
-            <div align="center" style="position: relative; top: 0px;">发票</div>
+            <div align="center" style="position: relative; top: 0px;">选择发票</div>
         </Header>
         <Content :style="contentStyle">
             <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
