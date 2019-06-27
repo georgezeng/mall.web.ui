@@ -461,6 +461,7 @@
             }
         },
         mounted() {
+            this.footerStyle.boxShadow = '0px 0px 3px -1px gray'
             this.popupHeight = document.documentElement.clientHeight * 0.6
             this.contentStyle.marginTop = '60px'
             this.contentStyle.backgroundColor = '#F5F5F5'
