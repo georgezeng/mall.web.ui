@@ -101,7 +101,7 @@
                         </swipeout-item>
                     </swipeout>
                 </mt-loadmore>
-                <div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>
+                <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
             </div>
         </Content>
         <Footer :style="footerStyle">

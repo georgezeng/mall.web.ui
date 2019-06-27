@@ -112,7 +112,9 @@
                                      width="168" height="168"/>
                             </div>
                             <div class="realPrice">￥{{priceRange(item)}}</div>
-                            <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</div>
+                            <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
+                                item.marketPrice : ''}}
+                            </div>
                             <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
                             <div class="name">{{brand(item)}}{{item.name.length > 20 ? item.name.substring(0, 20) +
                                 '...' : item.name}}
@@ -124,7 +126,7 @@
                         </div>
                     </div>
                 </mt-loadmore>
-                <div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>
+                <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
             </div>
         </Content>
     </Layout>
@@ -204,14 +206,19 @@
                     Util.go('MyCart')
                 }
             },
-            load() {
+            load(load) {
                 API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
                     if (data && data.length > 0) {
                         this.pageInfo.num++
-                        this.list = data
+                        for (let i in data) {
+                            this.list.push(data[i])
+                        }
                         setTimeout(() => {
                             new Masonry(this.$refs.grid, {});
                             this.show = false
+                            if (load) {
+                                this.$refs.wrapper.scrollTop = 0
+                            }
                         }, 100)
                     } else {
                         this.allLoaded = true;
@@ -265,7 +272,8 @@
                     this.pageInfo.num = 1
                     this.show = true
                     this.allLoaded = false
-                    this.load()
+                    this.list = []
+                    this.load(load)
                 }
             }
         },

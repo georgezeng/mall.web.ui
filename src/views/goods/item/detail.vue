@@ -218,7 +218,7 @@
                 <div slot="title">
                     <span>规格</span>
                 </div>
-                <div v-if="values.length > 0">{{pickupTitle}}</div>
+                <div v-if="values.length > 0">{{pickupSpec}}</div>
             </cell>
             <div class="blockLine"></div>
             <div style="font-size: 11pt; margin: 10px;">
@@ -350,14 +350,14 @@
                         : config.baseUrl + '/client/img/load?filePath=' + avatar)
                     : defaultAvatar
             },
-            pickupTitle() {
-                let title = ''
+            pickupSpec() {
+                let spec = ''
                 for (let i in this.values) {
                     const value = this.values[i]
-                    title += value.name + '，'
+                    spec += value.name + '，'
                 }
-                title += this.nums + "件"
-                return title
+                spec += this.nums + "件"
+                return spec
             },
             priceRange() {
                 if (this.item.minPrice == this.item.maxPrice) {
