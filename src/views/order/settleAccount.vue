@@ -466,7 +466,7 @@
             this.contentStyle.marginTop = '60px'
             this.contentStyle.marginBottom = '60px'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            const wrapperHeight = document.documentElement.clientHeight - 120
+            const wrapperHeight = document.documentElement.clientHeight - 105
             this.contentStyle.minHeight = wrapperHeight + 'px'
             this.footerStyle.padding = '0'
             this.key = this.$router.currentRoute.params.key
