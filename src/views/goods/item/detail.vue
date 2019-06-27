@@ -309,7 +309,7 @@
         },
         computed: {
             isSinglePrice() {
-                return this.item.minPrice == this.item.marketPrice
+                return this.item.minPrice == this.item.maxPrice
             },
             discount() {
                 let discount = 0
