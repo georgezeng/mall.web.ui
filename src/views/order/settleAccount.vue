@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <mt-cell>
-                            <div style="overflow: auto; padding: 0 10px;" :style="{height: popupHeight + 'px'}"
+                            <div class="wrapper" :style="{height: popupHeight + 'px'}"
                                  slot="title">
                                 <div :key="item.property.id" v-for="item in data.items" style="margin-bottom: 20px;">
                                     <div style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; ">
@@ -185,7 +185,7 @@
                 </mt-cell>
                 <mt-cell class="gallery" @click.native="showItemPopup">
                     <div slot="title">
-                        <img style="margin-right: 5px;" :key="item.item.id" v-for="item in orderItems"
+                        <img style="margin-right: 8px;" :key="item.property.id" v-for="item in orderItems"
                              :src="config.publicBucketDomain + item.item.thumbnail" width="60" height="60"/>
                     </div>
                     <div>
@@ -320,7 +320,7 @@
                 return total.toFixed(2)
             },
             orderItems() {
-                return this.data.items.length > 5 ? this.data.items.slice(0, 5) : this.data.items
+                return this.data.items.length > 8 ? this.data.items.slice(0, 8) : this.data.items
             }
         },
         methods: {
@@ -337,18 +337,30 @@
                     payment: this.data.payment.name
                 }
                 if (this.data.address.name == null) {
-                    this.$vux.toast.show({text: '请先选择收货地址', type: 'warn'})
+                    this.$vux.toast.show({
+                        text: '请先选择收货地址',
+                        type: 'warn',
+                        width: '200px'
+                    })
                     return
                 }
                 if (this.data.payment.name == null) {
-                    this.$vux.toast.show({text: '请先选择支付方式', type: 'warn'})
+                    this.$vux.toast.show({
+                        text: '请先选择支付方式',
+                        type: 'warn',
+                        width: '200px'
+                    })
                     return
                 }
                 if (this.data.invoice.title == null) {
                     data.invoice = null
                 }
                 API.create(data).then(res => {
-                    this.$vux.toast.show({text: '创建订单成功'})
+                    this.$vux.toast.show({
+                        text: '创建订单成功',
+                        type: 'success',
+                        width: '180px'
+                    })
                 })
             },
             resetUI() {
@@ -416,7 +428,11 @@
                 this.loadAddress()
                 API.getPreview(this.key).then(data => {
                     if (!data) {
-                        this.$vux.toast.text('结算信息失效，请重新下单')
+                        this.$vux.toast.show({
+                            text: '结算信息失效，请重新下单',
+                            type: 'warn',
+                            width: '250px'
+                        })
                         setTimeout(() => {
                             Util.go('GoodsItemList', {
                                 id: 0,
