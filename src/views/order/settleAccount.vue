@@ -72,6 +72,14 @@
     .payline {
         background-image: none !important;
     }
+
+    .totalPrice {
+        margin-top: -10px;
+    }
+
+    .couponPrice {
+        margin-top: -15px;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -206,11 +214,27 @@
                                 placeholder="选填(限30字)" title="买家留言"
                                 v-model="data.remark"></x-textarea>
                 </group>
+                <mt-cell class="totalPrice">
+                    <div slot="title">
+                        商品金额
+                    </div>
+                    <div>
+                        <span>{{totalPrice}}</span>
+                    </div>
+                </mt-cell>
+                <mt-cell class="couponPrice">
+                    <div slot="title">
+                        优惠券金额
+                    </div>
+                    <div>
+                        <span style="color: orangered;">-￥{{couponPrice}}</span>
+                    </div>
+                </mt-cell>
             </div>
         </Content>
         <Footer :style="footerStyle">
             <div style="font-style: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">订单金额:
-                ￥{{totalPrice}}
+                ￥{{finalPrice}}
             </div>
             <div @click="createOrder"
                  style="float: right; display: inline-block; padding: 10px 20px; background-color: #E55038; color: #fff;">
@@ -277,6 +301,13 @@
             }
         },
         computed: {
+            finalPrice() {
+                const price = this.totalPrice - this.couponPrice
+                return price.toFixed(2)
+            },
+            couponPrice() {
+                return 0;
+            },
             totalPrice() {
                 let total = 0
                 for (let i in this.data.items) {
