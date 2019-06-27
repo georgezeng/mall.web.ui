@@ -246,7 +246,7 @@
             }
         },
         mounted() {
-            // this.contentStyle.marginTop = '60px'
+            this.contentStyle.marginBottom = '100px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             const wrapperHeight = document.documentElement.clientHeight - 120
             this.contentStyle.minHeight = wrapperHeight + 'px'
