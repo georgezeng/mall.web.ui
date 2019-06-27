@@ -82,7 +82,7 @@
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
             <div v-transfer-dom>
-                <popup v-model="showPayment" style="background-color: #fff;">
+                <popup v-model="showPayment" style="z-index: 10000; background-color: #fff;">
                     <div style="height: 300px; position: relative;">
                         <Icon size="30" type="ios-close" class="popup-close" @click="closePaymentPopup"/>
                         <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
@@ -112,7 +112,7 @@
                         </mt-cell>
                     </div>
                 </popup>
-                <popup v-model="showItem" style="background-color: #fff;">
+                <popup v-model="showItem" style="z-index: 10000; background-color: #fff;">
                     <div style="position: relative;">
                         <div style="padding: 0 10px;">
                             <Icon size="30" type="ios-close" class="popup-close" @click="closeItemPopup"/>
