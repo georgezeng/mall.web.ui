@@ -53,7 +53,7 @@
                                     <div style="margin-bottom: 5px;">{{item.title}}</div>
                                     <div style="font-size: 12px; color: gray;">{{item.content}}</div>
                                 </div>
-                                <div style="float: right; position: relative; top: 30px;">
+                                <div style="float: right; position: relative; top: 20px;">
                                     <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
                                 </div>
                             </div>
