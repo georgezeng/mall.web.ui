@@ -75,7 +75,7 @@
                 footerStyle: {
                     ...commonStyles.footer
                 },
-                contentList: ['办公耗材', '日用生活'],
+                contentList: [],
                 content: [],
                 data: {
                     id: null,
@@ -151,17 +151,22 @@
             load() {
                 if (this.data.id > 0) {
                     this.loading = true
-                    API.load(this.data.id).then(data => {
-                        this.data = data
-                        this.data.type = data.type.name
-                        for (let i in this.contentList) {
-                            if (this.contentList[i] == this.data.content) {
-                                this.content[i] = true
-                            } else {
-                                this.content[i] = false
+                    API.contentList().then(contentList => {
+                        this.contentList = contentList
+                        API.load(this.data.id).then(data => {
+                            this.data = data
+                            this.data.type = data.type.name
+                            for (let i in this.contentList) {
+                                if (this.contentList[i] == this.data.content) {
+                                    this.content[i] = true
+                                } else {
+                                    this.content[i] = false
+                                }
                             }
-                        }
-                        this.loading = false
+                            this.loading = false
+                        }).catch(e => {
+                            this.loading = false
+                        })
                     }).catch(e => {
                         this.loading = false
                     })

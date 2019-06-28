@@ -7,6 +7,9 @@ export default {
     list(pageInfo) {
         return axios.post('/client/invoice/list', pageInfo)
     },
+    contentList() {
+        return axios.get('/client/invoice/content/list')
+    },
     save(address) {
         return axios.post('/client/invoice/save', address)
     },
