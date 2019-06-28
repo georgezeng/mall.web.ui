@@ -25,7 +25,7 @@
                 </TabPane>
             </Tabs>
 
-            <div v-if="!isWechat" style="padding: 0 20px; margin-top: 20px;">
+            <div v-if="isWechat" style="padding: 0 20px; margin-top: 20px;">
                 <div style="margin-bottom: 20px;" align="center">
                     <div class="gradient"></div>
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
