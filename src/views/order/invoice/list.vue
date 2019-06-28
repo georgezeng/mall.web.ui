@@ -67,7 +67,9 @@
             </div>
         </Content>
         <Footer :style="footerStyle">
-            <Button type="primary" size="large" long @click="goEdit(0)">新建发票</Button>
+            <x-button style="width: 100%; background-color: #008CEB;" @click.native="goEdit(0)">
+                <span style="font-size: 11pt; color: #fff;">新建发票</span>
+            </x-button>
         </Footer>
     </Layout>
 </template>

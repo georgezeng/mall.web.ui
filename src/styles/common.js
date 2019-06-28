@@ -48,7 +48,8 @@ const footer = {
     position: 'fixed',
     zIndex: 1000,
     padding: '5px 0',
-    bottom: '0px'
+    bottom: '0px',
+    boxShadow: '0px 0px 3px -1px gray'
 }
 
 export default {
