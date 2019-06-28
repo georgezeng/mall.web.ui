@@ -23,7 +23,7 @@
                             编辑昵称
                         </div>
                         <group>
-                            <x-input class="optionalLine optionalCell" title="昵称" placeholder="请输入昵称"
+                            <x-input @blur.native="resetUI" class="optionalLine optionalCell" title="昵称" placeholder="请输入昵称"
                                      v-model="nicknameModal.value"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
@@ -139,6 +139,9 @@
             },
         },
         methods: {
+            resetUI() {
+                document.body.scrollTop = document.documentElement.scrollTop = 0
+            },
             closePopup() {
                 this.nicknameModal.open = false
             },
