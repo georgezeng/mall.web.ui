@@ -23,11 +23,11 @@
                             修改密码
                         </div>
                         <group>
-                            <x-input class="optionalLine optionalCell" type="password" title="旧密码" placeholder="请输入旧密码"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="旧密码" placeholder="请输入旧密码"
                                      v-model="passwordModal.form.oldPassword"></x-input>
-                            <x-input class="optionalLine optionalCell" type="password" title="新密码" placeholder="请输入新密码"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="新密码" placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
-                            <x-input class="optionalLine optionalCell" type="password" title="确认密码"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
@@ -48,7 +48,7 @@
                             重置密码
                         </div>
                         <group>
-                            <x-input class="optionalLine optionalCell" style="width: 65%; float: left;"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" style="width: 65%; float: left;"
                                      title="验证码" placeholder="请输入验证码"
                                      v-model="passwordModal.form.verifyCode">
                             </x-input>
@@ -58,10 +58,10 @@
                                     @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <x-input style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
                                      placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
-                            <x-input class="optionalLine optionalCell" type="password" title="确认密码"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
@@ -113,6 +113,12 @@
         },
         computed: {},
         methods: {
+            slideUp() {
+                document.body.scrollTop = document.documentElement.scrollTop = 1000
+            },
+            resetUI() {
+                document.body.scrollTop = document.documentElement.scrollTop = 0
+            },
             back() {
                 Util.go('MySetting')
             },
