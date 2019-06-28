@@ -42,13 +42,18 @@
                     </mt-cell-swipe>-->
 
                     <swipeout>
-                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list" transition-mode="follow">
+                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list"
+                                       transition-mode="follow">
                             <div slot="content" class="item vux-1px-t">
-                                <div style="font-size: 11pt;">
+                                <div style="display: inline-block; position: relative; top: -10px;">
+                                    <check-icon class="checker"
+                                                :value.sync="isSelected[index]"></check-icon>
+                                </div>
+                                <div style="font-size: 11pt; display: inline-block;">
                                     <div style="margin-bottom: 5px;">{{item.title}}</div>
                                     <div style="font-size: 12px; color: gray;">{{item.content}}</div>
                                 </div>
-                                <div style="float: right; position: relative; top: -35px;">
+                                <div style="float: right; position: relative; top: 30px;">
                                     <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
                                 </div>
                             </div>
@@ -85,6 +90,7 @@
                 allLoaded: false,
                 wrapperHeight: 0,
                 list: [],
+                isSelected: [],
                 pageInfo: {
                     num: 1,
                     size: 10,
@@ -125,8 +131,20 @@
                 })
             },
             remove(id) {
+                this.init = false
+                const data = Util.getJson('settleAccountData')
+                if (id == data.invoice.id) {
+                    data.invoice = {
+                        id: null,
+                        title: null,
+                        code: null,
+                        content: null,
+                        type: null
+                    }
+                }
                 API.delete(id).then(res => {
                     this.list = []
+                    this.isSelected = []
                     this.pageInfo.num = 1
                     this.load()
                 })
@@ -135,8 +153,10 @@
                 API.list(this.pageInfo).then(data => {
                     if (data && data.length > 0) {
                         this.pageInfo.num++
+                        const invoice = Util.getJson('settleAccountData').invoice
                         for (let i in data) {
                             this.list.push(data[i])
+                            this.isSelected.push(invoice && invoice.id != null ? data[i].id == invoice.id : false)
                         }
                     } else {
                         this.allLoaded = true;

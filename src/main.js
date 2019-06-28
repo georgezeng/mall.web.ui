@@ -26,7 +26,9 @@ import 'we-vue/lib/style.css'
 import { Checklist } from 'vux'
 import { Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
 import { XButton } from 'vux'
+import { XSwitch } from 'vux'
 
+Vue.component('x-switch', XSwitch)
 Vue.component('x-button', XButton)
 Vue.component('swipeout', Swipeout)
 Vue.component('swipeout-item', SwipeoutItem)

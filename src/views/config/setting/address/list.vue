@@ -70,15 +70,14 @@
                     </mt-cell-swipe>-->
 
                     <swipeout>
-                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list"
+                        <swipeout-item @click.native="getItem(item, index)" :key="item.id" v-for="(item, index) in list"
                                        transition-mode="follow">
                             <div slot="content" class="item vux-1px-t">
                                 <table width="100%">
                                     <tr>
-                                        <td width="30" rowspan="2">
+                                        <td width="30" rowspan="2" v-if="fromOrderPreview">
                                             <check-icon class="checker"
-                                                        :value.sync="isDefault[index]"
-                                                        @click.native.stop="checkAsDefault(item.id, index)"></check-icon>
+                                                        :value.sync="isSelected[index]"></check-icon>
                                         </td>
                                         <td class="wrap">
                                             <span>{{item.name}}</span>
@@ -87,17 +86,21 @@
                                     </tr>
                                     <tr>
                                         <td class="wrap address">
-                                            {{item.province+item.city.replace('市辖区',
-                                            '')+item.district+item.location}}
+                                            {{item.province+item.city.replace('市辖区', '')+item.district+item.location}}
                                         </td>
                                         <td width="30" rowspan="2" style="text-align: right;">
+                                            <div v-if="item.asDefault"
+                                                 style="font-size: 14px; color: orangered; position: absolute; width: 100px; right: 20px; top: 20px;">
+                                                默认地址
+                                            </div>
                                             <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <div slot="right-menu">
-                                <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除</swipeout-button>
+                                <swipeout-button @click.native.stop="remove(item.id, index)" type="warn">删除
+                                </swipeout-button>
                             </div>
                         </swipeout-item>
                     </swipeout>
@@ -127,7 +130,7 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
-                isDefault: [],
+                isSelected: [],
                 allLoaded: false,
                 wrapperHeight: 0,
                 list: [],
@@ -143,8 +146,9 @@
         },
         computed: {},
         methods: {
-            getItem(item) {
+            getItem(item, index) {
                 if (this.fromOrderPreview) {
+                    this.checkAsSelect(item.id, index)
                     const data = Util.getJson('settleAccountData')
                     data.address = item
                     Util.putJson('settleAccountData', data)
@@ -169,19 +173,29 @@
                     fromOrderPreview: this.fromOrderPreview ? 'true' : 'false'
                 })
             },
-            checkAsDefault(id, index) {
-                for (let i in this.isDefault) {
-                    if (i != index) {
-                        this.isDefault[i] = false
+            checkAsSelect(id, index) {
+                for (let i in this.isSelected) {
+                    this.isSelected[i] = false
+                }
+                this.isSelected[index] = true
+            },
+            remove(id, index) {
+                this.init = false
+                const data = Util.getJson('settleAccountData')
+                if (id == data.address.id) {
+                    data.address = {
+                        id: null,
+                        name: null,
+                        phone: null,
+                        province: null,
+                        city: null,
+                        district: null,
+                        location: null
                     }
                 }
-                this.isDefault[index] = true
-                API.asDefault(id).then(res => {
-                    this.$vux.toast.show({text: "默认地址保存成功"})
-                })
-            },
-            remove(id) {
+                Util.putJson('settleAccountData', data)
                 API.delete(id).then(res => {
+                    this.isSelected = []
                     this.list = []
                     this.pageInfo.num = 1
                     this.load()
@@ -191,11 +205,10 @@
                 API.list(this.pageInfo).then(data => {
                     if (data && data.length > 0) {
                         this.pageInfo.num++
+                        const address = Util.getJson('settleAccountData').address
                         for (let i in data) {
                             this.list.push(data[i])
-                        }
-                        for (let i in data) {
-                            this.isDefault.push(data[i].default)
+                            this.isSelected.push(address && address.id != null ? data[i].id == address.id : false)
                         }
                     } else {
                         this.allLoaded = true;

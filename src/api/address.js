@@ -13,9 +13,6 @@ export default {
     delete(id) {
         return axios.get('/client/address/delete/params/' + id)
     },
-    asDefault(id) {
-        return axios.get('/client/address/asDefault/params/' + id)
-    },
     loadDefault() {
         return axios.get('/client/address/load/default')
     },

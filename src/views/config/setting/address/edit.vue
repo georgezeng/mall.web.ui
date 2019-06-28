@@ -17,6 +17,7 @@
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 40px;">
             <group>
+                <x-switch title="默认地址" :value-map="[false, true]" v-model="form.asDefault"></x-switch>
                 <x-input class="optionalLine optionalCell" placeholder="请输入收货人" title="收货人" v-model="form.name"></x-input>
                 <x-input class="optionalLine optionalCell" placeholder="请输入联系电话" title="联系电话" v-model="form.phone"></x-input>
                 <x-address :list="addressData" class="optionalLine optionalPicker" title="所在地区"
@@ -52,7 +53,8 @@
                     name: null,
                     phone: null,
                     area: [],
-                    location: null
+                    location: null,
+                    asDefault: false
                 },
                 fromOrderPreview: false
             }
@@ -66,7 +68,7 @@
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
-            back() {console.log(this.fromOrderPreview)
+            back() {
                 Util.go('MyAddressList', {
                     fromOrderPreview: this.fromOrderPreview ? 'true' : 'false'
                 })
