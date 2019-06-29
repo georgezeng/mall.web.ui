@@ -65,11 +65,11 @@
             </div>
 
             <swipeout>
-                <swipeout-item @click.native="getItem(item, index)" :key="cartItem.id" v-for="(cartItem, index) in items"
+                <swipeout-item :key="cartItem.id" v-for="(cartItem, index) in items"
                                transition-mode="follow" style="margin-bottom: 10px;">
                     <div slot="content" class="item vux-1px-t">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px;">
-                            <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
+                            <check-icon @click.native="selectItem(cartItem)" class="checker" :value.sync="cartItem.selected"></check-icon>
                         </div>
                         <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -10px; top: 0px;">
@@ -205,6 +205,12 @@
             }
         },
         methods: {
+            selectItem(cartItem) {
+                if(!cartItem.item.enabled) {
+                    cartItem.selected = false
+                    this.$vux.toast.show({text: "不能选择下架商品",  type: 'warn', width: '180px'})
+                }
+            },
             goSettleAccount() {
                 OrderAPI.settleAccount({
                     fromCart: true,
