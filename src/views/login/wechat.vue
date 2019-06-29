@@ -90,6 +90,7 @@
                 }).then(data => {
                     this.loading = false
                     Util.setToken(data.token)
+                    Util.put('userId', data.userId)
                     this.goCenter()
                 }).catch(ex => {
                     this.loading = false

@@ -173,6 +173,46 @@
         height: 16px !important;
         line-height: 16px;
     }
+
+    .wechat-friend {
+        display: inline-block;
+        width: 65px;
+        height: 65px;
+        margin: 10px;
+        background-image: url("../../../images/wechat-friend.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .wechat-timeline {
+        display: inline-block;
+        width: 65px;
+        height: 65px;
+        margin: 10px;
+        background-image: url("../../../images/wechat-timeline.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .qq-friend {
+        display: inline-block;
+        width: 65px;
+        height: 65px;
+        margin: 10px;
+        background-image: url("../../../images/qq-friend.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .qq-zone {
+        display: inline-block;
+        width: 65px;
+        height: 65px;
+        margin: 10px;
+        background-image: url("../../../images/qq-zone.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -206,7 +246,16 @@
                         </div>
                     </div>
                 </popup>
+                <popup v-model="showShare" style="background-color: #fff;">
+                    <div style="height: 88px; position: relative;" align="center">
+                        <div class="wechat-friend" @click="share('wechatFriend')"></div>
+                        <div class="wechat-timeline" @click="share('wechatTimeline')"></div>
+                        <div class="qq-friend" @click="share('qqFriend')"></div>
+                        <div class="qq-zone" @click="share('qZone')"></div>
+                    </div>
+                </popup>
             </div>
+
             <div v-if="showShareTip"
                  @click="closeShareTipPopup"
                  style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
@@ -216,9 +265,18 @@
                     点击右上角的"..."，分享给你的好友吧
                 </div>
             </div>
+
+            <div v-if="showShareTipInBrowser"
+                 @click="closeShareTipPopup"
+                 style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
+                 :style="{height: contentStyle.minHeight}" align="center">
+                <div style="color: #fff; height: 400px;">
+                    请打开浏览器的菜单进行分享
+                </div>
+            </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
-            <Icon size="24" class="share" type="md-share" @click="showShareTipPopup"/>
+            <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <mt-swipe :auto="3000" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
@@ -280,6 +338,7 @@
     import Util from '../../../libs/util.js'
     import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
+    import NativeShare from 'nativeshare'
 
     export default {
         components: {},
@@ -289,6 +348,8 @@
                 config,
                 commonStyles,
                 showShareTip: false,
+                showShareTipInBrowser: false,
+                showShare: false,
                 contentStyle: {
                     ...commonStyles.content
                 },
@@ -329,7 +390,8 @@
                 confirmAddToCart: false,
                 cartItems: 0,
                 itemNums: 0,
-                confirmBuy: false
+                confirmBuy: false,
+                nativeShare: new NativeShare()
             }
         },
         computed: {
@@ -407,23 +469,53 @@
             }
         },
         methods: {
+            share(type) {
+                try {
+                    this.nativeShare.call(type)
+                    // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
+                    // 类似的命令下面有介绍
+                } catch(e) {
+                    // 如果不支持，你可以在这里做降级处理
+                    this.showShareTipInBrowser = true
+                }
+            },
             closeShareTipPopup() {
                 this.showShareTip = false
+                this.showShareTipInBrowser = false
             },
-            showShareTipPopup() {
-                this.showShareTip = true
+            showSharePopup() {
+                if (Util.isInWechat()) {
+                    this.showShareTip = true
+                } else {
+                    this.showShare = true
+                }
             },
             updateShare() {
-                if (Util.isInWechat()) {
-                    const params = {
-                        title: this.item.name, // 分享标题
-                        desc: this.item.sellingPoints, // 分享描述
-                        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                        imgUrl: this.thumbnail, // 分享图标
+                let url = window.location.href
+                if (Util.getToken()) {
+                    if (url.indexOf('?') > -1) {
+                        url = url.replace('?', '?uid=' + Util.get('userId'))
+                    } else {
+                        url = url.replace('#', '?uid=' + Util.get('userId') + '#')
                     }
+                }
+                const params = {
+                    title: this.item.name, // 分享标题
+                    desc: this.item.sellingPoints, // 分享描述
+                    link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: this.thumbnail, // 分享图标
+                }
+                if (Util.isInWechat()) {
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
                         wx.updateAppMessageShareData(params)
                         wx.updateTimelineShareData(params)
+                    })
+                } else {
+                    this.nativeShare.setShareData({
+                        icon: params.imgUrl,
+                        link: params.link,
+                        title: params.title,
+                        desc: params.desc
                     })
                 }
             },

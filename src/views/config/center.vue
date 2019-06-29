@@ -1,6 +1,9 @@
 <style scoped lang="less">
     .info {
-        background-color: #DA4935;
+        /*background-color: #DA4935;*/
+        background-image: url("../../images/center-header.png");
+        background-repeat: no-repeat;
+        background-size: cover;
         width: 100%;
         height: 80px;
         position: relative;
