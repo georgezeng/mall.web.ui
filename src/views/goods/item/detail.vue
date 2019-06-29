@@ -270,8 +270,8 @@
                  @click="closeShareTipPopup"
                  style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
                  :style="{height: contentStyle.minHeight}" align="center">
-                <div style="color: #fff; height: 400px;">
-                    请打开浏览器的菜单进行分享
+                <div style="color: #fff; line-height: 400px;">
+                    如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
