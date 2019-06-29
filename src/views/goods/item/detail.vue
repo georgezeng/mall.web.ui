@@ -247,6 +247,9 @@
                     </div>
                 </popup>
                 <popup v-model="showShare" style="background-color: #fff;">
+                    <div style="color: #fff; position: fixed; top: 200px; width: 100%;" align="center">
+                        如果不成功请打开浏览器的菜单进行分享
+                    </div>
                     <div style="height: 88px; position: relative;" align="center">
                         <div class="wechat-friend" @click="share('wechatFriend')"></div>
                         <div class="wechat-timeline" @click="share('wechatTimeline')"></div>
@@ -263,15 +266,6 @@
                 <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
                     点击右上角的"..."，分享给你的好友吧
-                </div>
-            </div>
-
-            <div v-if="showShareTipInBrowser"
-                 @click="closeShareTipPopup"
-                 style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
-                 :style="{height: contentStyle.minHeight}" align="center">
-                <div style="color: #fff; line-height: 400px;">
-                    如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
@@ -348,7 +342,6 @@
                 config,
                 commonStyles,
                 showShareTip: false,
-                showShareTipInBrowser: false,
                 showShare: false,
                 contentStyle: {
                     ...commonStyles.content
@@ -476,12 +469,11 @@
                     // 类似的命令下面有介绍
                 } catch(e) {
                     // 如果不支持，你可以在这里做降级处理
-                    this.showShareTipInBrowser = true
                 }
             },
             closeShareTipPopup() {
                 this.showShareTip = false
-                this.showShareTipInBrowser = false
+                this.showShare = false
             },
             showSharePopup() {
                 if (Util.isInWechat()) {
