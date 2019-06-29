@@ -45,6 +45,7 @@
             margin-left: 10px;
             margin-right: 10px;
             margin-bottom: 10px;
+            margin-top: -10px;
         }
         .marketPrice {
             display: inline-block;
@@ -116,7 +117,7 @@
                                 item.marketPrice : ''}}
                             </div>
                             <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
-                            <div class="name">{{brand(item)}}{{item.name.length > 20 ? item.name.substring(0, 20) +
+                            <div class="name">{{brand(item)}}{{item.name.length > 15 ? item.name.substring(0, 15) +
                                 '...' : item.name}}
                             </div>
                             <div class="stat">
