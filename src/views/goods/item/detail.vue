@@ -247,9 +247,6 @@
                     </div>
                 </popup>
                 <popup v-model="showShare" style="background-color: #fff;">
-                    <div style="color: #fff; position: fixed; top: 200px; width: 100%; z-index: 100000;" align="center">
-                        如果不成功请打开浏览器的菜单进行分享
-                    </div>
                     <div style="height: 88px; position: relative;" align="center">
                         <div class="wechat-friend" @click="share('wechatFriend')"></div>
                         <div class="wechat-timeline" @click="share('wechatTimeline')"></div>
@@ -266,6 +263,15 @@
                 <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
                     点击右上角的"..."，分享给你的好友吧
+                </div>
+            </div>
+
+            <div v-if="showShareTipInBrowser"
+                 @click="closeShareTipPopup"
+                 style="position: fixed; width: 100%; z-index: 100000;"
+                 :style="{height: popupHeight + 'px'}" align="center">
+                <div style="color: #fff; line-height: 400px;">
+                    如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
@@ -342,6 +348,7 @@
                 config,
                 commonStyles,
                 showShareTip: false,
+                showShareTipInBrowser: false,
                 showShare: false,
                 contentStyle: {
                     ...commonStyles.content
@@ -473,12 +480,14 @@
             },
             closeShareTipPopup() {
                 this.showShareTip = false
+                this.showShareTipInBrowser = false
                 this.showShare = false
             },
             showSharePopup() {
                 if (Util.isInWechat()) {
                     this.showShareTip = true
                 } else {
+                    this.showShareTipInBrowser = true
                     this.showShare = true
                 }
             },
