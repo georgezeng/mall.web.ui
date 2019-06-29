@@ -269,6 +269,7 @@
     import commonStyles from '../../../styles/common.js'
     import defaultAvatar from '../../../images/avatar.png'
     import Util from '../../../libs/util.js'
+    import wx from 'weixin-js-sdk'
 
     export default {
         components: {},
