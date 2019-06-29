@@ -21,14 +21,14 @@
         font-size: 12px;
         color: #fff;
         position: absolute;
-        top: 50px;
+        top: 43px;
         width: 72px;
         text-align: center;
     }
 
     .cartFooter {
         position: fixed;
-        bottom: 63px;
+        bottom: 61px;
         left: 0px;
         width: 100%;
         background-color: #fff;
@@ -63,7 +63,45 @@
                     <div class="goAroundBtn" @click="goGoodsList">去逛逛</div>
                 </div>
             </div>
-            <div :key="cartItem.id" v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
+
+            <swipeout>
+                <swipeout-item @click.native="getItem(item, index)" :key="cartItem.id" v-for="(cartItem, index) in items"
+                               transition-mode="follow" style="margin-bottom: 10px;">
+                    <div slot="content" class="item vux-1px-t">
+                        <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px;">
+                            <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
+                        </div>
+                        <div @click="goItem(cartItem.item.id)"
+                             style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -10px; top: 0px;">
+                            <img :src="config.publicBucketDomain + cartItem.item.thumbnail" width="72" height="72"/>
+                            <div class="disabledTitle" v-if="!cartItem.item.enabled">
+                                商品已下架
+                            </div>
+                        </div>
+                        <div @click="goItem(cartItem.item.id)"
+                             style="display: inline-block; position: relative; left: -20px;">
+                            <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
+                                {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
+                                cartItem.item.name}}
+                            </div>
+                            <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 5px;">
+                                {{specText(cartItem.attrs)}}
+                            </div>
+                            <div style="font-size: 11pt; color: orangered;">￥{{cartItem.property.price}}</div>
+                        </div>
+                        <div style="float: right; position: absolute; bottom: 10px; right: 10px;">
+                            <wv-number-spinner @change="updateNums(cartItem)" :min="1" :max="99" input-width="30px"
+                                               v-model="cartItem.nums"></wv-number-spinner>
+                        </div>
+                    </div>
+                    <div slot="right-menu">
+                        <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除
+                        </swipeout-button>
+                    </div>
+                </swipeout-item>
+            </swipeout>
+
+            <!--<div :key="cartItem.id" v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
                 <mt-cell-swipe
                         :right="swipeButtons(cartItem.id)" style="padding: 10px; position: relative;">
                     <div slot="title">
@@ -73,7 +111,7 @@
                         <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px;">
                             <img :src="config.publicBucketDomain + cartItem.item.thumbnail" width="72" height="72"/>
-                            <div class="disabledTitle" v-if="!cartItem.item.enabled">
+                            <div class="disabledTitle" v-if="cartItem.item.enabled">
                                 商品已下架
                             </div>
                         </div>
@@ -94,7 +132,7 @@
                                            v-model="cartItem.nums"></wv-number-spinner>
                     </div>
                 </mt-cell-swipe>
-            </div>
+            </div>-->
 
         </Content>
         <div class="cartFooter" v-if="!showEmpty">
