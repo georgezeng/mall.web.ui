@@ -247,7 +247,7 @@
                     </div>
                 </popup>
                 <popup v-model="showShare" style="background-color: #fff;">
-                    <div style="color: #fff; position: fixed; top: 200px; width: 100%;" align="center">
+                    <div style="color: #fff; position: fixed; top: 0px; width: 100%;" align="center">
                         如果不成功请打开浏览器的菜单进行分享
                     </div>
                     <div style="height: 88px; position: relative;" align="center">
