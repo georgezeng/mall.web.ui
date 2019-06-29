@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div @click="goItem(cartItem.item.id)"
-                             style="display: inline-block; position: relative; left: -20px;">
+                             style="display: inline-block; position: relative; left: -10px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                                 {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
                                 cartItem.item.name}}
