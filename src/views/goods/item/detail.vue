@@ -211,7 +211,7 @@
                  @click="closeShareTipPopup"
                  style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
                  :style="{height: contentStyle.minHeight}">
-                <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 0px;"/>
+                <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
                     点击右上角的"..."，分享给你的好友吧
                 </div>
