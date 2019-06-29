@@ -207,9 +207,18 @@
                     </div>
                 </popup>
             </div>
+            <div v-if="showShareTip"
+                 @click="closeShareTipPopup"
+                 style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
+                 :style="{height: contentStyle.minHeight}">
+                <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 0px;"/>
+                <div style="color: #fff; position: relative; top: 100px; left: 30px;">
+                    点击右上角的"..."，分享给你的好友吧
+                </div>
+            </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
-            <Icon size="24" class="share" type="md-share" @click=""/>
+            <Icon size="24" class="share" type="md-share" @click="showShareTipPopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <mt-swipe :auto="0" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
@@ -269,14 +278,17 @@
     import commonStyles from '../../../styles/common.js'
     import defaultAvatar from '../../../images/avatar.png'
     import Util from '../../../libs/util.js'
+    import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
 
     export default {
         components: {},
         data() {
             return {
+                ShareTipArrow,
                 config,
                 commonStyles,
+                showShareTip: false,
                 contentStyle: {
                     ...commonStyles.content
                 },
@@ -395,6 +407,12 @@
             }
         },
         methods: {
+            closeShareTipPopup() {
+                this.showShareTip = false
+            },
+            showShareTipPopup() {
+                this.showShareTip = true
+            },
             updateShare() {
                 if (Util.isInWechat()) {
                     const params = {
