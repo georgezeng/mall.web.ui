@@ -181,7 +181,7 @@
                 <popup v-model="show" style="background-color: #fff;">
                     <div class="popup wrapper" :style="{height: popupHeight + 'px'}">
                         <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
-                        <img style="vertical-align: bottom;" :src="config.publicBucketDomain + item.thumbnail"
+                        <img style="vertical-align: bottom;" :src="thumbnail"
                              width="80"
                              height="80"/>
                         <div style="display: inline-block; margin-left: 10px;">
@@ -321,6 +321,9 @@
             }
         },
         computed: {
+            thumbnail() {
+                return config.publicBucketDomain + item.thumbnail
+            },
             isSinglePrice() {
                 return this.item.minPrice == this.item.maxPrice
             },
@@ -393,17 +396,20 @@
         },
         methods: {
             share() {
-                wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
-                    wx.updateAppMessageShareData({
-                        title: '', // 分享标题
-                        desc: '', // 分享描述
-                        link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                        imgUrl: '', // 分享图标
-                        success: function () {
-                            // 设置成功
-                        }
-                    })
-                });
+                if (Util.isInWechat()) {
+                    wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+                        wx.updateAppMessageShareData({
+                            title: this.item.name, // 分享标题
+                            desc: this.item.sellingPoints, // 分享描述
+                            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: this.thumbnail, // 分享图标
+                            success: function () {
+                                // 设置成功
+                                this.$vux.toast.show({text: '请先选择数量'})
+                            }
+                        })
+                    });
+                }
             },
             goCart() {
                 Util.go('MyCart')
@@ -512,11 +518,11 @@
             },
             confirmSpec() {
                 if (this.tempValues.length == 0) {
-                    this.$vux.toast.text('请先选择规格', 'middle')
+                    this.$vux.toast.text('请先选择规格')
                     return
                 }
                 if (this.nums == 0) {
-                    this.$vux.toast.text('请先选择数量', 'middle')
+                    this.$vux.toast.text('请先选择数量')
                     return
                 }
                 this.values = this.tempValues
