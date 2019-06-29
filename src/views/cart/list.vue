@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div slot="right-menu">
-                        <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除
+                        <swipeout-button @click.native.stop="remove(cartItem.id)" type="warn">删除
                         </swipeout-button>
                     </div>
                 </swipeout-item>
