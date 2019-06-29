@@ -209,7 +209,7 @@
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
-            <Icon size="24" class="share" type="md-share" @click="share"/>
+            <Icon size="24" class="share" type="md-share" @click=""/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <mt-swipe :auto="0" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
@@ -395,21 +395,18 @@
             }
         },
         methods: {
-            share() {
+            updateShare() {
                 if (Util.isInWechat()) {
-                    const self = this
+                    const params = {
+                        title: this.item.name, // 分享标题
+                        desc: this.item.sellingPoints, // 分享描述
+                        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: this.thumbnail, // 分享图标
+                    }
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
-                        wx.updateAppMessageShareData({
-                            title: self.item.name, // 分享标题
-                            desc: self.item.sellingPoints, // 分享描述
-                            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                            imgUrl: self.thumbnail, // 分享图标
-                            success: function () {
-                                // 设置成功
-                                self.$vux.toast.show({text: '分享成功'})
-                            }
-                        })
-                    });
+                        wx.updateAppMessageShareData(params)
+                        wx.updateTimelineShareData(params)
+                    })
                 }
             },
             goCart() {
@@ -565,6 +562,7 @@
                             return
                         }
                         this.item = item
+                        this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
                             for (let i in item.properties) {
