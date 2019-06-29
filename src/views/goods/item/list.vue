@@ -41,7 +41,7 @@
         margin-right: 8px;
         display: inline-block;
         .name {
-            font-size: 11pt;
+            font-size: 14px;
             margin-left: 10px;
             margin-right: 10px;
             margin-bottom: 10px;
@@ -107,9 +107,9 @@
                     <div ref="grid" style="padding-left: 8px;">
                         <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                              @click="goDetail(item.id)">
-                            <div style="margin: 5px" align="center">
-                                <img :src="config.publicBucketDomain + item.thumbnail"
-                                     width="168" height="168"/>
+                            <div style="margin: 8px" align="center">
+                                <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
+                                     :height="itemImageWidth"/>
                             </div>
                             <div class="realPrice">￥{{priceRange(item)}}</div>
                             <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
@@ -161,7 +161,8 @@
                 },
                 searchType: null,
                 allLoaded: false,
-                itemWidth: 160,
+                itemWidth: 0,
+                itemImageWidth: 0,
                 pageInfo: {
                     num: 1,
                     size: 10,
@@ -285,6 +286,7 @@
             this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 100
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
+            this.itemImageWidth = this.itemWidth - 16
             // this.contentStyle.minHeight = this.wrapperHeight + "px"
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
