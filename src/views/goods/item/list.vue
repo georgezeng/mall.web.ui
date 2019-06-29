@@ -107,7 +107,7 @@
                     <div ref="grid" style="padding-left: 8px;">
                         <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                              @click="goDetail(item.id)">
-                            <div align="center">
+                            <div style="margin: 5px" align="center">
                                 <img :src="config.publicBucketDomain + item.thumbnail"
                                      width="168" height="168"/>
                             </div>
