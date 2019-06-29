@@ -220,7 +220,7 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showShareTipPopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <mt-swipe :auto="2000" style="height: 375px;">
+            <mt-swipe :auto="3000" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
                     <div align="center">
                         <img :src="config.publicBucketDomain + photo" width="375" height="375"/>
