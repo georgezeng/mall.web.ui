@@ -151,6 +151,17 @@
         color: #fff;
     }
 
+    .share {
+        position: fixed;
+        top: 10px;
+        z-index: 100;
+        right: 50px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        padding: 5px;
+        color: #fff;
+    }
+
     .cartItems {
         position: fixed;
         right: 5px;
@@ -198,6 +209,7 @@
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
+            <Icon size="24" class="share" type="md-share" @click="share"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <mt-swipe :auto="0" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
@@ -379,6 +391,19 @@
             }
         },
         methods: {
+            share() {
+                wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+                    wx.updateAppMessageShareData({
+                        title: '', // 分享标题
+                        desc: '', // 分享描述
+                        link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: '', // 分享图标
+                        success: function () {
+                            // 设置成功
+                        }
+                    })
+                });
+            },
             goCart() {
                 Util.go('MyCart')
             },
@@ -584,6 +609,11 @@
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
             this.load()
+            if (Util.isInWechat()) {
+                Util.wxConfig([
+                    'updateAppMessageShareData',
+                ])
+            }
         }
     }
 </script>
