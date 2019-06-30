@@ -667,48 +667,48 @@
                             this.itemNums = data.itemNums
                         })
                     }
-                    API.load(this.item.id).then(item => {
-                        if (!item.enabled) {
-                            setTimeout(() => {
-                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn', width: '250px'})
-                                this.back()
-                            }, 2000)
-                            return
-                        }
-                        this.item = item
-                        document.title = item.name
-                        const descMeta = document.createElement('meta');
-                        if (item.sellingPoints) {
-                            descMeta.content = item.sellingPoints
-                        } else {
-                            descMeta.content = window.location.href
-                        }
-                        descMeta.name = 'description'
-                        document.getElementsByTagName('head')[0].appendChild(descMeta);
-                        this.updateShare()
-                        this.property.price = item.minPrice
-                        if (item.properties && item.properties.length > 0) {
-                            for (let i in item.properties) {
-                                this.property.inventory += item.properties[i].inventory
-                            }
-                            const values = item.properties[0].values
-                            for (let i in values) {
-                                const value = values[i]
-                                this.definitionIds.push(value.parent.id)
-                            }
-                            API.loadDefinitions(this.definitionIds).then(definitions => {
-                                if (definitions.length > 0) {
-                                    for (let i in definitions) {
-                                        const definition = definitions[i]
-                                        definition.values = this.filterValues(definition)
-                                    }
-                                    this.definitions = definitions
-                                }
-                            })
-                        }
-                        this.totalProperty.price = this.property.price
-                        this.totalProperty.inventory = this.property.inventory
-                    })
+                    // API.load(this.item.id).then(item => {
+                    //     if (!item.enabled) {
+                    //         setTimeout(() => {
+                    //             this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn', width: '250px'})
+                    //             this.back()
+                    //         }, 2000)
+                    //         return
+                    //     }
+                    //     this.item = item
+                    //     document.title = item.name
+                    //     const descMeta = document.createElement('meta');
+                    //     if (item.sellingPoints) {
+                    //         descMeta.content = item.sellingPoints
+                    //     } else {
+                    //         descMeta.content = window.location.href
+                    //     }
+                    //     descMeta.name = 'description'
+                    //     document.getElementsByTagName('head')[0].appendChild(descMeta);
+                    //     this.updateShare()
+                    //     this.property.price = item.minPrice
+                    //     if (item.properties && item.properties.length > 0) {
+                    //         for (let i in item.properties) {
+                    //             this.property.inventory += item.properties[i].inventory
+                    //         }
+                    //         const values = item.properties[0].values
+                    //         for (let i in values) {
+                    //             const value = values[i]
+                    //             this.definitionIds.push(value.parent.id)
+                    //         }
+                    //         API.loadDefinitions(this.definitionIds).then(definitions => {
+                    //             if (definitions.length > 0) {
+                    //                 for (let i in definitions) {
+                    //                     const definition = definitions[i]
+                    //                     definition.values = this.filterValues(definition)
+                    //                 }
+                    //                 this.definitions = definitions
+                    //             }
+                    //         })
+                    //     }
+                    //     this.totalProperty.price = this.property.price
+                    //     this.totalProperty.inventory = this.property.inventory
+                    // })
                 }
             },
             filterValues(definition) {
@@ -733,12 +733,10 @@
             }
         },
         created() {
-            let link = window.location.href
+            const link = window.location.href
             if (Util.getToken()) {
                 if (link.indexOf('?') == -1) {
-                    const index = url.indexOf('#')
-                    link = link.substring(0, index) + "?uid=" + Util.get('userId') + link.substring(index)
-                    window.location.href = link
+                    window.location.href = link.replace('#', "?uid=" + Util.get('userId') + "#")
                     return
                 }
             } else {
@@ -755,7 +753,7 @@
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
-            // this.load()
+            this.load()
             if (Util.isInWechat()) {
                 Util.wxConfig([
                     'updateAppMessageShareData',
