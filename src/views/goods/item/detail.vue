@@ -376,7 +376,11 @@
                     marketPrice: 0,
                     photos: [],
                     properties: [],
-                    topEvaluation: null
+                    topEvaluation: {
+                        clientNickname: null,
+                        clientAvatar: null,
+                        remark: null
+                    }
                 },
                 tempValues: [],
                 definitionIds: [],
@@ -387,7 +391,7 @@
                 cartItems: 0,
                 itemNums: 0,
                 confirmBuy: false,
-                nativeShare: new NativeShare(),
+                nativeShare: new NativeShare()
             }
         },
         computed: {
@@ -426,18 +430,15 @@
                 return remark ? remark : ''
             },
             avatar() {
-                if (this.item.topEvaluation) {
-                    const avatar = this.item.topEvaluation.clientAvatar
-                    if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
-                        this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
-                    }
-                    return avatar ?
-                        (avatar.startsWith('http') ?
-                            avatar
-                            : config.baseUrl + '/client/img/load?filePath=' + avatar)
-                        : defaultAvatar
+                const avatar = this.item.topEvaluation.clientAvatar
+                if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
+                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
                 }
-                return ''
+                return avatar ?
+                    (avatar.startsWith('http') ?
+                        avatar
+                        : config.baseUrl + '/client/img/load?filePath=' + avatar)
+                    : defaultAvatar
             },
             pickupSpec() {
                 let spec = ''
@@ -473,7 +474,7 @@
                     this.nativeShare.call(type)
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
-                } catch (e) {
+                } catch(e) {
                     // 如果不支持，你可以在这里做降级处理
                 }
             },
@@ -664,15 +665,6 @@
                             return
                         }
                         this.item = item
-                        // document.title = item.name
-                        // const descMeta = document.createElement('meta');
-                        // if (item.sellingPoints) {
-                        //     descMeta.content = item.sellingPoints
-                        // } else {
-                        //     descMeta.content = window.location.href
-                        // }
-                        // descMeta.name = 'description'
-                        // document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
@@ -721,15 +713,13 @@
             }
         },
         created() {
-            // let url = window.location.href
-            // if (Util.getToken()) {
-            //     if (url.indexOf('?') == -1) {
-            //         url += "?uid=" + Util.get('userId')
-            //         window.location.href = url
-            //         return
-            //     }
-            // }
-
+            let url = window.location.href
+            if (Util.getToken()) {
+                if (url.indexOf('?') == -1) {
+                    url += '?uid=' + Util.get('userId')
+                    window.location.href = url
+                }
+            }
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
