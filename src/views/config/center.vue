@@ -296,6 +296,12 @@
             }
         },
         mounted() {
+            if (Util.getToken()) {
+                if (link.indexOf('?') == -1) {
+                    window.location.href = window.location.href.replace('#', "?uid=" + Util.get('userId') + "#")
+                    return
+                }
+            }
             if (document.documentElement.clientHeight < 600) {
                 this.contentStyle.minHeight = '600px'
             }

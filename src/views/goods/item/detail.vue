@@ -728,13 +728,7 @@
             }
         },
         created() {
-            const link = window.location.href
-            if (Util.getToken()) {
-                if (link.indexOf('?') == -1) {
-                    window.location.href = link.replace('#', "?uid=" + Util.get('userId') + "#")
-                    return
-                }
-            } else {
+            if (!Util.getToken()) {
                 if (link.indexOf('?') > -1) {
                     const url = window.location.href.replace(/\#.+/, '')
                     const parentUid = UrlParams(url, "uid")
