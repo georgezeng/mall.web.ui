@@ -717,7 +717,7 @@
             if (Util.getToken()) {
                 if (url.indexOf('?') == -1) {
                     url = url.replace('#', '?uid=' + Util.get('userId') + '#')
-                    window.location.reload(true)
+                    window.location.href = url
                 }
             }
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
