@@ -675,7 +675,7 @@
                             }, 2000)
                             return
                         }
-                        this.item = item
+                        // this.item = item
                         // document.title = item.name
                         // const descMeta = document.createElement('meta');
                         // if (item.sellingPoints) {
