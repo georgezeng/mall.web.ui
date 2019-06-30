@@ -309,7 +309,7 @@
             </div>
             <div v-else>
                 <div>
-                    <Avatar ref="avatar" class="avatar" :src="avatarSrc"/>
+                    <Avatar ref="avatar" class="avatar" :src="avatar"/>
                     <span>{{item.topEvaluation.clientNickname}}</span>
                 </div>
                 <div style="font-size: 14px; margin: 10px;">
@@ -376,11 +376,7 @@
                     marketPrice: 0,
                     photos: [],
                     properties: [],
-                    topEvaluation: {
-                        clientNickname: null,
-                        clientAvatar: null,
-                        remark: null
-                    }
+                    topEvaluation: null
                 },
                 tempValues: [],
                 definitionIds: [],
@@ -392,7 +388,6 @@
                 itemNums: 0,
                 confirmBuy: false,
                 nativeShare: new NativeShare(),
-                avatarSrc: null
             }
         },
         computed: {
@@ -669,16 +664,15 @@
                             return
                         }
                         this.item = item
-                        this.avatarSrc = this.avatar
-                        // document.title = item.name
-                        // const descMeta = document.createElement('meta');
-                        // if (item.sellingPoints) {
-                        //     descMeta.content = item.sellingPoints
-                        // } else {
-                        //     descMeta.content = window.location.href
-                        // }
-                        // descMeta.name = 'description'
-                        // document.getElementsByTagName('head')[0].appendChild(descMeta);
+                        document.title = item.name
+                        const descMeta = document.createElement('meta');
+                        if (item.sellingPoints) {
+                            descMeta.content = item.sellingPoints
+                        } else {
+                            descMeta.content = window.location.href
+                        }
+                        descMeta.name = 'description'
+                        document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
