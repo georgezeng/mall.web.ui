@@ -318,7 +318,7 @@
             </div>
             <div class="blockLine"></div>
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
-            <!--<div v-html="item.content" style="margin-bottom: 40px;"></div>-->
+            <div v-html="item.content" style="margin-bottom: 40px;"></div>
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">
@@ -703,11 +703,7 @@
                         // setting share
                         document.title = item.name
                         const descMeta = document.createElement('meta');
-                        if (item.sellingPoints) {
-                            descMeta.content = item.sellingPoints
-                        } else {
-                            descMeta.content = window.location.href
-                        }
+                        descMeta.content = item.sellingPoints
                         descMeta.name = 'description'
                         document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
