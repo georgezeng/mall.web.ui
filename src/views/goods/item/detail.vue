@@ -676,6 +676,8 @@
                             }, 2000)
                             return
                         }
+                        const content = item.content
+                        item.content = null
                         this.item = item
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
@@ -702,11 +704,11 @@
 
                         // setting share
                         document.title = item.name
-                        const descMeta = document.createElement('meta');
-                        descMeta.content = item.sellingPoints
-                        descMeta.name = 'description'
-                        document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
+
+                        setTimeout(() => {
+                            this.item.content = content
+                        }, 100)
                     })
                 }
             },
