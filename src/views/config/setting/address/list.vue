@@ -42,7 +42,7 @@
                              :bottom-all-loaded="allLoaded"
                              :bottom-distance="10"
                              ref="loadmore">
-                    <mt-cell-swipe
+                    <!--<mt-cell-swipe
                             @click.native="getItem(item)"
                             v-for="(item, index) in list"
                             :right="swipeButtons(item.id)">
@@ -66,9 +66,9 @@
                                 </td>
                             </tr>
                         </table>
-                    </mt-cell-swipe>
+                    </mt-cell-swipe>-->
 
-                    <!--<swipeout>
+                    <swipeout>
                         <swipeout-item @click.native="getItem(item, index)" :key="item.id" v-for="(item, index) in list"
                                        transition-mode="follow">
                             <div slot="content" class="item vux-1px-t">
@@ -102,7 +102,7 @@
                                 </swipeout-button>
                             </div>
                         </swipeout-item>
-                    </swipeout>-->
+                    </swipeout>
                 </mt-loadmore>
                 <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
             </div>
