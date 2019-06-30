@@ -664,15 +664,15 @@
                             return
                         }
                         this.item = item
-                        document.title = item.name
-                        const descMeta = document.createElement('meta');
-                        if (item.sellingPoints) {
-                            descMeta.content = item.sellingPoints
-                        } else {
-                            descMeta.content = window.location.href
-                        }
-                        descMeta.name = 'description'
-                        document.getElementsByTagName('head')[0].appendChild(descMeta);
+                        // document.title = item.name
+                        // const descMeta = document.createElement('meta');
+                        // if (item.sellingPoints) {
+                        //     descMeta.content = item.sellingPoints
+                        // } else {
+                        //     descMeta.content = window.location.href
+                        // }
+                        // descMeta.name = 'description'
+                        // document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
