@@ -732,14 +732,15 @@
             }
         },
         created() {
-            // let url = window.location.href
-            // if (Util.getToken()) {
-            //     if (url.indexOf('?') == -1) {
-            //         url += "?uid=" + Util.get('userId')
-            //         window.location.href = url
-            //         return
-            //     }
-            // }
+            let url = window.location.href
+            if (Util.getToken()) {
+                if (url.indexOf('?') == -1) {
+                    const index = url.indexOf('#')
+                    url = url.substring(0, index) + "?uid=" + Util.get('userId') + url.substring(index)
+                    window.location.href = url
+                    return
+                }
+            }
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
