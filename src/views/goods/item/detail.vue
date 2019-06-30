@@ -708,7 +708,7 @@
 
                         setTimeout(() => {
                             this.item.content = content
-                        }, 100)
+                        }, 3000)
                     })
                 }
             },
