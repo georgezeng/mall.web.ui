@@ -665,6 +665,10 @@
                             return
                         }
                         this.item = item
+                        this.document.title = item.name
+                        const descMeta = document.createElement('meta');
+                        descMeta.content = item.sellingPoints
+                        descMeta.name = 'description'
                         this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
@@ -713,14 +717,15 @@
             }
         },
         created() {
-            let url = window.location.href
-            if (Util.getToken()) {
-                if (url.indexOf('?') == -1) {
-                    url += "?uid=" + Util.get('userId')
-                    window.location.href = url
-                    return
-                }
-            }
+            // let url = window.location.href
+            // if (Util.getToken()) {
+            //     if (url.indexOf('?') == -1) {
+            //         url += "?uid=" + Util.get('userId')
+            //         window.location.href = url
+            //         return
+            //     }
+            // }
+
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
