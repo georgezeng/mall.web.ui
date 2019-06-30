@@ -319,7 +319,6 @@
             <div class="blockLine"></div>
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
             <div v-html="item.content" style="margin-bottom: 40px;"></div>
-            <img :src="avatar" />
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">
@@ -378,7 +377,11 @@
                     marketPrice: 0,
                     photos: [],
                     properties: [],
-                    topEvaluation: null,
+                    topEvaluation: {
+                        clientNickname: null,
+                        remark: null,
+                        clientAvatar: null
+                    },
                     totalEvaluations: 0
                 },
                 tempValues: [],
@@ -433,18 +436,15 @@
                 return remark ? remark : ''
             },
             avatar() {
-                if (this.item.topEvaluation) {
-                    const avatar = this.item.topEvaluation.clientAvatar
-                    if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
-                        this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
-                    }
-                    return avatar ?
-                        (avatar.startsWith('http') ?
-                            avatar
-                            : config.baseUrl + '/client/img/load?filePath=' + avatar)
-                        : defaultAvatar
+                const avatar = this.item.topEvaluation.clientAvatar
+                if (!avatar.startsWith('http') && this.$refs.avatar) {
+                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
                 }
-                return ''
+                return avatar ?
+                    (avatar.startsWith('http') ?
+                        avatar
+                        : config.baseUrl + '/client/img/load?filePath=' + avatar)
+                    : defaultAvatar
             },
             pickupSpec() {
                 let spec = ''
@@ -678,6 +678,13 @@
                             return
                         }
                         this.item = item
+                        if (!this.item.topEvaluation) {
+                            this.item.topEvaluation = {
+                                clientNickname: null,
+                                remark: null,
+                                clientAvatar: null
+                            }
+                        }
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
                             for (let i in item.properties) {
