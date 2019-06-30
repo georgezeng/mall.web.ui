@@ -733,17 +733,18 @@
             }
         },
         created() {
-            let url = window.location.href
+            let link = window.location.href
             if (Util.getToken()) {
-                if (url.indexOf('?') == -1) {
+                if (link.indexOf('?') == -1) {
                     const index = url.indexOf('#')
-                    url = url.substring(0, index) + "?uid=" + Util.get('userId') + url.substring(index)
-                    window.location.href = url
+                    link = link.substring(0, index) + "?uid=" + Util.get('userId') + link.substring(index)
+                    window.location.href = link
                     return
                 }
             } else {
-                if (url.indexOf('?') > -1) {
-                    const parentUid = UrlParams(window.location.href, "uid")
+                if (link.indexOf('?') > -1) {
+                    const url = window.location.href.replace(/\#.+/, '')
+                    const parentUid = UrlParams(url, "uid")
                     if (parentUid) {
                         Util.put('parentUserId', parentUid)
                     }
