@@ -729,6 +729,7 @@
         },
         created() {
             if (!Util.getToken()) {
+                const link = window.location.href
                 if (link.indexOf('?') > -1) {
                     const url = window.location.href.replace(/\#.+/, '')
                     const parentUid = UrlParams(url, "uid")

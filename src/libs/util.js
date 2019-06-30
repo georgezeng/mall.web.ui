@@ -35,7 +35,12 @@ util.go = function (name, params) {
 
 util.loginSuccess = (data, target) => {
     util.setToken(data.token)
-    window.location.href = window.location.href.replace(/#.+/, '?uid=' + data.userId + '#' + target)
+    const link = window.location.href
+    if (link.indexOf('?') == -1) {
+        window.location.href = link.replace(/#.+/, '?uid=' + data.userId + '#' + target)
+    } else {
+        window.location.href = link.replace(/\?.+/, '?uid=' + data.userId + '#' + target)
+    }
 }
 
 util.isInWechat = function () {
@@ -91,7 +96,7 @@ util.get = function (key) {
 
 util.getJson = function (key) {
     let value = window.localStorage.getItem(key)
-    if(value) {
+    if (value) {
         value = JSON.parse(value)
     }
     return value
