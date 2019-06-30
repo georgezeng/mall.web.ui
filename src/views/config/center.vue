@@ -183,7 +183,7 @@
                         <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 设置
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
-                    <cell-box class="optionPanel" is-link @click.native="exit">
+                    <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
                         <Icon size="24" type="md-exit" style="margin-right: 10px;"/>
                         退出
                     </cell-box>
@@ -232,7 +232,6 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
-                isLogin: Util.getToken() ? true : false,
                 info: {
                     avatar: null,
                     nickname: null
@@ -240,6 +239,10 @@
             }
         },
         computed: {
+            isLogin() {
+                const token = Util.getToken()
+                return token != null && token != ''
+            },
             avatar() {
                 if (this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
                     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
@@ -258,7 +261,7 @@
             exit() {
                 API.logout().then(res => {
                     Util.setToken('')
-                    window.location.reload(true)
+                    window.location.href = window.location.href.replace(/\?[^#]+/, '')
                 })
             },
             goMyChange() {
@@ -296,9 +299,10 @@
             }
         },
         mounted() {
+            const link = window.location.href
             if (Util.getToken()) {
                 if (link.indexOf('?') == -1) {
-                    window.location.href = window.location.href.replace('#', "?uid=" + Util.get('userId') + "#")
+                    window.location.href = link.replace('#', "?uid=" + Util.get('userId') + "#")
                     return
                 }
             }

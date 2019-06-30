@@ -58,9 +58,7 @@
                         this.loading = true
                         API.login(this.form).then(data => {
                             this.loading = false
-                            Util.setToken(data.token)
-                            Util.put('userId', data.userId)
-                            this.goCenter()
+                            Util.loginSuccess(data, '/MyCenter')
                         }).catch(ex => {
                             this.loading = false
                         })

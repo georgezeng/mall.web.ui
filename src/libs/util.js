@@ -33,6 +33,11 @@ util.go = function (name, params) {
     }
 }
 
+util.loginSuccess = (data, target) => {
+    util.setToken(data.token)
+    window.location.href = window.location.href.replace(/#.+/, '?uid=' + data.userId + '#' + target)
+}
+
 util.isInWechat = function () {
     var ua = navigator.userAgent.toLowerCase()
     return ua.indexOf('micromessenger') != -1

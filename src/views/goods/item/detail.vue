@@ -239,7 +239,7 @@
                             </div>
                         </div>
                         <group>
-                            <x-number title="数量" v-model="nums" :max="99" :min="0"></x-number>
+                            <x-number title="数量" fillable v-model="nums" :max="99" :min="0"></x-number>
                         </group>
                         <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
                             <div class="confirmBtn" @click="confirmSpec">确定</div>
