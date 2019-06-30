@@ -495,9 +495,10 @@
                 let url = window.location.href
                 if (Util.getToken()) {
                     if (url.indexOf('?') > -1) {
-                        url = url.replace('?', '')
-                    } 
-                    url += '?uid=' + Util.get('userId')
+                        url = url.replace('?', '?uid=' + Util.get('userId'))
+                    } else {
+                        url = url.replace('#', '?uid=' + Util.get('userId') + '#')
+                    }
                 }
                 const params = {
                     title: this.item.name, // 分享标题

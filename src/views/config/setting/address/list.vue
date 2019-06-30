@@ -109,7 +109,7 @@
             </div>
         </Content>
         <Footer :style="footerStyle">
-            <x-button style="width: 100%; background-color: #008CEB;" @click.native="goEdit(0)">
+            <x-button action-type="button" style="width: 100%; background-color: #008CEB;" @click.native="goEdit(0)">
                 <span style="font-size: 11pt; color: #fff;">新建收货地址</span>
             </x-button>
         </Footer>

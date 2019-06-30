@@ -14,7 +14,7 @@
             <FormItem>
                 温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a href="javascript:;">《用户服务协议》</a>
             </FormItem>
-            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;" :show-loading="loading" @click.native="login">
+            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;" :show-loading="loading" @click.native="login">
                 <span style="font-size: 11pt; color: #fff;">登录/注册</span>
             </x-button>
         </Form>

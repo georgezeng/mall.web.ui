@@ -27,7 +27,7 @@
                                      v-model="nicknameModal.value"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
-                            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
                                       :show-loading="loading"
                                       @click.native="saveNickname">
                                 <span style="font-size: 11pt; color: #fff;">保存</span>

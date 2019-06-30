@@ -32,7 +32,7 @@
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
-                            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
                                       :show-loading="loading"
                                       @click.native="savePassword">
                                 <span style="font-size: 11pt; color: #fff;">保存</span>
@@ -52,7 +52,7 @@
                                      title="验证码" placeholder="请输入验证码"
                                      v-model="passwordModal.form.verifyCode">
                             </x-input>
-                            <x-button
+                            <x-button action-type="button"
                                     :disabled="passwordModal.loading"
                                     style="position: relative; top: 10px; left: -10px;float: right; width: 35%; background-color: #008CEB;"
                                     @click.native="sendCode">
@@ -66,7 +66,7 @@
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
-                            <x-button :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
                                       :show-loading="loading"
                                       @click.native="savePassword">
                                 <span style="font-size: 11pt; color: #fff;">保存</span>
