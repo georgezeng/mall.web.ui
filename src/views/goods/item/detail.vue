@@ -319,6 +319,7 @@
             <div class="blockLine"></div>
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
             <div v-html="item.content" style="margin-bottom: 40px;"></div>
+            <img :src="avatar" />
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">
@@ -676,8 +677,6 @@
                             }, 2000)
                             return
                         }
-                        const content = item.content
-                        item.content = null
                         this.item = item
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
@@ -705,10 +704,6 @@
                         // setting share
                         document.title = item.name
                         this.updateShare()
-
-                        setTimeout(() => {
-                            this.item.content = content
-                        }, 3000)
                     })
                 }
             },
