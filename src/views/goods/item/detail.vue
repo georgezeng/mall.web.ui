@@ -309,7 +309,7 @@
             </div>
             <div v-else>
                 <div>
-                    <Avatar ref="avatar" class="avatar" :src="avatar"/>
+                    <Avatar ref="avatar" class="avatar" :src="avatarSrc"/>
                     <span>{{item.topEvaluation.clientNickname}}</span>
                 </div>
                 <div style="font-size: 14px; margin: 10px;">
@@ -391,7 +391,8 @@
                 cartItems: 0,
                 itemNums: 0,
                 confirmBuy: false,
-                nativeShare: new NativeShare()
+                nativeShare: new NativeShare(),
+                avatarSrc: null
             }
         },
         computed: {
@@ -665,6 +666,7 @@
                             return
                         }
                         this.item = item
+                        this.avatarSrc = this.avatar
                         this.document.title = item.name
                         const descMeta = document.createElement('meta');
                         descMeta.content = item.sellingPoints
