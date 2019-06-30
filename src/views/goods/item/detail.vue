@@ -716,7 +716,7 @@
             let url = window.location.href
             if (Util.getToken()) {
                 if (url.indexOf('?') == -1) {
-                    url += '?uid=' + Util.get('userId')
+                    url += "?uid=" + Util.get('userId')
                     window.location.href = url
                 }
             }
