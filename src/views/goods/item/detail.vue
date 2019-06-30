@@ -667,10 +667,11 @@
                         }
                         this.item = item
                         this.avatarSrc = this.avatar
-                        this.document.title = item.name
+                        document.title = item.name
                         const descMeta = document.createElement('meta');
                         descMeta.content = item.sellingPoints
                         descMeta.name = 'description'
+                        document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
