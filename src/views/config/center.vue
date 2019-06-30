@@ -125,9 +125,9 @@
                   type="md-notifications-outline"/>
         </Header>
         <div style="height: 40px;"></div>
-        <Content :style="commonStyles.content">
+        <Content :style="contentStyle">
             <div class="info" @click="goProfile">
-                <Avatar ref="avatar" size="large" class="avatar" :src="avatar" />
+                <Avatar ref="avatar" size="large" class="avatar" :src="avatar"/>
                 <span class="nickname">{{nickname}}</span>
                 <span v-if="isLogin" class="level">普通会员</span>
                 <div v-if="isLogin" class="tip">点击查看或编辑个人信息</div>
@@ -229,6 +229,9 @@
                 tuihuo,
                 defaultAvatar,
                 commonStyles,
+                contentStyle: {
+                    ...commonStyles.content
+                },
                 isLogin: Util.getToken() ? true : false,
                 info: {
                     avatar: null,
@@ -238,7 +241,7 @@
         },
         computed: {
             avatar() {
-                if(this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
+                if (this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
                     this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
                 }
                 return this.info.avatar ?
@@ -293,6 +296,9 @@
             }
         },
         mounted() {
+            if (document.documentElement.clientHeight < 600) {
+                this.contentStyle.minHeight = '600px'
+            }
             if (this.isLogin) {
                 ProfileAPI.load().then(data => {
                     this.info = data

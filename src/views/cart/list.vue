@@ -69,7 +69,8 @@
                                transition-mode="follow" style="margin-bottom: 10px;">
                     <div slot="content" class="item vux-1px-t">
                         <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px;">
-                            <check-icon @click.native="selectItem(cartItem)" class="checker" :value.sync="cartItem.selected"></check-icon>
+                            <check-icon @click.native="selectItem(cartItem)" class="checker"
+                                        :value.sync="cartItem.selected"></check-icon>
                         </div>
                         <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -10px; top: 0px;">
@@ -81,8 +82,7 @@
                         <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; position: relative; left: -10px;">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
-                                {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
-                                cartItem.item.name}}
+                                {{cartItemName(cartItem)}}
                             </div>
                             <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 5px;">
                                 {{specText(cartItem.attrs)}}
@@ -173,7 +173,8 @@
                 items: [],
                 allSelected: false,
                 show: true,
-                clearId: null
+                clearId: null,
+                isSmallDevice: false
             }
         },
         computed: {
@@ -205,10 +206,19 @@
             }
         },
         methods: {
+            cartItemName(cartItem) {
+                if (!this.isSmallDevice) {
+                    return cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
+                        cartItem.item.name
+                } else {
+                    return cartItem.item.name.length > 8 ? cartItem.item.name.substring(0, 8) + '...' :
+                        cartItem.item.name
+                }
+            },
             selectItem(cartItem) {
-                if(!cartItem.item.enabled) {
+                if (!cartItem.item.enabled) {
                     cartItem.selected = false
-                    this.$vux.toast.show({text: "不能选择下架商品",  type: 'warn', width: '180px'})
+                    this.$vux.toast.show({text: "不能选择下架商品", type: 'warn', width: '180px'})
                 }
             },
             goSettleAccount() {
@@ -290,6 +300,7 @@
             }
         },
         mounted() {
+            this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.marginBottom = '100px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             const wrapperHeight = document.documentElement.clientHeight - 120

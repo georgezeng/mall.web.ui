@@ -247,12 +247,7 @@
                     </div>
                 </popup>
                 <popup v-model="showShare" style="background-color: #fff;">
-                    <div style="height: 88px; position: relative;" align="center">
-                        <div class="wechat-friend" @click="share('wechatFriend')"></div>
-                        <div class="wechat-timeline" @click="share('wechatTimeline')"></div>
-                        <div class="qq-friend" @click="share('qqFriend')"></div>
-                        <div class="qq-zone" @click="share('qZone')"></div>
-                    </div>
+                    <div id="share" style="padding: 10px 0;"></div>
                 </popup>
             </div>
 
@@ -266,7 +261,6 @@
                 </div>
             </div>
 
-            <div id="share"></div>
             <div v-if="showShareTipInBrowser"
                  @click="closeShareTipPopup"
                  style="position: fixed; width: 100%; z-index: 100000;"
@@ -339,7 +333,6 @@
     import Util from '../../../libs/util.js'
     import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
-    import NativeShare from 'nativeshare'
     import soshm from 'soshm'
 
     export default {
@@ -393,7 +386,6 @@
                 cartItems: 0,
                 itemNums: 0,
                 confirmBuy: false,
-                nativeShare: new NativeShare()
             }
         },
         computed: {
@@ -468,6 +460,22 @@
                 } else {
                     return this.property.price
                 }
+            },
+            shareParams() {
+                let url = window.location.href
+                if (Util.getToken()) {
+                    if (url.indexOf('?') > -1) {
+                        url = url.replace('?', '?uid=' + Util.get('userId'))
+                    } else {
+                        url = url.replace('#', '?uid=' + Util.get('userId') + '#')
+                    }
+                }
+                return {
+                    title: this.item.name, // 分享标题
+                    desc: this.item.sellingPoints, // 分享描述
+                    link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: this.thumbnail, // 分享图标
+                }
             }
         },
         methods: {
@@ -489,23 +497,25 @@
                 if (Util.isInWechat()) {
                     this.showShareTip = true
                 } else {
-                    // this.showShareTipInBrowser = true
-                    // this.showShare = true
+                    this.showShareTipInBrowser = true
+                    this.showShare = true
+                    const params = this.shareParams
                     soshm('#share', {
                         // 分享的链接，默认使用location.href
-                        url: '',
+                        url: params.link,
                         // 分享的标题，默认使用document.title
-                        title: '',
+                        title: params.title,
                         // 分享的摘要，默认使用<meta name="description" content="">content的值
-                        digest: '',
+                        digest: params.desc,
                         // 分享的图片，默认获取本页面第一个img元素的src
-                        pic: '',
+                        pic: params.imgUrl,
                         // 默认显示的网站为以下六个个,支持设置的网站有
                         // weixin,weixintimeline,qq,qzone,yixin,weibo,tqq,renren,douban,tieba
-                        sites: ['weixin', 'weixintimeline', 'yixin', 'weibo', 'qq', 'qzone']
+                        sites: ['weixin', 'weixintimeline', 'qq', 'qzone', 'weibo', 'tqq', 'tieba', 'douban', 'renren', 'yixin']
                     });
                 }
             },
+
             updateShare() {
                 let url = window.location.href
                 if (Util.getToken()) {
@@ -525,13 +535,6 @@
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
                         wx.updateAppMessageShareData(params)
                         wx.updateTimelineShareData(params)
-                    })
-                } else {
-                    this.nativeShare.setShareData({
-                        icon: params.imgUrl,
-                        link: params.link,
-                        title: params.title,
-                        desc: params.desc
                     })
                 }
             },
