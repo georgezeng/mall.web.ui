@@ -266,6 +266,7 @@
                 </div>
             </div>
 
+            <div id="share"></div>
             <div v-if="showShareTipInBrowser"
                  @click="closeShareTipPopup"
                  style="position: fixed; width: 100%; z-index: 100000;"
@@ -339,6 +340,7 @@
     import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
     import NativeShare from 'nativeshare'
+    import soshm from 'soshm'
 
     export default {
         components: {},
@@ -487,8 +489,21 @@
                 if (Util.isInWechat()) {
                     this.showShareTip = true
                 } else {
-                    this.showShareTipInBrowser = true
-                    this.showShare = true
+                    // this.showShareTipInBrowser = true
+                    // this.showShare = true
+                    soshm('#share', {
+                        // 分享的链接，默认使用location.href
+                        url: '',
+                        // 分享的标题，默认使用document.title
+                        title: '',
+                        // 分享的摘要，默认使用<meta name="description" content="">content的值
+                        digest: '',
+                        // 分享的图片，默认获取本页面第一个img元素的src
+                        pic: '',
+                        // 默认显示的网站为以下六个个,支持设置的网站有
+                        // weixin,weixintimeline,qq,qzone,yixin,weibo,tqq,renren,douban,tieba
+                        sites: ['weixin', 'weixintimeline', 'yixin', 'weibo', 'qq', 'qzone']
+                    });
                 }
             },
             updateShare() {
