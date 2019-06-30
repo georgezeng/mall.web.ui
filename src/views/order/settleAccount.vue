@@ -360,7 +360,7 @@
                     this.$vux.toast.show({
                         text: '创建订单成功',
                         type: 'success',
-                        width: '180px'
+                        width: '200px'
                     })
                 })
             },

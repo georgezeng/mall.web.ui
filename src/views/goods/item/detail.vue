@@ -671,7 +671,7 @@
                     API.load(this.item.id).then(item => {
                         if (!item.enabled) {
                             setTimeout(() => {
-                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn', width: '250px'})
+                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn', width: '300px'})
                                 this.back()
                             }, 2000)
                             return

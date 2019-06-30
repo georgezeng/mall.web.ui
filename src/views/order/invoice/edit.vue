@@ -126,17 +126,17 @@
             },
             save() {
                 if (!this.data.title || this.data.title == '') {
-                    this.$vux.toast.show({text: '发票抬头不能为空', type: 'warn'})
+                    this.$vux.toast.show({text: '发票抬头不能为空', type: 'warn', width: '200px'})
                     return
                 }
                 if (this.data.type == 'Company') {
                     if (!this.data.code || this.data.code == '') {
-                        this.$vux.toast.show({text: '纳税编号不能为空', type: 'warn'})
+                        this.$vux.toast.show({text: '纳税编号不能为空', type: 'warn', width: '200px'})
                         return
                     }
                 }
                 if (!this.data.content || this.data.content == '') {
-                    this.$vux.toast.show({text: '发票内容不能为空', type: 'warn'})
+                    this.$vux.toast.show({text: '发票内容不能为空', type: 'warn', width: '200px'})
                     return
                 }
                 this.loading = true
