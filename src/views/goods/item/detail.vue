@@ -281,7 +281,7 @@
             <mt-swipe :auto="3000" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
                     <div align="center">
-                        <img :src="config.publicBucketDomain + photo" width="375" height="375"/>
+                        <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                     </div>
                 </mt-swipe-item>
             </mt-swipe>
@@ -376,11 +376,7 @@
                     marketPrice: 0,
                     photos: [],
                     properties: [],
-                    topEvaluation: {
-                        clientNickname: null,
-                        clientAvatar: null,
-                        remark: null
-                    }
+                    topEvaluation: null
                 },
                 tempValues: [],
                 definitionIds: [],
@@ -391,10 +387,14 @@
                 cartItems: 0,
                 itemNums: 0,
                 confirmBuy: false,
-                nativeShare: new NativeShare()
+                nativeShare: new NativeShare(),
+                isBigDevice: false
             }
         },
         computed: {
+            itemImgSize() {
+                return this.isBigDevice ? 375 : document.documentElement.clientWidth
+            },
             thumbnail() {
                 return config.publicBucketDomain + this.item.thumbnail
             },
@@ -430,15 +430,18 @@
                 return remark ? remark : ''
             },
             avatar() {
-                const avatar = this.item.topEvaluation.clientAvatar
-                if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
-                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                if (this.item.topEvaluation) {
+                    const avatar = this.item.topEvaluation.clientAvatar
+                    if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
+                        this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                    }
+                    return avatar ?
+                        (avatar.startsWith('http') ?
+                            avatar
+                            : config.baseUrl + '/client/img/load?filePath=' + avatar)
+                        : defaultAvatar
                 }
-                return avatar ?
-                    (avatar.startsWith('http') ?
-                        avatar
-                        : config.baseUrl + '/client/img/load?filePath=' + avatar)
-                    : defaultAvatar
+                return ''
             },
             pickupSpec() {
                 let spec = ''
@@ -474,7 +477,7 @@
                     this.nativeShare.call(type)
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
-                } catch(e) {
+                } catch (e) {
                     // 如果不支持，你可以在这里做降级处理
                 }
             },
@@ -494,7 +497,7 @@
             updateShare() {
                 const params = {
                     title: this.item.name, // 分享标题
-                    desc: this.item.sellingPoints, // 分享描述
+                    desc: this.item.sellingPoints ? this.item.sellingPoints : window.location.href, // 分享描述
                     link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                     imgUrl: this.thumbnail, // 分享图标
                 }
@@ -619,11 +622,11 @@
             },
             confirmSpec() {
                 if (this.tempValues.length == 0) {
-                    this.$vux.toast.text('请先选择规格')
+                    this.$vux.toast.show({text: '请先选择规格', type: 'text', width: '150px'})
                     return
                 }
                 if (this.nums == 0) {
-                    this.$vux.toast.text('请先选择数量')
+                    this.$vux.toast.show({text: '请先选择数量', type: 'text', width: '150px'})
                     return
                 }
                 this.values = this.tempValues
@@ -665,6 +668,15 @@
                             return
                         }
                         this.item = item
+                        document.title = item.name
+                        const descMeta = document.createElement('meta');
+                        if (item.sellingPoints) {
+                            descMeta.content = item.sellingPoints
+                        } else {
+                            descMeta.content = window.location.href
+                        }
+                        descMeta.name = 'description'
+                        document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
@@ -713,13 +725,15 @@
             }
         },
         created() {
-            let url = window.location.href
-            if (Util.getToken()) {
-                if (url.indexOf('?') == -1) {
-                    url += '?uid=' + Util.get('userId')
-                    window.location.href = url
-                }
-            }
+            // let url = window.location.href
+            // if (Util.getToken()) {
+            //     if (url.indexOf('?') == -1) {
+            //         url += "?uid=" + Util.get('userId')
+            //         window.location.href = url
+            //         return
+            //     }
+            // }
+            this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
