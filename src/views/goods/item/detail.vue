@@ -431,15 +431,18 @@
                 return remark ? remark : ''
             },
             avatar() {
-                const avatar = this.item.topEvaluation.clientAvatar
-                if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
-                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                if (this.item.topEvaluation) {
+                    const avatar = this.item.topEvaluation.clientAvatar
+                    if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
+                        this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                    }
+                    return avatar ?
+                        (avatar.startsWith('http') ?
+                            avatar
+                            : config.baseUrl + '/client/img/load?filePath=' + avatar)
+                        : defaultAvatar
                 }
-                return avatar ?
-                    (avatar.startsWith('http') ?
-                        avatar
-                        : config.baseUrl + '/client/img/load?filePath=' + avatar)
-                    : defaultAvatar
+                return  ''
             },
             pickupSpec() {
                 let spec = ''
@@ -475,7 +478,7 @@
                     this.nativeShare.call(type)
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
-                } catch(e) {
+                } catch (e) {
                     // 如果不支持，你可以在这里做降级处理
                 }
             },
