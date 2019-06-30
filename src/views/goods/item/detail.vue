@@ -339,6 +339,7 @@
     import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
     import NativeShare from 'nativeshare'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {},
@@ -739,6 +740,13 @@
                     url = url.substring(0, index) + "?uid=" + Util.get('userId') + url.substring(index)
                     window.location.href = url
                     return
+                }
+            } else {
+                if (url.indexOf('?') > -1) {
+                    const parentUid = UrlParams(window.location.href, "uid")
+                    if (parentUid) {
+                        Util.put('parentUserId', parentUid)
+                    }
                 }
             }
             this.isBigDevice = document.documentElement.clientWidth > 500
