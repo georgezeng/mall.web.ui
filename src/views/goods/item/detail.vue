@@ -670,13 +670,13 @@
                         }
                         this.item = item
                         this.avatarSrc = this.avatar
-                        document.title = item.name
-                        const descMeta = document.createElement('meta');
-                        if (item.sellingPoints) {
-                            descMeta.content = item.sellingPoints
-                        } else {
-                            descMeta.content = window.location.href
-                        }
+                        // document.title = item.name
+                        // const descMeta = document.createElement('meta');
+                        // if (item.sellingPoints) {
+                        //     descMeta.content = item.sellingPoints
+                        // } else {
+                        //     descMeta.content = window.location.href
+                        // }
                         descMeta.name = 'description'
                         document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
