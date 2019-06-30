@@ -247,7 +247,12 @@
                     </div>
                 </popup>
                 <popup v-model="showShare" style="background-color: #fff;">
-                    <div id="share" style="padding: 10px 0;"></div>
+                    <div style="height: 88px; position: relative;" align="center">
+                        <div class="wechat-friend" @click="share('wechatFriend')"></div>
+                        <div class="wechat-timeline" @click="share('wechatTimeline')"></div>
+                        <div class="qq-friend" @click="share('qqFriend')"></div>
+                        <div class="qq-zone" @click="share('qZone')"></div>
+                    </div>
                 </popup>
             </div>
 
@@ -265,7 +270,7 @@
                  @click="closeShareTipPopup"
                  style="position: fixed; width: 100%; z-index: 100000;"
                  :style="{height: popupHeight + 'px'}" align="center">
-                <div style="color: #fff; line-height: 400px; font-weight: bold; font-size: 14pt;">
+                <div style="color: #fff; line-height: 400px; font-size: 14pt; font-weight: bold;">
                     如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
@@ -276,7 +281,7 @@
             <mt-swipe :auto="3000" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
                     <div align="center">
-                        <img :src="config.publicBucketDomain + photo" :width="imageSize" :height="imageSize"/>
+                        <img :src="config.publicBucketDomain + photo" width="375" height="375"/>
                     </div>
                 </mt-swipe-item>
             </mt-swipe>
@@ -333,7 +338,7 @@
     import Util from '../../../libs/util.js'
     import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
-    import soshm from 'soshm'
+    import NativeShare from 'nativeshare'
 
     export default {
         components: {},
@@ -386,7 +391,7 @@
                 cartItems: 0,
                 itemNums: 0,
                 confirmBuy: false,
-                isSmallDevice: false
+                nativeShare: new NativeShare()
             }
         },
         computed: {
@@ -461,25 +466,6 @@
                 } else {
                     return this.property.price
                 }
-            },
-            shareParams() {
-                let url = window.location.href
-                if (Util.getToken()) {
-                    if (url.indexOf('?') > -1) {
-                        url = url.replace('?', '?uid=' + Util.get('userId'))
-                    } else {
-                        url = url.replace('#', '?uid=' + Util.get('userId') + '#')
-                    }
-                }
-                return {
-                    title: this.item.name, // 分享标题
-                    desc: this.item.sellingPoints, // 分享描述
-                    link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                    imgUrl: this.thumbnail, // 分享图标
-                }
-            },
-            imageSize() {
-                return this.isSmallDevice ? document.documentElement.clientWidth : 375
             }
         },
         methods: {
@@ -503,23 +489,8 @@
                 } else {
                     this.showShareTipInBrowser = true
                     this.showShare = true
-                    const params = this.shareParams
-                    soshm('#share', {
-                        // 分享的链接，默认使用location.href
-                        url: params.link,
-                        // 分享的标题，默认使用document.title
-                        title: params.title,
-                        // 分享的摘要，默认使用<meta name="description" content="">content的值
-                        // digest: params.desc,
-                        // 分享的图片，默认获取本页面第一个img元素的src
-                        // pic: params.imgUrl,
-                        // 默认显示的网站为以下六个个,支持设置的网站有
-                        // weixin,weixintimeline,qq,qzone,yixin,weibo,tqq,renren,douban,tieba
-                        sites: ['weixin', 'weixintimeline', 'qq', 'qzone']
-                    });
                 }
             },
-
             updateShare() {
                 let url = window.location.href
                 if (Util.getToken()) {
@@ -539,6 +510,13 @@
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
                         wx.updateAppMessageShareData(params)
                         wx.updateTimelineShareData(params)
+                    })
+                } else {
+                    this.nativeShare.setShareData({
+                        icon: params.imgUrl,
+                        link: params.link,
+                        title: params.title,
+                        desc: params.desc
                     })
                 }
             },
@@ -743,7 +721,6 @@
             }
         },
         created() {
-            this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
