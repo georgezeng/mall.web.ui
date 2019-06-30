@@ -318,7 +318,7 @@
             </div>
             <div class="blockLine"></div>
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
-            <div v-html="item.content" style="margin-bottom: 40px;"></div>
+            <!--<div v-html="item.content" style="margin-bottom: 40px;"></div>-->
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">
@@ -377,7 +377,8 @@
                     marketPrice: 0,
                     photos: [],
                     properties: [],
-                    topEvaluation: null
+                    topEvaluation: null,
+                    totalEvaluations: 0
                 },
                 tempValues: [],
                 definitionIds: [],
@@ -675,17 +676,7 @@
                             }, 2000)
                             return
                         }
-                        // this.item = item
-                        document.title = item.name
-                        const descMeta = document.createElement('meta');
-                        if (item.sellingPoints) {
-                            descMeta.content = item.sellingPoints
-                        } else {
-                            descMeta.content = window.location.href
-                        }
-                        descMeta.name = 'description'
-                        document.getElementsByTagName('head')[0].appendChild(descMeta);
-                        this.updateShare()
+                        this.item = item
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
                             for (let i in item.properties) {
@@ -708,6 +699,18 @@
                         }
                         this.totalProperty.price = this.property.price
                         this.totalProperty.inventory = this.property.inventory
+
+                        // setting share
+                        document.title = item.name
+                        const descMeta = document.createElement('meta');
+                        if (item.sellingPoints) {
+                            descMeta.content = item.sellingPoints
+                        } else {
+                            descMeta.content = window.location.href
+                        }
+                        descMeta.name = 'description'
+                        document.getElementsByTagName('head')[0].appendChild(descMeta);
+                        this.updateShare()
                     })
                 }
             },
