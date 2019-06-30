@@ -508,7 +508,7 @@
                         // 分享的链接，默认使用location.href
                         url: params.link,
                         // 分享的标题，默认使用document.title
-                        // title: params.title,
+                        title: params.title,
                         // 分享的摘要，默认使用<meta name="description" content="">content的值
                         // digest: params.desc,
                         // 分享的图片，默认获取本页面第一个img元素的src
