@@ -487,6 +487,11 @@
                 this.showShare = false
             },
             showSharePopup() {
+                const token = Util.getToken()
+                if (!token) {
+                    Util.go('Login')
+                    return
+                }
                 if (Util.isInWechat()) {
                     this.showShareTip = true
                 } else {
@@ -527,6 +532,7 @@
                 const token = Util.getToken()
                 if (!token) {
                     Util.go('Login')
+                    return
                 }
                 if (this.values.length == 0) {
                     this.showPopup()
@@ -548,6 +554,7 @@
                 const token = Util.getToken()
                 if (!token) {
                     Util.go('Login')
+                    return
                 }
                 if (this.values.length == 0) {
                     this.showPopup()
