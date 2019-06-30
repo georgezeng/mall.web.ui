@@ -492,18 +492,10 @@
                 }
             },
             updateShare() {
-                let url = window.location.href
-                if (Util.getToken()) {
-                    if (url.indexOf('?') > -1) {
-                        url = url.replace('?', '?uid=' + Util.get('userId'))
-                    } else {
-                        url = url.replace('#', '?uid=' + Util.get('userId') + '#')
-                    }
-                }
                 const params = {
                     title: this.item.name, // 分享标题
                     desc: this.item.sellingPoints, // 分享描述
-                    link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                     imgUrl: this.thumbnail, // 分享图标
                 }
                 if (Util.isInWechat()) {
@@ -667,7 +659,7 @@
                     API.load(this.item.id).then(item => {
                         if (!item.enabled) {
                             setTimeout(() => {
-                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn'})
+                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn', width: '250px'})
                                 this.back()
                             }, 2000)
                             return
@@ -721,6 +713,13 @@
             }
         },
         created() {
+            let url = window.location.href
+            if (Util.getToken()) {
+                if (url.indexOf('?') == -1) {
+                    url = url.replace('#', '?uid=' + Util.get('userId') + '#')
+                    window.location.reload(true)
+                }
+            }
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
