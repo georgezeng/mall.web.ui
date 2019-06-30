@@ -686,28 +686,28 @@
                         descMeta.name = 'description'
                         document.getElementsByTagName('head')[0].appendChild(descMeta);
                         this.updateShare()
-                        // this.property.price = item.minPrice
-                        // if (item.properties && item.properties.length > 0) {
-                        //     for (let i in item.properties) {
-                        //         this.property.inventory += item.properties[i].inventory
-                        //     }
-                        //     const values = item.properties[0].values
-                        //     for (let i in values) {
-                        //         const value = values[i]
-                        //         this.definitionIds.push(value.parent.id)
-                        //     }
-                        //     API.loadDefinitions(this.definitionIds).then(definitions => {
-                        //         if (definitions.length > 0) {
-                        //             for (let i in definitions) {
-                        //                 const definition = definitions[i]
-                        //                 definition.values = this.filterValues(definition)
-                        //             }
-                        //             this.definitions = definitions
-                        //         }
-                        //     })
-                        // }
-                        // this.totalProperty.price = this.property.price
-                        // this.totalProperty.inventory = this.property.inventory
+                        this.property.price = item.minPrice
+                        if (item.properties && item.properties.length > 0) {
+                            for (let i in item.properties) {
+                                this.property.inventory += item.properties[i].inventory
+                            }
+                            const values = item.properties[0].values
+                            for (let i in values) {
+                                const value = values[i]
+                                this.definitionIds.push(value.parent.id)
+                            }
+                            API.loadDefinitions(this.definitionIds).then(definitions => {
+                                if (definitions.length > 0) {
+                                    for (let i in definitions) {
+                                        const definition = definitions[i]
+                                        definition.values = this.filterValues(definition)
+                                    }
+                                    this.definitions = definitions
+                                }
+                            })
+                        }
+                        this.totalProperty.price = this.property.price
+                        this.totalProperty.inventory = this.property.inventory
                     })
                 }
             },
