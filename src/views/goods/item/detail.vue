@@ -377,11 +377,7 @@
                     marketPrice: 0,
                     photos: [],
                     properties: [],
-                    topEvaluation: {
-                        clientNickname: null,
-                        remark: null,
-                        clientAvatar: null
-                    },
+                    topEvaluation: null,
                     totalEvaluations: 0
                 },
                 tempValues: [],
@@ -436,15 +432,18 @@
                 return remark ? remark : ''
             },
             avatar() {
-                const avatar = this.item.topEvaluation.clientAvatar
-                if (!avatar.startsWith('http') && this.$refs.avatar) {
-                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                if (this.item.topEvaluation) {
+                    const avatar = this.item.topEvaluation.clientAvatar
+                    if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
+                        this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
+                    }
+                    return avatar ?
+                        (avatar.startsWith('http') ?
+                            avatar
+                            : config.baseUrl + '/client/img/load?filePath=' + avatar)
+                        : defaultAvatar
                 }
-                return avatar ?
-                    (avatar.startsWith('http') ?
-                        avatar
-                        : config.baseUrl + '/client/img/load?filePath=' + avatar)
-                    : defaultAvatar
+                return ''
             },
             pickupSpec() {
                 let spec = ''
@@ -678,13 +677,6 @@
                             return
                         }
                         this.item = item
-                        if (!this.item.topEvaluation) {
-                            this.item.topEvaluation = {
-                                clientNickname: null,
-                                remark: null,
-                                clientAvatar: null
-                            }
-                        }
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
                             for (let i in item.properties) {
