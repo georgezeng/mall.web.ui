@@ -718,6 +718,7 @@
                 if (url.indexOf('?') == -1) {
                     url += "?uid=" + Util.get('userId')
                     window.location.href = url
+                    return
                 }
             }
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
