@@ -733,34 +733,34 @@
             }
         },
         created() {
-            let link = window.location.href
-            if (Util.getToken()) {
-                if (link.indexOf('?') == -1) {
-                    const index = url.indexOf('#')
-                    link = link.substring(0, index) + "?uid=" + Util.get('userId') + link.substring(index)
-                    window.location.href = link
-                    return
-                }
-            } else {
-                if (link.indexOf('?') > -1) {
-                    const url = window.location.href.replace(/\#.+/, '')
-                    const parentUid = UrlParams(url, "uid")
-                    if (parentUid) {
-                        Util.put('parentUserId', parentUid)
-                    }
-                }
-            }
-            this.isBigDevice = document.documentElement.clientWidth > 500
-            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
-            this.popupHeight = document.documentElement.clientHeight * 0.75
-            this.item.id = this.$router.currentRoute.params.id
-            this.item.id = this.item.id > 0 ? this.item.id : null
-            this.load()
-            if (Util.isInWechat()) {
-                Util.wxConfig([
-                    'updateAppMessageShareData',
-                ])
-            }
+            // let link = window.location.href
+            // if (Util.getToken()) {
+            //     if (link.indexOf('?') == -1) {
+            //         const index = url.indexOf('#')
+            //         link = link.substring(0, index) + "?uid=" + Util.get('userId') + link.substring(index)
+            //         window.location.href = link
+            //         return
+            //     }
+            // } else {
+            //     if (link.indexOf('?') > -1) {
+            //         const url = window.location.href.replace(/\#.+/, '')
+            //         const parentUid = UrlParams(url, "uid")
+            //         if (parentUid) {
+            //             Util.put('parentUserId', parentUid)
+            //         }
+            //     }
+            // }
+            // this.isBigDevice = document.documentElement.clientWidth > 500
+            // this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
+            // this.popupHeight = document.documentElement.clientHeight * 0.75
+            // this.item.id = this.$router.currentRoute.params.id
+            // this.item.id = this.item.id > 0 ? this.item.id : null
+            // this.load()
+            // if (Util.isInWechat()) {
+            //     Util.wxConfig([
+            //         'updateAppMessageShareData',
+            //     ])
+            // }
         }
     }
 </script>
