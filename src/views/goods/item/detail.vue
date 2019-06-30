@@ -265,7 +265,7 @@
                  @click="closeShareTipPopup"
                  style="position: fixed; width: 100%; z-index: 100000;"
                  :style="{height: popupHeight + 'px'}" align="center">
-                <div style="color: #fff; line-height: 400px;">
+                <div style="color: #fff; line-height: 400px; font-weight: bold; font-size: 14pt;">
                     如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
@@ -276,7 +276,7 @@
             <mt-swipe :auto="3000" style="height: 375px;">
                 <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
                     <div align="center">
-                        <img :src="config.publicBucketDomain + photo" width="375" height="375"/>
+                        <img :src="config.publicBucketDomain + photo" :width="imageSize" :height="imageSize"/>
                     </div>
                 </mt-swipe-item>
             </mt-swipe>
@@ -386,6 +386,7 @@
                 cartItems: 0,
                 itemNums: 0,
                 confirmBuy: false,
+                isSmallDevice: false
             }
         },
         computed: {
@@ -476,6 +477,9 @@
                     link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                     imgUrl: this.thumbnail, // 分享图标
                 }
+            },
+            imageSize() {
+                return this.isSmallDevice ? document.documentElement.clientWidth : 375
             }
         },
         methods: {
@@ -739,6 +743,7 @@
             }
         },
         created() {
+            this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id

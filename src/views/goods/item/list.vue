@@ -12,6 +12,13 @@
         color: #5C6677;
     }
 
+    .orderTab2 {
+        position: relative;
+        margin: 10px 20px;
+        font-size: 12pt;
+        color: #5C6677;
+    }
+
     .selected {
         color: orangered;
     }
@@ -79,7 +86,7 @@
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Input size="large" class="searchInput" clearable :style="{width: searchInputWidth + 'px'}" search
                    placeholder="搜索商品"/>
-            <div style="position: relative; top: -25px;">
+            <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
                 <span class="orderTab" :class="{selected: isSelected.default}"
                       @click="orderBy('default', true)">默认</span>
                 <span class="orderTab" @click="orderBy('putTime', true)">
@@ -90,6 +97,24 @@
                           type="md-arrow-dropdown"/>
                 </span>
                 <span class="orderTab" @click="orderBy('price', true)">
+                    <span :class="{selected: isSelected.realPrice[0]}">价格</span>
+                    <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.realPrice[1]}"
+                          type="md-arrow-dropup"/>
+                    <Icon size="15" class="orderDownBtn" :class="{selected: isSelected.realPrice[2]}"
+                          type="md-arrow-dropdown"/>
+                </span>
+            </div>
+            <div v-else style="position: relative; top: -25px;">
+                <span class="orderTab2" :class="{selected: isSelected.default}"
+                      @click="orderBy('default', true)">默认</span>
+                <span class="orderTab2" @click="orderBy('putTime', true)">
+                    <span :class="{selected: isSelected.putTime[0]}">时间</span>
+                    <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.putTime[1]}"
+                          type="md-arrow-dropup"/>
+                    <Icon size="15" class="orderDownBtn" :class="{selected: isSelected.putTime[2]}"
+                          type="md-arrow-dropdown"/>
+                </span>
+                <span class="orderTab2" @click="orderBy('price', true)">
                     <span :class="{selected: isSelected.realPrice[0]}">价格</span>
                     <Icon size="15" class="orderUpBtn" :class="{selected: isSelected.realPrice[1]}"
                           type="md-arrow-dropup"/>
@@ -171,6 +196,7 @@
                 },
                 list: [],
                 show: true,
+                isSmallDevice: false
             }
         },
         computed: {},
@@ -280,6 +306,7 @@
             }
         },
         mounted() {
+            this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.marginTop = '100px'
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'
