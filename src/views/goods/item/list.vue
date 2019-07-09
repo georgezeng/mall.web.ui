@@ -213,7 +213,7 @@
                 itemImageWidth: 0,
                 pageInfo: {
                     num: 1,
-                    size: 5,
+                    size: 10,
                     order: 'DESC'
                 },
                 list: [],
