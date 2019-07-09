@@ -390,7 +390,8 @@
                 itemNums: 0,
                 confirmBuy: false,
                 nativeShare: new NativeShare(),
-                isBigDevice: false
+                isBigDevice: false,
+                fromHome: false
             }
         },
         computed: {
@@ -526,9 +527,13 @@
                 Util.go('MyCart')
             },
             back() {
-                Util.go('GoodsItemList', {
-                    id: Util.get('goodsCategoryId')
-                })
+                if (this.fromHome) {
+                    Util.go('Home')
+                } else {
+                    Util.go('GoodsItemList', {
+                        id: Util.get('goodsCategoryId')
+                    })
+                }
             },
             addToCart() {
                 const token = Util.getToken()
@@ -741,6 +746,7 @@
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
+            this.fromHome = this.$router.currentRoute.params.fromHome == 'true'
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
             this.load()

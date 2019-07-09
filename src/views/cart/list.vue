@@ -251,7 +251,8 @@
             },
             goItem(id) {
                 Util.go('GoodsItemDetail', {
-                    id
+                    id,
+                    fromHome: 'false'
                 })
             },
             checkAll() {

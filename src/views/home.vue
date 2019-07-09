@@ -5,8 +5,6 @@
     }
 
     .category1, .category2 {
-        height: 90px;
-        width: 150px;
         margin-bottom: 5px;
     }
 
@@ -69,11 +67,11 @@
                     <img class="carousel" :src="banner3">
                 </mt-swipe-item>
             </mt-swipe>
-            <div align="center" style="margin: 20px;">
-                <img class="category1" style="" :src="category1"/>
-                <img class="category2" style="" :src="category2"/>
-                <img class="category1" style="" :src="category3"/>
-                <img class="category2" style="" :src="category4"/>
+            <div align="center" style="margin: 20px 12px;">
+                <img class="category1" :style="categoryStyle" :src="category1"/>
+                <img class="category2" :style="categoryStyle" :src="category2"/>
+                <img class="category1" :style="categoryStyle" :src="category3"/>
+                <img class="category2" :style="categoryStyle" :src="category4"/>
             </div>
             <div ref="grid" style="padding-left: 8px;">
                 <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
@@ -108,6 +106,7 @@
     import API from '../api/goods-item-list'
     import config from '../config/index'
     import Masonry from 'masonry-layout'
+    import Util from '../libs/util.js'
 
     import banner1 from '../images/banner-1.png'
     import banner2 from '../images/banner-2.png'
@@ -145,7 +144,8 @@
                 itemImageWidth: 0,
                 loadingList: false,
                 showLoading: false,
-                list: []
+                list: [],
+                categoryStyle: {}
             }
         },
         methods: {
@@ -172,7 +172,8 @@
             },
             goDetail(id) {
                 Util.go('GoodsItemDetail', {
-                    id
+                    id,
+                    fromHome: 'true'
                 })
             },
             scrollHandler(e) {
@@ -220,6 +221,12 @@
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             this.itemImageWidth = this.itemWidth - 16
             window.addEventListener('scroll', this.scrollHandler)
+            const width = (document.documentElement.clientWidth - 40) / 2
+            const height = (width * 288 / 504).toFixed(0)
+            this.categoryStyle = {
+                width: width + 'px',
+                height: height + 'px'
+            }
             this.load()
         }
     }

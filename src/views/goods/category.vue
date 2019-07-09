@@ -139,7 +139,8 @@
         methods: {
             goGoodsList(id) {
                 Util.go('GoodsItemList', {
-                    id
+                    id,
+                    fromHome: 'false'
                 })
             },
             img(url) {
