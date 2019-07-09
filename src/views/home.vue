@@ -1,13 +1,55 @@
 <style scoped lang="less">
-    .demo-carousel {
-        height: 150px;
+    .carousel {
+        height: 185px;
         width: 100%;
-        background-color: #556B9A;
-        text-align: center;
-        color: #fff;
-        padding: 150px;
-        font-size: 20px;
-        font-weight: bold;
+    }
+
+    .category1, .category2 {
+        height: 90px;
+        width: 150px;
+        margin-bottom: 5px;
+    }
+
+    .category1 {
+        margin-right: 5px;
+    }
+
+    .item {
+        background-color: #fff;
+        margin-bottom: 8px;
+        margin-right: 8px;
+        display: inline-block;
+        .name {
+            font-size: 14px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            margin-top: -10px;
+        }
+        .marketPrice {
+            display: inline-block;
+            font-size: 12px;
+            color: #c5c8ce;
+            text-decoration: line-through;
+        }
+        .realPrice {
+            display: inline-block;
+            font-size: 16px;
+            color: orangered;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+        .discount {
+            display: inline-block;
+            font-size: 12px;
+            color: gray;
+        }
+    }
+
+    .stat {
+        color: gray;
+        font-size: 10pt;
+        margin: 0 10px 10px;
     }
 </style>
 <template>
@@ -16,42 +58,170 @@
             <Input size="large" clearable search placeholder="搜索商品"/>
         </Header>
         <Content :style="contentStyle">
-            <mt-swipe :auto="4000" style="height: 300px; background-color: #556B9A;">
+            <mt-swipe :auto="4000" style="height: 185px;">
                 <mt-swipe-item>
-                    <div class="demo-carousel">1</div>
+                    <img class="carousel" :src="banner1">
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <div class="demo-carousel">2</div>
+                    <img class="carousel" :src="banner2">
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <div class="demo-carousel">3</div>
+                    <img class="carousel" :src="banner3">
                 </mt-swipe-item>
             </mt-swipe>
+            <div align="center" style="margin: 20px;">
+                <img class="category1" style="" :src="category1"/>
+                <img class="category2" style="" :src="category2"/>
+                <img class="category1" style="" :src="category3"/>
+                <img class="category2" style="" :src="category4"/>
+            </div>
+            <div ref="grid" style="padding-left: 8px;">
+                <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
+                     @click="goDetail(item.id)">
+                    <div style="margin: 8px" align="center">
+                        <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
+                             :height="itemImageWidth"/>
+                    </div>
+                    <div class="realPrice">￥{{priceRange(item)}}</div>
+                    <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
+                        item.marketPrice : ''}}
+                    </div>
+                    <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
+                    <div class="name">{{brand(item)}}{{item.name.length > 15 ? item.name.substring(0, 15) +
+                        '...' : item.name}}
+                    </div>
+                    <div class="stat">
+                        <span>{{item.orderNums}}人已购买, </span>
+                        <span>好评率: {{item.goodEvaluationRate}}%</span>
+                    </div>
+                </div>
+            </div>
+            <load-more v-if="showLoading" tip="正在加载"></load-more>
         </Content>
-        <Footer selection="home" :style="commonStyles.footer" />
+        <Footer selection="home" :style="commonStyles.footer"/>
     </Layout>
 
 </template>
 <script>
     import Footer from './footer'
-    import commonStyles from '../styles/common.js'
+    import commonStyles from '../styles/common'
+    import API from '../api/goods-item-list'
+    import config from '../config/index'
+    import Masonry from 'masonry-layout'
+
+    import banner1 from '../images/banner-1.png'
+    import banner2 from '../images/banner-2.png'
+    import banner3 from '../images/banner-3.png'
+    import category1 from '../images/category-1.png'
+    import category2 from '../images/category-2.png'
+    import category3 from '../images/category-3.png'
+    import category4 from '../images/category-4.png'
+
+
     export default {
         components: {
             Footer
         },
         data() {
             return {
+                category1,
+                category2,
+                category3,
+                category4,
+                banner1,
+                banner2,
+                banner3,
+
+                config,
                 commonStyles,
                 contentStyle: {
                     ...commonStyles.content
                 },
+                pageInfo: {
+                    num: 1,
+                    size: 10,
+                    order: 'DESC'
+                },
+                itemWidth: 0,
+                itemImageWidth: 0,
+                loadingList: false,
+                showLoading: false,
+                list: []
             }
         },
         methods: {
+            brand(item) {
+                return item.brand ? item.brand + '|' : ''
+            },
+            discount(item) {
+                let discount = 0
+                if (item.marketPrice > 0) {
+                    discount = item.minPrice / item.marketPrice * 10
+                    discount = discount.toFixed(1)
+                }
+                return discount > 0 ? discount + '折' : ''
+            },
+            isSinglePrice(item) {
+                return item.minPrice == item.maxPrice
+            },
+            priceRange(item) {
+                if (item.minPrice == item.maxPrice) {
+                    return item.minPrice
+                } else {
+                    return item.minPrice + '-' + item.maxPrice
+                }
+            },
+            goDetail(id) {
+                Util.go('GoodsItemDetail', {
+                    id
+                })
+            },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
+            load() {
+                if (this.allLoaded) {
+                    this.showLoading = false
+                    return
+                }
+                if (this.loadingList) {
+                    return
+                }
+                this.loadingList = true
+                API.list(0, 'default', this.pageInfo).then(data => {
+                    this.loadingList = false
+                    if (data && data.length > 0) {
+                        this.pageInfo.num++
+                        for (let i in data) {
+                            this.list.push(data[i])
+                        }
+                        if (data.length < this.pageInfo.size) {
+                            this.allLoaded = true
+                            this.showLoading = false
+                        }
+                        setTimeout(() => {
+                            new Masonry(this.$refs.grid, {});
+                        }, 100)
+                    } else {
+                        this.allLoaded = true
+                        this.showLoading = false
+                    }
+                })
+            }
+
         },
         created() {
-            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
+            // this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.contentStyle.marginTop = '64px'
+            this.contentStyle.marginBottom = '60px'
+            this.itemWidth = (document.documentElement.clientWidth - 24) / 2
+            this.itemImageWidth = this.itemWidth - 16
+            window.addEventListener('scroll', this.scrollHandler)
+            this.load()
         }
     }
 </script>
