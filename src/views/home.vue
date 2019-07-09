@@ -140,7 +140,6 @@
                 pageInfo: {
                     num: 1,
                     size: 10,
-                    order: 'DESC'
                 },
                 itemWidth: 0,
                 itemImageWidth: 0,
