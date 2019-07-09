@@ -170,6 +170,12 @@
                     }).catch(e => {
                         this.loading = false
                     })
+                } else {
+                    API.contentList().then(contentList => {
+                        this.contentList = contentList
+                    }).catch(e => {
+                        this.loading = false
+                    })
                 }
             }
         },

@@ -125,35 +125,57 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
-            <div ref="wrapper" class="wrapper" :style="{height: wrapperHeight + 'px'}">
-                <mt-loadmore :bottom-method="load"
-                             :bottom-all-loaded="allLoaded"
-                             :bottom-distance="10"
-                             ref="loadmore">
-                    <div ref="grid" style="padding-left: 8px;">
-                        <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
-                             @click="goDetail(item.id)">
-                            <div style="margin: 8px" align="center">
-                                <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
-                                     :height="itemImageWidth"/>
-                            </div>
-                            <div class="realPrice">￥{{priceRange(item)}}</div>
-                            <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
-                                item.marketPrice : ''}}
-                            </div>
-                            <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
-                            <div class="name">{{brand(item)}}{{item.name.length > 15 ? item.name.substring(0, 15) +
-                                '...' : item.name}}
-                            </div>
-                            <div class="stat">
-                                <span>{{item.orderNums}}人已购买, </span>
-                                <span>好评率: {{item.goodEvaluationRate}}%</span>
-                            </div>
+            <div ref="grid" style="padding-left: 8px;">
+                <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
+                     @click="goDetail(item.id)">
+                    <div style="margin: 8px" align="center">
+                        <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
+                             :height="itemImageWidth"/>
+                    </div>
+                    <div class="realPrice">￥{{priceRange(item)}}</div>
+                    <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
+                        item.marketPrice : ''}}
+                    </div>
+                    <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
+                    <div class="name">{{brand(item)}}{{item.name.length > 15 ? item.name.substring(0, 15) +
+                        '...' : item.name}}
+                    </div>
+                    <div class="stat">
+                        <span>{{item.orderNums}}人已购买, </span>
+                        <span>好评率: {{item.goodEvaluationRate}}%</span>
+                    </div>
+                </div>
+            </div>
+            <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <!--<div ref="wrapper" class="wrapper" :style="{height: wrapperHeight + 'px'}">-->
+            <!--<mt-loadmore :bottom-method="load"
+                         :bottom-all-loaded="allLoaded"
+                         :bottom-distance="10"
+                         ref="loadmore">
+                <div ref="grid" style="padding-left: 8px;">
+                    <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
+                         @click="goDetail(item.id)">
+                        <div style="margin: 8px" align="center">
+                            <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
+                                 :height="itemImageWidth"/>
+                        </div>
+                        <div class="realPrice">￥{{priceRange(item)}}</div>
+                        <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
+                            item.marketPrice : ''}}
+                        </div>
+                        <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
+                        <div class="name">{{brand(item)}}{{item.name.length > 15 ? item.name.substring(0, 15) +
+                            '...' : item.name}}
+                        </div>
+                        <div class="stat">
+                            <span>{{item.orderNums}}人已购买, </span>
+                            <span>好评率: {{item.goodEvaluationRate}}%</span>
                         </div>
                     </div>
-                </mt-loadmore>
-                <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
-            </div>
+                </div>
+            </mt-loadmore>-->
+            <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
+            <!--</div>-->
         </Content>
     </Layout>
 </template>
@@ -191,12 +213,14 @@
                 itemImageWidth: 0,
                 pageInfo: {
                     num: 1,
-                    size: 10,
+                    size: 5,
                     order: 'DESC'
                 },
                 list: [],
                 show: true,
-                isSmallDevice: false
+                isSmallDevice: false,
+                showLoading: false,
+                loadingList: false
             }
         },
         computed: {},
@@ -234,25 +258,46 @@
                     Util.go('MyCart')
                 }
             },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
             load(load) {
+                if (this.allLoaded) {
+                    this.showLoading = false
+                    return
+                }
+                if (this.loadingList) {
+                    return
+                }
+                this.loadingList = true
                 API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
+                    this.loadingList = false
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         for (let i in data) {
                             this.list.push(data[i])
                         }
+                        if (data.length < this.pageInfo.size) {
+                            this.allLoaded = true
+                            this.showLoading = false
+                        }
                         setTimeout(() => {
                             new Masonry(this.$refs.grid, {});
                             this.show = false
-                            if (load) {
-                                this.$refs.wrapper.scrollTop = 0
-                            }
+                            // if (load) {
+                            //     this.$refs.wrapper.scrollTop = 0
+                            // }
                         }, 100)
                     } else {
-                        this.allLoaded = true;
+                        this.allLoaded = true
                         this.show = false
+                        this.showLoading = false
                     }
-                    this.$refs.loadmore.onBottomLoaded()
+                    // this.$refs.loadmore.onBottomLoaded()
                 })
             },
             orderBy(searchType, load) {
@@ -300,6 +345,7 @@
                     this.pageInfo.num = 1
                     this.show = true
                     this.allLoaded = false
+                    this.showLoading = false
                     this.list = []
                     this.load(load)
                 }
@@ -311,15 +357,16 @@
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 100
+            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 100
+            window.addEventListener('scroll', this.scrollHandler)
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             this.itemImageWidth = this.itemWidth - 16
-            // this.contentStyle.minHeight = this.wrapperHeight + "px"
+            // this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
-            this.orderBy('default')
+            this.orderBy('default', true)
         }
     }
 </script>

@@ -22,49 +22,49 @@
             <div align="center" style="position: relative; top: 0px;">选择发票</div>
         </Header>
         <Content :style="contentStyle">
-            <div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-                <mt-cell title="不开发票" style="margin-bottom: 10px;" @click.native="getItem(null)"></mt-cell>
-                <mt-loadmore :bottom-method="load"
-                             :bottom-all-loaded="allLoaded"
-                             :bottom-distance="10"
-                             ref="loadmore">
-                    <!--<mt-cell-swipe
-                            style="margin-bottom: 10px;"
-                            @click.native="getItem(item)"
-                            v-for="(item, index) in list"
-                            :right="swipeButtons(item.id)">
-                        <div slot="title" style="font-size: 12pt;">
-                            <div>{{item.title}} ({{item.content}})</div>
+            <mt-cell title="不开发票" style="margin-bottom: 10px;" @click.native="getItem(null)"></mt-cell>
+            <swipeout>
+                <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list"
+                               transition-mode="follow">
+                    <div slot="content" class="item vux-1px-t">
+                        <div style="display: inline-block; position: relative; top: -10px;">
+                            <check-icon class="checker"
+                                        :value.sync="isSelected[index]"></check-icon>
                         </div>
-                        <div>
+                        <div style="font-size: 11pt; display: inline-block;">
+                            <div style="margin-bottom: 5px;">{{item.title}}</div>
+                            <div style="font-size: 12px; color: gray;">{{item.content}}</div>
+                        </div>
+                        <div style="float: right; position: relative; top: 20px;">
                             <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
                         </div>
-                    </mt-cell-swipe>-->
-
-                    <swipeout>
-                        <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list"
-                                       transition-mode="follow">
-                            <div slot="content" class="item vux-1px-t">
-                                <div style="display: inline-block; position: relative; top: -10px;">
-                                    <check-icon class="checker"
-                                                :value.sync="isSelected[index]"></check-icon>
-                                </div>
-                                <div style="font-size: 11pt; display: inline-block;">
-                                    <div style="margin-bottom: 5px;">{{item.title}}</div>
-                                    <div style="font-size: 12px; color: gray;">{{item.content}}</div>
-                                </div>
-                                <div style="float: right; position: relative; top: 20px;">
-                                    <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
-                                </div>
-                            </div>
-                            <div slot="right-menu">
-                                <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除</swipeout-button>
-                            </div>
-                        </swipeout-item>
-                    </swipeout>
-                </mt-loadmore>
-                <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
-            </div>
+                    </div>
+                    <div slot="right-menu">
+                        <swipeout-button @click.native.stop="remove(item.id)" type="warn">删除</swipeout-button>
+                    </div>
+                </swipeout-item>
+            </swipeout>
+            <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
+            <!--<mt-loadmore :bottom-method="load"-->
+            <!--:bottom-all-loaded="allLoaded"-->
+            <!--:bottom-distance="10"-->
+            <!--ref="loadmore">-->
+            <!--<mt-cell-swipe-->
+            <!--style="margin-bottom: 10px;"-->
+            <!--@click.native="getItem(item)"-->
+            <!--v-for="(item, index) in list"-->
+            <!--:right="swipeButtons(item.id)">-->
+            <!--<div slot="title" style="font-size: 12pt;">-->
+            <!--<div>{{item.title}} ({{item.content}})</div>-->
+            <!--</div>-->
+            <!--<div>-->
+            <!--<Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>-->
+            <!--</div>-->
+            <!--</mt-cell-swipe>-->
+            <!--</mt-loadmore>-->
+            <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
+            <!--</div>-->
         </Content>
         <Footer :style="footerStyle">
             <x-button action-type="button" style="width: 100%; background-color: #008CEB;" @click.native="goEdit(0)">
@@ -99,7 +99,9 @@
                     order: 'DESC',
                     property: 'updateTime'
                 },
-                init: false
+                init: false,
+                showLoading: false,
+                loadingList: false
             }
         },
         computed: {},
@@ -133,7 +135,7 @@
                 })
             },
             remove(id) {
-                this.init = false
+                // this.init = false
                 const data = Util.getJson('settleAccountData')
                 if (id == data.invoice.id) {
                     data.invoice = {
@@ -151,8 +153,24 @@
                     this.load()
                 })
             },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
             load() {
+                if (this.allLoaded) {
+                    this.showLoading = false
+                    return
+                }
+                if (this.loadingList) {
+                    return
+                }
+                this.loadingList = true
                 API.list(this.pageInfo).then(data => {
+                    this.loadingList = false
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         const invoice = Util.getJson('settleAccountData').invoice
@@ -160,16 +178,21 @@
                             this.list.push(data[i])
                             this.isSelected.push(invoice && invoice.id != null ? data[i].id == invoice.id : false)
                         }
+                        if (data.length < this.pageInfo.size) {
+                            this.allLoaded = true
+                            this.showLoading = false
+                        }
                     } else {
-                        this.allLoaded = true;
+                        this.allLoaded = true
+                        this.showLoading = false
                     }
-                    this.$refs.loadmore.onBottomLoaded()
-                    if (!this.init) {
-                        this.init = true
-                        setTimeout(() => {
-                            this.$refs.wrapper.scrollTop = 0
-                        }, 100)
-                    }
+                    // this.$refs.loadmore.onBottomLoaded()
+                    // if (!this.init) {
+                    //     this.init = true
+                    //     setTimeout(() => {
+                    //         this.$refs.wrapper.scrollTop = 0
+                    //     }, 100)
+                    // }
                 })
             },
             swipeButtons(id) {
@@ -189,7 +212,10 @@
             this.contentStyle.marginBottom = "80px"
         },
         mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
+            window.addEventListener('scroll', this.scrollHandler)
+            this.load()
         }
+
     }
 </script>

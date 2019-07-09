@@ -27,7 +27,11 @@ import { Checklist } from 'vux'
 import { Swipeout, SwipeoutItem, SwipeoutButton } from 'vux'
 import { XButton } from 'vux'
 import { XSwitch } from 'vux'
+import { Badge } from 'vux'
+import { LoadMore } from 'vux'
 
+Vue.component('load-more', LoadMore)
+Vue.component('badge', Badge)
 Vue.component('x-switch', XSwitch)
 Vue.component('x-button', XButton)
 Vue.component('swipeout', Swipeout)
