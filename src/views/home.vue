@@ -67,9 +67,11 @@
                     <img class="carousel" :src="banner3">
                 </mt-swipe-item>
             </mt-swipe>
-            <div align="center" style="margin: 20px 12px;">
+            <div align="center" style="margin: 20px 12px 5px;">
                 <img class="category1" :style="categoryStyle" :src="category1"/>
                 <img class="category2" :style="categoryStyle" :src="category2"/>
+            </div>
+            <div align="center" style="margin: 0px 12px 20px;">
                 <img class="category1" :style="categoryStyle" :src="category3"/>
                 <img class="category2" :style="categoryStyle" :src="category4"/>
             </div>
