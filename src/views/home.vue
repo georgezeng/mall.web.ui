@@ -4,10 +4,6 @@
         width: 100%;
     }
 
-    .category1, .category2 {
-        margin-bottom: 5px;
-    }
-
     .category1 {
         margin-right: 5px;
     }
