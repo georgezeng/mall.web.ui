@@ -29,6 +29,7 @@
     .address {
         font-size: 11pt;
     }
+
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -39,7 +40,8 @@
         <Content :style="contentStyle">
             <!--<load-more v-if="showLoading" tip="正在加载"></load-more>-->
 
-            <mescroll-vue ref="mescroll" :down="mescrollDown">
+
+            <mescroll-vue style="-webkit-overflow-scrolling: touch;" ref="mescroll" :up="mescrollUp" :down="{use: false}">
                 <swipeout>
                     <swipeout-item @click.native="getItem(item, index)" :key="item.id" v-for="(item, index) in list"
                                    transition-mode="follow">
@@ -152,7 +154,7 @@
                 fromOrderPreview: false,
                 showLoading: false,
                 loadingList: false,
-                mescrollDown: { // 上拉加载的配置.
+                mescrollUp: { // 上拉加载的配置.
                     callback: this.msLoad, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
                     //以下是一些常用的配置,当然不写也可以的.
                     page: {
@@ -252,6 +254,9 @@
                         let address = {}
                         if (settleAccountData) {
                             address = Util.getJson('settleAccountData').address
+                        }
+                        if (this.pageInfo.num == 1) {
+                            this.list = []
                         }
                         for (let i in data) {
                             this.list.push(data[i])
