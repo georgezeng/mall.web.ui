@@ -37,42 +37,46 @@
             <div align="center" style="position: relative; top: 0px;">收货地址</div>
         </Header>
         <Content :style="contentStyle">
-            <swipeout>
-                <swipeout-item @click.native="getItem(item, index)" :key="item.id" v-for="(item, index) in list"
-                               transition-mode="follow">
-                    <div slot="content" class="item vux-1px-t">
-                        <table width="100%">
-                            <tr>
-                                <td width="30" rowspan="2" v-if="fromOrderPreview">
-                                    <check-icon class="checker"
-                                                :value.sync="isSelected[index]"></check-icon>
-                                </td>
-                                <td class="wrap">
-                                    <span>{{item.name}}</span>
-                                    <span>{{item.phone.substring(0, 3)}}****{{item.phone.substring(7, item.phone.length)}}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="wrap address">
-                                    {{item.province+item.city.replace('市辖区', '')+item.district+item.location}}
-                                </td>
-                                <td width="30" rowspan="2" style="text-align: right;">
-                                    <div v-if="item.asDefault"
-                                         style="font-size: 14px; color: orangered; position: absolute; width: 100px; right: 20px; top: 20px;">
-                                        默认地址
-                                    </div>
-                                    <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div slot="right-menu">
-                        <swipeout-button @click.native.stop="remove(item.id, index)" type="warn">删除
-                        </swipeout-button>
-                    </div>
-                </swipeout-item>
-            </swipeout>
-            <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <!--<load-more v-if="showLoading" tip="正在加载"></load-more>-->
+
+            <mescroll-vue ref="mescroll" :up="mescrollUp">
+                <swipeout>
+                    <swipeout-item @click.native="getItem(item, index)" :key="item.id" v-for="(item, index) in list"
+                                   transition-mode="follow">
+                        <div slot="content" class="item vux-1px-t">
+                            <table width="100%">
+                                <tr>
+                                    <td width="30" rowspan="2" v-if="fromOrderPreview">
+                                        <check-icon class="checker"
+                                                    :value.sync="isSelected[index]"></check-icon>
+                                    </td>
+                                    <td class="wrap">
+                                        <span>{{item.name}}</span>
+                                        <span>{{item.phone.substring(0, 3)}}****{{item.phone.substring(7, item.phone.length)}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wrap address">
+                                        {{item.province+item.city.replace('市辖区', '')+item.district+item.location}}
+                                    </td>
+                                    <td width="30" rowspan="2" style="text-align: right;">
+                                        <div v-if="item.asDefault"
+                                             style="font-size: 14px; color: orangered; position: absolute; width: 100px; right: 20px; top: 20px;">
+                                            默认地址
+                                        </div>
+                                        <Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div slot="right-menu">
+                            <swipeout-button @click.native.stop="remove(item.id, index)" type="warn">删除
+                            </swipeout-button>
+                        </div>
+                    </swipeout-item>
+                </swipeout>
+            </mescroll-vue>
+
             <!--<div class="wrapper" @scroll="scroll" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
             <!-- <mt-loadmore :bottom-method="load"
                           :bottom-all-loaded="allLoaded"
@@ -120,9 +124,12 @@
     import Util from '../../../../libs/util.js'
     import {Message} from 'iview'
     import commonStyles from '../../../../styles/common.js'
+    import MescrollVue from 'mescroll.js/mescroll.vue'
 
     export default {
-        components: {},
+        components: {
+            MescrollVue
+        },
         data() {
             return {
                 commonStyles,
@@ -143,9 +150,31 @@
                     property: 'createTime'
                 },
                 fromOrderPreview: false,
-                init: false,
                 showLoading: false,
-                loadingList: false
+                loadingList: false,
+                mescrollUp: { // 上拉加载的配置.
+                    callback: this.msLoad, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
+                    //以下是一些常用的配置,当然不写也可以的.
+                    page: {
+                        num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+                        size: 10 //每页数据条数,默认10
+                    },
+                    // htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
+                    // noMoreSize: 10, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
+                    //避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+                    //这就是为什么无更多数据有时候不显示的原因
+                    // toTop: {
+                    //     //回到顶部按钮
+                    //     src: "./static/mescroll/mescroll-totop.png", //图片路径,默认null,支持网络图
+                    //     offset: 1000 //列表滚动1000px才显示回到顶部按钮
+                    // },
+                    // empty: {
+                    //     //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
+                    //     warpId: "warpId", //父布局的id (1.3.5版本支持传入dom元素)
+                    //     icon: "./static/mescroll/mescroll-empty.png", //图标,默认null,支持网络图
+                    //     tip: "暂无相关数据~" //提示
+                    // }
+                },
             }
         },
         computed: {},
@@ -215,6 +244,27 @@
                     this.load();
                 }
             },
+            msLoad(page, mescroll) {
+                API.list(page).then(data => {
+                    if (data && data.length > 0) {
+                        const settleAccountData = Util.getJson('settleAccountData')
+                        let address = {}
+                        if (settleAccountData) {
+                            address = Util.getJson('settleAccountData').address
+                        }
+                        for (let i in data) {
+                            this.list.push(data[i])
+                            this.isSelected.push(address && address.id != null ? data[i].id == address.id : false)
+                        }
+                        this.$nextTick(() => {
+                            mescroll.endSuccess(data.length)
+                        })
+                    }
+                }).catch((e) => {
+                    // 联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                    mescroll.endErr()
+                })
+            },
             load() {
                 if (this.allLoaded) {
                     this.showLoading = false
@@ -262,7 +312,7 @@
                         handler: () => this.remove(id)
                     }
                 ]
-            }
+            },
         },
         created() {
             this.footerStyle.padding = "20px"
@@ -273,7 +323,7 @@
             this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview == 'true'
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
             window.addEventListener('scroll', this.scrollHandler)
-            this.load()
+            // this.load()
         }
     }
 </script>
