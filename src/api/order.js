@@ -9,5 +9,26 @@ export default {
     },
     create(data) {
         return axios.post('/order/create', data)
-    }
+    },
+    list(queryInfo) {
+        return axios.post('/order/list', queryInfo)
+    },
+    count(status) {
+        return axios.post('/order/count', {
+            data: status,
+            page: {
+                num: 1,
+                size: 1
+            }
+        })
+    },
+    cancel(id) {
+        return axios.get('/order/cancel/params/' + id)
+    },
+    delete(id) {
+        return axios.get('/order/delete/params/' + id)
+    },
+    pickup(id) {
+        return axios.get('/order/pickup/params/' + id)
+    },
 }
