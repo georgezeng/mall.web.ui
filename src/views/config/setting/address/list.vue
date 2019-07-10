@@ -155,13 +155,14 @@
                 showLoading: false,
                 loadingList: false,
                 mescrollUp: { // 上拉加载的配置.
+                    isBounce: false,
                     callback: this.msLoad, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
                     //以下是一些常用的配置,当然不写也可以的.
                     page: {
                         num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
                         size: 10 //每页数据条数,默认10
                     },
-                    htmlNodata: '<p class="upwarp-nodata">-- 到底了 --</p>',
+                    htmlNodata: '',//'<p class="upwarp-nodata">-- 到底了 --</p>',
                     noMoreSize: 10, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
                     //避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
                     //这就是为什么无更多数据有时候不显示的原因

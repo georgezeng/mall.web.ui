@@ -1,6 +1,6 @@
 <style scoped lang="less">
     .carousel {
-        height: 200px;
+        height: 220px;
         width: 100%;
     }
 
