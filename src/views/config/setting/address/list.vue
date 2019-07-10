@@ -224,7 +224,6 @@
                 }
                 this.loadingList = true
                 API.list(this.pageInfo).then(data => {
-                    this.loadingList = false
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         const address = Util.getJson('settleAccountData').address
@@ -240,6 +239,7 @@
                         this.allLoaded = true
                         this.showLoading = false
                     }
+                    this.loadingList = false
                     // this.$refs.loadmore.onBottomLoaded()
                     // if (!this.init) {
                     //     this.init = true
