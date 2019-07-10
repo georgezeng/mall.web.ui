@@ -208,10 +208,11 @@
             scrollHandler(e) {
                 const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
                 if (scrollTop == document.documentElement.clientHeight) {
-                    this.showLoading = true
+                    if (!this.allLoaded) {
+                        this.showLoading = true
+                    }
                 } else if(scrollTop - document.documentElement.clientHeight < -20) {
                     this.load();
-
                 }
             },
             load() {
