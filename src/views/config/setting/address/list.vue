@@ -41,7 +41,7 @@
             <!--<load-more v-if="showLoading" tip="正在加载"></load-more>-->
 
 
-            <mescroll-vue style="-webkit-overflow-scrolling: touch;" ref="mescroll" :up="mescrollUp" :down="{use: false}">
+            <mescroll-vue ref="mescroll" :up="mescrollUp" :down="{use: false}">
                 <swipeout>
                     <swipeout-item @click.native="getItem(item, index)" :key="item.id" v-for="(item, index) in list"
                                    transition-mode="follow">
@@ -155,7 +155,6 @@
                 showLoading: false,
                 loadingList: false,
                 mescrollUp: { // 上拉加载的配置.
-                    isBounce: false,
                     callback: this.msLoad, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
                     //以下是一些常用的配置,当然不写也可以的.
                     page: {
