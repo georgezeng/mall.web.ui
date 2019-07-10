@@ -207,11 +207,11 @@
             },
             scrollHandler(e) {
                 const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
-                if (scrollTop == document.documentElement.clientHeight) {
+                if (scrollTop - document.documentElement.clientHeight < -10) {
                     if (!this.allLoaded) {
                         this.showLoading = true
                     }
-                } else if(scrollTop - document.documentElement.clientHeight < -20) {
+                } else if(scrollTop - document.documentElement.clientHeight < -30) {
                     this.load();
                 }
             },
