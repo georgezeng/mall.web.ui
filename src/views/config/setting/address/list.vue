@@ -211,7 +211,7 @@
                     if (!this.allLoaded) {
                         this.showLoading = true
                     }
-                } else if(scrollTop - document.documentElement.clientHeight < -30) {
+                } else if (scrollTop - document.documentElement.clientHeight < -30) {
                     this.load();
                 }
             },
@@ -227,7 +227,11 @@
                 API.list(this.pageInfo).then(data => {
                     if (data && data.length > 0) {
                         this.pageInfo.num++
-                        const address = Util.getJson('settleAccountData').address
+                        const settleAccountData = Util.getJson('settleAccountData')
+                        let address = {}
+                        if (settleAccountData) {
+                            address = Util.getJson('settleAccountData').address
+                        }
                         for (let i in data) {
                             this.list.push(data[i])
                             this.isSelected.push(address && address.id != null ? data[i].id == address.id : false)
