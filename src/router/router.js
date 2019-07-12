@@ -72,7 +72,7 @@ const routers = [
         component: (resolve) => require(['../views/goods/item/list.vue'], resolve)
     },
     {
-        path: '/Goods/Item/Detail/:id/:fromHome',
+        path: '/Goods/Item/Detail/:id/:from',
         name: 'GoodsItemDetail',
         meta: {
             title: '商品详情',
@@ -106,6 +106,24 @@ const routers = [
             needLogin: true
         },
         component: (resolve) => require(['../views/order/invoice/edit.vue'], resolve)
+    },
+    {
+        path: '/Order/List/:type',
+        name: 'MyOrderList',
+        meta: {
+            title: '我的订单',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/list.vue'], resolve)
+    },
+    {
+        path: '/Order/Detail/:id/:type',
+        name: 'MyOrderDetail',
+        meta: {
+            title: '订单详情',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/detail.vue'], resolve)
     },
     {
         path: '/Order/Preview/:key',
@@ -150,7 +168,7 @@ const routers = [
             title: '账号安全',
             needLogin: true
         },
-        component: (resolve) => require(['../views/config/setting/security/index.vue'], resolve)
+        component: (resolve) => require(['../views/config/setting/security.vue'], resolve)
     },
     {
         path: '/MyIdentity',

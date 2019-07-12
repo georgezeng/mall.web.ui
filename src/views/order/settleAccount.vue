@@ -330,6 +330,7 @@
                     ...this.data,
                     items: this.data.items.map(item => {
                         return {
+                            cartItemId: item.cartItemId,
                             itemId: item.item.id,
                             propertyId: item.property.id,
                             nums: item.nums

@@ -171,7 +171,7 @@
             goDetail(id) {
                 Util.go('GoodsItemDetail', {
                     id,
-                    fromHome: 'true'
+                    from: 'home'
                 })
             },
             scrollHandler(e) {
@@ -226,6 +226,9 @@
                 height: height + 'px'
             }
             this.load()
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>

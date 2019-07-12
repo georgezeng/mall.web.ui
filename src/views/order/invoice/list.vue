@@ -215,6 +215,9 @@
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
             window.addEventListener('scroll', this.scrollHandler)
             this.load()
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
 
     }

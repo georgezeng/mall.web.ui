@@ -82,6 +82,7 @@
             }
         }
         .box {
+            position: relative;
             display: inline-block;
             width: 22%;
             margin-bottom: 10px;
@@ -116,6 +117,15 @@
 
     .weui-cell_access.vux-cell-box:after {
         display: none;
+    }
+
+    .badge-nums {
+        position: absolute;
+        top: -3px;
+        left: 55px;
+        color: orangered;
+        border: 1px solid orangered;
+        background-color: #fff;
     }
 </style>
 <template>
@@ -157,18 +167,22 @@
                     <div class="box" @click="goUnPayOrders">
                         <div class="img"><img :src="dfk" width="40" height="40"/></div>
                         <div class="title">待付款</div>
+                        <badge class="badge-nums" v-if="dfkNums > 0" :text="dfkNums"></badge>
                     </div>
-                    <div class="box" @click="goUnPickupOrders">
+                    <div class="box" @click="goShippedOrders">
                         <div class="img"><img :src="dsh" width="40" height="40"/></div>
                         <div class="title">待收货</div>
+                        <badge class="badge-nums" v-if="dshNums > 0" type="error">{{dshNums}}</badge>
                     </div>
-                    <div class="box" @click="goDoneOrders">
+                    <div class="box" @click="goUncommentList">
                         <div class="img2"><img :src="evaluate" width="44" height="44"/></div>
                         <div class="title">待评价</div>
+                        <badge class="badge-nums" v-if="dpjNums > 0" type="error">{{dpjNums}}</badge>
                     </div>
-                    <div class="box" @click="goDoneOrders">
+                    <div class="box" @click="goAfterSale">
                         <div class="img2"><img :src="tuihuo" width="50" height="50"/></div>
                         <div class="title">退款/售后</div>
+                        <badge class="badge-nums" v-if="tkNums > 0" type="error">{{tkNums}}</badge>
                     </div>
                 </div>
             </div>
@@ -195,6 +209,7 @@
 </template>
 <script>
     import API from '../../api/center.js'
+    import OrderAPI from '../../api/order.js'
     import ProfileAPI from '../../api/profile.js'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
@@ -235,7 +250,11 @@
                 info: {
                     avatar: null,
                     nickname: null
-                }
+                },
+                dfkNums: 0,
+                dshNums: 0,
+                dpjNums: 0,
+                tkNums: 0
             }
         },
         computed: {
@@ -255,9 +274,24 @@
             },
             nickname() {
                 return this.info.nickname ? this.info.nickname : (this.isLogin ? '未设置昵称' : '立即登录')
-            }
+            },
         },
         methods: {
+            getDfkNums() {
+                OrderAPI.count('UnPay').then(nums => {
+                    this.dfkNums = nums
+                })
+            },
+            getDshNums() {
+                OrderAPI.count('Paid').then(nums => {
+                    this.dshNums = nums
+                })
+            },
+            getDpjNums() {
+                OrderAPI.countUncomment().then(nums => {
+                    this.dpjNums = nums
+                })
+            },
             exit() {
                 API.logout().then(res => {
                     Util.setToken('')
@@ -271,22 +305,25 @@
                 Util.go('MyCoupon')
             },
             goOrders() {
-                Util.go('MyOrder')
+                Util.go('MyOrderList', {
+                    type: 'All'
+                })
             },
             goUnPayOrders() {
-                Util.go('MyOrder', {
-                    status: 'UnPay'
+                Util.go('MyOrderList', {
+                    type: 'UnPay'
                 })
             },
-            goUnPickupOrders() {
-                Util.go('MyOrder', {
-                    status: 'UnPickup'
+            goShippedOrders() {
+                Util.go('MyOrderList', {
+                    type: 'Shipped'
                 })
             },
-            goDoneOrders() {
-                Util.go('MyOrder', {
-                    status: 'Done'
-                })
+            goUncommentList() {
+                Util.go('UncommentList')
+            },
+            goAfterSale() {
+
             },
             goSetting() {
                 Util.go('MySetting')
@@ -313,6 +350,9 @@
                 ProfileAPI.load().then(data => {
                     this.info = data
                 })
+                this.getDfkNums()
+                this.getDshNums()
+                this.getDpjNums()
             }
         }
     }

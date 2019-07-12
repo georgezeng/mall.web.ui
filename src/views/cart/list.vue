@@ -228,7 +228,7 @@
                         return item.selected
                     }).map(item => {
                         return {
-                            itemId: item.item.id,
+                            itemId: item.id,
                             propertyId: item.property.id,
                             nums: item.nums
                         }
@@ -301,7 +301,7 @@
             }
         },
         mounted() {
-            this.isSmallDevice = document.documentElement.clientHeight < 600
+            this.isSmallDevice = document.documentElement.clientWidth < 400
             this.contentStyle.marginBottom = '100px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             const wrapperHeight = document.documentElement.clientHeight - 120

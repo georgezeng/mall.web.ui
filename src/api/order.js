@@ -31,4 +31,10 @@ export default {
     pickup(id) {
         return axios.get('/order/pickup/params/' + id)
     },
+    countUncomment() {
+        return axios.get('/order/count/uncomment')
+    },
+    load(id) {
+        return axios.get('/order/load/params/' + id)
+    },
 }

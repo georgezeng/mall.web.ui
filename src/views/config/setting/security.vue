@@ -85,10 +85,10 @@
     </Layout>
 </template>
 <script>
-    import API from '../../../../api/security.js'
-    import Util from '../../../../libs/util.js'
+    import API from '../../../api/security.js'
+    import Util from '../../../libs/util.js'
     import {Message} from 'iview'
-    import commonStyles from '../../../../styles/common.js'
+    import commonStyles from '../../../styles/common.js'
 
     export default {
         components: {},

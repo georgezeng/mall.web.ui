@@ -124,7 +124,7 @@
             </div>
         </Header>
         <Content :style="contentStyle">
-            <Spin size="large" fix v-if="show"></Spin>
+            <Spin size="large" fix v-if="showSpin"></Spin>
             <div ref="grid" style="padding-left: 8px;">
                 <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                      @click="goDetail(item.id)">
@@ -217,7 +217,7 @@
                     order: 'DESC'
                 },
                 list: [],
-                show: true,
+                showSpin: true,
                 isSmallDevice: false,
                 showLoading: false,
                 loadingList: false
@@ -248,7 +248,8 @@
             },
             goDetail(id) {
                 Util.go('GoodsItemDetail', {
-                    id
+                    id,
+                    from: 'list'
                 })
             },
             back() {
@@ -275,7 +276,6 @@
                 }
                 this.loadingList = true
                 API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
-                    this.loadingList = false
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         for (let i in data) {
@@ -287,16 +287,17 @@
                         }
                         setTimeout(() => {
                             new Masonry(this.$refs.grid, {});
-                            this.show = false
+                            this.showSpin = false
                             // if (load) {
                             //     this.$refs.wrapper.scrollTop = 0
                             // }
                         }, 100)
                     } else {
                         this.allLoaded = true
-                        this.show = false
+                        this.showSpin = false
                         this.showLoading = false
                     }
+                    this.loadingList = false
                     // this.$refs.loadmore.onBottomLoaded()
                 })
             },
@@ -367,6 +368,9 @@
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
             this.orderBy('default', true)
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>
