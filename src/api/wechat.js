@@ -18,5 +18,8 @@ export default {
     },
     uploadFile(serverId, filePath) {
         return axios.get('/client/wechat/fetchFile/' + serverId + '?filePath=' + encodeURIComponent(filePath))
+    },
+    preparePay(orderId, payType) {
+        return axios.get('/client/wechat/unifiedOrder/params/' + payType + '/' + orderId)
     }
 }

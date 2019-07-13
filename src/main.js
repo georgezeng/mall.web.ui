@@ -29,7 +29,9 @@ import { XButton } from 'vux'
 import { XSwitch } from 'vux'
 import { Badge } from 'vux'
 import { LoadMore } from 'vux'
+import  { LoadingPlugin } from 'vux'
 
+Vue.use(LoadingPlugin)
 Vue.component('load-more', LoadMore)
 Vue.component('badge', Badge)
 Vue.component('x-switch', XSwitch)

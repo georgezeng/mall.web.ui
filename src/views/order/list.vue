@@ -71,11 +71,12 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align: right; margin-right: 10px;">共{{item.subList ? item.subList.length : 0}}件商品, 实际支付:
+                <div style="text-align: right; margin-right: 10px;">共{{item.subList ? item.subList.length : 0}}件商品,
+                    实际支付:
                     <span style="color: orangered;">￥{{item.totalPrice}}</span> (含运费)
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
-                    <Button style="float: right; margin-left: 10px;" type="primary">去支付</Button>
+                    <Button @click="pay(item)" style="float: right; margin-left: 10px;" type="primary">去支付</Button>
                     <Button @click="cancelConfirm(item.id)" style="float: right;" type="primary">
                         取消订单
                     </Button>
@@ -113,10 +114,12 @@
 </template>
 <script>
     import API from '../../api/order.js'
+    import WechatAPI from '../../api/wechat.js'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import {MessageBox} from 'mint-ui';
+    import wx from 'weixin-js-sdk'
 
     export default {
         components: {},
@@ -148,6 +151,40 @@
         },
         computed: {},
         methods: {
+            pay(item) {
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
+                if (Util.isInWechat()) {
+                    if (item.payment.name == 'WePay') {
+                        WechatAPI.preparePay(item.id, 'JSAPI').then(data => {
+                            wx.chooseWXPay({
+                                timestamp: new Date().getTime(), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                                nonceStr: data.nonce_str, // 支付签名随机串，不长于 32 位
+                                package: 'prepay_id=' + data.prepay_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                                signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                                paySign: data.sign, // 支付签名
+                                success: function (res) {
+                                    // 支付成功后的回调函数
+                                    alert(res)
+                                }
+                            });
+                            this.$vux.loading.hide()
+                        }).catch(e => {
+                            this.$vux.loading.hide()
+                        })
+
+                    } else {
+
+                    }
+                } else {
+                    if (item.payment.name == 'WePay') {
+
+                    } else {
+
+                    }
+                }
+            },
             goDetail(id) {
                 Util.go('MyOrderDetail', {
                     id,
