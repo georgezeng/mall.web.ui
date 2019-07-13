@@ -69,7 +69,7 @@
             </div>
             <div style="background-color: #f5f5f5; height: 10px;"></div>
             <div style="background-color: #fff;">
-                <div style="padding: 15px 15px 0;" v-for="item in form.subList" :key="item.id">
+                <div @click="goDetail(item.itemId)" style="padding: 15px 15px 0;" v-for="item in form.subList" :key="item.id">
                     <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -294,6 +294,12 @@
                     }
                 }
             },
+            goDetail(id) {
+                Util.go('GoodsItemDetail', {
+                    id,
+                    from: 'order'
+                })
+            },
             back() {
                 Util.go('MyOrderList', {
                     type: this.type
@@ -318,6 +324,8 @@
             this.isSmallDevice = document.documentElement.clientWidth < 370
             this.type = this.$router.currentRoute.params.type
             this.form.id = this.$router.currentRoute.params.id
+            Util.put('orderDetailId', this.form.id)
+            Util.put('orderListType', this.type)
             this.form.id = this.form.id > 0 ? this.form.id : null
             this.load()
         }

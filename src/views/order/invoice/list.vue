@@ -173,14 +173,19 @@
                     this.loadingList = false
                     if (data && data.length > 0) {
                         this.pageInfo.num++
-                        const invoice = Util.getJson('settleAccountData').invoice
-                        for (let i in data) {
-                            this.list.push(data[i])
-                            this.isSelected.push(invoice && invoice.id != null ? data[i].id == invoice.id : false)
-                        }
-                        if (data.length < this.pageInfo.size) {
-                            this.allLoaded = true
-                            this.showLoading = false
+                        const settleAccountData = Util.getJson('settleAccountData')
+                        if (settleAccountData) {
+                            const invoice = settleAccountData.invoice
+                            for (let i in data) {
+                                this.list.push(data[i])
+                                this.isSelected.push(invoice && invoice.id != null ? data[i].id == invoice.id : false)
+                            }
+                            if (data.length < this.pageInfo.size) {
+                                this.allLoaded = true
+                                this.showLoading = false
+                            }
+                        } else {
+                            Util.go('MyCart')
                         }
                     } else {
                         this.allLoaded = true

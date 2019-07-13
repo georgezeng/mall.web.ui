@@ -527,10 +527,11 @@
                 Util.go('MyCart')
             },
             back() {
-                switch(this.from) {
+                switch (this.from) {
                     case 'list': {
+                        const id = Util.get('goodsCategoryId')
                         Util.go('GoodsItemList', {
-                            id: Util.get('goodsCategoryId')
+                            id: id ? id : 0
                         })
                         break
                     }
@@ -539,7 +540,16 @@
                         break
                     }
                     case 'order': {
-                        Util.go('MyOrderList')
+                        if (Util.get('orderDetailId')) {
+                            Util.go('MyOrderDetail', {
+                                id: Util.get('orderDetailId'),
+                                type: Util.get('orderListType')
+                            })
+                        } else {
+                            Util.go('MyOrderList', {
+                                type: 'All'
+                            })
+                        }
                     }
                 }
             },

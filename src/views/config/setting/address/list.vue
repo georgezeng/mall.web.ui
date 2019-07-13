@@ -165,9 +165,13 @@
             back() {
                 if (this.fromOrderPreview) {
                     const key = Util.get('settleAccountKey')
-                    Util.go('OrderPreview', {
-                        key
-                    })
+                    if (key) {
+                        Util.go('OrderPreview', {
+                            key
+                        })
+                    } else {
+                        Util.go('MyCart')
+                    }
                 } else {
                     Util.go('MySetting')
                 }
