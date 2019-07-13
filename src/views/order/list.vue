@@ -283,6 +283,11 @@
             this.type = this.$router.currentRoute.params.type
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.reload()
+            if (Util.isInWechat()) {
+                Util.wxConfig([
+                    'chooseWXPay',
+                ])
+            }
         }
     }
 </script>
