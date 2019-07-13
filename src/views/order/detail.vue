@@ -84,20 +84,21 @@
                         </div>
                     </div>
                     <div style="float: right; position: relative; top: -28px;">
-                        <Button v-if="item.comment && !item.additionalComment"
+                        <Button v-if="form.status.name == 'Finished' && item.comment && !item.additionalComment"
                                 style="color: orangered; border: 1px solid orangered;">
                             追加评价
                         </Button>
-                        <Button v-if="!item.comment"
+                        <Button v-if="form.status.name == 'Finished' && !item.comment"
                                 style="color: orangered; border: 1px solid orangered; margin-left: 5px;">
                             评价
                         </Button>
-                        <Button v-else
+                        <Button v-if="form.status.name == 'Finished' && item.comment"
                                 style="color: orangered; border: 1px solid orangered; margin-left: 5px;">
                             查看评价
                         </Button>
                     </div>
-                    <div class="clearfix"></div>
+                    <div v-if="form.status.name != 'Finished'" style="margin-bottom: 15px;"></div>
+                    <div v-else class="clearfix"></div>
                 </div>
                 <div style="margin: 0 10px 10px; border: 1px solid #F5F5F5;"></div>
                 <div style="padding: 0 15px; font-size: 14px;">
