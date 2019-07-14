@@ -95,6 +95,10 @@
                     <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">清除订单</Button>
                     <div class="clearfix"></div>
                 </div>
+                <div style="margin: 10px;" v-if="item.status.name == 'Closed'">
+                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">清除订单</Button>
+                    <div class="clearfix"></div>
+                </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Finished'">
                     <Button v-if="!item.comment" @click="goEvaluate(item.id)" style="float: right; margin-left: 10px;"
                             type="primary">
@@ -157,7 +161,11 @@
                 })
                 if (Util.isInWechat()) {
                     if (item.payment.name == 'WePay') {
-                        WechatAPI.preparePay(item.id, 'JSAPI').then(data => {
+                        WechatAPI.preparePay({
+                            id: item.id,
+                            type: 'JSAPI',
+                            openId: Util.get('wechatOpenId')
+                        }).then(data => {
                             wx.chooseWXPay({
                                 timestamp: new Date().getTime(), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                                 nonceStr: data.nonce_str, // 支付签名随机串，不长于 32 位

@@ -4,8 +4,8 @@ export default {
     sendCode(mobile) {
         return axios.get('/client/wechat/code/' + mobile)
     },
-    info(loginInfo) {
-        return axios.post('/client/wechat/info', loginInfo)
+    loginInfo(loginInfo) {
+        return axios.post('/client/wechat/loginInfo', loginInfo)
     },
     register(user) {
         return axios.post('/client/wechat/register', user)
@@ -19,7 +19,7 @@ export default {
     uploadFile(serverId, filePath) {
         return axios.get('/client/wechat/fetchFile/' + serverId + '?filePath=' + encodeURIComponent(filePath))
     },
-    preparePay(orderId, payType) {
-        return axios.get('/client/wechat/unifiedOrder/params/' + payType + '/' + orderId)
+    preparePay(params) {
+        return axios.post('/client/wechat/unifiedOrder', params)
     }
 }
