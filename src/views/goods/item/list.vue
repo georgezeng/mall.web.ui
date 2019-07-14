@@ -363,7 +363,7 @@
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             this.itemImageWidth = this.itemWidth - 16
-            // this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'c
             this.categoryId = this.$router.currentRoute.params.id
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
