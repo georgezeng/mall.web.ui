@@ -74,7 +74,6 @@
                 }).then(info => {
                     this.$Spin.hide()
                     if(info) {
-                        Util.put('wechatOpenId', info.token)
                         this.login(info)
                     } else {
                         this.showRegister = true
