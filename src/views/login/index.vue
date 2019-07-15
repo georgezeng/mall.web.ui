@@ -46,6 +46,7 @@
     import UsernamePasswordPanel from './username-password'
     import PhoneVerifyPanel from './phone-verify'
     import Util from '../../libs/util'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {
@@ -64,7 +65,7 @@
             },
             authorize() {
                 this.loading = true
-                WechatAPI.authorize(window.location.href).then(url => {
+                WechatAPI.authorize(window.location.href + '?authorized=true').then(url => {
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
@@ -82,7 +83,10 @@
         },
         mounted() {
             if (this.isWechat) {
-                this.authorize()
+                const authorized = UrlParams(window.location.href, "authorized")
+                if (authorized != 'true') {
+                    this.authorize()
+                }
             }
         }
     }
