@@ -161,6 +161,7 @@
                 })
                 if (Util.isInWechat()) {
                     if (item.payment.name == 'WePay') {
+                        const self = this
                         WechatAPI.preparePay({
                             id: item.id,
                             type: 'JSAPI'
@@ -172,7 +173,7 @@
                                 signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                                 paySign: data.paySign, // 支付签名
                                 success: function (res) {
-                                        alert('支付成功')
+                                    self.reload()
                                 }
                             });
                             this.$vux.loading.hide()
