@@ -65,7 +65,7 @@
             },
             authorize() {
                 this.loading = true
-                WechatAPI.authorize(window.location.href + '?authorized=true').then(url => {
+                WechatAPI.authorize(window.location.href.replace('#', '?authorized=true#')).then(url => {
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
