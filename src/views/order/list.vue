@@ -172,16 +172,7 @@
                                 signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                                 paySign: data.paySign, // 支付签名
                                 success: function (res) {
-                                    // 支付成功后的回调函数
-                                    if (res.errMsg === 'chooseWXPay:ok') {
-                                        // self.$router.push({
-                                        //     name: 'ReturnPage',
-                                        //     query: {
-                                        //         orderNo: res.data.orderBaseinfo.orderNo
-                                        //     }
-                                        // })
-                                        alert(res.data.out_trade_no)
-                                    }
+                                        alert('支付成功')
                                 }
                             });
                             this.$vux.loading.hide()
