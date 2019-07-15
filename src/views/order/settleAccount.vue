@@ -185,7 +185,8 @@
                 </mt-cell>
                 <mt-cell class="gallery" @click.native="showItemPopup">
                     <div slot="title">
-                        <img style="margin-right: 8px; margin-bottom: 5px;" :key="item.property.id" v-for="item in orderItems"
+                        <img style="margin-right: 8px; margin-bottom: 5px;" :key="item.property.id"
+                             v-for="item in orderItems"
                              :src="config.publicBucketDomain + item.item.thumbnail" width="60" height="60"/>
                     </div>
                     <div>
@@ -358,11 +359,28 @@
                     data.invoice = null
                 }
                 API.create(data).then(res => {
-                    this.$vux.toast.show({
-                        text: '创建订单成功',
-                        type: 'success',
-                        width: '200px'
-                    })
+                    // this.$vux.toast.show({
+                    //     text: '创建订单成功',
+                    //     type: 'success',
+                    //     width: '200px'
+                    // })
+                    if (Util.isInWechat()) {
+                        if (this.data.payment.name == 'WePay') {
+                            Util.wepayForJsApi(item.id, () => {
+                                Util.go('MyOrderList', {
+                                    type: 'All'
+                                })
+                            })
+                        } else {
+
+                        }
+                    } else {
+                        if (this.data.payment.name == 'WePay') {
+
+                        } else {
+
+                        }
+                    }
                 })
             },
             resetUI() {
@@ -479,7 +497,11 @@
             } else {
                 this.load()
             }
-
+            if (Util.isInWechat()) {
+                Util.wxConfig([
+                    'chooseWXPay',
+                ])
+            }
         }
     }
 </script>
