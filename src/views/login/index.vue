@@ -31,8 +31,9 @@
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
                     <div class="gradient"></div>
                 </div>
-                <x-button action-type="button" :disabled="loading" type="primary" style="width: 100%;" :show-loading="loading" @click.native="goWechatLogin">
-                    <Icon type="ios-chatbubbles" style="color: #fff;" />
+                <x-button action-type="button" :disabled="loading" type="primary" style="width: 100%;"
+                          :show-loading="loading" @click.native="goWechatLogin">
+                    <Icon type="ios-chatbubbles" style="color: #fff;"/>
                     <span style="font-size: 11pt;">微信登录</span>
                 </x-button>
             </div>
@@ -61,19 +62,27 @@
             back() {
                 Util.go('MyCenter')
             },
-            goWechatLogin() {
+            authorize() {
                 this.loading = true
-                WechatAPI.loginUrl().then(url => {
+                WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
                     this.loading = false
                 });
+            },
+            goWechatLogin() {
+                Util.go('WechatLogin')
             }
         },
         computed: {
             isWechat() {
                 return Util.isInWechat()
+            }
+        },
+        mounted() {
+            if (this.isWechat) {
+                this.authorize()
             }
         }
     }
