@@ -358,15 +358,15 @@
                 if (this.data.invoice.title == null) {
                     data.invoice = null
                 }
-                API.create(data).then(res => {
+                API.create(data).then(id => {
                     // this.$vux.toast.show({
                     //     text: '创建订单成功',
                     //     type: 'success',
                     //     width: '200px'
                     // })
                     if (Util.isInWechat()) {
-                        if (this.data.payment.name == 'WePay') {
-                            Util.wepayForJsApi(item.id, () => {
+                        if (data.payment == 'WePay') {
+                            Util.wepayForJsApi(id, () => {
                                 Util.go('MyOrderList', {
                                     type: 'All'
                                 })
@@ -375,7 +375,7 @@
 
                         }
                     } else {
-                        if (this.data.payment.name == 'WePay') {
+                        if (data.payment == 'WePay') {
 
                         } else {
 
