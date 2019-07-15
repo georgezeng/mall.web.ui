@@ -169,7 +169,7 @@
                         <div class="title">待付款</div>
                         <badge class="badge-nums" v-if="dfkNums > 0" :text="dfkNums"></badge>
                     </div>
-                    <div class="box" @click="goPaidOrders">
+                    <div class="box" @click="getShippedOrders">
                         <div class="img"><img :src="dsh" width="40" height="40"/></div>
                         <div class="title">待收货</div>
                         <badge class="badge-nums" v-if="dshNums > 0" :text="dshNums"></badge>
@@ -283,7 +283,7 @@
                 })
             },
             getDshNums() {
-                OrderAPI.count('Paid').then(nums => {
+                OrderAPI.count('Shipped').then(nums => {
                     this.dshNums = nums
                 })
             },
@@ -314,9 +314,9 @@
                     type: 'UnPay'
                 })
             },
-            goPaidOrders() {
+            getShippedOrders() {
                 Util.go('MyOrderList', {
-                    type: 'Paid'
+                    type: 'Shipped'
                 })
             },
             goUncommentList() {
