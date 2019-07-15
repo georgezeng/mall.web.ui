@@ -169,20 +169,20 @@
                         <div class="title">待付款</div>
                         <badge class="badge-nums" v-if="dfkNums > 0" :text="dfkNums"></badge>
                     </div>
-                    <div class="box" @click="goShippedOrders">
+                    <div class="box" @click="goPaidOrders">
                         <div class="img"><img :src="dsh" width="40" height="40"/></div>
                         <div class="title">待收货</div>
-                        <badge class="badge-nums" v-if="dshNums > 0" type="error">{{dshNums}}</badge>
+                        <badge class="badge-nums" v-if="dshNums > 0" :text="dshNums"></badge>
                     </div>
                     <div class="box" @click="goUncommentList">
                         <div class="img2"><img :src="evaluate" width="44" height="44"/></div>
                         <div class="title">待评价</div>
-                        <badge class="badge-nums" v-if="dpjNums > 0" type="error">{{dpjNums}}</badge>
+                        <badge class="badge-nums" v-if="dpjNums > 0" :text="dpjNums"></badge>
                     </div>
                     <div class="box" @click="goAfterSale">
                         <div class="img2"><img :src="tuihuo" width="50" height="50"/></div>
                         <div class="title">退款/售后</div>
-                        <badge class="badge-nums" v-if="tkNums > 0" type="error">{{tkNums}}</badge>
+                        <badge class="badge-nums" v-if="tkNums > 0" :text="tkNums"></badge>
                     </div>
                 </div>
             </div>
@@ -314,9 +314,9 @@
                     type: 'UnPay'
                 })
             },
-            goShippedOrders() {
+            goPaidOrders() {
                 Util.go('MyOrderList', {
-                    type: 'Shipped'
+                    type: 'Paid'
                 })
             },
             goUncommentList() {
