@@ -56,24 +56,41 @@
         data() {
             return {
                 commonStyles,
-                loading: false
+                loading: false,
+                wechatLoginInfo: null
             }
         },
         methods: {
             back() {
                 Util.go('MyCenter')
             },
+            loadWechatInfo() {
+                this.loading = true
+                let code = UrlParams(window.location.href, "code")
+                this.token = UrlParams(window.location.href, "state").replace(/#.+/, '')
+                WechatAPI.loginInfo({
+                    username: this.token,
+                    password: code,
+                }).then(info => {
+                    this.loading = false
+                    this.wechatLoginInfo = info
+                }).catch(e => {
+                    this.loading = false
+                })
+            },
             authorize() {
                 this.loading = true
-                WechatAPI.authorize(window.location.href.replace('#', '?authorized=true#')).then(url => {
+                WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
                     this.loading = false
-                });
+                })
             },
             goWechatLogin() {
-                Util.go('WechatLogin')
+                Util.go('WechatLogin', {
+                    info: this.wechatLoginInfo
+                })
             }
         },
         computed: {
@@ -83,9 +100,11 @@
         },
         mounted() {
             if (this.isWechat) {
-                const authorized = UrlParams(window.location.href, "authorized")
-                if (authorized != 'true') {
+                const code = UrlParams(window.location.href, "code")
+                if (!code) {
                     this.authorize()
+                } else {
+                    this.loadWechatInfo()
                 }
             }
         }

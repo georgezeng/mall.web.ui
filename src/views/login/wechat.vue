@@ -1,20 +1,22 @@
 <template>
     <Layout v-if="showRegister" :style="commonStyles.layout">
         <Header :style="commonStyles.header">
-            <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back" />
+            <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
             <div>绑定手机</div>
         </Header>
         <Content :style="commonStyles.content">
             <Form ref="form" :model="form" :rules="rules" :label-width="0" style="margin-top: 80px; padding: 20px;">
                 <FormItem prop="username">
-                    <Input clearable size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
+                    <Input clearable size="large" prefix="ios-phone-portrait" v-model="form.username"
+                           placeholder="输入手机号"></Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input clearable size="large" v-model="form.password" @on-search="sendCode" search
                            :enter-button="codeBtnText"
                            placeholder="输入验证码"></Input>
                 </FormItem>
-                <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #FF992D;" :show-loading="loading" @click.native="register">
+                <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #FF992D;"
+                          :show-loading="loading" @click.native="register">
                     <span style="font-size: 11pt; color: #fff;">绑定</span>
                 </x-button>
             </Form>
@@ -28,10 +30,12 @@
     import {Message} from 'iview'
     import UrlParams from 'get-url-param'
     import Util from '../../libs/util'
+
     export default {
         data() {
             return {
                 commonStyles,
+                loginInfo: null,
                 showRegister: false,
                 codeLoading: false,
                 codeBtnText: '获取验证码',
@@ -65,27 +69,32 @@
                 window.location.href = '/#/MyCenter'
             },
             load() {
-                this.$Spin.show()
-                let code = UrlParams(window.location.href, "code")
-                this.token = UrlParams(window.location.href, "state").replace('#/WechatLogin', '')
-                API.loginInfo({
-                    username: this.token,
-                    password: code,
-                }).then(info => {
-                    this.$Spin.hide()
-                    if(info) {
-                        this.login(info)
-                    } else {
-                        this.showRegister = true
-                    }
-                }).catch(e => {
-                    this.$Spin.hide()
-                })
+                // this.$Spin.show()
+                // let code = UrlParams(window.location.href, "code")
+                // this.token = UrlParams(window.location.href, "state").replace('#/WechatLogin', '')
+                // API.loginInfo({
+                //     username: this.token,
+                //     password: code,
+                // }).then(info => {
+                //     this.$Spin.hide()
+                //     if(info) {
+                //         this.login(info)
+                //     } else {
+                //         this.showRegister = true
+                //     }
+                // }).catch(e => {
+                //     this.$Spin.hide()
+                // })
+                if (this.loginInfo) {
+                    this.login()
+                } else {
+                    this.showRegister = true
+                }
             },
-            login(info) {
+            login() {
                 this.loading = true
                 LoginAPI.login({
-                    ...info,
+                    ...this.loginInfo,
                     type: 'Wechat'
                 }).then(data => {
                     this.loading = false
@@ -141,6 +150,7 @@
             }
         },
         mounted() {
+            this.loginInfo = this.$router.currentRoute.params.info
             this.load()
         }
     }
