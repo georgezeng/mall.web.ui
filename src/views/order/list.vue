@@ -159,6 +159,7 @@
                 if (Util.isInWechat()) {
                     if (item.payment.name == 'WePay') {
                         Util.wepayForJsApi(item.id, () => {
+                            this.type = 'All'
                             this.reload()
                         })
                     } else {
