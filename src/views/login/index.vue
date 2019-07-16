@@ -101,7 +101,6 @@
         mounted() {
             if (this.isWechat) {
                 const code = UrlParams(window.location.href, "code")
-                alert(code)
                 if (!code) {
                     this.authorize()
                 } else {
