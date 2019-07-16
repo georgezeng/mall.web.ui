@@ -498,6 +498,11 @@
                 this.load()
             }
             if (Util.isInWechat()) {
+                this.data.payment = {
+                    selected: [true, false],
+                    name: 'WePay',
+                    text: '微信支付'
+                }
                 Util.wxConfig([
                     'chooseWXPay',
                 ])
