@@ -137,4 +137,19 @@ util.wepayForJsApi = (orderId, callback) => {
     })
 }
 
+util.wepayForMweb = (orderId, callback) => {
+    Vue.$vux.loading.show({
+        text: '加载中...'
+    })
+    WechatAPI.preparePay({
+        id: orderId,
+        type: 'MWEB'
+    }).then(data => {
+        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.href + '?paid=true')
+        Vue.$vux.loading.hide()
+    }).catch(e => {
+        Vue.$vux.loading.hide()
+    })
+}
+
 export default util;

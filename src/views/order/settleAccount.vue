@@ -376,7 +376,11 @@
                         }
                     } else {
                         if (data.payment == 'WePay') {
-
+                            Util.wepayForMweb(id, () => {
+                                Util.go('MyOrderList', {
+                                    type: 'All'
+                                })
+                            })
                         } else {
 
                         }
