@@ -10,7 +10,7 @@
 
 </style>
 <template>
-    <Layout :style="commonStyles.layout">
+    <Layout v-if="show" :style="commonStyles.layout">
         <Header :style="commonStyles.header">
             <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
             <div>登录商城</div>
@@ -57,7 +57,8 @@
             return {
                 commonStyles,
                 loading: false,
-                wechatLoginInfo: null
+                wechatLoginInfo: null,
+                show: false
             }
         },
         methods: {
@@ -74,6 +75,7 @@
                 }).then(info => {
                     this.loading = false
                     this.wechatLoginInfo = info
+                    this.show = true
                 }).catch(e => {
                     this.loading = false
                 })
@@ -104,6 +106,8 @@
                 } else {
                     this.loadWechatInfo()
                 }
+            } else {
+                this.show = true
             }
         }
     }
