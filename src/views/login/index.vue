@@ -104,11 +104,13 @@
         },
         mounted() {
             if (this.isWechat) {
-                const code = UrlParams(window.location.href, "code").replace(/#.+/, '')
-                if (!code) {
-                    this.authorize()
-                } else {
-                    this.loadWechatInfo()
+                if (!Util.getCookie('oid_flag')) {
+                    const code = UrlParams(window.location.href, "code").replace(/#.+/, '')
+                    if (!code) {
+                        this.authorize()
+                    } else {
+                        this.loadWechatInfo()
+                    }
                 }
             }
         }
