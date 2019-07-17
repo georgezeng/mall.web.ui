@@ -260,7 +260,7 @@
         computed: {
             isLogin() {
                 const token = Util.getToken()
-                return token != null && token != ''
+                return token != false
             },
             avatar() {
                 if (this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
