@@ -90,7 +90,9 @@
                 })
             },
             goWechatLogin() {
-                window.location.href = '/#/WechatLogin'
+                Util.go('WechatLogin', {
+                    info: this.wechatLoginInfo
+                })
             }
         },
         computed: {

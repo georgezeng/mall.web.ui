@@ -63,7 +63,7 @@
         },
         methods: {
             back() {
-                Util.go('Login')
+                window.location.href = '/#/Login'
             },
             goCenter() {
                 window.location.href = '/#/MyCenter'
