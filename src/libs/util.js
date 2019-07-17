@@ -12,10 +12,6 @@ util.title = function (title) {
     window.document.title = title;
 };
 
-util.getCookie = function(key) {
-    return Cookies.get(config.tokenKey)
-}
-
 util.setToken = function (token) {
     Cookies.set(config.tokenKey, token, {expires: 14})
 }
