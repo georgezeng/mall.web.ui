@@ -88,13 +88,7 @@
                 })
             },
             goWechatLogin() {
-                this.loading = true
-                WechatAPI.authorize().then(url => {
-                    this.loading = false
-                    window.location.href = url
-                }).catch(e => {
-                    this.loading = false
-                })
+                Util.go('WechatLogin')
             }
         },
         computed: {
@@ -104,7 +98,7 @@
         },
         mounted() {
             if (this.isWechat) {
-                const code = UrlParams(window.location.href, "code").replace(/#.+/, '')
+                const code = UrlParams(window.location.href, "code")
                 if (!code) {
                     this.authorize()
                 } else {
