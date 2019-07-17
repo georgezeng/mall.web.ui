@@ -336,13 +336,6 @@
             }
         },
         mounted() {
-            const link = window.location.href
-            if (Util.getToken()) {
-                if (link.indexOf('?') == -1) {
-                    window.location.href = link.replace('#', "?uid=" + Util.get('userId') + "#")
-                    return
-                }
-            }
             if (document.documentElement.clientHeight < 600) {
                 this.contentStyle.minHeight = '600px'
             }
