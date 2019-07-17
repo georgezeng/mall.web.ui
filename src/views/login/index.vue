@@ -62,7 +62,7 @@
         },
         methods: {
             back() {
-                Util.go('MyCenter')
+                window.location.href = '/#/MyCenter'
             },
             loadWechatInfo() {
                 this.loading = true
@@ -88,7 +88,7 @@
                 })
             },
             goWechatLogin() {
-                Util.go('WechatLogin')
+                window.location.href = '/#/WechatLogin'
             }
         },
         computed: {
