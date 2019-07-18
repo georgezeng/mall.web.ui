@@ -294,9 +294,8 @@
             },
             exit() {
                 API.logout().then(res => {
-                    alert(1)
                     Util.setToken('')
-                    window.location.href = window.location.href.replace(/\?[^#]+/, '')
+                    window.location.href = '/#/MyCenter'
                 })
             },
             goMyChange() {
