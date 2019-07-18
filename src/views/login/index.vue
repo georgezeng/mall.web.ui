@@ -101,7 +101,6 @@
             }
         },
         mounted() {
-            alert(window.location.host)
             if (this.isWechat) {
                 const from = UrlParams(window.location.href, 'from')
                 if (from) {
