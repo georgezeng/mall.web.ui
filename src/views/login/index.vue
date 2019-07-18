@@ -106,7 +106,7 @@
                 const from = UrlParams(window.location.href, 'from')
                 if (from) {
                     const uid = UrlParams(window.location.href, 'uid')
-                    window.location.href = config.baseUrl + '/index/jump?url='
+                    window.location.href = config.baseUrl + '/index?url='
                         + encodeURIComponent(window.location.protocol + "//" + window.location.host + "/" + (uid ? "?uid=" + uid : '') + "#/Login")
                     return
                 }
