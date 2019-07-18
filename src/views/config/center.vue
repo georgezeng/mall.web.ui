@@ -296,6 +296,7 @@
                 API.logout().then(res => {
                     Util.setToken('')
                     window.location.href = '/#/MyCenter'
+                    window.location.reload(true)
                 })
             },
             goMyChange() {
