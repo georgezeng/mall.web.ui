@@ -46,6 +46,7 @@
     import UsernamePasswordPanel from './username-password'
     import PhoneVerifyPanel from './phone-verify'
     import Util from '../../libs/util'
+    import config from '../../config/index'
     import UrlParams from 'get-url-param'
 
     export default {
