@@ -36,7 +36,7 @@
                     </div>
                 </popup>
             </div>
-
+            <input ref="uploadFile" type="file" style="display: none;" accept='image/*' name="file" @change="fileChange($event)"/>
             <group>
                 <cell class="optionalLine optionalCell" is-link title="头像" @click.native="editAvatar">
                     <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -20px;"
@@ -176,22 +176,23 @@
                 Util.go('MyCenter')
             },
             editAvatar() {
-                if (!Util.isInWechat()) {
-                    return
-                }
-                let info = this.info
-                Util.uploadImageFromWechat('avatar.png', (url) => {
-                    this.loading = true
-                    info.avatar = url
-                    API.save({
-                        ...info,
-                        sex: info.sex.name
-                    }).then(res => {
-                        window.location.reload(true)
-                    }).catch(e => {
-                        this.loading = false
-                    })
-                })
+                // if (!Util.isInWechat()) {
+                //     return
+                // }
+                // let info = this.info
+                // Util.uploadImageFromWechat('avatar.png', (url) => {
+                //     this.loading = true
+                //     info.avatar = url
+                //     API.save({
+                //         ...info,
+                //         sex: info.sex.name
+                //     }).then(res => {
+                //         window.location.reload(true)
+                //     }).catch(e => {
+                //         this.loading = false
+                //     })
+                // })
+                this.$refs.uploadFile.click()
             },
             changeSex(option) {
                 this.loading = true
