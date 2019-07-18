@@ -6,5 +6,8 @@ export default {
     },
     save(data) {
         return axios.post('/client/identity/save', data)
+    },
+    uploadIdentityImg(form) {
+        return axios.post('/client/identity/upload', form)
     }
 }

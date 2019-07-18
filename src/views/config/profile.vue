@@ -23,11 +23,13 @@
                             编辑昵称
                         </div>
                         <group>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" title="昵称" placeholder="请输入昵称"
+                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" title="昵称"
+                                     placeholder="请输入昵称"
                                      v-model="nicknameModal.value"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
-                            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                            <x-button action-type="button" :disabled="loading"
+                                      style="width: 100%; background-color: #008CEB;"
                                       :show-loading="loading"
                                       @click.native="saveNickname">
                                 <span style="font-size: 11pt; color: #fff;">保存</span>
@@ -36,7 +38,10 @@
                     </div>
                 </popup>
             </div>
-            <input ref="uploadFile" type="file" style="display: none;" accept='image/*' name="file" @change="fileChange($event)"/>
+            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data"
+                  :action="config.baseUrl + '/client/avatar/upload'">
+                <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
+            </form>
             <group>
                 <cell class="optionalLine optionalCell" is-link title="头像" @click.native="editAvatar">
                     <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -20px;"
@@ -81,6 +86,7 @@
                 callback()
             }
             return {
+                config,
                 defaultAvatar,
                 commonStyles,
                 loading: false,
@@ -119,13 +125,10 @@
         },
         computed: {
             avatar() {
-                if (this.info.avatar && !this.info.avatar.startsWith('http') && this.$refs.avatar) {
-                    this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
-                }
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
-                        : config.baseUrl + '/client/img/load?filePath=' + this.info.avatar)
+                        : config.publicBucketDomain + this.info.avatar)
                     : defaultAvatar
             },
             sex() {
@@ -139,6 +142,18 @@
             },
         },
         methods: {
+            fileChange() {
+                const formData = new FormData(this.$refs.uploadform)
+                formData.append('file', this.$refs.uploadFile)
+                this.$vux.loading.show({
+                    text: '上传中...'
+                })
+                API.uploadAvatar(formData).then(filePath => {
+                    window.location.reload(true)
+                }).catch(e => {
+                    this.$vux.loading.hide()
+                })
+            },
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
@@ -233,12 +248,12 @@
         },
         mounted() {
             this.load()
-            if (Util.isInWechat()) {
-                Util.wxConfig([
-                    'chooseImage',
-                    'uploadImage'
-                ])
-            }
+            // if (Util.isInWechat()) {
+            //     Util.wxConfig([
+            //         'chooseImage',
+            //         'uploadImage'
+            //     ])
+            // }
         }
     }
 </script>

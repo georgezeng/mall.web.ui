@@ -15,6 +15,10 @@
             <div align="center" style="position: relative; top: 0px;">实名认证</div>
         </Header>
         <Content v-if="isInit" :style="commonStyles.content" style="margin-top: 40px;">
+            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data"
+                  :action="config.baseUrl + '/client/identity/upload'">
+                <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
+            </form>
             <group>
                 <x-input class="optionalLine" title="真实姓名" v-model="data.name" placeholder="申请人真实姓名"></x-input>
                 <x-input class="optionalLine" title="身份证号" v-model="data.number" placeholder="申请人身份证号"></x-input>
@@ -78,6 +82,7 @@
         components: {},
         data() {
             return {
+                config,
                 defaultBadgeIdentity,
                 defaultFaceIdentity,
                 defaultPeopleIdentity,
@@ -91,7 +96,8 @@
                     badgePhoto: null,
                     peoplePhoto: null,
                     reason: null
-                }
+                },
+                uploadMethod: ''
             }
         },
         computed: {
@@ -121,6 +127,23 @@
             }
         },
         methods: {
+            fileChange() {
+                const formData = new FormData(this.$refs.uploadform)
+                formData.append('file', this.$refs.uploadFile)
+                this.$vux.loading.show({
+                    text: '上传中...'
+                })
+                API.uploadIdentityImg(formData).then(filePath => {
+                    switch(this.uploadMethod) {
+                        case 'Face': this.data.facePhoto = filePath; break
+                        case 'Badge': this.data.badgePhoto = filePath; break
+                        case 'People': this.data.peoplePhoto = filePath; break
+                    }
+                    this.$vux.loading.hide()
+                }).catch(e => {
+                    this.$vux.loading.hide()
+                })
+            },
             save() {
                 if (!this.data.name) {
                     this.$vux.toast.show({text: '真实姓名不能为空', type: 'warn', width: '200px'})
@@ -167,29 +190,35 @@
                 Util.go('MySetting')
             },
             uploadFaceIdentity() {
-                Util.uploadImageFromWechat('identity/face.png', (url) => {
-                    this.data.facePhoto = url
-                })
+                // Util.uploadImageFromWechat('identity/face.png', (url) => {
+                //     this.data.facePhoto = url
+                // })
+                this.uploadMethod = 'Face'
+                this.$refs.uploadFile.click()
             },
             uploadBadgeIdentity() {
-                Util.uploadImageFromWechat('identity/badge.png', (url) => {
-                    this.data.badgePhoto = url
-                })
+                // Util.uploadImageFromWechat('identity/badge.png', (url) => {
+                //     this.data.badgePhoto = url
+                // })
+                this.uploadMethod = 'Badge'
+                this.$refs.uploadFile.click()
             },
             uploadPeopleIdentity() {
-                Util.uploadImageFromWechat('identity/people.png', (url) => {
-                    this.data.peoplePhoto = url
-                })
+                // Util.uploadImageFromWechat('identity/people.png', (url) => {
+                //     this.data.peoplePhoto = url
+                // })
+                this.uploadMethod = 'People'
+                this.$refs.uploadFile.click()
             }
         },
         mounted() {
             this.load()
-            if (this.isWechat) {
-                Util.wxConfig([
-                    'chooseImage',
-                    'uploadImage'
-                ])
-            }
+            // if (this.isWechat) {
+            //     Util.wxConfig([
+            //         'chooseImage',
+            //         'uploadImage'
+            //     ])
+            // }
         }
     }
 </script>
