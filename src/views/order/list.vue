@@ -87,8 +87,8 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
-                    <Button @click="goExpress(item.id)" style="float: right; margin-left: 10px;" type="primary">查看物流</Button>
-                    <Button @click="pickedUpConfirm(item.id)" style="float: right;" type="primary">确认收货</Button>
+                    <Button @click="pickedUpConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">确认收货</Button>
+                    <Button @click="goExpress(item.id)" style="float: right;" type="primary">查看物流</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Canceled'">

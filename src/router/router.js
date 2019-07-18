@@ -132,7 +132,7 @@ const routers = [
             title: '订单详情',
             needLogin: true
         },
-        component: (resolve) => require(['../views/order/detail.vue'], resolve)
+        component: (resolve) => require(['../views/order/express.vue'], resolve)
     },
     {
         path: '/Order/Preview/:key',
