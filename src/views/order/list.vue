@@ -232,7 +232,7 @@
                     })
                     API.delete(id).then(res => {
                         this.$vux.loading.hide()
-                        this.type = 'Finished'
+                        this.type = 'All'
                         this.reload()
                     }).catch(e => {
                         this.$vux.loading.hide()
@@ -246,7 +246,7 @@
                     })
                     API.cancel(id).then(res => {
                         this.$vux.loading.hide()
-                        this.type = 'Finished'
+                        this.type = 'All'
                         this.reload()
                     }).catch(e => {
                         this.$vux.loading.hide()
