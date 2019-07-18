@@ -213,23 +213,43 @@
             },
             pickedUpConfirm(id) {
                 MessageBox.confirm('你确定已经收到商品吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
                     API.pickup(id).then(res => {
                         this.type = 'Finished'
+                        this.$vux.loading.hide()
                         this.reload()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
                     })
                 })
             },
             deleteConfirm(id) {
                 MessageBox.confirm('你确定要删除订单吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
                     API.delete(id).then(res => {
+                        this.$vux.loading.hide()
+                        this.type = 'Finished'
                         this.reload()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
                     })
                 })
             },
             cancelConfirm(id) {
                 MessageBox.confirm('你确定要取消订单吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
                     API.cancel(id).then(res => {
+                        this.$vux.loading.hide()
+                        this.type = 'Finished'
                         this.reload()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
                     })
                 })
             },
