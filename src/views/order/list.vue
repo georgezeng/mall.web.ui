@@ -77,13 +77,13 @@
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
                     <Button @click="pay(item)" style="float: right; margin-left: 10px;" type="primary">去支付</Button>
-                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="primary">
+                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="error">
                         取消订单
                     </Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Paid'">
-                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="primary">取消订单</Button>
+                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="error">取消订单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
@@ -92,11 +92,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Canceled'">
-                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">删除订单</Button>
+                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="error">删除订单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Closed'">
-                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">删除订单</Button>
+                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="error">删除订单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Finished'">
@@ -107,7 +107,7 @@
                     <Button v-else @click="goEvaluate(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         查看评价
                     </Button>
-                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">
+                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="error">
                         删除订单
                     </Button>
                     <div class="clearfix"></div>
@@ -214,6 +214,7 @@
             pickedUpConfirm(id) {
                 MessageBox.confirm('你确定已经收到商品吗?').then(action => {
                     API.pickup(id).then(res => {
+                        this.type = 'Finished'
                         this.reload()
                     })
                 })
