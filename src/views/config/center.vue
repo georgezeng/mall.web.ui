@@ -277,22 +277,18 @@
             getDfkNums() {
                 OrderAPI.count('UnPay').then(nums => {
                     this.dfkNums = nums
-                }).catch(e => {
-                    alert(e)
                 })
             },
             getDshNums() {
                 OrderAPI.count('Shipped').then(nums => {
                     this.dshNums = nums
-                }).catch(e => {
-                    alert(e)
                 })
             },
             getDpjNums() {
                 OrderAPI.countUncomment().then(nums => {
                     this.dpjNums = nums
                 }).catch(e => {
-                    alert(e)
+                    alert(e.errmsg)
                 })
             },
             exit() {
