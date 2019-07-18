@@ -126,6 +126,15 @@ const routers = [
         component: (resolve) => require(['../views/order/detail.vue'], resolve)
     },
     {
+        path: '/Order/Express/:id/:type/:fromList',
+        name: 'MyOrderExpress',
+        meta: {
+            title: '订单详情',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/detail.vue'], resolve)
+    },
+    {
         path: '/Order/Preview/:key',
         name: 'OrderPreview',
         meta: {

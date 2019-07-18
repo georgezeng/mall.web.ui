@@ -87,16 +87,16 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
-                    <Button style="float: right; margin-left: 10px;" type="primary">查看物流</Button>
+                    <Button @click="goExpress(item.id)" style="float: right; margin-left: 10px;" type="primary">查看物流</Button>
                     <Button @click="pickedUpConfirm(item.id)" style="float: right;" type="primary">确认收货</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Canceled'">
-                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">清除订单</Button>
+                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">删除订单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Closed'">
-                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">清除订单</Button>
+                    <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">删除订单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Finished'">
@@ -108,7 +108,7 @@
                         查看评价
                     </Button>
                     <Button @click="deleteConfirm(item.id)" style="float: right;" type="primary">
-                        清除订单
+                        删除订单
                     </Button>
                     <div class="clearfix"></div>
                 </div>
@@ -155,6 +155,13 @@
         },
         computed: {},
         methods: {
+            goExpress(id) {
+                Util.go('MyOrderExpress', {
+                    id,
+                    fromList: 'true',
+                    type: this.type
+                })
+            },
             pay(item) {
                 if (Util.isInWechat()) {
                     if (item.payment.name == 'WePay') {
@@ -212,7 +219,7 @@
                 })
             },
             deleteConfirm(id) {
-                MessageBox.confirm('你确定要清除订单吗?').then(action => {
+                MessageBox.confirm('你确定要删除订单吗?').then(action => {
                     API.delete(id).then(res => {
                         this.reload()
                     })

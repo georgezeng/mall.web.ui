@@ -149,7 +149,7 @@
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Shipped'">
-                <Button size="large" :loading="loading" style="float: right; margin-left: 10px;" type="primary">查看物流
+                <Button size="large" :loading="loading" style="float: right; margin-left: 10px;" @click="goExpress(form.id)"  type="primary">查看物流
                 </Button>
                 <Button size="large" :loading="loading" @click="pickedUpConfirm(form.id)" style="float: right;"
                         type="primary">确认收货
@@ -158,7 +158,7 @@
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Canceled'">
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="primary">清除订单
+                        type="primary">删除订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
@@ -174,7 +174,7 @@
                 </Button>
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
                         type="primary">
-                    清除订单
+                    删除订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
@@ -234,6 +234,13 @@
             }
         },
         methods: {
+            goExpress(id) {
+                Util.go('MyOrderExpress', {
+                    id,
+                    fromList: 'false',
+                    type: this.type
+                })
+            },
             itemName(name) {
                 if (!this.isSmallDevice) {
                     return name.length > 16 ? name.substring(0, 16) + '...' : name
@@ -259,7 +266,7 @@
                 })
             },
             deleteConfirm(id) {
-                MessageBox.confirm('你确定要清除订单吗?').then(action => {
+                MessageBox.confirm('你确定要删除订单吗?').then(action => {
                     API.delete(id).then(res => {
                         this.reload()
                     })
