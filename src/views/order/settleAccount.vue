@@ -342,7 +342,7 @@
                 if (this.data.address.name == null) {
                     this.$vux.toast.show({
                         text: '请先选择收货地址',
-                        type: 'warn',
+                        type: 'text',
                         width: '200px'
                     })
                     return
@@ -350,7 +350,7 @@
                 if (this.data.payment.name == null) {
                     this.$vux.toast.show({
                         text: '请先选择支付方式',
-                        type: 'warn',
+                        type: 'text',
                         width: '200px'
                     })
                     return
@@ -454,7 +454,7 @@
                     if (!data) {
                         this.$vux.toast.show({
                             text: '结算信息失效，请重新下单',
-                            type: 'warn',
+                            type: 'text',
                             width: '250px'
                         })
                         setTimeout(() => {

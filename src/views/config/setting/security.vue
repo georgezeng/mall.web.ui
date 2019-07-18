@@ -145,21 +145,21 @@
             savePassword() {
                 if (this.passwordModal.resetOpen) {
                     if (!this.passwordModal.form.verifyCode || this.passwordModal.form.verifyCode == '') {
-                        this.$vux.toast.show({text: '验证码不能为空', type: 'warn', width: '200px'})
+                        this.$vux.toast.show({text: '验证码不能为空', type: 'text', width: '200px'})
                         return
                     }
                 } else {
                     if (!this.passwordModal.form.oldPassword || this.passwordModal.form.oldPassword == '') {
-                        this.$vux.toast.show({text: '旧密码不能为空', type: 'warn', width: '200px'})
+                        this.$vux.toast.show({text: '旧密码不能为空', type: 'text', width: '200px'})
                         return
                     }
                 }
                 if (!this.passwordModal.form.password || this.passwordModal.form.password == '') {
-                    this.$vux.toast.show({text: '新密码不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '新密码不能为空', type: 'text', width: '200px'})
                     return
                 }
                 if (!this.passwordModal.form.confirmPassword || this.passwordModal.form.confirmPassword == '') {
-                    this.$vux.toast.show({text: '确认密码不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '确认密码不能为空', type: 'text', width: '200px'})
                     return
                 }
 

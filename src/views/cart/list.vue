@@ -218,7 +218,7 @@
             selectItem(cartItem) {
                 if (!cartItem.item.enabled) {
                     cartItem.selected = false
-                    this.$vux.toast.show({text: "不能选择下架商品", type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: "不能选择下架商品", type: 'text', width: '200px'})
                 }
             },
             goSettleAccount() {

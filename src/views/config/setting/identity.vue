@@ -146,15 +146,15 @@
             },
             save() {
                 if (!this.data.name) {
-                    this.$vux.toast.show({text: '真实姓名不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '真实姓名不能为空', type: 'text', width: '200px'})
                     return
                 }
                 if (!this.data.number) {
-                    this.$vux.toast.show({text: '身份证号不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '身份证号不能为空', type: 'text', width: '200px'})
                     return
                 }
                 if (!this.data.facePhoto || !this.data.badgePhoto || !this.data.peoplePhoto) {
-                    this.$vux.toast.show({text: '请上传身份证照片', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '请上传身份证照片', type: 'text', width: '200px'})
                     return
                 }
                 this.loading = true

@@ -75,23 +75,23 @@
             },
             save() {
                 if (!this.form.name || this.form.name == '') {
-                    this.$vux.toast.show({text: '收货人不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '收货人不能为空', type: 'text', width: '200px'})
                     return
                 }
                 if (!this.form.phone || this.form.phone == '') {
-                    this.$vux.toast.show({text: '联系电话不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '联系电话不能为空', type: 'text', width: '200px'})
                     return
                 }
                 if (this.form.phone.length < 11) {
-                    this.$vux.toast.show({text: '联系电话必须是手机号码或者座机号', type: 'warn', width: '300px'})
+                    this.$vux.toast.show({text: '联系电话必须是手机号码或者座机号', type: 'text', width: '300px'})
                     return
                 }
                 if (!this.form.area || this.form.area.length < 3) {
-                    this.$vux.toast.show({text: '所在地区不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '所在地区不能为空', type: 'text', width: '200px'})
                     return
                 }
                 if (!this.form.location || this.form.location == '') {
-                    this.$vux.toast.show({text: '详细地址不能为空', type: 'warn', width: '200px'})
+                    this.$vux.toast.show({text: '详细地址不能为空', type: 'text', width: '200px'})
                     return
                 }
                 this.loading = true

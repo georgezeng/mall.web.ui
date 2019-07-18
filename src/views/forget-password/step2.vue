@@ -61,7 +61,7 @@
         methods: {
             reset() {
                 if(!this.info || !this.info.username) {
-                    this.$vux.toast.show({text: '没有提交手机号，请重新提交', type: 'warn', width: '250px'})
+                    this.$vux.toast.show({text: '没有提交手机号，请重新提交', type: 'text', width: '250px'})
                     this.back()
                     return
                 }

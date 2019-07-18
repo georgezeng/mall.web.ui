@@ -661,6 +661,10 @@
                     this.$vux.toast.show({text: '请先选择数量', type: 'text', width: '150px'})
                     return
                 }
+                if (this.property.inventory == 0) {
+                    this.$vux.toast.show({text: '库存不足', type: 'text'})
+                    return
+                }
                 this.values = this.tempValues
                 if (this.confirmAddToCart) {
                     this.addToCart()
@@ -694,7 +698,7 @@
                     API.load(this.item.id).then(item => {
                         if (!item.enabled) {
                             setTimeout(() => {
-                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'warn', width: '300px'})
+                                this.$vux.toast.show({text: '商品已下架，2秒后返回列表页', type: 'text', width: '300px'})
                                 this.back()
                             }, 2000)
                             return

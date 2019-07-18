@@ -165,7 +165,7 @@
             },
             saveNickname() {
                 if (!this.nicknameModal.value || this.nicknameModal.value == '') {
-                    this.$vux.toast.show({text: '昵称不能为空', type: 'warn'})
+                    this.$vux.toast.show({text: '昵称不能为空', type: 'text'})
                     return
                 }
                 this.loading = true
