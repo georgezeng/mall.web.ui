@@ -216,6 +216,7 @@
             // this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.contentStyle.marginTop = '64px'
             this.contentStyle.marginBottom = '60px'
+            this.contentStyle.backgroundColor = '#f5f5f5'
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             this.itemImageWidth = this.itemWidth - 16
             window.addEventListener('scroll', this.scrollHandler)
