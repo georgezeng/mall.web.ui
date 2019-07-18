@@ -288,7 +288,8 @@
                 OrderAPI.countUncomment().then(nums => {
                     this.dpjNums = nums
                 }).catch(e => {
-                    alert(e.errmsg)
+                    for(let x in e)
+                    alert(e[x])
                 })
             },
             exit() {
