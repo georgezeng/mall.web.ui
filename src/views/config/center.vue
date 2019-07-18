@@ -277,16 +277,22 @@
             getDfkNums() {
                 OrderAPI.count('UnPay').then(nums => {
                     this.dfkNums = nums
+                }).catch(e => {
+                    alert(e)
                 })
             },
             getDshNums() {
                 OrderAPI.count('Shipped').then(nums => {
                     this.dshNums = nums
+                }).catch(e => {
+                    alert(e)
                 })
             },
             getDpjNums() {
                 OrderAPI.countUncomment().then(nums => {
                     this.dpjNums = nums
+                }).catch(e => {
+                    alert(e)
                 })
             },
             exit() {
@@ -337,7 +343,7 @@
             if (document.documentElement.clientHeight < 600) {
                 this.contentStyle.minHeight = '600px'
             }
-            if (this.isLogin) {alert(1)
+            if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
                 if(docWidth < 375 && docWidth > 330) {
                     this.badgeItemStyle.left = '50px'
