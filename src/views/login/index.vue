@@ -77,10 +77,6 @@
                     this.wechatLoginInfo = info
                     this.show = true
                 }).catch(e => {
-                    alert('error: ' + e)
-                    for(let x in e) {
-                        alert(x + ': ' + e[x])
-                    }
                     this.loading = false
                 })
             },
@@ -90,10 +86,6 @@
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
-                    alert('error: ' + e)
-                    for(let x in e) {
-                        alert(x + ': ' + e[x])
-                    }
                     this.loading = false
                 })
             },
