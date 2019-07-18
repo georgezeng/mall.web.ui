@@ -234,6 +234,9 @@
                         this.$vux.loading.hide()
                         this.type = 'All'
                         this.reload()
+                        this.$vux.toast.show({
+                            text: '删除成功'
+                        })
                     }).catch(e => {
                         this.$vux.loading.hide()
                     })
