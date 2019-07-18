@@ -122,7 +122,6 @@
     .badge-nums {
         position: absolute;
         top: -3px;
-        left: 55px;
         color: orangered;
         border: 1px solid orangered;
         background-color: #fff;
@@ -167,22 +166,22 @@
                     <div class="box" @click="goUnPayOrders">
                         <div class="img"><img :src="dfk" width="40" height="40"/></div>
                         <div class="title">待付款</div>
-                        <badge class="badge-nums" v-if="dfkNums > 0" :text="dfkNums"></badge>
+                        <badge class="badge-nums" :style="badgeItemStyle" v-if="dfkNums > 0" :text="dfkNums"></badge>
                     </div>
                     <div class="box" @click="getShippedOrders">
                         <div class="img"><img :src="dsh" width="40" height="40"/></div>
                         <div class="title">待收货</div>
-                        <badge class="badge-nums" v-if="dshNums > 0" :text="dshNums"></badge>
+                        <badge class="badge-nums" :style="badgeItemStyle" v-if="dshNums > 0" :text="dshNums"></badge>
                     </div>
                     <div class="box" @click="goUncommentList">
                         <div class="img2"><img :src="evaluate" width="44" height="44"/></div>
                         <div class="title">待评价</div>
-                        <badge class="badge-nums" v-if="dpjNums > 0" :text="dpjNums"></badge>
+                        <badge class="badge-nums" :style="badgeItemStyle" v-if="dpjNums > 0" :text="dpjNums"></badge>
                     </div>
                     <div class="box" @click="goAfterSale">
                         <div class="img2"><img :src="tuihuo" width="50" height="50"/></div>
                         <div class="title">退款/售后</div>
-                        <badge class="badge-nums" v-if="tkNums > 0" :text="tkNums"></badge>
+                        <badge class="badge-nums" :style="badgeItemStyle" v-if="tkNums > 0" :text="tkNums"></badge>
                     </div>
                 </div>
             </div>
@@ -254,7 +253,8 @@
                 dfkNums: 0,
                 dshNums: 0,
                 dpjNums: 0,
-                tkNums: 0
+                tkNums: 0,
+                badgeItemStyle: {}
             }
         },
         computed: {
@@ -336,6 +336,14 @@
         mounted() {
             if (document.documentElement.clientHeight < 600) {
                 this.contentStyle.minHeight = '600px'
+            }
+            const docWidth = document.documentElement.clientWidth
+            if(docWidth < 375 && docWidth > 330) {
+                this.badgeItemStyle.left = '50px'
+            } else if(docWidth < 330) {
+                this.badgeItemStyle.left = '45px'
+            } else {
+                this.badgeItemStyle.left = '55px'
             }
             if (this.isLogin) {
                 ProfileAPI.load().then(data => {

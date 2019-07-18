@@ -11,7 +11,6 @@
 
     .cartItems {
         position: absolute;
-        left: 50px;
         top: -3px;
         color: red;
         border-radius: 10px !important;
@@ -45,7 +44,7 @@
             <div @click="goCart" class="button" style="position: relative;">
                 <div>
                     <Icon :style="cartStyle" type="md-cart" size="30"/>
-                    <mt-badge class="cartItems" v-if="cartItems > 0" size="small" >{{cartItems}}</mt-badge>
+                    <mt-badge :style="cartItemStyle" class="cartItems" v-if="cartItems > 0" size="small" >{{cartItems}}</mt-badge>
                 </div>
                 <div :style="cartStyle">
                     购物车
@@ -86,6 +85,7 @@
                 homeStyle: {
                     color: null
                 },
+                cartItemStyle: {},
                 cartItems: 0,
             }
         },
@@ -104,6 +104,14 @@
             }
         },
         mounted() {
+            const docWidth = document.documentElement.clientWidth
+            if(docWidth < 375 && docWidth > 330) {
+                this.cartItemStyle.left = '45px'
+            } else if(docWidth < 330) {
+                this.cartItemStyle.left = '40px'
+            } else {
+                this.cartItemStyle.left = '50px'
+            }
             switch(this.selection) {
                 case 'mine': this.mineStyle.color = '#DA4935'; break
                 case 'cart': this.cartStyle.color = '#DA4935'; break
