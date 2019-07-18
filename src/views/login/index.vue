@@ -77,6 +77,7 @@
                     this.wechatLoginInfo = info
                     this.show = true
                 }).catch(e => {
+                    alert(e)
                     this.loading = false
                 })
             },
@@ -86,6 +87,7 @@
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
+                    alert(e)
                     this.loading = false
                 })
             },
@@ -103,6 +105,7 @@
         mounted() {
             if (this.isWechat) {
                 const code = UrlParams(window.location.href, "code")
+                alert(code)
                 if (!code) {
                     this.authorize()
                 } else {
