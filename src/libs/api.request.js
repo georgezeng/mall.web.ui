@@ -19,10 +19,10 @@ const ajax = axios.create({
 
 ajax.interceptors.response.use(function (response) {
     if (response.data.code == -1) {
-        Util.setToken('')
-        router.push({
-            name: LOGIN_PAGE_NAME
-        })
+        // router.push({
+        //     name: LOGIN_PAGE_NAME
+        // })
+        window.location.href = config.baseUrl + '/index/jump?url=' + encodeURIComponent(window.location.href.replace(/#\.+/, '#/Login'))
         return Promise.reject(response.data)
     } else if (response.data.code == 1) {
         alertError(response.data)
