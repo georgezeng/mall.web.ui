@@ -40,8 +40,7 @@
             <div class="titlePanel">
                 <div class="title" @click="selectType('All')" :class="{'selected-title': type == 'All'}">全部</div>
                 <div class="title" @click="selectType('UnPay')" :class="{'selected-title': type == 'UnPay'}">待付款</div>
-                <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货
-                </div>
+                <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货</div>
                 <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">已完成
                 </div>
             </div>
@@ -78,19 +77,17 @@
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
                     <Button @click="pay(item)" style="float: right; margin-left: 10px;" type="primary">去支付</Button>
-                    <Button @click="cancelConfirm(item)" style="float: right;" type="error">
+                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="error">
                         取消订单
                     </Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Paid'">
-                    <Button @click="cancelConfirm(item)" style="float: right;" type="error">取消订单</Button>
+                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="error">取消订单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
-                    <Button @click="pickedUpConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">
-                        确认收货
-                    </Button>
+                    <Button @click="pickedUpConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">确认收货</Button>
                     <Button @click="goExpress(item.id)" style="float: right;" type="primary">查看物流</Button>
                     <div class="clearfix"></div>
                 </div>
@@ -242,21 +239,18 @@
                     })
                 })
             },
-            cancelConfirm(item) {
+            cancelConfirm(id) {
                 MessageBox.confirm('你确定要取消订单吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
                     })
-                    API.cancel(item.id).then(res => {
+                    API.cancel(id).then(res => {
                         this.$vux.loading.hide()
                         this.type = 'All'
                         this.reload()
-                        if (item.status.name == 'Paid') {
-                            this.$vux.toast.show({
-                                text: '申请退款成功，请等待后台退款',
-                                width: '250px'
-                            })
-                        }
+                        this.$vux.toast.show({
+                            text: '退款成功'
+                        })
                     }).catch(e => {
                         this.$vux.loading.hide()
                     })
