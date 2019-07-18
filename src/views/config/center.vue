@@ -337,15 +337,15 @@
             if (document.documentElement.clientHeight < 600) {
                 this.contentStyle.minHeight = '600px'
             }
-            const docWidth = document.documentElement.clientWidth
-            if(docWidth < 375 && docWidth > 330) {
-                this.badgeItemStyle.left = '50px'
-            } else if(docWidth < 330) {
-                this.badgeItemStyle.left = '45px'
-            } else {
-                this.badgeItemStyle.left = '55px'
-            }
-            if (this.isLogin) {
+            if (this.isLogin) {alert(1)
+                const docWidth = document.documentElement.clientWidth
+                if(docWidth < 375 && docWidth > 330) {
+                    this.badgeItemStyle.left = '50px'
+                } else if(docWidth < 330) {
+                    this.badgeItemStyle.left = '45px'
+                } else {
+                    this.badgeItemStyle.left = '55px'
+                }
                 ProfileAPI.load().then(data => {
                     this.info = data
                 })

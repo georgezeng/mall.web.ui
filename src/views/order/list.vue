@@ -40,7 +40,8 @@
             <div class="titlePanel">
                 <div class="title" @click="selectType('All')" :class="{'selected-title': type == 'All'}">全部</div>
                 <div class="title" @click="selectType('UnPay')" :class="{'selected-title': type == 'UnPay'}">待付款</div>
-                <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货</div>
+                <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货
+                </div>
                 <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">已完成
                 </div>
             </div>
@@ -87,7 +88,9 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
-                    <Button @click="pickedUpConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">确认收货</Button>
+                    <Button @click="pickedUpConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                        确认收货
+                    </Button>
                     <Button @click="goExpress(item.id)" style="float: right;" type="primary">查看物流</Button>
                     <div class="clearfix"></div>
                 </div>
@@ -106,6 +109,9 @@
                     </Button>
                     <Button v-else @click="goEvaluate(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         查看评价
+                    </Button>
+                    <Button @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                        申请售后
                     </Button>
                     <Button @click="deleteConfirm(item.id)" style="float: right;" type="error">
                         删除订单
@@ -155,6 +161,9 @@
         },
         computed: {},
         methods: {
+            goAfterSale(id) {
+
+            },
             goExpress(id) {
                 Util.go('MyOrderExpress', {
                     id,

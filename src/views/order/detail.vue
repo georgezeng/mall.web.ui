@@ -69,7 +69,8 @@
             </div>
             <div style="background-color: #f5f5f5; height: 10px;"></div>
             <div style="background-color: #fff;">
-                <div @click="goDetail(item.itemId)" style="padding: 15px 15px 0;" v-for="item in form.subList" :key="item.id">
+                <div @click="goDetail(item.itemId)" style="padding: 15px 15px 0;" v-for="item in form.subList"
+                     :key="item.id">
                     <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -115,7 +116,8 @@
                         <div style="float: right;">￥0.00</div>
                     </div>
                 </div>
-                <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span style="color: orangered;">￥{{total}}</span></div>
+                <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span
+                        style="color: orangered;">￥{{total}}</span></div>
             </div>
             <div style="background-color: #f5f5f5; height: 10px;"></div>
             <div style="background-color: #fff; padding: 15px; font-size: 14px;">
@@ -149,16 +151,28 @@
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Shipped'">
-                <Button size="large" :loading="loading" style="float: right; margin-left: 10px;" @click="goExpress(form.id)"  type="primary">查看物流
+                <Button size="large" :loading="loading" @click="pickedUpConfirm(form.id)"
+                        style="float: right; margin-left: 10px;"
+                        type="primary">
+                    确认收货
                 </Button>
-                <Button size="large" :loading="loading" @click="pickedUpConfirm(form.id)" style="float: right;"
-                        type="primary">确认收货
+                <Button size="large" :loading="loading" style="float: right;" @click="goExpress(form.id)"
+                        type="primary">
+                    查看物流
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Canceled'">
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="primary">删除订单
+                        type="primary">
+                    删除订单
+                </Button>
+                <div class="clearfix"></div>
+            </div>
+            <div style="margin: 10px;" v-if="form.status.name == 'Closed'">
+                <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
+                        type="primary">
+                    删除订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
@@ -171,6 +185,10 @@
                 <Button size="large" :loading="loading" v-else @click="goEvaluate(form.id)"
                         style="float: right; margin-left: 10px;" type="primary">
                     查看评价
+                </Button>
+                <Button size="large" :loading="loading" @click="goAfterSale(form.id)"
+                        style="float: right; margin-left: 10px;" type="primary">
+                    申请售后
                 </Button>
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
                         type="primary">
