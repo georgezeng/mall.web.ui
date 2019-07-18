@@ -15,8 +15,8 @@
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">物流信息</div>
         </Header>
-        <Content :style="commonStyles.content" style="margin-top: 40px;">
-            <div style="margin-bottom: 10px; padding: 0 15px;" v-for="express in data.expressList" :key="express.id">
+        <Content :style="commonStyles.content" style="margin-top: 60px;">
+            <div style="margin-bottom: 10px; padding: 10px 15px 0;" v-for="express in data.expressList" :key="express.id">
                 <div>物流公司: {{express.company}}</div>
                 <div>物流单号: {{express.number}}</div>
             </div>
