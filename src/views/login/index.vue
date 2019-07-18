@@ -77,7 +77,10 @@
                     this.wechatLoginInfo = info
                     this.show = true
                 }).catch(e => {
-                    alert(e)
+                    alert('error: ' + e)
+                    for(let x in e) {
+                        alert(x + ': ' + e[x])
+                    }
                     this.loading = false
                 })
             },
@@ -87,7 +90,10 @@
                     this.loading = false
                     window.location.href = url
                 }).catch(e => {
-                    alert(e)
+                    alert('error: ' + e)
+                    for(let x in e) {
+                        alert(x + ': ' + e[x])
+                    }
                     this.loading = false
                 })
             },
@@ -105,7 +111,6 @@
         mounted() {
             if (this.isWechat) {
                 const code = UrlParams(window.location.href, "code")
-                alert(code)
                 if (!code) {
                     this.authorize()
                 } else {
