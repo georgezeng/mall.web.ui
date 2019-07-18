@@ -4,7 +4,6 @@ import config from '../config/index'
 import router from '../router/index'
 import {Message} from 'iview'
 import Vue from 'vue'
-import Util from '../libs/util'
 
 const LOGIN_PAGE_NAME = 'Login'
 
