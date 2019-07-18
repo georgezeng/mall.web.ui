@@ -4,6 +4,7 @@ import config from '../config/index'
 import router from '../router/index'
 import {Message} from 'iview'
 import Vue from 'vue'
+import Util from '../libs/util'
 
 const LOGIN_PAGE_NAME = 'Login'
 
@@ -18,6 +19,7 @@ const ajax = axios.create({
 
 ajax.interceptors.response.use(function (response) {
     if (response.data.code == -1) {
+        Util.setToken('')
         router.push({
             name: LOGIN_PAGE_NAME
         })

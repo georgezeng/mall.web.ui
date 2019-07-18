@@ -287,9 +287,6 @@
             getDpjNums() {
                 OrderAPI.countUncomment().then(nums => {
                     this.dpjNums = nums
-                }).catch(e => {
-                    for(let x in e)
-                    alert(e[x])
                 })
             },
             exit() {
