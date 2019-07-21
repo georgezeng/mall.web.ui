@@ -429,16 +429,24 @@
                 if (this.data.fromCart) {
                     Util.go('MyCart')
                 } else {
-                    Util.go('GoodsItemDetail', {
-                        id: this.data.items[0].item.id
-                    })
+                    const from = Util.get('fromForGoodsItemDetail')
+                    if (from) {
+                        Util.go('GoodsItemDetail', {
+                            id: this.data.items[0].item.id,
+                            from
+                        })
+                    } else {
+                        Util.go('GoodsItemList', {
+                            id: 0
+                        })
+                    }
                 }
             },
             goPickupAddress() {
                 Util.putJson('settleAccountData', this.data)
                 Util.put('settleAccountKey', this.key)
                 Util.go('MyAddressList', {
-                    fromOrderPreview: 'true'
+                    from: 'OrderSettleAccount'
                 })
             },
             loadAddress() {
@@ -459,8 +467,7 @@
                         })
                         setTimeout(() => {
                             Util.go('GoodsItemList', {
-                                id: 0,
-                                fromOrderPreview: true
+                                id: 0
                             })
                         }, 1000)
                         return

@@ -151,10 +151,13 @@
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Shipped'">
-                <Button size="large" :loading="loading" @click="pickedUpConfirm(form.id)"
+                <Button size="large" :loading="loading" @click="pickupConfirm(form.id)"
                         style="float: right; margin-left: 10px;"
                         type="primary">
                     确认收货
+                </Button>
+                <Button @click="goAfterSale(form.id)" style="float: right; margin-left: 10px;" type="primary">
+                    申请售后
                 </Button>
                 <Button size="large" :loading="loading" style="float: right;" @click="goExpress(form.id)"
                         type="primary">
@@ -240,7 +243,6 @@
                     payment: {},
                     invoice: null,
                 },
-                type: null,
                 countDownTime: null,
                 countDownText: '',
                 isSmallDevice: false
@@ -252,11 +254,28 @@
             }
         },
         methods: {
-            goExpress(id) {
-                Util.go('MyOrderExpress', {
+            goAfterSale(id) {
+                let info = Util.getJson('orderInfo')
+                if(!info) {
+                    info = {}
+                }
+                Util.putJson('orderInfo', {
+                    ...info,
                     id,
+                    fromList: false
+                })
+                Util.go('AfterSaleList', {
+                    id,
+                    status: 'NotYet'
+                })
+            },
+            goExpress(id) {
+                Util.putJson('orderInfo', {
+                    ...Util.getJson('orderInfo'),
                     fromList: 'false',
-                    type: this.type
+                })
+                Util.go('MyOrderExpress', {
+                    id
                 })
             },
             itemName(name) {
@@ -276,7 +295,7 @@
                     id,
                 })
             },
-            pickedUpConfirm(id) {
+            pickupConfirm(id) {
                 MessageBox.confirm('你确定已经收到商品吗?').then(action => {
                     API.pickup(id).then(res => {
                         this.reload()
@@ -320,14 +339,17 @@
                 }
             },
             goDetail(id) {
+                Util.put('orderId', id)
                 Util.go('GoodsItemDetail', {
                     id,
                     from: 'order'
                 })
             },
             back() {
+                const info = Util.getJson('orderInfo')
+                const type = info.type ? info.type : 'All'
                 Util.go('MyOrderList', {
-                    type: this.type
+                    type
                 })
             },
             load() {
@@ -347,10 +369,7 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientWidth < 370
-            this.type = this.$router.currentRoute.params.type
             this.form.id = this.$router.currentRoute.params.id
-            Util.put('orderDetailId', this.form.id)
-            Util.put('orderListType', this.type)
             this.form.id = this.form.id > 0 ? this.form.id : null
             this.load()
         }

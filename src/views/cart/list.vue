@@ -236,7 +236,7 @@
                 }).then(key => {
                     Util.put('settleAccountData', null)
                     Util.put('settleAccountKey', key)
-                    Util.go('OrderPreview', {
+                    Util.go('OrderSettleAccount', {
                         key
                     })
                 })

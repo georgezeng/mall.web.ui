@@ -15,8 +15,7 @@
             <div align="center" style="position: relative; top: 0px;">实名认证</div>
         </Header>
         <Content v-if="isInit" :style="commonStyles.content" style="margin-top: 40px;">
-            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data"
-                  :action="config.baseUrl + '/client/identity/upload'">
+            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
             </form>
             <group>
@@ -36,7 +35,10 @@
                 <img :src="peopleIdentity" crossorigin="use-credentials" width="300" height="182" @click="uploadPeopleIdentity"/>
             </div>
             <div style="margin: 20px;" align="center">
-                <Button size="large" :loading="loading" long type="primary" @click="save">确认提交</Button>
+                <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                          :show-loading="loading" @click.native="save">
+                    <span style="font-size: 11pt; color: #fff;">确认提交</span>
+                </x-button>
             </div>
         </Content>
         <Content v-if="isChecking" :style="commonStyles.content">
@@ -55,7 +57,10 @@
                 <div style="font-size: 11px; color: #9BA5B7;">{{data.reason}}</div>
             </div>
             <div style="padding: 20px;">
-                <Button size="large" :loading="loading" long type="primary" @click="reset">重新认证</Button>
+                <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                          :show-loading="loading" @click.native="reset">
+                    <span style="font-size: 11pt; color: #fff;">重新认证</span>
+                </x-button>
             </div>
         </Content>
         <Content v-if="isPassed" :style="commonStyles.content">

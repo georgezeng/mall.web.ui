@@ -58,7 +58,7 @@
             },
             goAddress() {
                 Util.go('MyAddressList', {
-                    fromOrderPreview: false
+                    from: 'MySetting'
                 })
             },
             goAbout() {

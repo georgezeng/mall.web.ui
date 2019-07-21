@@ -119,13 +119,13 @@
                     }
                 }
                 Util.putJson('settleAccountData', data)
-                Util.go('OrderPreview', {
+                Util.go('OrderSettleAccount', {
                     key: Util.get('settleAccountKey')
                 })
             },
             back() {
                 const key = Util.get('settleAccountKey')
-                Util.go('OrderPreview', {
+                Util.go('OrderSettleAccount', {
                     key
                 })
             },

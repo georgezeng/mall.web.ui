@@ -18,8 +18,10 @@
         <Content :style="commonStyles.content" style="margin-top: 40px;">
             <group>
                 <x-switch title="默认地址" :value-map="[false, true]" v-model="form.asDefault"></x-switch>
-                <x-input class="optionalLine optionalCell" placeholder="请输入收货人" title="收货人" v-model="form.name"></x-input>
-                <x-input class="optionalLine optionalCell" placeholder="请输入联系电话" title="联系电话" v-model="form.phone"></x-input>
+                <x-input class="optionalLine optionalCell" placeholder="请输入收货人" title="收货人"
+                         v-model="form.name"></x-input>
+                <x-input class="optionalLine optionalCell" placeholder="请输入联系电话" title="联系电话"
+                         v-model="form.phone"></x-input>
                 <x-address :list="addressData" class="optionalLine optionalPicker" title="所在地区"
                            v-model="form.area"></x-address>
                 <x-textarea @on-blur="resetUI" placeholder="请输入详细地址" class="optionalLine optionalCell" title="详细地址"
@@ -27,7 +29,10 @@
             </group>
         </Content>
         <Footer :style="footerStyle">
-            <Button :loading="loading" type="primary" size="large" long @click="save">保存</Button>
+            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                      :show-loading="loading" @click.native="save">
+                <span style="font-size: 11pt; color: #fff;">保存</span>
+            </x-button>
         </Footer>
     </Layout>
 </template>
@@ -56,7 +61,6 @@
                     location: null,
                     asDefault: false
                 },
-                fromOrderPreview: false
             }
         },
         computed: {
@@ -69,9 +73,16 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             back() {
-                Util.go('MyAddressList', {
-                    fromOrderPreview: this.fromOrderPreview ? 'true' : 'false'
-                })
+                let from = Util.get('fromForAddress')
+                if (from) {
+                    Util.go('MyAddressList', {
+                        from
+                    })
+                } else {
+                    Util.go('MyAddressList', {
+                        from: 'MySetting'
+                    })
+                }
             },
             save() {
                 if (!this.form.name || this.form.name == '') {
@@ -102,7 +113,7 @@
                     city: area[1],
                     district: area[2]
                 }).then(res => {
-                    this.$vux.toast.show({text:'保存成功'})
+                    this.$vux.toast.show({text: '保存成功'})
                     this.back()
                     this.loading = false
                 }).catch(e => {
@@ -128,7 +139,6 @@
         mounted() {
             this.form.id = this.$router.currentRoute.params.id
             this.form.id = this.form.id > 0 ? this.form.id : null
-            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview == 'true'
             this.load()
         }
     }

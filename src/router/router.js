@@ -117,7 +117,7 @@ const routers = [
         component: (resolve) => require(['../views/order/list.vue'], resolve)
     },
     {
-        path: '/Order/Detail/:id/:type',
+        path: '/Order/Detail/:id',
         name: 'MyOrderDetail',
         meta: {
             title: '订单详情',
@@ -126,7 +126,7 @@ const routers = [
         component: (resolve) => require(['../views/order/detail.vue'], resolve)
     },
     {
-        path: '/Order/Express/:id/:type/:fromList',
+        path: '/Order/Express/:id',
         name: 'MyOrderExpress',
         meta: {
             title: '订单详情',
@@ -135,13 +135,67 @@ const routers = [
         component: (resolve) => require(['../views/order/express.vue'], resolve)
     },
     {
-        path: '/Order/Preview/:key',
-        name: 'OrderPreview',
+        path: '/AfterSale/Express/:id',
+        name: 'AfterSaleExpress',
+        meta: {
+            title: '订单详情',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/express.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/List/:id/:status',
+        name: 'AfterSaleList',
+        meta: {
+            title: '退款/售后',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/list.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/Select/:id',
+        name: 'AfterSaleTypeSelect',
+        meta: {
+            title: '申请售后',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/type-select.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/RefundOnly/:id',
+        name: 'AfterSaleRefundOnly',
+        meta: {
+            title: '仅退款申请',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/refund-only.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/SalesReturn/:id',
+        name: 'AfterSaleSalesReturn',
+        meta: {
+            title: '退货退款申请',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/sales-return.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/Change/:id',
+        name: 'AfterSaleChange',
+        meta: {
+            title: '换货申请',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/change.vue'], resolve)
+    },
+    {
+        path: '/Order/SettleAccount/:key',
+        name: 'OrderSettleAccount',
         meta: {
             title: '填写订单',
             needLogin: true
         },
-        component: (resolve) => require(['../views/order/settleAccount.vue'], resolve)
+        component: (resolve) => require(['../views/order/settle-account.vue'], resolve)
     },
     {
         path: '/MyCenter',
@@ -189,7 +243,7 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/identity.vue'], resolve)
     },
     {
-        path: '/MyAddress/List/:fromOrderPreview',
+        path: '/MyAddress/List/:from',
         name: 'MyAddressList',
         meta: {
             title: '收货地址',
@@ -198,7 +252,7 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/address/list.vue'], resolve)
     },
     {
-        path: '/MyAddress/Edit/:id/:fromOrderPreview',
+        path: '/MyAddress/Edit/:id',
         name: 'MyAddressEdit',
         meta: {
             title: '编辑收货地址',

@@ -16,7 +16,8 @@
             <div align="center" style="position: relative; top: 0px;">物流信息</div>
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 60px;">
-            <div style="margin-bottom: 10px; padding: 10px 15px 0;" v-for="express in data.expressList" :key="express.id">
+            <div style="margin-bottom: 10px; padding: 10px 15px 0;" v-for="express in data.expressList"
+                 :key="express.id">
                 <div>物流公司: {{express.company}}</div>
                 <div>物流单号: {{express.number}}</div>
             </div>
@@ -37,21 +38,25 @@
                     id: null,
                     expressList: []
                 },
-                fromList: true,
-                type: null
             }
         },
         computed: {},
         methods: {
             back() {
-                if (this.fromList) {
-                    Util.go('MyOrderList', {
-                        type: this.type
-                    })
+                const info = Util.getJson('orderInfo')
+                if (info) {
+                    if (info.fromList) {
+                        Util.go('MyOrderList', {
+                            type: info.type
+                        })
+                    } else {
+                        Util.go('MyOrderDetail', {
+                            id: this.data.id
+                        })
+                    }
                 } else {
-                    Util.go('MyOrderDetail', {
-                        id: this.data.id,
-                        type: this.type
+                    Util.go('MyOrderList', {
+                        type: 'All'
                     })
                 }
             },
@@ -65,8 +70,6 @@
         },
         created() {
             this.data.id = this.$router.currentRoute.params.id
-            this.fromList = this.$router.currentRoute.params.fromList == 'true'
-            this.type = this.$router.currentRoute.params.type
         },
         mounted() {
             this.load()

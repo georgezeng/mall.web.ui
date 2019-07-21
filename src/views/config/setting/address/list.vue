@@ -43,7 +43,7 @@
                     <div slot="content" class="item vux-1px-t">
                         <table width="100%">
                             <tr>
-                                <td width="30" rowspan="2" v-if="fromOrderPreview">
+                                <td width="30" rowspan="2" v-if="from != 'MySetting'">
                                     <check-icon class="checker"
                                                 :value.sync="isSelected[index]"></check-icon>
                                 </td>
@@ -84,7 +84,7 @@
                          :right="swipeButtons(item.id)">
                      <table class="item" slot="title" width="100%">
                          <tr>
-                             <td width="30" rowspan="2" v-if="fromOrderPreview">
+                             <td width="30" rowspan="2" v-if="!from != 'MySetting'">
                                  <check-icon class="checker"
                                              :value.sync="isSelected[index]"></check-icon>
                              </td>
@@ -142,7 +142,7 @@
                     order: 'DESC',
                     property: 'createTime'
                 },
-                fromOrderPreview: false,
+                from: 'MySetting',
                 // init: false,
                 showLoading: false,
                 loadingList: false,
@@ -152,34 +152,52 @@
         computed: {},
         methods: {
             getItem(item, index) {
-                if (this.fromOrderPreview) {
-                    this.checkAsSelect(item.id, index)
+                if (this.from == 'OrderSettleAccount') {
                     const data = Util.getJson('settleAccountData')
-                    data.address = item
-                    Util.putJson('settleAccountData', data)
-                    Util.go('OrderPreview', {
-                        key: Util.get('settleAccountKey')
-                    })
+                    if (data) {
+                        this.checkAsSelect(item.id, index)
+                        data.address = item
+                        Util.putJson('settleAccountData', data)
+                        Util.go('OrderSettleAccount', {
+                            key: Util.get('settleAccountKey')
+                        })
+                    }
+                } else if (this.from == 'AfterSaleChange') {
+                    const data = Util.getJson('afterSaleChangeData')
+                    if (data) {
+                        this.checkAsSelect(item.id, index)
+                        data.address = item
+                        Util.putJson('afterSaleChangeData', data)
+                        Util.go('AfterSaleChange', {
+                            id: Util.get('afterSaleChangeId')
+                        })
+                    }
                 }
             },
             back() {
-                if (this.fromOrderPreview) {
+                if (this.from == 'OrderSettleAccount') {
                     const key = Util.get('settleAccountKey')
                     if (key) {
-                        Util.go('OrderPreview', {
+                        Util.go('OrderSettleAccount', {
                             key
                         })
-                    } else {
-                        Util.go('MyCart')
+                        return
                     }
-                } else {
-                    Util.go('MySetting')
+                } else if (this.from == 'AfterSaleChange') {
+                    const id = Util.get('afterSaleChangeId')
+                    if (id) {
+                        Util.go('AfterSaleChange', {
+                            id
+                        })
+                        return
+                    }
                 }
+                Util.go('MySetting')
             },
             goEdit(id) {
+                Util.put('fromForAddress', this.from)
                 Util.go('MyAddressEdit', {
-                    id,
-                    fromOrderPreview: this.fromOrderPreview ? 'true' : 'false'
+                    id
                 })
             },
             checkAsSelect(id, index) {
@@ -190,19 +208,21 @@
             },
             remove(id, index) {
                 // this.init = false
-                const data = Util.getJson('settleAccountData')
-                if (id == data.address.id) {
-                    data.address = {
-                        id: null,
-                        name: null,
-                        phone: null,
-                        province: null,
-                        city: null,
-                        district: null,
-                        location: null
-                    }
-                }
-                Util.putJson('settleAccountData', data)
+                // if(this.from == 'OrderSettleAccount') {
+                //     const data = Util.getJson('settleAccountData')
+                //     if (id == data.address.id) {
+                //         data.address = {
+                //             id: null,
+                //             name: null,
+                //             phone: null,
+                //             province: null,
+                //             city: null,
+                //             district: null,
+                //             location: null
+                //         }
+                //     }
+                //     Util.putJson('settleAccountData', data)
+                // }
                 API.delete(id).then(res => {
                     this.isSelected = []
                     this.list = []
@@ -229,7 +249,13 @@
                 API.list(this.pageInfo).then(data => {
                     if (data && data.length > 0) {
                         this.pageInfo.num++
-                        const address = Util.getJson('settleAccountData') ? Util.getJson('settleAccountData').address : {}
+                        let info = null
+                        if(this.from == 'OrderSettleAccount') {
+                            info = Util.getJson('settleAccountData')
+                        } else if(this.from == 'AfterSaleChange') {
+                            info = Util.getJson('afterSaleChangeData')
+                        }
+                        const address = info ? info.address : {}
                         for (let i in data) {
                             this.list.push(data[i])
                             this.isSelected.push(address && address.id != null ? data[i].id == address.id : false)
@@ -268,7 +294,7 @@
             this.contentStyle.marginBottom = "80px"
         },
         mounted() {
-            this.fromOrderPreview = this.$router.currentRoute.params.fromOrderPreview == 'true'
+            this.from = this.$router.currentRoute.params.from
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
             window.addEventListener('scroll', this.scrollHandler)
             this.load()

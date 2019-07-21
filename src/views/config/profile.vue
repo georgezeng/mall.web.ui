@@ -38,8 +38,7 @@
                     </div>
                 </popup>
             </div>
-            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data"
-                  :action="config.baseUrl + '/client/avatar/upload'">
+            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
             </form>
             <group>
@@ -155,7 +154,7 @@
                 })
             },
             slideUp() {
-                document.body.scrollTop = document.documentElement.scrollTop = 1000
+                document.body.scrollTop = document.documentElement.scrollTop = 2000
             },
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0

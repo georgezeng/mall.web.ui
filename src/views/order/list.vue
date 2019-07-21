@@ -88,8 +88,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
-                    <Button @click="pickedUpConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                    <Button @click="pickupConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         确认收货
+                    </Button>
+                    <Button @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                        申请售后
                     </Button>
                     <Button @click="goExpress(item.id)" style="float: right;" type="primary">查看物流</Button>
                     <div class="clearfix"></div>
@@ -162,13 +165,22 @@
         computed: {},
         methods: {
             goAfterSale(id) {
-
+                Util.putJson('orderInfo', {
+                    fromList: true,
+                    type: this.type
+                })
+                Util.go('AfterSaleList', {
+                    id,
+                    status: 'NotYet'
+                })
             },
             goExpress(id) {
-                Util.go('MyOrderExpress', {
-                    id,
-                    fromList: 'true',
+                Util.putJson('orderInfo', {
+                    fromList: true,
                     type: this.type
+                })
+                Util.go('MyOrderExpress', {
+                    id
                 })
             },
             pay(item) {
@@ -190,14 +202,20 @@
                 }
             },
             goDetail(id) {
-                Util.go('MyOrderDetail', {
-                    id,
+                Util.putJson('orderInfo', {
                     type: this.type
+                })
+                Util.go('MyOrderDetail', {
+                    id
                 })
             },
             goEvaluate(id) {
+                Util.putJson('orderInfo', {
+                    fromList: true,
+                    type: this.type
+                })
                 Util.go('MyEvaluation', {
-                    id,
+                    id
                 })
             },
             selectType(type) {
@@ -220,7 +238,7 @@
                 }
                 this.load()
             },
-            pickedUpConfirm(id) {
+            pickupConfirm(id) {
                 MessageBox.confirm('你确定已经收到商品吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
@@ -311,8 +329,8 @@
             this.contentStyle.marginTop = '125px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.type = this.$router.currentRoute.params.type
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
+            this.type = this.$router.currentRoute.params.type
             this.reload()
             if (Util.isInWechat()) {
                 Util.wxConfig([

@@ -104,11 +104,19 @@ util.getJson = function (key) {
 }
 
 util.put = function (key, value) {
-    window.localStorage.setItem(key, value)
+    if (value) {
+        window.localStorage.setItem(key, value)
+    } else {
+        window.localStorage.setItem(key, null)
+    }
 }
 
 util.putJson = function (key, value) {
-    window.localStorage.setItem(key, JSON.stringify(value))
+    if (value) {
+        window.localStorage.setItem(key, JSON.stringify(value))
+    } else {
+        window.localStorage.setItem(key, null)
+    }
 }
 
 util.wepayForJsApi = (orderId, callback) => {

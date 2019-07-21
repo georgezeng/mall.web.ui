@@ -239,7 +239,7 @@
                             </div>
                         </div>
                         <group>
-                            <x-number title="数量" fillable v-model="nums" :max="99" :min="0"></x-number>
+                            <x-number title="数量" fillable v-model="nums" :max="99" :min="1"></x-number>
                         </group>
                         <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
                             <div class="confirmBtn" @click="confirmSpec">确定</div>
@@ -533,17 +533,17 @@
                         Util.go('GoodsItemList', {
                             id: id ? id : 0
                         })
-                        break
                     }
+                        break
                     case 'home': {
                         Util.go('Home')
-                        break
                     }
+                        break
                     case 'order': {
-                        if (Util.get('orderDetailId')) {
+                        const id = Util.get('orderId')
+                        if (id) {
                             Util.go('MyOrderDetail', {
-                                id: Util.get('orderDetailId'),
-                                type: Util.get('orderListType')
+                                id
                             })
                         } else {
                             Util.go('MyOrderList', {
@@ -551,6 +551,7 @@
                             })
                         }
                     }
+                        break
                 }
             },
             addToCart() {
@@ -598,7 +599,7 @@
                 }).then(key => {
                     Util.put('settleAccountData', null)
                     Util.put('settleAccountKey', key)
-                    Util.go('OrderPreview', {
+                    Util.go('OrderSettleAccount', {
                         key
                     })
                 })
@@ -769,6 +770,7 @@
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.from = this.$router.currentRoute.params.from
+            Util.put('fromForGoodsItemDetail', this.from)
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
             this.load()

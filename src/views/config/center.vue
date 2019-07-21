@@ -321,7 +321,10 @@
                 Util.go('UncommentList')
             },
             goAfterSale() {
-
+                Util.go('AfterSaleList', {
+                    id: 0,
+                    status: 'NotYet'
+                })
             },
             goSetting() {
                 Util.go('MySetting')
