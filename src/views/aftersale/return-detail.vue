@@ -99,6 +99,7 @@
                 <div style="background-color: #fff; padding: 10px;">
                     <div style="margin-top: 5px;">退款方式: 支付账号</div>
                     <div style="margin-top: 5px;">退款金额: {{item.amount}}</div>
+                    <div style="margin-top: 5px;">备注: {{item.remark}}</div>
                 </div>
             </div>
         </Content>

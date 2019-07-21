@@ -74,8 +74,8 @@
                     用户寄回商品
                 </div>
                 <div style="background-color: #fff; padding: 10px;">
-                    <div style="margin-top: 5px;">物流公司: {{item.expressCompany}}</div>
-                    <div style="margin-top: 5px;">物流单号: {{item.expressNumber}}</div>
+                    <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>
+                    <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
                 </div>
             </div>
             <div v-if="item.receiveTime != null" style="font-size: 14px;">
@@ -96,8 +96,10 @@
                 <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
                     商城已将商品寄出
                 </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    收到货物后请点击确认收货
+                <div style="background-color: #fff; padding: 10px;">
+                    <div style="margin-top: 5px;">物流公司: {{item.merchantExpressCompany}}</div>
+                    <div style="margin-top: 5px;">物流单号: {{item.merchantExpressNumber}}</div>
+                    <div style="margin-top: 5px;">备注: {{item.remark}}</div>
                 </div>
             </div>
             <div v-if="item.pickupTime != null" style="font-size: 14px;">
