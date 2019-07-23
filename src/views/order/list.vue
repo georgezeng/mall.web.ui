@@ -214,8 +214,9 @@
                     fromList: true,
                     type: this.type
                 })
-                Util.go('MyEvaluation', {
-                    id
+                Util.go('MyEvaluationList', {
+                    id,
+                    status: 'UnComment'
                 })
             },
             selectType(type) {

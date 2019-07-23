@@ -318,7 +318,10 @@
                 })
             },
             goUncommentList() {
-                Util.go('UncommentList')
+                Util.go('MyEvaluationList', {
+                    id: 0,
+                    status: 'UnComment'
+                })
             },
             goAfterSale() {
                 Util.go('AfterSaleList', {

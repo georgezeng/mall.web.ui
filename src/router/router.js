@@ -135,6 +135,15 @@ const routers = [
         component: (resolve) => require(['../views/order/express.vue'], resolve)
     },
     {
+        path: '/Order/SettleAccount/:key',
+        name: 'OrderSettleAccount',
+        meta: {
+            title: '填写订单',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/settle-account.vue'], resolve)
+    },
+    {
         path: '/AfterSale/Express/:id',
         name: 'AfterSaleExpress',
         meta: {
@@ -189,13 +198,31 @@ const routers = [
         component: (resolve) => require(['../views/aftersale/change.vue'], resolve)
     },
     {
-        path: '/Order/SettleAccount/:key',
-        name: 'OrderSettleAccount',
+        path: '/Evaluation/ItemList/:id',
+        name: 'EvaluationItemList',
         meta: {
-            title: '填写订单',
+            title: '商品评价',
             needLogin: true
         },
-        component: (resolve) => require(['../views/order/settle-account.vue'], resolve)
+        component: (resolve) => require(['../views/evaluation/item-list.vue'], resolve)
+    },
+    {
+        path: '/Evaluation/MyList/:id/:status',
+        name: 'MyEvaluationList',
+        meta: {
+            title: '我的评价',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/evaluation/my-list.vue'], resolve)
+    },
+    {
+        path: '/Evaluation/Add/:id/:type',
+        name: 'MyEvaluationAdd',
+        meta: {
+            title: '添加评价',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/evaluation/add.vue'], resolve)
     },
     {
         path: '/MyCenter',

@@ -97,6 +97,7 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
+            <load-more v-if="showLoading" tip="正在加载"></load-more>
         </Content>
     </Layout>
 </template>
@@ -181,6 +182,7 @@
                 this.allLoaded = false
                 this.page.num = 1
                 this.list = []
+                this.showSpin = true
                 this.load()
             },
             itemName(name) {
@@ -213,6 +215,13 @@
                     })
                 }
             },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
             load() {
                 if (this.allLoaded) {
                     this.showLoading = false
@@ -229,7 +238,8 @@
                             this.list.push(data[i])
                         }
                     } else {
-                        this.allLoaded = true;
+                        this.allLoaded = true
+                        this.showLoading = false
                     }
                     this.showSpin = false
                     this.loadingList = false
@@ -245,7 +255,11 @@
             this.orderId = this.$router.currentRoute.params.id
             this.status = this.$router.currentRoute.params.status
             Util.put('afterSaleOrderId', this.orderId)
+            window.addEventListener('scroll', this.scrollHandler)
             this.reload()
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>

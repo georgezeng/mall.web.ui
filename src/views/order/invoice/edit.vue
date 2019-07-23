@@ -47,7 +47,10 @@
             </group>
         </Content>
         <Footer :style="footerStyle">
-            <Button :loading="loading" type="primary" size="large" long @click="save">保存</Button>
+            <x-button :disabled="loading" :show-loading="loading" action-type="button"
+                      style="width: 100%; background-color: #008CEB;" @click.native="save">
+                <span style="font-size: 11pt; color: #fff;">保存</span>
+            </x-button>
         </Footer>
     </Layout>
 </template>

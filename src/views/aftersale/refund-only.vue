@@ -62,10 +62,9 @@
                                 v-model="form.description"></x-textarea>
                 </group>
             </div>
+            <img style="margin-right: 5px;" v-for="(filePath, index) in form.filePaths" :key="index"
+                 :src="config.publicBucketDomain + filePath" width="42" height="42"/>
             <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
-            <div style="margin: 20px 0;" v-for="filePath in form.filePaths" :key="filePath" align="center">
-                <img :src="config.publicBucketDomain + filePath" width="300" height="300"/>
-            </div>
             <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' multiple @change="fileChange"/>
             </form>

@@ -294,9 +294,9 @@
                         }, 100)
                     } else {
                         this.allLoaded = true
-                        this.showSpin = false
                         this.showLoading = false
                     }
+                    this.showSpin = false
                     this.loadingList = false
                     // this.$refs.loadmore.onBottomLoaded()
                 })
@@ -347,6 +347,7 @@
                     this.show = true
                     this.allLoaded = false
                     this.showLoading = false
+                    this.showSpin = true
                     this.list = []
                     this.load(load)
                 }
