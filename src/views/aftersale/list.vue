@@ -200,6 +200,7 @@
             back() {
                 const info = Util.getJson('orderInfo')
                 if (info) {
+                    Util.putJson('orderInfo', null)
                     if (info.fromList) {
                         Util.go('MyOrderList', {
                             type: info.type
@@ -210,9 +211,13 @@
                         })
                     }
                 } else {
-                    Util.go('MyOrderList', {
-                        type: 'All'
-                    })
+                    if (this.orderId > 0) {
+                        Util.go('MyOrderList', {
+                            type: 'All'
+                        })
+                    } else {
+                        Util.go('MyCenter')
+                    }
                 }
             },
             scrollHandler(e) {
