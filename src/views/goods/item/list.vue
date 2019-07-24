@@ -225,7 +225,8 @@
                 showSpin: true,
                 isSmallDevice: false,
                 showLoading: false,
-                loadingList: false
+                loadingList: false,
+                init: false,
             }
         },
         computed: {},
@@ -299,6 +300,10 @@
                         setTimeout(() => {
                             new Masonry(this.$refs.grid, {});
                             this.showSpin = false
+                            if (!this.init && this.$router.currentRoute.params.focus == 'true') {
+                                this.init = true
+                                this.$refs.searchInput.focus()
+                            }
                             // if (load) {
                             //     this.$refs.wrapper.scrollTop = 0
                             // }
@@ -380,11 +385,6 @@
             this.itemImageWidth = this.itemWidth - 16
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
-            if (this.$router.currentRoute.params.focus == 'true') {
-                setTimeout(() => {
-                    this.$refs.searchInput.focus()
-                }, 1000)
-            }
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
             this.orderBy('default', true)
