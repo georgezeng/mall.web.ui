@@ -263,10 +263,12 @@
                 if (this.categoryId > 0) {
                     Util.go('GoodsCategory')
                 } else {
-                    const fromHome = Util.get('fromHome')
-                    if (fromHome == 'true') {
-                        Util.put('fromHome', null)
+                    const from = Util.get('goodsItemListFrom')
+                    Util.put('goodsItemListFrom', null)
+                    if (from == 'home') {
                         Util.go('Home')
+                    } else if (from == 'category') {
+                        Util.go('GoodsCategory')
                     } else {
                         Util.go('MyCart')
                     }

@@ -152,7 +152,7 @@
         },
         methods: {
             goItemList() {
-                Util.put('fromHome', 'true')
+                Util.put('goodsItemListFrom', 'home')
                 Util.go('GoodsItemList', {
                     id: 0,
                     focus: 'true'

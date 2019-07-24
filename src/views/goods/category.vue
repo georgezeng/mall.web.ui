@@ -138,15 +138,16 @@
         computed: {},
         methods: {
             goItemList() {
+                Util.put('goodsItemListFrom', 'category')
                 Util.go('GoodsItemList', {
                     id: 0,
                     focus: 'true'
                 })
             },
             goGoodsList(id) {
+                Util.put('goodsItemListFrom', 'category')
                 Util.go('GoodsItemList', {
-                    id,
-                    fromHome: 'false'
+                    id
                 })
             },
             img(url) {
