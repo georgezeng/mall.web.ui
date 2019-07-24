@@ -383,10 +383,13 @@
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
             if (this.$router.currentRoute.params.focus == 'true') {
-                setTimeout(() => {
-                    this.$refs.searchInput.$el.children[2].focus()
-                    this.$refs.searchInput.$el.children[2].click()
-                }, 1000)
+                // setTimeout(() => {
+                //     this.$refs.searchInput.$el.children[2].focus()
+                //     this.$refs.searchInput.$el.children[2].click()
+                // }, 1000)
+                this.$nextTick(() => {
+                    this.$refs.searchInput.$el.children[2].focus();
+                });
             }
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
