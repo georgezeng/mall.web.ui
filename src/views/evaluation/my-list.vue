@@ -114,19 +114,19 @@
                         <div style="float: right;">{{item.replyTime}}</div>
                     </div>
                 </div>
-                <div v-if="item.additional != null" style="padding: 10px 10px 10px;">
+                <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
                     <div>
                         <span>追加评价:</span>
-                        <span>{{item.additional.remark}}</span>
+                        <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
-                    <div v-if="item.additional.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.additional.photos" :key="index"
+                    <div v-if="item.additionalEvaluation.photos != null">
+                        <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="42" height="42"/>
                     </div>
-                    <div v-if="item.additional.replyTime != null" style="background-color: #f5f5f5;">
-                        <div>回复: {{item.additional.reply}}</div>
-                        <div style="float: right;">{{item.additional.replyTime}}</div>
+                    <div v-if="item.additionalEvaluation.replyTime != null" style="background-color: #f5f5f5;">
+                        <div>回复: {{item.additionalEvaluation.reply}}</div>
+                        <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
                     </div>
                 </div>
             </div>
