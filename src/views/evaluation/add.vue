@@ -20,7 +20,7 @@
         </Header>
         <Content :style="contentStyle" style="margin-top: 60px;">
             <div style="padding: 10px; margin-bottom: 10px; background-color: #fff; position: relative;">
-                <img :src="item.itemThumbnail ? config.publicBucketDomain + item.itemThumbnail : ''" width="72" height="72">
+                <img :src="form.itemThumbnail ? config.publicBucketDomain + form.itemThumbnail : ''" width="72" height="72">
                 <div style="display: inline-block; margin-left: 10px; position: relative; top: -25px;">
                     <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                         商品评分等级
@@ -94,10 +94,9 @@
                     padding: '10px'
                 },
                 type: 'comment',
-                item: {
-                },
                 form: {
                     id: null,
+                    itemThumbnail: null,
                     anonymous: false,
                     value: null,
                     remark: null,
