@@ -267,6 +267,7 @@
                 })
             },
             goGoodsList() {
+                Util.put('goodsItemListFrom', 'cart')
                 Util.go('GoodsItemList', {
                     id: 0
                 })
