@@ -19,7 +19,7 @@
             <div align="center" style="position: relative; top: 0px;">{{title}}</div>
         </Header>
         <Content :style="contentStyle" style="margin-top: 60px;">
-            <div style="padding: 10px; margin-bottom: 10px; background-color: #fff;">
+            <div style="padding: 10px; margin-bottom: 10px; background-color: #fff; position: relative;">
                 <img :src="item.itemThumbnail ? config.publicBucketDomain + item.itemThumbnail : ''" width="72" height="72">
                 <div style="display: inline-block; margin-left: 10px; position: relative; top: -25px;">
                     <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -39,11 +39,11 @@
                         </RadioGroup>
                     </div>
                 </div>
-                <div style="float:right;">
-                    <check-icon :value.sync="form.anonymous"></check-icon>
+                <div style="position: absolute; bottom: 10px; right: 10px;">
+                    <check-icon style="position: relative; left: 5px;" :value.sync="form.anonymous"></check-icon>
                     匿名评价
                 </div>
-                <div class="clearfix"></div>
+                <div style="margin-bottom: 10px;" class="clearfix"></div>
             </div>
             <div style="background-color: #fff; padding: 10px;">
                 <div>
