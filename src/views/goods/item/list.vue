@@ -261,7 +261,13 @@
                 if (this.categoryId > 0) {
                     Util.go('GoodsCategory')
                 } else {
-                    Util.go('MyCart')
+                    const fromHome = Util.get('fromHome')
+                    if (fromHome == 'true') {
+                        Util.put('fromHome', null)
+                        Util.go('Home')
+                    } else {
+                        Util.go('MyCart')
+                    }
                 }
             },
             scrollHandler(e) {

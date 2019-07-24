@@ -152,10 +152,11 @@
         },
         methods: {
             goItemList() {
-              Util.go('GoodsItemList', {
-                  id: 0,
-                  focus: 'true'
-              })
+                Util.put('fromHome', 'true')
+                Util.go('GoodsItemList', {
+                    id: 0,
+                    focus: 'true'
+                })
             },
             brand(item) {
                 return item.brand ? item.brand + '|' : ''
