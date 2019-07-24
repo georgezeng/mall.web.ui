@@ -2,19 +2,19 @@ import axios from '../libs/api.request'
 
 export default {
     listUnComment(queryInfo) {
-        return axios.post('/evaluation/list/uncomment', queryInfo)
+        return axios.post('/evaluation/uncomment/list', queryInfo)
     },
     countUnComment(queryInfo) {
-        return axios.post('/evaluation/count/uncomment', queryInfo)
+        return axios.post('/evaluation/uncomment/count', queryInfo)
     },
     listComment(queryInfo) {
-        return axios.post('/evaluation/list/comment', queryInfo)
+        return axios.post('/evaluation/comment/list', queryInfo)
     },
     countComment(queryInfo) {
-        return axios.post('/evaluation/count/comment', queryInfo)
+        return axios.post('/evaluation/comment/count', queryInfo)
     },
     listCommentForGoodsItem(queryInfo) {
-        return axios.post('/evaluation/list/goodsItem', queryInfo)
+        return axios.post('/evaluation/goodsItem/list', queryInfo)
     },
     save(data) {
         return axios.post('/evaluation/save', data)

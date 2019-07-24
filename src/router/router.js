@@ -63,7 +63,7 @@ const routers = [
         component: (resolve) => require(['../views/goods/category.vue'], resolve)
     },
     {
-        path: '/Goods/Item/List/:id',
+        path: '/Goods/Item/List/:id/:focus',
         name: 'GoodsItemList',
         meta: {
             title: '商品列表',
@@ -202,7 +202,7 @@ const routers = [
         name: 'EvaluationItemList',
         meta: {
             title: '商品评价',
-            needLogin: true
+            needLogin: false
         },
         component: (resolve) => require(['../views/evaluation/item-list.vue'], resolve)
     },

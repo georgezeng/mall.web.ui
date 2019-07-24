@@ -49,7 +49,7 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.header">
-            <Input size="large" clearable search placeholder="搜索商品"/>
+            <Input size="large" @on-focus="goItemList" clearable search placeholder="搜索商品"/>
         </Header>
         <Content :style="contentStyle">
             <mt-swipe :auto="4000" style="height: 185px;">
@@ -147,6 +147,12 @@
             }
         },
         methods: {
+            goItemList() {
+              Util.go('GoodsItemList', {
+                  id: 0,
+                  focus: 'true'
+              })
+            },
             brand(item) {
                 return item.brand ? item.brand + '|' : ''
             },

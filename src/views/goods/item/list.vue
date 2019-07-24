@@ -84,7 +84,9 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <Input size="large" class="searchInput" clearable :style="{width: searchInputWidth + 'px'}" search
+            <Input size="large" v-model="queryInfo.data" ref="searchInput" class="searchInput" clearable
+                   :style="{width: searchInputWidth + 'px'}" search
+                   @on-keyup.13="reload"
                    placeholder="搜索商品"/>
             <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
                 <span class="orderTab" :class="{selected: isSelected.default}"
@@ -211,10 +213,13 @@
                 allLoaded: false,
                 itemWidth: 0,
                 itemImageWidth: 0,
-                pageInfo: {
-                    num: 1,
-                    size: 10,
-                    order: 'DESC'
+                queryInfo: {
+                    data: null,
+                    page: {
+                        num: 1,
+                        size: 10,
+                        order: 'DESC'
+                    },
                 },
                 list: [],
                 showSpin: true,
@@ -266,7 +271,7 @@
                     this.load();
                 }
             },
-            load(load) {
+            load() {
                 if (this.allLoaded) {
                     this.showLoading = false
                     return
@@ -275,13 +280,13 @@
                     return
                 }
                 this.loadingList = true
-                API.list(this.categoryId, this.searchType, this.pageInfo).then(data => {
+                API.list(this.categoryId, this.searchType, this.queryInfo).then(data => {
                     if (data && data.length > 0) {
-                        this.pageInfo.num++
+                        this.queryInfo.page.num++
                         for (let i in data) {
                             this.list.push(data[i])
                         }
-                        if (data.length < this.pageInfo.size) {
+                        if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
                         }
@@ -301,6 +306,15 @@
                     // this.$refs.loadmore.onBottomLoaded()
                 })
             },
+            reload() {
+                this.queryInfo.page.num = 1
+                this.show = true
+                this.allLoaded = false
+                this.showLoading = false
+                this.showSpin = true
+                this.list = []
+                this.load()
+            },
             orderBy(searchType, load) {
                 this.searchType = searchType
                 switch (searchType) {
@@ -308,7 +322,7 @@
                         this.isSelected.default = true
                         this.isSelected.putTime = [false, false, false]
                         this.isSelected.realPrice = [false, false, false]
-                        this.pageInfo.order = 'DESC'
+                        this.queryInfo.page.order = 'DESC'
                     }
                         break;
                     case 'putTime': {
@@ -318,11 +332,11 @@
                         if (!this.isSelected.putTime[1] && this.isSelected.putTime[2]) {
                             this.isSelected.putTime[1] = true;
                             this.isSelected.putTime[2] = false;
-                            this.pageInfo.order = 'ASC'
+                            this.queryInfo.page.order = 'ASC'
                         } else {
                             this.isSelected.putTime[1] = false;
                             this.isSelected.putTime[2] = true;
-                            this.pageInfo.order = 'DESC'
+                            this.queryInfo.page.order = 'DESC'
                         }
                     }
                         break;
@@ -333,23 +347,17 @@
                         if (!this.isSelected.realPrice[1] && this.isSelected.realPrice[2]) {
                             this.isSelected.realPrice[1] = true;
                             this.isSelected.realPrice[2] = false;
-                            this.pageInfo.order = 'ASC'
+                            this.queryInfo.page.order = 'ASC'
                         } else {
                             this.isSelected.realPrice[1] = false;
                             this.isSelected.realPrice[2] = true;
-                            this.pageInfo.order = 'DESC'
+                            this.queryInfo.page.order = 'DESC'
                         }
                     }
                         break;
                 }
                 if (load) {
-                    this.pageInfo.num = 1
-                    this.show = true
-                    this.allLoaded = false
-                    this.showLoading = false
-                    this.showSpin = true
-                    this.list = []
-                    this.load(load)
+                    this.reload()
                 }
             }
         },
@@ -366,6 +374,11 @@
             this.itemImageWidth = this.itemWidth - 16
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
+            if (this.$router.currentRoute.params.focus == 'true') {
+                setTimeout(() => {
+                    this.$refs.searchInput.focus()
+                }, 100)
+            }
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
             this.orderBy('default', true)

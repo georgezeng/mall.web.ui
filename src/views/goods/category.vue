@@ -68,7 +68,7 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
-            <Input size="large" clearable search placeholder="搜索商品"/>
+            <Input size="large" @on-focus="goItemList" clearable search placeholder="搜索商品"/>
         </Header>
         <Content :style="contentStyle">
             <div class="wrapper leftPanel" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -137,6 +137,12 @@
         },
         computed: {},
         methods: {
+            goItemList() {
+                Util.go('GoodsItemList', {
+                    id: 0,
+                    focus: 'true'
+                })
+            },
             goGoodsList(id) {
                 Util.go('GoodsItemList', {
                     id,
