@@ -383,7 +383,7 @@
             if (this.$router.currentRoute.params.focus == 'true') {
                 setTimeout(() => {
                     this.$refs.searchInput.focus()
-                }, 100)
+                }, 1000)
             }
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
