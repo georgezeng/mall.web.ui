@@ -139,6 +139,7 @@
                     page: {
                         num: 1,
                         size: 10,
+                        order: 'DESC'
                     }
                 },
                 itemWidth: 0,
@@ -199,7 +200,7 @@
                     return
                 }
                 this.loadingList = true
-                API.list(0, 'default', this.queryInfo.page).then(data => {
+                API.list(0, 'default', this.queryInfo).then(data => {
                     this.loadingList = false
                     if (data && data.length > 0) {
                         this.queryInfo.page.num++
