@@ -17,6 +17,7 @@
         position: absolute;
         top: 65px;
         left: 0px;
+        box-shadow: 0px 0px 3px -1px gray;
     }
 
     .title {

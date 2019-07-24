@@ -435,13 +435,10 @@
             avatar() {
                 if (this.item.topEvaluation) {
                     const avatar = this.item.topEvaluation.clientAvatar
-                    if (avatar && !avatar.startsWith('http') && this.$refs.avatar) {
-                        this.$refs.avatar.$el.children[0].crossOrigin = 'use-credentials'
-                    }
                     return avatar ?
                         (avatar.startsWith('http') ?
                             avatar
-                            : config.baseUrl + '/client/img/load?filePath=' + avatar)
+                            : config.publicBucketDomain + avatar)
                         : defaultAvatar
                 }
                 return ''

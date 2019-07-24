@@ -17,11 +17,12 @@
         position: absolute;
         top: 65px;
         left: 0px;
+        box-shadow: 0px 0px 3px -1px gray;
     }
 
     .title {
         display: inline-block;
-        width: 48%;
+        width: 28%;
         text-align: center;
         margin: 0;
         padding: 0;
@@ -40,15 +41,15 @@
             <div align="center" style="color: #fff;">商品评价</div>
             <div class="titlePanel">
                 <div class="title" @click="selectStatus('Good')"
-                     :class="{'selected-title': status == 'Good'}">
+                     :class="{'selected-title': queryInfo.data.value == 'Good'}">
                     好评 ({{goodTotal}})
                 </div>
                 <div class="title" @click="selectStatus('Neutrality')"
-                     :class="{'selected-title': status == 'Neutrality'}">
+                     :class="{'selected-title': queryInfo.data.value == 'Neutrality'}">
                     中评 ({{neutralityTotal}})
                 </div>
                 <div class="title" @click="selectStatus('Bad')"
-                     :class="{'selected-title': status == 'Bad'}">
+                     :class="{'selected-title': queryInfo.data.value == 'Bad'}">
                     差评 ({{badTotal}})
                 </div>
             </div>
@@ -95,19 +96,19 @@
                         <div style="float: right;">{{item.replyTime}}</div>
                     </div>
                 </div>
-                <div v-if="item.additional != null" style="padding: 10px 10px 10px;">
+                <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
                     <div>
                         <span>追加评价:</span>
-                        <span>{{item.additional.remark}}</span>
+                        <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
-                    <div v-if="item.additional.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.additional.photos" :key="index"
+                    <div v-if="item.additionalEvaluation.photos != null">
+                        <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="42" height="42"/>
                     </div>
-                    <div v-if="item.additional.replyTime != null" style="background-color: #f5f5f5;">
-                        <div>回复: {{item.additional.reply}}</div>
-                        <div style="float: right;">{{item.additional.replyTime}}</div>
+                    <div v-if="item.additionalEvaluation.replyTime != null" style="background-color: #f5f5f5;">
+                        <div>回复: {{item.additionalEvaluation.reply}}</div>
+                        <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
                     </div>
                 </div>
             </div>
@@ -146,7 +147,6 @@
                         property: 'createTime'
                     },
                 },
-
                 list: [],
                 goodTotal: 0,
                 neutralityTotal: 0,
@@ -169,7 +169,7 @@
             },
             reload() {
                 this.allLoaded = false
-                this.page.num = 1
+                this.queryInfo.page.num = 1
                 this.list = []
                 this.showSpin = true
                 this.load()
@@ -204,7 +204,7 @@
                 this.loadingList = true
                 API.listCommentForGoodsItem(this.queryInfo).then(data => {
                     if (data && data.length > 0) {
-                        this.page.num++
+                        this.queryInfo.page.num++
                         for (let i in data) {
                             this.list.push(data[i])
                         }
@@ -227,24 +227,24 @@
             API.countForGoodsItem({
                 ...this.queryInfo,
                 data: {
-                    ...this.queryInfo.data.id,
+                    id: this.queryInfo.data.id,
                     value: 'Good'
                 }
-            }).then(total => this.goodTotal = total)
+            }).then(total => total ? this.goodTotal = total : this.goodTotal = 0)
             API.countForGoodsItem({
                 ...this.queryInfo,
                 data: {
-                    ...this.queryInfo.data.id,
+                    id: this.queryInfo.data.id,
                     value: 'Neutrality'
                 }
-            }).then(total => this.neutralityTotal = total)
+            }).then(total => total ? this.neutralityTotal = total : this.neutralityTotal = 0)
             API.countForGoodsItem({
                 ...this.queryInfo,
                 data: {
-                    ...this.queryInfo.data.id,
+                    id: this.queryInfo.data.id,
                     value: 'Bad'
                 }
-            }).then(total => this.badTotal = total)
+            }).then(total => total ? this.badTotal = total : this.badTotal = 0)
         }
     }
 </script>

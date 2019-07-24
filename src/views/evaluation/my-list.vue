@@ -17,6 +17,7 @@
         position: absolute;
         top: 65px;
         left: 0px;
+        box-shadow: 0px 0px 3px -1px gray;
     }
 
     .title {
@@ -299,11 +300,11 @@
             API.countComment({
                 data: this.orderId,
                 page: this.page
-            }).then(total => this.commentTotal = total)
+            }).then(total => total ? this.commentTotal = total : this.commentTotal = 0)
             API.countUnComment({
                 data: this.orderId,
                 page: this.page
-            }).then(total => this.uncommentTotal = total)
+            }).then(total => total ? this.uncommentTotal = total : this.uncommentTotal = 0)
         }
     }
 </script>

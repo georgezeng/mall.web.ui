@@ -32,6 +32,6 @@ export default {
         return axios.post('/evaluation/upload', form)
     },
     countForGoodsItem(queryInfo) {
-        return axios.post('/evaluation/count/goodsItem', queryInfo)
+        return axios.post('/evaluation/goodsItem/count', queryInfo)
     }
 }
