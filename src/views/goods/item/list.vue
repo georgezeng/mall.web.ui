@@ -84,7 +84,7 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <Input size="large" v-model="queryInfo.data" :autofocus="autofocus" ref="searchInput" class="searchInput"
+            <Input size="large" v-model="queryInfo.data" ref="searchInput" class="searchInput"
                    clearable
                    :style="{width: searchInputWidth + 'px'}" search
                    @on-keyup.13="reload"
@@ -382,10 +382,12 @@
             this.itemImageWidth = this.itemWidth - 16
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
-            // if (this.$router.currentRoute.params.focus == 'true') {
-            //     this.$refs.searchInput.$el.children[3].focus()
-            // }
-            this.autofocus = this.$router.currentRoute.params.focus == 'true'
+            if (this.$router.currentRoute.params.focus == 'true') {
+                setTimeout(() => {
+                    this.$refs.searchInput.$el.children[2].focus()
+                    this.$refs.searchInput.$el.children[2].click()
+                }, 1000)
+            }
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             Util.put('goodsCategoryId', this.categoryId)
             this.orderBy('default', true)
