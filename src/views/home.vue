@@ -134,9 +134,12 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
-                pageInfo: {
-                    num: 1,
-                    size: 10,
+                queryInfo: {
+                    data: null,
+                    page: {
+                        num: 1,
+                        size: 10,
+                    }
                 },
                 itemWidth: 0,
                 itemImageWidth: 0,
@@ -196,14 +199,14 @@
                     return
                 }
                 this.loadingList = true
-                API.list(0, 'default', this.pageInfo).then(data => {
+                API.list(0, 'default', this.queryInfo.page).then(data => {
                     this.loadingList = false
                     if (data && data.length > 0) {
-                        this.pageInfo.num++
+                        this.queryInfo.page.num++
                         for (let i in data) {
                             this.list.push(data[i])
                         }
-                        if (data.length < this.pageInfo.size) {
+                        if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
                         }
