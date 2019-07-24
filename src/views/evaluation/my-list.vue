@@ -52,7 +52,7 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
-            <div v-if="status == 'UnComment'" style="background-color: #fff; margin-top: 10px;" v-for="item in list"
+            <div style="background-color: #fff; margin-top: 10px;" v-for="item in uncommentList"
                  :key="item.id">
                 <div style="padding: 10px; border-bottom: 1px solid #f5f5f5;">
                     <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
@@ -75,13 +75,13 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <div v-else style="background-color: #fff; margin-top: 10px;" v-for="item in list"
+            <div style="background-color: #fff; margin-top: 10px;" v-for="item in list"
                  :key="item.id">
                 <div style="border-bottom: 1px solid #f5f5f5; padding: 10px 10px 5px; font-size: 14px;">
                     <span>{{item.createTime}}</span>
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
-                <div style="padding: 10px;">
+                <div style="padding: 10px; position: relative;">
                     <img :src="config.publicBucketDomain + item.itemThumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -93,12 +93,12 @@
                         <div style="font-size: 11pt;">
                             <span>数量: x{{item.itemNums}}</span>
                         </div>
-                        <Button v-if="item.passed && item.additional == null" @click="goAddAdditional(item.id)"
-                                style="float: right;"
-                                type="primary">
-                            追加评价
-                        </Button>
                     </div>
+                    <Button v-if="item.passed && item.additionalEvaluation == null" @click="goAddAdditional(item.id)"
+                            style="position: absolute; bottom: 0px; right: 10px;"
+                            type="primary">
+                        追加评价
+                    </Button>
                 </div>
                 <div style="padding: 10px 10px 10px;">
                     <div>
@@ -162,6 +162,7 @@
                     property: 'createTime'
                 },
                 list: [],
+                uncommentList: [],
                 uncommentTotal: 0,
                 commentTotal: 0,
                 allLoaded: false,
@@ -205,6 +206,7 @@
                 this.allLoaded = false
                 this.page.num = 1
                 this.list = []
+                this.uncommentList = []
                 this.showSpin = true
                 this.load()
             },
@@ -260,7 +262,7 @@
                         if (data && data.length > 0) {
                             this.page.num++
                             for (let i in data) {
-                                this.list.push(data[i])
+                                this.uncommentList.push(data[i])
                             }
                         } else {
                             this.allLoaded = true;
