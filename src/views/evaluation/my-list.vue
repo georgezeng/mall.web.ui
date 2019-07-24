@@ -209,7 +209,7 @@
             },
             itemName(name) {
                 if (!this.isSmallDevice) {
-                    return name ? (name.length > 20 ? name.substring(0, 20) + '...' : name) : ''
+                    return name ? (name.length > 16 ? name.substring(0, 16) + '...' : name) : ''
                 }
                 return name ? (name.length > 12 ? name.substring(0, 12) + '...' : name) : ''
             },
@@ -222,6 +222,7 @@
             back() {
                 const info = Util.getJson('orderInfo')
                 if (info) {
+                    Util.putJson('orderInfo', null)
                     if (info.fromList) {
                         Util.go('MyOrderList', {
                             type: info.type
@@ -232,9 +233,13 @@
                         })
                     }
                 } else {
-                    Util.go('MyOrderList', {
-                        type: 'All'
-                    })
+                    if (this.orderId > 0) {
+                        Util.go('MyOrderList', {
+                            type: 'All'
+                        })
+                    } else {
+                        Util.go('MyCenter')
+                    }
                 }
             },
             load() {
