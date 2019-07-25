@@ -87,7 +87,8 @@
                         <span>{{item.remark}}</span>
                     </div>
                     <div v-if="item.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.photos" :key="index"
+                        <img @click="showBigImg(config.publicBucketDomain + path)" style="margin-right: 5px;"
+                             v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="42" height="42"/>
                     </div>
@@ -102,7 +103,8 @@
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
+                        <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos"
+                             :key="index"
                              :src="config.publicBucketDomain + path"
                              width="42" height="42"/>
                     </div>
@@ -160,6 +162,21 @@
         },
         computed: {},
         methods: {
+            showBigImg(url) {
+                this.$Modal.info({
+                    render: (h) => {
+                        return h('img', {
+                            attrs: {
+                                src: url,
+                            },
+                            style: {
+                                width: (!this.isSmallDevice ? '300px' : '250px'),
+                                height: (!this.isSmallDevice ? '300px' : '250px')
+                            }
+                        })
+                    }
+                })
+            },
             selectStatus(status) {
                 if (this.queryInfo.data.value == status) {
                     return
@@ -217,7 +234,7 @@
             },
         },
         mounted() {
-            this.isSmallDevice = document.documentElement.clientWidth < 400
+            this.isSmallDevice = document.documentElement.clientWidth < 330
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
