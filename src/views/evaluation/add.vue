@@ -132,6 +132,10 @@
             fileChange() {
                 const formData = new FormData(this.$refs.uploadform)
                 const ufiles = this.$refs.uploadFile.files
+                if (this.form.photos.length + ufiles.length > 5) {
+                    this.$vux.toast.show({text: "最多上传5张图片", type: 'text'})
+                    return
+                }
                 for (let i = 0; i < ufiles.length; i++) {
                     formData.append("files", ufiles[i]);
                 }
@@ -139,7 +143,9 @@
                     text: '上传中...'
                 })
                 API.upload(formData).then(filePaths => {
-                    this.form.photos = filePaths
+                    for (let i in filePaths) {
+                        this.form.photos.push(filePaths[i])
+                    }
                     this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()

@@ -92,8 +92,8 @@
                     <Button @click="pickupConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         确认收货
                     </Button>
-                    <Button @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;" type="primary">
-                        申请售后
+                    <Button @click="goRefundOnly(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                        取消订单
                     </Button>
                     <Button @click="goExpress(item.id)" style="float: right;" type="primary">查看物流</Button>
                     <div class="clearfix"></div>
@@ -173,6 +173,15 @@
                 Util.go('AfterSaleList', {
                     id,
                     status: 'NotYet'
+                })
+            },
+            goRefundOnly(id) {
+                Util.putJson('orderInfo', {
+                    fromList: true,
+                    type: this.type
+                })
+                Util.go('AfterSaleRefundOnly', {
+                    id
                 })
             },
             goExpress(id) {

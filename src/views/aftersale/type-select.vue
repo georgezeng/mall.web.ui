@@ -16,12 +16,14 @@
             <div align="center" style="position: relative; top: 0px;">选择售后类型</div>
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 60px;">
+            <!--
             <mt-cell @click.native="goRefundOnly" is-link>
                 <div slot="title" style="padding: 20px 0;">
                     <div style="font-weight: bold; color: black; margin-bottom: 10px;">仅退款</div>
                     <div style="color: gray; font-size: 12px;">未收到货(包含未签收与拒收)，或者协商后需要退款。</div>
                 </div>
             </mt-cell>
+            -->
             <mt-cell @click.native="goSalesReturn" is-link style="border-top: 2px solid #f5f5f5;">
                 <div slot="title" style="padding: 20px 0;">
                     <div style="font-weight: bold; color: black; margin-bottom: 10px;">退货退款</div>
@@ -62,11 +64,11 @@
                     id: this.id
                 })
             },
-            goRefundOnly() {
-                Util.go('AfterSaleRefundOnly', {
-                    id: this.id
-                })
-            },
+            // goRefundOnly() {
+            //     Util.go('AfterSaleRefundOnly', {
+            //         id: this.id
+            //     })
+            // },
             back() {
                 const info = Util.getJson('afterSaleInfo')
                 Util.go('AfterSaleList', {

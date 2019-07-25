@@ -66,8 +66,8 @@
                                 v-model="form.description"></x-textarea>
                 </group>
             </div>
-            <img style="margin-right: 5px;" v-for="(filePath, index) in form.filePaths" :key="index"
-                 :src="config.publicBucketDomain + filePath" width="42" height="42"/>
+            <img style="margin-right: 5px;" v-for="(path, index) in form.photos" :key="index"
+                 :src="config.publicBucketDomain + path" width="42" height="42"/>
             <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
             <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' multiple @change="fileChange"/>
@@ -108,7 +108,7 @@
                     nums: 1,
                     reason: null,
                     description: null,
-                    filePaths: [],
+                    photos: [],
                 },
                 reasonPopup: false,
                 reasonValue: [],
@@ -138,14 +138,20 @@
             fileChange() {
                 const formData = new FormData(this.$refs.uploadform)
                 const ufiles = this.$refs.uploadFile.files
+                if (this.form.photos.length + ufiles.length > 5) {
+                    this.$vux.toast.show({text: "最多上传5张图片", type: 'text'})
+                    return
+                }
                 for (let i = 0; i < ufiles.length; i++) {
                     formData.append("files", ufiles[i]);
                 }
                 this.$vux.loading.show({
                     text: '上传中...'
                 })
-                API.upload(this.id, formData).then(filePaths => {
-                    this.form.filePaths = filePaths
+                API.upload(this.form.id, formData).then(filePaths => {
+                    for (let i in filePaths) {
+                        this.form.photos.push(filePaths[i])
+                    }
                     this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()

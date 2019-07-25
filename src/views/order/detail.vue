@@ -156,8 +156,8 @@
                         type="primary">
                     确认收货
                 </Button>
-                <Button @click="goAfterSale(form.id)" style="float: right; margin-left: 10px;" type="primary">
-                    申请售后
+                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" type="primary">
+                    取消订单
                 </Button>
                 <Button size="large" :loading="loading" style="float: right;" @click="goExpress(form.id)"
                         type="primary">
@@ -254,6 +254,14 @@
             }
         },
         methods: {
+            goRefundOnly(id) {
+                Util.putJson('orderInfo', {
+                    fromList: false
+                })
+                Util.go('AfterSaleRefundOnly', {
+                    id
+                })
+            },
             goAfterSale(id) {
                 let info = Util.getJson('orderInfo')
                 if(!info) {

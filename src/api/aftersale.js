@@ -14,7 +14,11 @@ export default {
         return axios.get('/afterSale/load/params/' + id)
     },
     save(data) {
-        return axios.post('/afterSale/apply', data)
+        if (data.type != 'RefundOnly') {
+            return axios.post('/afterSale/apply', data)
+        } else {
+            return axios.post('/afterSale/apply/refund', data)
+        }
     },
     pickup(id) {
         return axios.get('/afterSale/pickup/params/' + id)

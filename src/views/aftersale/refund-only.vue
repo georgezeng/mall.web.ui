@@ -48,10 +48,10 @@
                 <span style="font-size: 14px;">{{form.reason}}</span>
             </mt-cell>
             <div style="padding: 10px; border-top: 2px solid #f5f5f5;">
-                商品数量: <span style="color: gray;">{{item.subOrder.nums}}</span>
+                商品个数: <span style="color: gray;">{{item.subList.length}}</span>
             </div>
             <div style="padding: 10px; border-top: 2px solid #f5f5f5;">
-                退款金额: <span style="color: gray;">￥{{item.subOrder.dealPrice.toFixed(2)}}</span>
+                退款金额: <span style="color: gray;">￥{{item.totalPrice.toFixed(2)}}</span>
             </div>
             <div style="padding: 10px; border-top: 2px solid #f5f5f5;">
                 <div>问题描述:</div>
@@ -62,8 +62,8 @@
                                 v-model="form.description"></x-textarea>
                 </group>
             </div>
-            <img style="margin-right: 5px;" v-for="(filePath, index) in form.filePaths" :key="index"
-                 :src="config.publicBucketDomain + filePath" width="42" height="42"/>
+            <img style="margin-right: 5px;" v-for="(path, index) in form.photos" :key="index"
+                 :src="config.publicBucketDomain + path" width="42" height="42"/>
             <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
             <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' multiple @change="fileChange"/>
@@ -79,6 +79,7 @@
 </template>
 <script>
     import API from '../../api/aftersale.js'
+    import GoodsItemAPI from '../../api/goods-item-detail'
     import config from '../../config/index'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
@@ -94,17 +95,15 @@
                 },
                 loading: false,
                 item: {
-                    subOrder: {
-                        nums: 0,
-                        dealPrice: 0
-                    }
+                    subList: [],
+                    totalPrice: 0
                 },
                 form: {
                     id: null,
                     type: 'RefundOnly',
                     reason: null,
                     description: null,
-                    filePaths: [],
+                    photos: [],
                 },
                 reasonPopup: false,
                 reasonValue: [],
@@ -130,6 +129,10 @@
             fileChange() {
                 const formData = new FormData(this.$refs.uploadform)
                 const ufiles = this.$refs.uploadFile.files
+                if (this.form.photos.length + ufiles.length > 5) {
+                    this.$vux.toast.show({text: "最多上传5张图片", type: 'text'})
+                    return
+                }
                 for (let i = 0; i < ufiles.length; i++) {
                     formData.append("files", ufiles[i]);
                 }
@@ -137,7 +140,9 @@
                     text: '上传中...'
                 })
                 API.upload(this.form.id, formData).then(filePaths => {
-                    this.form.filePaths = filePaths
+                    for (let i in filePaths) {
+                        this.form.photos.push(filePaths[i])
+                    }
                     this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()
@@ -165,14 +170,27 @@
                 this.reasonPopup = true
             },
             back() {
-                Util.go('AfterSaleTypeSelect', {
-                    id: this.form.id
+                const info = Util.getJson('orderInfo')
+                let type = 'All'
+                if (info) {
+                    if (!info.fromList) {
+                        Util.go('MyOrderDetail', {
+                            id: this.form.id
+                        })
+                        return
+                    }
+                    if (info.type) {
+                        type = info.type
+                    }
+                }
+                Util.go('MyOrderList', {
+                    type
                 })
             },
             load() {
                 if (this.form.id > 0) {
                     this.loading = true
-                    API.load(this.form.id).then(data => {
+                    GoodsItemAPI.load(this.form.id).then(data => {
                         this.item = data
                         this.loadReasons();
                         this.loading = false
