@@ -97,14 +97,14 @@ util.get = function (key) {
 
 util.getJson = function (key) {
     let value = window.localStorage.getItem(key)
-    if (value) {
+    if (value != null) {
         value = JSON.parse(value)
     }
     return value
 }
 
 util.put = function (key, value) {
-    if (value) {
+    if (value != null) {
         window.localStorage.setItem(key, value)
     } else {
         window.localStorage.setItem(key, null)
@@ -112,7 +112,7 @@ util.put = function (key, value) {
 }
 
 util.putJson = function (key, value) {
-    if (value) {
+    if (value != null) {
         window.localStorage.setItem(key, JSON.stringify(value))
     } else {
         window.localStorage.setItem(key, null)

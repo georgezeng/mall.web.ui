@@ -141,7 +141,6 @@
         computed: {},
         methods: {
             goDetail(item) {
-                Util.put('afterSaleOrderId', this.orderId)
                 Util.putJson('afterSaleInfo', {
                     status: this.status
                 })
