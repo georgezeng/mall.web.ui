@@ -24,7 +24,7 @@
         },
         methods: {
             load() {
-                Util.alipay(this.id)
+                Util.alipay(this.id, '/Home')
             },
         },
         computed: {

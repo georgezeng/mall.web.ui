@@ -226,7 +226,7 @@
                         }
                             break
                         case 'AliPay': {
-                            Util.alipay(id)
+                            Util.alipay(id, '/Order/List/All')
                         }
                             break
                     }
