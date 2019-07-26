@@ -9,9 +9,7 @@
     </div>
 </template>
 <script>
-    import API from '../../api/alipay.js'
     import TipArrow from '../../images/tip-arrow.png'
-    import config from '../../config/index.js'
     import Util from '../../libs/util.js'
 
     export default {
