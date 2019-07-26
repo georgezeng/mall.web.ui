@@ -302,7 +302,8 @@
                     items: [],
                     fromCart: false,
                     remark: null
-                }
+                },
+                loading: false,
             }
         },
         computed: {
@@ -358,6 +359,10 @@
                 if (this.data.invoice.title == null) {
                     data.invoice = null
                 }
+                if (this.loading == true) {
+                    return
+                }
+                this.loading = true
                 this.$vux.loading.show({
                     text: '加载中...'
                 })
@@ -389,8 +394,10 @@
                         }
                     }
                     this.$vux.loading.hide()
+                    this.loading = false
                 }).catch(e => {
                     this.$vux.loading.hide()
+                    this.loading = false
                 })
             },
             resetUI() {
