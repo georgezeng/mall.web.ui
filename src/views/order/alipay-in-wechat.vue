@@ -37,7 +37,7 @@
             if (!Util.isInWechat()) {
                 this.load()
             } else {
-                window.location.href = window.location.href.replace('?', 'oid=' + this.id + '&')
+                window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
             }
         }
     }
