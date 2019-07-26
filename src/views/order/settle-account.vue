@@ -382,7 +382,12 @@
                                 })
                             })
                         } else {
-
+                            Util.alipay(id, () => {
+                                this.$vux.toast.show({
+                                    text: '支付成功',
+                                    type: 'text',
+                                })
+                            })
                         }
                     }
                 })
