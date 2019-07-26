@@ -11,6 +11,7 @@
 <script>
     import TipArrow from '../../images/tip-arrow.png'
     import Util from '../../libs/util.js'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {},
@@ -37,7 +38,10 @@
             if (!Util.isInWechat()) {
                 this.load()
             } else {
-                window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
+                const oid = UrlParams(window.location.href, 'oid')
+                if (!oid) {
+                    window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
+                }
             }
         }
     }
