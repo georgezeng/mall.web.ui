@@ -262,6 +262,7 @@
                 this.allLoaded = false
                 this.queryInfo.page.num = 1
                 this.list = []
+                this.showSpin = true
                 switch (this.type) {
                     case 'All':
                         this.queryInfo.data = null;
