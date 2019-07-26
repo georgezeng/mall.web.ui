@@ -120,7 +120,7 @@
                     const id = info && info.id ? info.id : 0
                     Util.go('AfterSaleList', {
                         id,
-                        status: info && info.status ? info.status : 'NotYet'
+                        status: 'Processing'
                     })
                 }).catch(e => {
                     this.loading = false
