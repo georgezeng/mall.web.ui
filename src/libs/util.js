@@ -132,7 +132,7 @@ util.alipay = (orderId) => {
     // }).catch(e => {
     //     Vue.$vux.loading.hide()
     // })
-    window.location.href = '/client/alipay/prepare/params/' + orderId
+    window.location.href = config.baseUrl + 'client/alipay/prepare/params/' + orderId
 }
 
 util.wepayForJsApi = (orderId, callback) => {
