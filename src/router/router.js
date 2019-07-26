@@ -332,9 +332,9 @@ const routers = [
         },
         component: (resolve) => require(['../views/404.vue'], resolve)
     },
-    {
-        path: "*",
-        redirect: '/404'
-    },
+    // {
+    //     path: "*",
+    //     redirect: '/404'
+    // },
 ];
 export default routers;
