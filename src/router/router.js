@@ -144,6 +144,15 @@ const routers = [
         component: (resolve) => require(['../views/order/settle-account.vue'], resolve)
     },
     {
+        path: '/AlipayInWechat/:id',
+        name: 'AlipayInWechat',
+        meta: {
+            title: '支付宝支付',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/alipay-in-wechat.vue'], resolve)
+    },
+    {
         path: '/AfterSale/Express/:id',
         name: 'AfterSaleExpress',
         meta: {

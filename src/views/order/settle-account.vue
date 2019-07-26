@@ -380,7 +380,9 @@
                                 })
                             })
                         } else {
-
+                            Util.go('AlipayInWechat', {
+                                id
+                            })
                         }
                     } else {
                         if (data.payment == 'WePay') {
