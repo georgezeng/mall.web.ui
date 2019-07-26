@@ -120,20 +120,19 @@ util.putJson = function (key, value) {
     }
 }
 
-util.alipay = (orderId, callback) => {
-    Vue.$vux.loading.show({
-        text: '加载中...'
-    })
-    AlipayAPI.prepare({
-        id: orderId
-    }).then(data => {
-        if (typeof(callback) === 'function') {
-            callback()
-        }
-        Vue.$vux.loading.hide()
-    }).catch(e => {
-        Vue.$vux.loading.hide()
-    })
+util.alipay = (orderId) => {
+    // Vue.$vux.loading.show({
+    //     text: '加载中...'
+    // })
+    // AlipayAPI.prepare(orderId).then(data => {
+    //     if (typeof(callback) === 'function') {
+    //         callback(data)
+    //     }
+    //     Vue.$vux.loading.hide()
+    // }).catch(e => {
+    //     Vue.$vux.loading.hide()
+    // })
+    window.location.href = '/client/alipay/prepare/params/' + orderId
 }
 
 util.wepayForJsApi = (orderId, callback) => {
