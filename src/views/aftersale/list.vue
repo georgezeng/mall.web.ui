@@ -141,6 +141,10 @@
         computed: {},
         methods: {
             goDetail(item) {
+                Util.put('afterSaleOrderId', this.orderId)
+                Util.putJson('afterSaleInfo', {
+                    status: this.status
+                })
                 switch (item.type.name) {
                     case 'RefundOnly': {
                         Util.go('AfterSaleRefundOnlyDetail', {
@@ -270,6 +274,9 @@
                         this.allLoaded = true
                         this.showLoading = false
                     }
+                    this.showSpin = false
+                    this.loadingList = false
+                }).catch(e => {
                     this.showSpin = false
                     this.loadingList = false
                 })
