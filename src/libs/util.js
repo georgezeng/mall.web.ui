@@ -2,7 +2,6 @@ import Cookies from 'js-cookie'
 import config from '../config/index'
 import router from '../router/index'
 import WechatAPI from '../api/wechat.js'
-import AlipayAPI from '../api/alipay.js'
 import wx from 'weixin-js-sdk'
 import {Message} from 'iview'
 import Vue from 'vue'
@@ -121,17 +120,6 @@ util.putJson = function (key, value) {
 }
 
 util.alipay = (orderId) => {
-    // Vue.$vux.loading.show({
-    //     text: '加载中...'
-    // })
-    // AlipayAPI.prepare(orderId).then(data => {
-    //     if (typeof(callback) === 'function') {
-    //         callback(data)
-    //     }
-    //     Vue.$vux.loading.hide()
-    // }).catch(e => {
-    //     Vue.$vux.loading.hide()
-    // })
     window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + orderId
 }
 
