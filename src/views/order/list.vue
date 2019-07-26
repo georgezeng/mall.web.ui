@@ -194,20 +194,38 @@
                 })
             },
             pay(item) {
+                const id = item.id
                 if (Util.isInWechat()) {
-                    if (item.payment.name == 'WePay') {
-                        Util.wepayForJsApi(item.id, () => {
-                            this.type = 'All'
-                            this.reload()
-                        })
-                    } else {
-
+                    switch (data.payment) {
+                        case 'WePay': {
+                            Util.wepayForJsApi(id, () => {
+                                Util.go('MyOrderList', {
+                                    type: 'All'
+                                })
+                            })
+                        }
+                            break
+                        case 'AliPay': {
+                            Util.go('AlipayInWechat', {
+                                id
+                            })
+                        }
+                            break
                     }
                 } else {
-                    if (item.payment.name == 'WePay') {
-
-                    } else {
-
+                    switch (data.payment) {
+                        case 'WePay': {
+                            Util.wepayForMweb(id, () => {
+                                Util.go('MyOrderList', {
+                                    type: 'All'
+                                })
+                            })
+                        }
+                            break
+                        case 'AliPay': {
+                            Util.alipay(id)
+                        }
+                            break
                     }
                 }
             },

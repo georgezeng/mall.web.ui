@@ -375,26 +375,36 @@
                     Util.put('settleAccountData', null)
                     Util.put('settleAccountKey', null)
                     if (Util.isInWechat()) {
-                        if (data.payment == 'WePay') {
-                            Util.wepayForJsApi(id, () => {
-                                Util.go('MyOrderList', {
-                                    type: 'All'
+                        switch (data.payment) {
+                            case 'WePay': {
+                                Util.wepayForJsApi(id, () => {
+                                    Util.go('MyOrderList', {
+                                        type: 'All'
+                                    })
                                 })
-                            })
-                        } else {
-                            Util.go('AlipayInWechat', {
-                                id
-                            })
+                            }
+                                break
+                            case 'AliPay': {
+                                Util.go('AlipayInWechat', {
+                                    id
+                                })
+                            }
+                                break
                         }
                     } else {
-                        if (data.payment == 'WePay') {
-                            Util.wepayForMweb(id, () => {
-                                Util.go('MyOrderList', {
-                                    type: 'All'
+                        switch (data.payment) {
+                            case 'WePay': {
+                                Util.wepayForMweb(id, () => {
+                                    Util.go('MyOrderList', {
+                                        type: 'All'
+                                    })
                                 })
-                            })
-                        } else {
-                            Util.alipay(id)
+                            }
+                                break
+                            case 'AliPay': {
+                                Util.alipay(id)
+                            }
+                                break
                         }
                     }
                     this.$vux.loading.hide()
