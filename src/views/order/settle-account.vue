@@ -358,6 +358,9 @@
                 if (this.data.invoice.title == null) {
                     data.invoice = null
                 }
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
                 API.create(data).then(id => {
                     // this.$vux.toast.show({
                     //     text: '创建订单成功',
@@ -385,6 +388,9 @@
                             Util.alipay(id)
                         }
                     }
+                    this.$vux.loading.hide()
+                }).catch(e => {
+                    this.$vux.loading.hide()
                 })
             },
             resetUI() {
