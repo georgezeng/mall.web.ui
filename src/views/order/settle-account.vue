@@ -518,7 +518,7 @@
             this.contentStyle.minHeight = wrapperHeight + 'px'
             this.footerStyle.padding = '0'
             this.key = this.$router.currentRoute.params.key
-            if (!key) {
+            if (!this.key) {
                 Util.go('Home')
                 return
             }
