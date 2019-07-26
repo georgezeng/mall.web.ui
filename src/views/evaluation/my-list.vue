@@ -269,6 +269,9 @@
                         }
                         this.showSpin = false
                         this.loadingList = false
+                    }).catch(e => {
+                        this.showSpin = false
+                        this.loadingList = false
                     })
                 } else {
                     API.listComment({
@@ -283,6 +286,9 @@
                         } else {
                             this.allLoaded = true;
                         }
+                        this.showSpin = false
+                        this.loadingList = false
+                    }).catch(e => {
                         this.showSpin = false
                         this.loadingList = false
                     })

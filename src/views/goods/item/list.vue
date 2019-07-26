@@ -314,6 +314,9 @@
                     this.showSpin = false
                     this.loadingList = false
                     // this.$refs.loadmore.onBottomLoaded()
+                }).catch(e => {
+                    this.showSpin = false
+                    this.loadingList = false
                 })
             },
             reload() {

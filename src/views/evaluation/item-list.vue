@@ -230,6 +230,9 @@
                     }
                     this.showSpin = false
                     this.loadingList = false
+                }).catch(e => {
+                    this.showSpin = false
+                    this.loadingList = false
                 })
             },
         },
