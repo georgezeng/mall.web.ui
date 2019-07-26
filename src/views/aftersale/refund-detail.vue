@@ -144,6 +144,7 @@
             },
         },
         mounted() {
+            this.contentStyle.marginTop = '60px'
             this.isSmallDevice = document.documentElement.clientWidth < 400
             this.item.id = this.$router.currentRoute.params.id
             this.load()
