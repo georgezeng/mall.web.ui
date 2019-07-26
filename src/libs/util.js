@@ -121,7 +121,7 @@ util.putJson = function (key, value) {
 }
 
 util.alipay = (orderId) => {
-    const uid = UrlParams(window.location.href, 'uid')
+    const uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
     window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId
 }
 
