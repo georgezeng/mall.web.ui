@@ -120,9 +120,8 @@ util.putJson = function (key, value) {
     }
 }
 
-util.alipay = (orderId, to) => {
-    const uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
-    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '?to=' + encodeURIComponent(to)
+util.alipay = (orderId) => {
+    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId
 }
 
 util.wepayForJsApi = (orderId, callback) => {
