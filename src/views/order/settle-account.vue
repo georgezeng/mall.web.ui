@@ -518,6 +518,10 @@
             this.contentStyle.minHeight = wrapperHeight + 'px'
             this.footerStyle.padding = '0'
             this.key = this.$router.currentRoute.params.key
+            if (!key) {
+                Util.go('Home')
+                return
+            }
             const data = Util.getJson('settleAccountData')
             if (data) {
                 this.data = data
