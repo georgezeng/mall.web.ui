@@ -198,6 +198,33 @@ const routers = [
         component: (resolve) => require(['../views/aftersale/change.vue'], resolve)
     },
     {
+        path: '/AfterSale/RefundOnly/Detail/:id',
+        name: 'AfterSaleRefundOnlyDetail',
+        meta: {
+            title: '仅退款详情',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/refund-detail.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/SalesReturn/Detail/:id',
+        name: 'AfterSaleSalesReturnDetail',
+        meta: {
+            title: '退货退款详情',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/return-detail.vue'], resolve)
+    },
+    {
+        path: '/AfterSale/Change/Detail/:id',
+        name: 'AfterSaleChangeDetail',
+        meta: {
+            title: '换货详情',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/aftersale/change-detail.vue'], resolve)
+    },
+    {
         path: '/Evaluation/ItemList/:id',
         name: 'EvaluationItemList',
         meta: {

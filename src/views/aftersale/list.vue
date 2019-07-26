@@ -64,11 +64,12 @@
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div style="background-color: #fff; margin-top: 20px;" v-for="item in list"
                  :key="item.id">
-                <div v-if="item.status.name != 'NotYet'" style="border-bottom: 1px solid #f5f5f5; padding: 10px 10px 5px; font-size: 14px;">
+                <div v-if="item.status.name != 'NotYet'"
+                     style="border-bottom: 1px solid #f5f5f5; padding: 10px 10px 5px; font-size: 14px;">
                     申请时间: {{item.createTime}}
                     <span style="float: right; color: orangered;">{{item.status.clientText}}</span>
                 </div>
-                <div style="padding: 10px;">
+                <div @click="goDetail(item)" style="padding: 10px;">
                     <img :src="config.publicBucketDomain + item.subOrder.thumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -139,6 +140,28 @@
         },
         computed: {},
         methods: {
+            goDetail(item) {
+                switch (item.type.name) {
+                    case 'RefundOnly': {
+                        Util.go('AfterSaleRefundOnlyDetail', {
+                            id: item.id
+                        })
+                    }
+                        break
+                    case 'SalesReturn': {
+                        Util.go('AfterSaleSalesReturnDetail', {
+                            id: item.id
+                        })
+                    }
+                        break
+                    case 'Change': {
+                        Util.go('AfterSaleChangeDetail', {
+                            id: item.id
+                        })
+                    }
+                        break
+                }
+            },
             pickupConfirm(id) {
                 MessageBox.confirm('你确定已经收到商品吗?').then(action => {
                     this.$vux.loading.show({
