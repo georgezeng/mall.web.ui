@@ -194,6 +194,9 @@
                 })
             },
             pay(item) {
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
                 const id = item.id
                 if (Util.isInWechat()) {
                     switch (item.payment.name) {
@@ -228,6 +231,7 @@
                             break
                     }
                 }
+                this.$vux.loading.hide()
             },
             goDetail(id) {
                 Util.putJson('orderInfo', {

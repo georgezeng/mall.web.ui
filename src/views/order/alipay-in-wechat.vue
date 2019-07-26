@@ -36,8 +36,6 @@
             this.id = this.$router.currentRoute.params.id
             if (!Util.isInWechat()) {
                 this.load()
-            } else {
-                window.location.href = window.location.href.replace('?', 'oid=' + this.id + '&')
             }
         }
     }
