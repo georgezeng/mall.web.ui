@@ -10,7 +10,6 @@
             const orderId = UrlParams(window.location.href, 'oid')
             if (orderId) {
                 Util.go('AlipayInWechat', {
-                    uid: userId,
                     id: orderId
                 })
                 return
