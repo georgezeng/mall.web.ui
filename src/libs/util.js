@@ -5,6 +5,7 @@ import WechatAPI from '../api/wechat.js'
 import wx from 'weixin-js-sdk'
 import {Message} from 'iview'
 import Vue from 'vue'
+import UrlParams from 'get-url-param'
 
 let util = {};
 util.title = function (title) {
@@ -120,7 +121,8 @@ util.putJson = function (key, value) {
 }
 
 util.alipay = (orderId) => {
-    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + orderId
+    const uid = UrlParams(window.location.href, 'uid')
+    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId
 }
 
 util.wepayForJsApi = (orderId, callback) => {
