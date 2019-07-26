@@ -79,7 +79,7 @@
 </template>
 <script>
     import API from '../../api/aftersale.js'
-    import GoodsItemAPI from '../../api/goods-item-detail'
+    import OrderAPI from '../../api/order'
     import config from '../../config/index'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
@@ -190,7 +190,7 @@
             load() {
                 if (this.form.id > 0) {
                     this.loading = true
-                    GoodsItemAPI.load(this.form.id).then(data => {
+                    OrderAPI.load(this.form.id).then(data => {
                         this.item = data
                         this.loadReasons();
                         this.loading = false
