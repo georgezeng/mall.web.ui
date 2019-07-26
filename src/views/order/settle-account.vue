@@ -372,6 +372,8 @@
                     //     type: 'success',
                     //     width: '200px'
                     // })
+                    Util.put('settleAccountData', null)
+                    Util.put('settleAccountKey', null)
                     if (Util.isInWechat()) {
                         if (data.payment == 'WePay') {
                             Util.wepayForJsApi(id, () => {
