@@ -196,7 +196,7 @@
             pay(item) {
                 const id = item.id
                 if (Util.isInWechat()) {
-                    switch (item.payment) {
+                    switch (item.payment.name) {
                         case 'WePay': {
                             Util.wepayForJsApi(id, () => {
                                 Util.go('MyOrderList', {
@@ -213,7 +213,7 @@
                             break
                     }
                 } else {
-                    switch (item.payment) {
+                    switch (item.payment.name) {
                         case 'WePay': {
                             Util.wepayForMweb(id, () => {
                                 Util.go('MyOrderList', {
