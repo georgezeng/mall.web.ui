@@ -85,7 +85,7 @@
                 // }).catch(e => {
                 //     this.$Spin.hide()
                 // })
-                if (this.loginInfo) {
+                if (this.loginInfo.username) {
                     this.login()
                 } else {
                     this.showRegister = true
@@ -151,6 +151,7 @@
         },
         mounted() {
             this.loginInfo = this.$router.currentRoute.params.info
+            this.token = this.loginInfo.password
             this.load()
         }
     }
