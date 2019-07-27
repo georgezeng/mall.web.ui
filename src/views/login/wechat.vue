@@ -138,10 +138,11 @@
                             token: this.token
                         }).then(res => {
                             this.loading = false
-                            this.login({
+                            this.loginInfo = {
                                 username: this.form.username,
                                 password: this.token
-                            })
+                            }
+                            this.login()
                         }).catch(ex => {
                             this.loading = false
                         })
