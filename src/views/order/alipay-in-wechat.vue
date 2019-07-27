@@ -97,6 +97,7 @@
 </template>
 <script>
     import TipArrow from '../../images/tip-arrow.png'
+    import API from '../../api/order.js'
     import Util from '../../libs/util.js'
     import UrlParams from 'get-url-param'
 
@@ -128,7 +129,15 @@
                 }, 3000)
             },
             load() {
-                Util.alipay(this.id, 'wechat')
+                API.checkPaid(this.id).then(paid => {
+                    if (paid) {
+                        this.goSuccess()
+                    } else {
+                        setTimeout(this.load, 1000)
+                    }
+                }).catch(e => {
+                    setTimeout(this.load, 1000)
+                })
             }
         },
         computed: {
@@ -140,7 +149,7 @@
             this.minHeight = document.documentElement.clientHeight + 'px'
             this.id = this.$router.currentRoute.params.id
             if (!Util.isInWechat()) {
-                this.load()
+                Util.alipay(this.id, 'wechat')
             } else {
                 const oid = UrlParams(window.location.href, 'oid')
                 if (!oid) {
@@ -150,6 +159,7 @@
                 window.setTimeout(() => {
                     this.show = false
                 }, 3000)
+                this.load()
             }
         }
     }

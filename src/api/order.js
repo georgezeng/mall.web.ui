@@ -37,4 +37,7 @@ export default {
     load(id) {
         return axios.get('/order/load/params/' + id)
     },
+    checkPaid(id) {
+        return axios.get('/order/checkPaid/params/' + id)
+    },
 }
