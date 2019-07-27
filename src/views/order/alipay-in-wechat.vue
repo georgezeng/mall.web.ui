@@ -4,14 +4,6 @@
         font-family: PingFangSC-Regular, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
     }
 
-    .am-header {
-        display: none;
-    }
-
-    .alipay-logo {
-        display: none;
-    }
-
     .result {
         position: absolute;
         top: 50%;
@@ -53,30 +45,27 @@
     }
 
     .result-botton a {
-        display: block;
-        margin: auto;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        max-width: 384px;
-        height: 44px;
-        text-align: center;
+        display: block !important;
+        margin: auto !important;
+        -webkit-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+        max-width: 384px !important;
+        height: 44px !important;
+        text-align: center !important;
     }
 
     .result-botton a.am-button-white {
-        color: #00aaee;
-        background: #ffffff;
-        border: 1px solid #00aaee;
+        color: #00aaee !important;
+        background: #ffffff !important;
+        border: 1px solid #00aaee !important;
     }
 
     .result-botton .am-button[disabled=disabled] {
-        color: #e6e6e6;
-        background: #f8f8f8;
-        border: 1px solid #dedede;
+        color: #e6e6e6 !important;
+        background: #f8f8f8 !important;
+        border: 1px solid #dedede !important;
     }
 
-    .loading {
-        display: none;
-    }
 </style>
 
 <template>
@@ -92,6 +81,7 @@
         <div v-else class="am-content">
             <div class="result">
                 <div class="result-logo"></div>
+                <div class="result-title">&nbsp;</div>
                 <div class="result-tips">1.如果未打开支付宝客户端或未完成付款，请点击“继续支付”;</div>
                 <div class="result-tips" style="margin-bottom: 60px;">2.如果你已完成，请点击“已完成付款”；</div>
                 <div class="result-botton">
@@ -132,6 +122,9 @@
             },
             showTip() {
                 this.show = true
+                window.setTimeout(() => {
+                    this.show = false
+                }, 3000)
             },
             load() {
                 Util.alipay(this.id, 'wechat')
