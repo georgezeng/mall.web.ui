@@ -19,7 +19,8 @@
             return {
                 TipArrow,
                 id: null,
-                minHeight: 0
+                minHeight: 0,
+                handler: null
             }
         },
         methods: {
@@ -44,10 +45,14 @@
                     return
                 }
                 window.history.pushState({}, "title", "#");
-                window.onpopstate = function() {
+                this.handler = function() {
                     Util.go('Home')
                 }
+                window.onpopstate = this.handler
             }
+        },
+        destroyed() {
+            window.removeEventListener('popstate', this.handler)
         }
     }
 </script>
