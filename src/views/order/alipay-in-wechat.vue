@@ -124,6 +124,9 @@
             },
             showTip() {
                 this.show = true
+                this.closeTip()
+            },
+            closeTip() {
                 window.setTimeout(() => {
                     this.show = false
                 }, 3000)
@@ -133,10 +136,10 @@
                     if (paid) {
                         this.goSuccess()
                     } else {
-                        setTimeout(this.load, 1000)
+                        window.setTimeout(this.load, 1000)
                     }
                 }).catch(e => {
-                    setTimeout(this.load, 1000)
+                    window.setTimeout(this.load, 1000)
                 })
             }
         },
@@ -156,9 +159,7 @@
                     window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
                     return
                 }
-                window.setTimeout(() => {
-                    this.show = false
-                }, 3000)
+                this.closeTip()
                 this.load()
             }
         }
