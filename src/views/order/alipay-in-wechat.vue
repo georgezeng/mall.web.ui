@@ -20,7 +20,6 @@
                 TipArrow,
                 id: null,
                 minHeight: 0,
-                handler: null
             }
         },
         methods: {
@@ -45,16 +44,13 @@
                     return
                 }
                 window.history.pushState({}, "title", "#");
-                this.handler = function () {
+                window.onpopstate = function () {
                     Util.go('Home')
                 }
-                window.onpopstate = this.handler
             }
         },
         destroyed() {
-            if (this.handler != null) {
-                window.removeEventListener('popstate', this.handler)
-            }
+            window.onpopstate = null
         }
     }
 </script>
