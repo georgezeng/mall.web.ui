@@ -111,7 +111,7 @@
                     return
                 }
                 const code = UrlParams(window.location.href, "code")
-                if (!code) {alert(winow.location.href)
+                if (!code) {alert(window.location.href)
                     this.authorize()
                 } else {
                     this.loadWechatInfo()
