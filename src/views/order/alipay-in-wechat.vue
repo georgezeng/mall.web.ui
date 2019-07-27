@@ -5,43 +5,43 @@
     }
 
     .result {
-        position: absolute;
-        top: 50%;
-        margin-top: -215px;
-        width: 100%;
+        position: absolute !important;
+        top: 50% !important;
+        margin-top: -215px !important;
+        width: 100% !important;
     }
 
     .result-logo {
-        width: 70px;
-        height: 98px;
-        margin: auto;
-        background-image: url(../../images/alipay-logo-2.png);
-        background-repeat: no-repeat;
-        background-size: contain;
+        width: 70px !important;
+        height: 98px !important;
+        margin: auto !important;
+        background-image: url(../../images/alipay-logo-2.png) !important;
+        background-repeat: no-repeat !important;
+        background-size: contain !important;
     }
 
     .result-title {
-        margin: 40px 0 14px;
-        text-align: center;
-        font-size: 21px;
-        color: #00a0e8;
-        line-height: 25px;
+        margin: 40px 0 14px !important;
+        text-align: center !important;
+        font-size: 21px !important;
+        color: #00a0e8 !important;
+        line-height: 25px !important;
     }
 
     .result-tips {
-        max-width: 370px;
-        margin: 0 auto 10px;
-        padding: 0 15px;
-        font-size: 15px;
-        color: #a5a5a5;
-        line-height: 18px;
-        text-align: left;
-        word-break: break-all;
-        word-wrap: break-word;
+        max-width: 370px !important;
+        margin: 0 auto 10px !important;
+        padding: 0 15px !important;
+        font-size: 15px !important;
+        color: #a5a5a5 !important;
+        line-height: 18px !important;
+        text-align: left !important;
+        word-break: break-all !important;
+        word-wrap: break-word !important;
     }
 
     .result-botton {
-        margin: 0 15px 20px;
+        margin: 0 15px 20px !important;
     }
 
     .result-botton a {
