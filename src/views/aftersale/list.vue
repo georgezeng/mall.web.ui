@@ -231,10 +231,12 @@
                         Util.go('MyOrderList', {
                             type: info.type
                         })
-                    } else {
+                    } else if(info.id) {
                         Util.go('MyOrderDetail', {
                             id: info.id
                         })
+                    } else {
+                        Util.go('MyCenter')
                     }
                 } else {
                     if (this.orderId > 0) {
