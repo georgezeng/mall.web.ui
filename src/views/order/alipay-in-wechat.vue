@@ -20,15 +20,16 @@
                 TipArrow,
                 id: null,
                 minHeight: 0,
-                handler: function() {
-                    Util.go('Home')
-                }
+
             }
         },
         methods: {
             load() {
                 Util.alipay(this.id)
             },
+            handler() {
+                Util.go('Home')
+            }
         },
         computed: {
             isInWechat() {
