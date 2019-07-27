@@ -58,14 +58,15 @@
         color: #00aaee;
         background: #ffffff;
         border: 1px solid #00aaee;
+        line-height: 40px;
     }
 
-    .result-botton .am-button[disabled=disabled] {
-        color: #e6e6e6;
-        background: #f8f8f8;
-        border: 1px solid #dedede;
+    .result-botton a.am-button-blue {
+        border: 1px solid #0ae;
+        color: #fff;
+        background: #0ae;
+        line-height: 40px;
     }
-
 </style>
 
 <template>
