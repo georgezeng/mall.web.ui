@@ -1,20 +1,24 @@
 <style scoped lang="less">
     body {
         font-weight: 500 !important;
-        font-family: PingFangSC-Regular, "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif !important;
+        font-family: PingFangSC-Regular, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
     }
+
     .am-header {
         display: none;
     }
+
     .alipay-logo {
         display: none;
     }
+
     .result {
         position: absolute;
         top: 50%;
         margin-top: -215px;
         width: 100%;
     }
+
     .result-logo {
         width: 70px;
         height: 98px;
@@ -23,6 +27,7 @@
         background-repeat: no-repeat;
         background-size: contain;
     }
+
     .result-title {
         margin: 40px 0 14px;
         text-align: center;
@@ -30,39 +35,45 @@
         color: #00a0e8;
         line-height: 25px;
     }
+
     .result-tips {
         max-width: 370px;
         margin: 0 auto 10px;
         padding: 0 15px;
         font-size: 15px;
         color: #a5a5a5;
-        line-height:18px;
-        text-align:left;
-        word-break:break-all;
-        word-wrap:break-word;
+        line-height: 18px;
+        text-align: left;
+        word-break: break-all;
+        word-wrap: break-word;
     }
+
     .result-botton {
         margin: 0 15px 20px;
     }
+
     .result-botton a {
         display: block;
         margin: auto;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         max-width: 384px;
-        height:44px;
+        height: 44px;
         text-align: center;
     }
+
     .result-botton a.am-button-white {
         color: #00aaee;
-        background:#ffffff;
-        border:1px solid #00aaee;
+        background: #ffffff;
+        border: 1px solid #00aaee;
     }
+
     .result-botton .am-button[disabled=disabled] {
         color: #e6e6e6;
         background: #f8f8f8;
         border: 1px solid #dedede;
     }
+
     .loading {
         display: none;
     }
@@ -111,8 +122,13 @@
         },
         methods: {
             goSuccess() {
-                const uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
-                window.location.href = '/?uid=' + uid + '#/Order/List/All'
+                let uid = UrlParams(window.location.href, 'uid')
+                if (uid) {
+                    uid = uid.replace(/#.+/, '')
+                    window.location.href = '/?uid=' + uid + '#/Order/List/All'
+                } else {
+                    window.location.href = '/'
+                }
             },
             showTip() {
                 this.show = true
@@ -132,7 +148,7 @@
             if (!Util.isInWechat()) {
                 this.load()
             } else {
-                const oid = UrlParams(window.location.href, 'oid').replace(/#.+/, '')
+                const oid = UrlParams(window.location.href, 'oid')
                 if (!oid) {
                     window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
                     return
