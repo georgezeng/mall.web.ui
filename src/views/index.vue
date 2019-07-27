@@ -7,8 +7,9 @@
 
     export default {
         mounted() {
-            const orderId = UrlParams(window.location.href, 'oid')
+            let orderId = UrlParams(window.location.href, 'oid')
             if (orderId) {
+                orderId = orderId.replace(/#\.+/, '')
                 Util.go('AlipayInWechat', {
                     id: orderId
                 })
