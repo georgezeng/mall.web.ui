@@ -162,11 +162,17 @@
                     this.$vux.toast.show({text: '请上传身份证照片', type: 'text', width: '200px'})
                     return
                 }
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
                 this.loading = true
                 API.save(this.data).then(res => {
-                    window.location.reload(true)
+                    this.$vux.toast.show({text: '保存成功'})
+                    this.loading = false
+                    this.$vux.loading.hide()
                 }).catch(e => {
                     this.loading = false
+                    this.$vux.loading.hide()
                 })
             },
             reset() {

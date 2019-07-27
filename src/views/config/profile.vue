@@ -148,7 +148,8 @@
                     text: '上传中...'
                 })
                 API.uploadAvatar(formData).then(filePath => {
-                    window.location.reload(true)
+                    // window.location.reload(true)
+                    this.info.avatar = filePath
                 }).catch(e => {
                     this.$vux.loading.hide()
                 })
