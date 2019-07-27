@@ -227,7 +227,6 @@
             back() {
                 const info = Util.getJson('orderInfo')
                 if (info) {
-                    Util.putJson('orderInfo', null)
                     if (info.fromList) {
                         Util.go('MyOrderList', {
                             type: info.type
