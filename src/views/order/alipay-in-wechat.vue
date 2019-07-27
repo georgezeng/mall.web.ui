@@ -41,6 +41,10 @@
                 const oid = UrlParams(window.location.href, 'oid')
                 if (!oid) {
                     window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
+                    return
+                }
+                window.onpopstate = function() {
+                    Util.go('Home')
                 }
             }
         }
