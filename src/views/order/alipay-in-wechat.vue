@@ -43,6 +43,7 @@
                     window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
                     return
                 }
+                window.history.pushState({}, "title", "#");
                 window.onpopstate = function() {
                     Util.go('Home')
                 }
