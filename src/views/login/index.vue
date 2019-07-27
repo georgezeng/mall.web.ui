@@ -104,16 +104,16 @@
         mounted() {
             if (this.isWechat) {
                 const from = UrlParams(window.location.href, 'from')
-                if (from) {
+                if (from) {alert(1)
                     const uid = UrlParams(window.location.href, 'uid')
                     window.location.href = config.baseUrl + '/index?url='
                         + encodeURIComponent(window.location.protocol + "//" + window.location.host + "/" + (uid ? "?uid=" + uid : '') + "#/Login")
                     return
                 }
                 const code = UrlParams(window.location.href, "code")
-                if (!code) {
+                if (!code) {alert(2)
                     this.authorize()
-                } else {
+                } else {alert(3)
                     this.loadWechatInfo()
                 }
             } else {
