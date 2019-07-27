@@ -137,7 +137,7 @@
                     window.location.href = window.location.href.replace('?', '?oid=' + this.id + '&')
                     return
                 }
-                setTimeout(() => {
+                window.setTimeout(() => {
                     this.show = false
                 }, 3000)
             }
