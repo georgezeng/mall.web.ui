@@ -402,7 +402,7 @@
                             }
                                 break
                             case 'AliPay': {
-                                Util.alipay(id)
+                                Util.alipay(id, 'system')
                             }
                                 break
                         }
@@ -488,7 +488,7 @@
                 API.getPreview(this.key).then(data => {
                     if (!data) {
                         this.$vux.toast.show({
-                            text: '结算信息失效，请重新下单',
+                            text: '结算失效，请重新下单',
                             type: 'text',
                             width: '250px'
                         })
