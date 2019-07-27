@@ -45,14 +45,16 @@
                     return
                 }
                 window.history.pushState({}, "title", "#");
-                this.handler = function() {
+                this.handler = function () {
                     Util.go('Home')
                 }
                 window.onpopstate = this.handler
             }
         },
         destroyed() {
-            window.removeEventListener('popstate', this.handler)
+            if (this.handler != null) {
+                window.removeEventListener('popstate', this.handler)
+            }
         }
     }
 </script>
