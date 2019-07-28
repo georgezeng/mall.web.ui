@@ -169,7 +169,7 @@
                     }
                 } else {
                     Util.go('MyOrderDetail', {
-                        id: item.parentId
+                        id: item.order.id
                     })
                 }
             },
