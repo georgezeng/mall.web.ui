@@ -56,6 +56,9 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
+            <Modal v-model="popup" footer-hide fullscreen>
+                <img :src="popupImg" />
+            </Modal>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in list"
                  :key="item.id">
                 <div style="border-bottom: 1px solid #f5f5f5; padding: 10px 10px 5px; font-size: 14px;">
@@ -72,7 +75,7 @@
                         <span>{{item.remark}}</span>
                     </div>
                     <div v-if="item.photos != null">
-                        <img style="margin-right: 10px;"
+                        <img @click="showBigImg(config.publicBucketDomain + path)" style="margin-right: 10px;"
                              v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
@@ -89,7 +92,7 @@
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
-                        <img style="margin-right: 10px;"
+                        <img @click="showBigImg(config.publicBucketDomain + path)" style="margin-right: 10px;"
                              v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
@@ -145,24 +148,28 @@
                 loadingList: false,
                 showSpin: true,
                 isSmallDevice: false,
+                popup: false,
+                popupImg: null
             }
         },
         computed: {},
         methods: {
             showBigImg(url) {
-                this.$Modal.info({
-                    render: (h) => {
-                        return h('img', {
-                            attrs: {
-                                src: url,
-                            },
-                            style: {
-                                width: (!this.isSmallDevice ? '300px' : '250px'),
-                                height: (!this.isSmallDevice ? '300px' : '250px')
-                            }
-                        })
-                    }
-                })
+                // this.$Modal.info({
+                //     render: (h) => {
+                //         return h('img', {
+                //             attrs: {
+                //                 src: url,
+                //             },
+                //             style: {
+                //                 width: (!this.isSmallDevice ? '300px' : '250px'),
+                //                 height: (!this.isSmallDevice ? '300px' : '250px')
+                //             }
+                //         })
+                //     }
+                // })'
+                this.popupImg = url
+                this.popup = true
             },
             selectStatus(status) {
                 if (this.queryInfo.data.value == status) {
