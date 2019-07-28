@@ -453,28 +453,16 @@
                 this.showPayment = true
             },
             back() {
-                if (this.data.fromCart) {
-                    Util.go('MyCart')
-                } else {
-                    const from = Util.get('fromForGoodsItemDetail')
-                    if (from) {
-                        Util.go('GoodsItemDetail', {
-                            id: this.data.items[0].item.id,
-                            from
-                        })
-                    } else {
-                        Util.go('GoodsItemList', {
-                            id: 0
-                        })
-                    }
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             goPickupAddress() {
                 Util.putJson('settleAccountData', this.data)
                 Util.put('settleAccountKey', this.key)
-                Util.go('MyAddressList', {
+                Util.putForNav({
                     from: 'OrderSettleAccount'
                 })
+                Util.go('MyAddressList')
             },
             loadAddress() {
                 AddressAPI.loadDefault().then(address => {

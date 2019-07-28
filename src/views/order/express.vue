@@ -43,22 +43,8 @@
         computed: {},
         methods: {
             back() {
-                const info = Util.getJson('orderInfo')
-                if (info) {
-                    if (info.fromList) {
-                        Util.go('MyOrderList', {
-                            type: info.type
-                        })
-                    } else {
-                        Util.go('MyOrderDetail', {
-                            id: this.data.id
-                        })
-                    }
-                } else {
-                    Util.go('MyOrderList', {
-                        type: 'All'
-                    })
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.data.id > 0) {

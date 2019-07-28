@@ -116,10 +116,9 @@
                 this.loading = true
                 API.save(this.form).then(res => {
                     this.loading = false
-                    const info = Util.getJson('afterSaleInfo')
-                    const id = info && info.id ? info.id : 0
+                    const nav = Util.getForNav()
                     Util.go('AfterSaleList', {
-                        id,
+                        id: nav.id ? nav.id : 0,
                         status: 'Processing'
                     })
                 }).catch(e => {
@@ -170,22 +169,8 @@
                 this.reasonPopup = true
             },
             back() {
-                const info = Util.getJson('orderInfo')
-                let type = 'All'
-                if (info) {
-                    if (!info.fromList) {
-                        Util.go('MyOrderDetail', {
-                            id: this.form.id
-                        })
-                        return
-                    }
-                    if (info.type) {
-                        type = info.type
-                    }
-                }
-                Util.go('MyOrderList', {
-                    type
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.form.id > 0) {

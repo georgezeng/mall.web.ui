@@ -152,7 +152,9 @@
         },
         methods: {
             goItemList() {
-                Util.put('goodsItemListFrom', 'home')
+                Util.putForNav({
+                    from: 'Home'
+                })
                 Util.go('GoodsItemList', {
                     id: 0,
                     focus: 'true'
@@ -180,9 +182,11 @@
                 }
             },
             goDetail(id) {
+                Util.putForNav({
+                    from: 'Home'
+                })
                 Util.go('GoodsItemDetail', {
-                    id,
-                    from: 'home'
+                    id
                 })
             },
             scrollHandler(e) {

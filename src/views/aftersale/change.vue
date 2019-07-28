@@ -193,10 +193,11 @@
         methods: {
             goPickupAddress() {
                 Util.putJson('afterSaleChangeData', this.form)
-                Util.put('afterSaleChangeId', this.form.id)
-                Util.go('MyAddressList', {
-                    from: 'AfterSaleChange'
+                Util.putForNav({
+                    from: 'AfterSaleChange',
+                    id: this.form.id
                 })
+                Util.go('MyAddressList')
             },
             loadAddress() {
                 this.loading = true
@@ -213,12 +214,11 @@
                 this.loading = true
                 API.save(this.form).then(res => {
                     this.loading = false
-                    const info = Util.getJson('afterSaleInfo')
-                    const id = info.id ? info.id : 0
-                    Util.go('AfterSaleList', {
-                        id,
-                        status: info && info.status ? info.status : 'NotYet'
-                    })
+                    let nav = Util.getForNav()
+                    if (nav.from != 'AfterSaleList') {
+                        nav = Util.getForNav()
+                    }
+                    Util.go(nav.from, nav)
                 }).catch(e => {
                     this.loading = false
                 })
@@ -267,9 +267,8 @@
                 this.reasonPopup = true
             },
             back() {
-                Util.go('AfterSaleTypeSelect', {
-                    id: this.form.id
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.form.id > 0) {

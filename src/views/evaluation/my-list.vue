@@ -54,7 +54,7 @@
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in uncommentList"
                  :key="item.id">
-                <div style="padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                <div @click="goItem(item.id)" style="padding: 10px; border-bottom: 1px solid #f5f5f5;">
                     <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -175,9 +175,20 @@
         },
         computed: {},
         methods: {
+            goItem(id) {
+                Util.putForNav({
+                    from: 'MyEvaluationList',
+                    id: this.orderId,
+                    status: this.status
+                })
+                Util.go('GoodsItemDetail', {
+                    id
+                })
+            },
             goAdd(id) {
-                Util.putJson('evaluationInfo', {
-                    orderId: this.orderId,
+                Util.putForNav({
+                    from: 'MyEvaluationList',
+                    id: this.orderId,
                     status: this.status
                 })
                 Util.go('MyEvaluationAdd', {
@@ -186,8 +197,9 @@
                 })
             },
             goAddAdditional(id) {
-                Util.putJson('evaluationInfo', {
-                    orderId: this.orderId,
+                Util.putForNav({
+                    from: 'MyEvaluationList',
+                    id: this.orderId,
                     status: this.status
                 })
                 Util.go('MyEvaluationAdd', {
@@ -223,27 +235,8 @@
                 return values ? (values.length > 16 ? values.substring(0, 16) + '...' : values) : ''
             },
             back() {
-                const info = Util.getJson('orderInfo')
-                if (info) {
-                    Util.putJson('orderInfo', null)
-                    if (info.fromList) {
-                        Util.go('MyOrderList', {
-                            type: info.type
-                        })
-                    } else {
-                        Util.go('MyOrderDetail', {
-                            id: info.id
-                        })
-                    }
-                } else {
-                    if (this.orderId > 0) {
-                        Util.go('MyOrderList', {
-                            type: 'All'
-                        })
-                    } else {
-                        Util.go('MyCenter')
-                    }
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.allLoaded) {

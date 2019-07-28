@@ -142,60 +142,46 @@
                     order: 'DESC',
                     property: 'createTime'
                 },
-                from: 'MySetting',
                 // init: false,
                 showLoading: false,
                 loadingList: false,
-                clientY: 0
+                clientY: 0,
+                nav: null
             }
         },
         computed: {},
         methods: {
             getItem(item, index) {
-                if (this.from == 'OrderSettleAccount') {
-                    const data = Util.getJson('settleAccountData')
-                    if (data) {
-                        this.checkAsSelect(item.id, index)
-                        data.address = item
-                        Util.putJson('settleAccountData', data)
-                        Util.go('OrderSettleAccount', {
-                            key: Util.get('settleAccountKey')
-                        })
+                switch (this.nav.from) {
+                    case 'OrderSettleAccount': {
+                        const data = Util.getJson('settleAccountData')
+                        if (data) {
+                            this.checkAsSelect(item.id, index)
+                            data.address = item
+                            Util.putJson('settleAccountData', data)
+                            Util.go('OrderSettleAccount', {
+                                key: Util.get('settleAccountKey')
+                            })
+                        }
                     }
-                } else if (this.from == 'AfterSaleChange') {
-                    const data = Util.getJson('afterSaleChangeData')
-                    if (data) {
-                        this.checkAsSelect(item.id, index)
-                        data.address = item
-                        Util.putJson('afterSaleChangeData', data)
-                        Util.go('AfterSaleChange', {
-                            id: Util.get('afterSaleChangeId')
-                        })
+                        break
+                    case 'AfterSaleChange': {
+                        const data = Util.getJson('afterSaleChangeData')
+                        if (data) {
+                            this.checkAsSelect(item.id, index)
+                            data.address = item
+                            Util.putJson('afterSaleChangeData', data)
+                            Util.go('AfterSaleChange', {
+                                id: Util.get('afterSaleChangeId')
+                            })
+                        }
                     }
                 }
             },
             back() {
-                if (this.from == 'OrderSettleAccount') {
-                    const key = Util.get('settleAccountKey')
-                    if (key) {
-                        Util.go('OrderSettleAccount', {
-                            key
-                        })
-                        return
-                    }
-                } else if (this.from == 'AfterSaleChange') {
-                    const id = Util.get('afterSaleChangeId')
-                    if (id) {
-                        Util.go('AfterSaleChange', {
-                            id
-                        })
-                        return
-                    }
-                }
-                Util.go('MySetting')
+                Util.go(this.nav.from, this.nav)
             },
             goEdit(id) {
-                Util.put('fromForAddress', this.from)
                 Util.go('MyAddressEdit', {
                     id
                 })
@@ -250,10 +236,13 @@
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         let info = null
-                        if(this.from == 'OrderSettleAccount') {
-                            info = Util.getJson('settleAccountData')
-                        } else if(this.from == 'AfterSaleChange') {
-                            info = Util.getJson('afterSaleChangeData')
+                        switch (this.nav.from) {
+                            case 'OrderSettleAccount':
+                                info = Util.getJson('settleAccountData');
+                                break
+                            case 'AfterSaleChange':
+                                info = Util.getJson('afterSaleChangeData');
+                                break
                         }
                         const address = info ? info.address : {}
                         for (let i in data) {
@@ -292,9 +281,9 @@
             this.footerStyle.padding = "20px"
             this.contentStyle.marginTop = "60px"
             this.contentStyle.marginBottom = "80px"
+            this.nav = Util.getForNav()
         },
         mounted() {
-            this.from = this.$router.currentRoute.params.from
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
             window.addEventListener('scroll', this.scrollHandler)
             this.load()

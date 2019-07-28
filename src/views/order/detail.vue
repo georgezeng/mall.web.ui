@@ -255,22 +255,18 @@
         },
         methods: {
             goRefundOnly(id) {
-                Util.putJson('orderInfo', {
-                    fromList: false
+                Util.putForNav({
+                    from: 'MyOrderDetail',
+                    id: this.form.id
                 })
                 Util.go('AfterSaleRefundOnly', {
                     id
                 })
             },
             goAfterSale(id) {
-                let info = Util.getJson('orderInfo')
-                if(!info) {
-                    info = {}
-                }
-                Util.putJson('orderInfo', {
-                    ...info,
-                    id,
-                    fromList: false
+                Util.putForNav({
+                    from: 'MyOrderDetail',
+                    id: this.form.id
                 })
                 Util.go('AfterSaleList', {
                     id,
@@ -278,9 +274,9 @@
                 })
             },
             goExpress(id) {
-                Util.putJson('orderInfo', {
-                    ...Util.getJson('orderInfo'),
-                    fromList: 'false',
+                Util.putForNav({
+                    from: 'MyOrderDetail',
+                    id: this.form.id
                 })
                 Util.go('MyOrderExpress', {
                     id
@@ -299,6 +295,10 @@
                 return values.length > 13 ? values.substring(0, 13) + '...' : values
             },
             goEvaluate(id) {
+                Util.putForNav({
+                    from: 'MyOrderDetail',
+                    id: this.form.id
+                })
                 Util.go('MyEvaluation', {
                     id,
                 })
@@ -347,18 +347,17 @@
                 }
             },
             goDetail(id) {
-                Util.put('orderId', id)
+                Util.putForNav({
+                    from: 'MyOrderDetail',
+                    id: this.form.id
+                })
                 Util.go('GoodsItemDetail', {
-                    id,
-                    from: 'order'
+                    id
                 })
             },
             back() {
-                const info = Util.getJson('orderInfo')
-                const type = info.type ? info.type : 'All'
-                Util.go('MyOrderList', {
-                    type
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.form.id > 0) {

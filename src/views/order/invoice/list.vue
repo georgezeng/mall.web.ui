@@ -125,9 +125,15 @@
             },
             back() {
                 const key = Util.get('settleAccountKey')
-                Util.go('OrderSettleAccount', {
-                    key
-                })
+                if (key) {
+                    Util.go('OrderSettleAccount', {
+                        key
+                    })
+                } else {
+                    Util.go('GoodsItemList', {
+                        id: 0
+                    })
+                }
             },
             goEdit(id) {
                 Util.go('MyInvoiceEdit', {

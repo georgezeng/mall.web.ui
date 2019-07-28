@@ -161,12 +161,10 @@
         computed: {},
         methods: {
             goExpress() {
-                let info = Util.getJson('afterSaleInfo')
-                if (!info) {
-                    info = {}
-                }
-                info.fromList = false
-                info.type = 'SalesReturn'
+                Util.putForNav({
+                    from: 'AfterSaleSalesReturnDetail',
+                    id: this.item.id
+                })
                 Util.go('AfterSaleExpress', {
                     id: this.item.id
                 })
@@ -184,12 +182,8 @@
                 return values.length > 14 ? values.substring(0, 14) + '...' : values
             },
             back() {
-                const id = Util.get('afterSaleOrderId')
-                const info = Util.getJson('afterSaleInfo')
-                Util.go('AfterSaleList', {
-                    id: id ? id : 0,
-                    status: info && info.status ? info.status : 'NotYet'
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.item.id > 0) {

@@ -36,6 +36,7 @@ util.go = function (name, params) {
 }
 
 util.loginSuccess = (data, target) => {
+    util.clear()
     util.setToken(data.token)
     const link = window.location.href
     if (link.indexOf('?') == -1) {
@@ -118,6 +119,35 @@ util.putJson = function (key, value) {
     } else {
         window.localStorage.setItem(key, null)
     }
+}
+
+util.putForNav = function (navObj) {
+    let obj = util.getJson('NavigateArrObj')
+    if (!obj || !obj.list) {
+        obj = {
+            list: []
+        }
+    }
+    obj.list.push(navObj)
+    util.putJson('NavigateArrObj', obj)
+}
+
+util.clear = function() {
+    util.putJson('NavigateArrObj', null)
+    util.putJson('settleAccountData', null)
+    util.putJson('settleAccountKey', null)
+}
+
+util.getForNav = function () {
+    const navList = util.getJson('NavigateArrObj')
+    let nav = navList.list.pop()
+    if (!nav) {
+        nav = {
+            from: 'Home'
+        }
+    }
+    util.putJson('NavigateArrObj', navList)
+    return nav
 }
 
 util.alipay = (orderId, from) => {

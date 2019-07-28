@@ -391,7 +391,6 @@
                 confirmBuy: false,
                 nativeShare: new NativeShare(),
                 isBigDevice: false,
-                from: 'list'
             }
         },
         computed: {
@@ -529,32 +528,8 @@
                 Util.go('MyCart')
             },
             back() {
-                switch (this.from) {
-                    case 'list': {
-                        const id = Util.get('goodsCategoryId')
-                        Util.go('GoodsItemList', {
-                            id: id ? id : 0
-                        })
-                    }
-                        break
-                    case 'home': {
-                        Util.go('Home')
-                    }
-                        break
-                    case 'order': {
-                        const id = Util.get('orderId')
-                        if (id) {
-                            Util.go('MyOrderDetail', {
-                                id
-                            })
-                        } else {
-                            Util.go('MyOrderList', {
-                                type: 'All'
-                            })
-                        }
-                    }
-                        break
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             addToCart() {
                 const token = Util.getToken()
@@ -771,8 +746,6 @@
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
-            this.from = this.$router.currentRoute.params.from
-            Util.put('fromForGoodsItemDetail', this.from)
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
             this.load()

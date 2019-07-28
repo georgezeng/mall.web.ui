@@ -204,11 +204,8 @@
                 return values ? (values.length > 16 ? values.substring(0, 16) + '...' : values) : ''
             },
             back() {
-                const from = Util.get('goodsItemDetailFrom')
-                Util.go('GoodsItemDetail', {
-                    id: this.queryInfo.data.id,
-                    from: from ? from : 'home'
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.allLoaded) {

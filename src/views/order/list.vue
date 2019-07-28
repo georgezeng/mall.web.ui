@@ -166,8 +166,8 @@
         computed: {},
         methods: {
             goAfterSale(id) {
-                Util.putJson('orderInfo', {
-                    fromList: true,
+                Util.putForNav({
+                    from: 'MyOrderList',
                     type: this.type
                 })
                 Util.go('AfterSaleList', {
@@ -176,17 +176,18 @@
                 })
             },
             goRefundOnly(id) {
-                Util.putJson('orderInfo', {
-                    fromList: true,
-                    type: this.type
+                Util.putForNav({
+                    from: 'MyOrderList',
+                    type: this.type,
+                    id
                 })
                 Util.go('AfterSaleRefundOnly', {
                     id
                 })
             },
             goExpress(id) {
-                Util.putJson('orderInfo', {
-                    fromList: true,
+                Util.putForNav({
+                    from: 'MyOrderList',
                     type: this.type
                 })
                 Util.go('MyOrderExpress', {
@@ -234,7 +235,8 @@
                 this.$vux.loading.hide()
             },
             goDetail(id) {
-                Util.putJson('orderInfo', {
+                Util.putForNav({
+                    from: 'MyOrderList',
                     type: this.type
                 })
                 Util.go('MyOrderDetail', {
@@ -242,8 +244,8 @@
                 })
             },
             goEvaluate(id) {
-                Util.putJson('orderInfo', {
-                    fromList: true,
+                Util.putForNav({
+                    from: 'MyOrderList',
                     type: this.type
                 })
                 Util.go('MyEvaluationList', {

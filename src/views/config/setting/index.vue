@@ -57,9 +57,10 @@
                 Util.go('MyIdentity')
             },
             goAddress() {
-                Util.go('MyAddressList', {
+                Util.putForNav({
                     from: 'MySetting'
                 })
+                Util.go('MyAddressList')
             },
             goAbout() {
                 Util.go('AboutUs')

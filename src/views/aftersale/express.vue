@@ -70,8 +70,12 @@
                 this.loading = true
                 API.fillExpress(this.data).then(res => {
                     this.loading = false
-                    Util.go('AfterSaleList', {
-                        id: info && info.id ? info.id : 0,
+                    let nav = Util.getForNav()
+                    if (nav.from != 'AfterSaleList') {
+                        nav = Util.getForNav()
+                    }
+                    Util.go(nav.from, {
+                        id: nav.id ? nav.id : 0,
                         status: 'WaitForConfirm'
                     })
                 }).catch(e => {
@@ -82,38 +86,8 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             back() {
-                const info = Util.getJson('afterSaleInfo')
-                if (info) {
-                    if (info.fromList) {
-                        Util.go('AfterSaleList', {
-                            id: info.orderId ? info.orderId : 0,
-                            status: info.status ? info.sataus : 'NotYet'
-                        })
-                        return
-                    } else if (info.type) {
-                        let dest = null
-                        switch (info.type) {
-                            case 'SalesReturn': {
-                                dest = 'AfterSaleSalesReturnDetail'
-                            }
-                                break
-                            case 'Change': {
-                                dest = 'AfterSaleChangeDetail'
-                            }
-                                break
-                        }
-                        if (dest) {
-                            Util.go(dest, {
-                                id: this.data.id
-                            })
-                            return
-                        }
-                    }
-                }
-                Util.go('AfterSaleList', {
-                    id: 0,
-                    status: 'NotYet'
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.data.id > 0) {

@@ -69,22 +69,6 @@
                 window.location.href = '/#/MyCenter'
             },
             load() {
-                // this.$Spin.show()
-                // let code = UrlParams(window.location.href, "code")
-                // this.token = UrlParams(window.location.href, "state").replace('#/WechatLogin', '')
-                // API.loginInfo({
-                //     username: this.token,
-                //     password: code,
-                // }).then(info => {
-                //     this.$Spin.hide()
-                //     if(info) {
-                //         this.login(info)
-                //     } else {
-                //         this.showRegister = true
-                //     }
-                // }).catch(e => {
-                //     this.$Spin.hide()
-                // })
                 if (this.loginInfo.username) {
                     this.login()
                 } else {

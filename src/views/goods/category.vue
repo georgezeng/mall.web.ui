@@ -138,14 +138,18 @@
         computed: {},
         methods: {
             goItemList() {
-                Util.put('goodsItemListFrom', 'category')
+                Util.putForNav({
+                    from: 'GoodsCategory'
+                })
                 Util.go('GoodsItemList', {
                     id: 0,
                     focus: 'true'
                 })
             },
             goGoodsList(id) {
-                Util.put('goodsItemListFrom', 'category')
+                Util.putForNav({
+                    from: 'GoodsCategory'
+                })
                 Util.go('GoodsItemList', {
                     id
                 })

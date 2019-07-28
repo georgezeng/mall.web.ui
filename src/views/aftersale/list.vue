@@ -141,7 +141,9 @@
         computed: {},
         methods: {
             goDetail(item) {
-                Util.putJson('afterSaleInfo', {
+                Util.putForNav({
+                    from: 'AfterSaleList',
+                    id: this.orderId,
                     status: this.status
                 })
                 switch (item.type.name) {
@@ -180,8 +182,9 @@
                 })
             },
             goApply(id) {
-                Util.putJson('afterSaleInfo', {
-                    orderId: this.orderId,
+                Util.putForNav({
+                    from: 'AfterSaleList',
+                    id: this.orderId,
                     status: this.status
                 })
                 Util.go('AfterSaleTypeSelect', {
@@ -189,10 +192,10 @@
                 })
             },
             goExpress(id) {
-                Util.putJson('afterSaleInfo', {
-                    orderId: this.orderId,
-                    status: this.status,
-                    fromList: true
+                Util.putForNav({
+                    from: 'AfterSaleList',
+                    id: this.orderId,
+                    status: this.status
                 })
                 Util.go('AfterSaleExpress', {
                     id
@@ -225,28 +228,8 @@
                 return values.length > 14 ? values.substring(0, 14) + '...' : values
             },
             back() {
-                const info = Util.getJson('orderInfo')
-                if (info) {
-                    if (info.fromList) {
-                        Util.go('MyOrderList', {
-                            type: info.type
-                        })
-                    } else if(info.id) {
-                        Util.go('MyOrderDetail', {
-                            id: info.id
-                        })
-                    } else {
-                        Util.go('MyCenter')
-                    }
-                } else {
-                    if (this.orderId > 0) {
-                        Util.go('MyOrderList', {
-                            type: 'All'
-                        })
-                    } else {
-                        Util.go('MyCenter')
-                    }
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             scrollHandler(e) {
                 const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop

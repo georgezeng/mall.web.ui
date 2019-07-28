@@ -254,25 +254,17 @@
                 }
             },
             goDetail(id) {
+                Util.putForNav({
+                    from: 'GoodsItemList',
+                    id: this.categoryId
+                })
                 Util.go('GoodsItemDetail', {
-                    id,
-                    from: 'list'
+                    id
                 })
             },
             back() {
-                if (this.categoryId > 0) {
-                    Util.go('GoodsCategory')
-                } else {
-                    const from = Util.get('goodsItemListFrom')
-                    Util.put('goodsItemListFrom', null)
-                    if (from == 'home') {
-                        Util.go('Home')
-                    } else if (from == 'category') {
-                        Util.go('GoodsCategory')
-                    } else {
-                        Util.go('MyCart')
-                    }
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             scrollHandler(e) {
                 const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop

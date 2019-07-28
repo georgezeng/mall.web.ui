@@ -73,16 +73,7 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             back() {
-                let from = Util.get('fromForAddress')
-                if (from) {
-                    Util.go('MyAddressList', {
-                        from
-                    })
-                } else {
-                    Util.go('MyAddressList', {
-                        from: 'MySetting'
-                    })
-                }
+                Util.go('MyAddressList')
             },
             save() {
                 if (!this.form.name || this.form.name == '') {

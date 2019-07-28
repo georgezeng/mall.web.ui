@@ -183,9 +183,9 @@
                     })
                     API.pickup(this.item.id).then(res => {
                         this.$vux.loading.hide()
-                        const id = Util.get('afterSaleOrderId')
-                        Util.go('AfterSaleList', {
-                            id: id ? id : 0,
+                        const nav = Util.getForNav()
+                        Util.go(nav.from, {
+                            id: nav.id ? nav.id : 0,
                             status: 'Finished'
                         })
                     }).catch(e => {
@@ -194,12 +194,10 @@
                 })
             },
             goExpress() {
-                let info = Util.getJson('afterSaleInfo')
-                if (!info) {
-                    info = {}
-                }
-                info.fromList = false
-                info.type = 'Change'
+                Util.putForNav({
+                    from: 'AfterSaleChangeDetail',
+                    id: this.item.id
+                })
                 Util.go('AfterSaleExpress', {
                     id: this.item.id
                 })
@@ -217,12 +215,8 @@
                 return values.length > 14 ? values.substring(0, 14) + '...' : values
             },
             back() {
-                const id = Util.get('afterSaleOrderId')
-                const info = Util.getJson('afterSaleInfo')
-                Util.go('AfterSaleList', {
-                    id: id ? id : 0,
-                    status: info && info.status ? info.status : 'NotYet'
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.item.id > 0) {

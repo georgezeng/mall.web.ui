@@ -236,6 +236,9 @@
                 }).then(key => {
                     Util.put('settleAccountData', null)
                     Util.put('settleAccountKey', key)
+                    Util.putForNav({
+                        from: 'MyCart'
+                    })
                     Util.go('OrderSettleAccount', {
                         key
                     })
@@ -250,9 +253,11 @@
                 }, 1000)
             },
             goItem(id) {
+                Util.putForNav({
+                    from: 'MyCart'
+                })
                 Util.go('GoodsItemDetail', {
-                    id,
-                    fromHome: 'false'
+                    id
                 })
             },
             checkAll() {
@@ -267,7 +272,9 @@
                 })
             },
             goGoodsList() {
-                Util.put('goodsItemListFrom', 'cart')
+                Util.putForNav({
+                    from: 'MyCart'
+                })
                 Util.go('GoodsItemList', {
                     id: 0
                 })

@@ -60,6 +60,10 @@
                 })
             },
             goSalesReturn() {
+                Util.putForNav({
+                    from: 'AfterSaleTypeSelect',
+                    id: this.id
+                })
                 Util.go('AfterSaleSalesReturn', {
                     id: this.id
                 })
@@ -70,11 +74,8 @@
             //     })
             // },
             back() {
-                const info = Util.getJson('afterSaleInfo')
-                Util.go('AfterSaleList', {
-                    id: info && info.orderId? info.orderId : 0,
-                    status: info && info.status ? info.status : 'NotYet'
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
         },
         created() {

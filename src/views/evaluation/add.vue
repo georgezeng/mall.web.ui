@@ -158,18 +158,8 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             back() {
-                const info = Util.getJson('evaluationInfo')
-                if (info) {
-                    Util.go('MyEvaluationList', {
-                        id: info.orderId ? info.orderId : 0,
-                        status: info.status ? info.status : 'UnComment'
-                    })
-                } else {
-                    Util.go('MyEvaluationList', {
-                        id: 0,
-                        status: 'UnComment'
-                    })
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if(this.form.id > 0) {

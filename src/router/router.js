@@ -156,7 +156,7 @@ const routers = [
         path: '/AfterSale/Express/:id',
         name: 'AfterSaleExpress',
         meta: {
-            title: '订单详情',
+            title: '物流详情',
             needLogin: true
         },
         component: (resolve) => require(['../views/order/express.vue'], resolve)
