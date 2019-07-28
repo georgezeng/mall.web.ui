@@ -95,7 +95,7 @@
                     <div v-if="item.replyTime != null" style="background-color: #f5f5f5;">
                         <div>回复: {{item.reply}}</div>
                         <div style="float: right;">{{item.replyTime}}</div>
-                        <div class="clearfix"></div>
+                        <div style="margin-bottom: 10px;" class="clearfix"></div>
                     </div>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
