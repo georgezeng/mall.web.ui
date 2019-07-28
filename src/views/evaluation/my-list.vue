@@ -101,34 +101,36 @@
                     </Button>
                 </div>
                 <div style="padding: 10px 10px 10px;">
-                    <div>
+                    <div style="margin-bottom: 10px;">
                         <span>评价:</span>
                         <span>{{item.remark}}</span>
                     </div>
                     <div v-if="item.photos != null">
                         <img style="margin-right: 5px;" v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
-                             width="42" height="42"/>
+                             width="160" height="160"/>
                     </div>
-                    <div v-if="item.replyTime != null" style="background-color: #f5f5f5;">
+                    <div v-if="item.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.reply}}</div>
                         <div style="float: right;">{{item.replyTime}}</div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
-                    <div>
+                    <div style="margin-bottom: 10px;">
                         <span>追加评价:</span>
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
                         <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
-                             width="42" height="42"/>
+                             width="160" height="160"/>
                     </div>
-                    <div v-if="item.additionalEvaluation.replyTime != null" style="background-color: #f5f5f5;">
+                    <div v-if="item.additionalEvaluation.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.additionalEvaluation.reply}}</div>
                         <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
