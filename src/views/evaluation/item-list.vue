@@ -57,8 +57,12 @@
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
             <Modal v-model="popup" footer-hide fullscreen>
-                <div>
-                    <img :src="popupImg" width="300" height="300" />
+                <div :style="modalStyle" style="position: absolute; left: -10px;">
+                    <mt-swipe :auto="0">
+                        <mt-swipe-item v-for="img in popupImgs">
+                            <img :src="img" :width="popupImgWidth" :height="popupImgWidth" />
+                        </mt-swipe-item>
+                    </mt-swipe>
                 </div>
             </Modal>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in list"
@@ -77,7 +81,7 @@
                         <span>{{item.remark}}</span>
                     </div>
                     <div v-if="item.photos != null">
-                        <img @click="showBigImg(config.publicBucketDomain + path)" style="margin-right: 10px;"
+                        <img @click="showBigImg(item.photos)" style="margin-right: 10px;"
                              v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
@@ -94,7 +98,7 @@
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
-                        <img @click="showBigImg(config.publicBucketDomain + path)" style="margin-right: 10px;"
+                        <img @click="showBigImg(item.photos)" style="margin-right: 10px;"
                              v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
@@ -152,12 +156,14 @@
                 showSpin: true,
                 isSmallDevice: false,
                 popup: false,
-                popupImg: null
+                popupImgs: [],
+                popupImgWidth: 0,
+                modalStyle: null
             }
         },
         computed: {},
         methods: {
-            showBigImg(url) {
+            showBigImg(urls) {
                 // this.$Modal.info({
                 //     render: (h) => {
                 //         return h('img', {
@@ -170,8 +176,8 @@
                 //             }
                 //         })
                 //     }
-                // })'
-                this.popupImg = url
+                // })
+                this.popupImgs = urls
                 this.popup = true
             },
             selectStatus(status) {
@@ -232,6 +238,10 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientWidth < 330
+            this.modalStyle = {
+                top: this.isSmallDevice ? '100px' : '160px'
+            }
+            this.popupImgWidth = document.documentElement.clientWidth
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
