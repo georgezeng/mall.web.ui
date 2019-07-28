@@ -59,8 +59,8 @@
             <Modal v-model="popup" footer-hide fullscreen>
                 <div :style="modalStyle" style="position: absolute; left: -10px;">
                     <mt-swipe :auto="0">
-                        <mt-swipe-item v-for="img in popupImgs">
-                            <img :src="img" :width="popupImgWidth" :height="popupImgWidth" />
+                        <mt-swipe-item v-for="(img, index) in popupImgs" :key="index">
+                            <img :src="config.publicBucketDomain + img" :width="popupImgWidth" :height="popupImgWidth"/>
                         </mt-swipe-item>
                     </mt-swipe>
                 </div>
@@ -72,7 +72,7 @@
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
                 <div style="padding: 10px;">
-                    <avatar :src="config.publicBucketDomain + item.clientAvatar" size="large" />
+                    <avatar :src="config.publicBucketDomain + item.clientAvatar" size="large"/>
                     <span>{{item.clientNickname}}</span>
                 </div>
                 <div style="padding: 10px 10px 10px;">
