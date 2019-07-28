@@ -303,27 +303,42 @@
                 Util.go('MyCoupon')
             },
             goOrders() {
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
                 Util.go('MyOrderList', {
                     type: 'All'
                 })
             },
             goUnPayOrders() {
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
                 Util.go('MyOrderList', {
                     type: 'UnPay'
                 })
             },
             getShippedOrders() {
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
                 Util.go('MyOrderList', {
                     type: 'Shipped'
                 })
             },
             goUncommentList() {
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
                 Util.go('MyEvaluationList', {
                     id: 0,
                     status: 'UnComment'
                 })
             },
             goAfterSale() {
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
                 Util.go('AfterSaleList', {
                     id: 0,
                     status: 'NotYet'

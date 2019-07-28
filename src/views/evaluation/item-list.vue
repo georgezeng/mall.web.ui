@@ -193,7 +193,7 @@
             },
             itemName(name) {
                 if (!this.isSmallDevice) {
-                    return name ? (name.length > 20 ? name.substring(0, 20) + '...' : name) : ''
+                    return name ? (name.length > 16 ? name.substring(0, 16) + '...' : name) : ''
                 }
                 return name ? (name.length > 12 ? name.substring(0, 12) + '...' : name) : ''
             },
