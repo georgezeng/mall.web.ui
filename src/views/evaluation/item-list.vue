@@ -63,53 +63,39 @@
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
                 <div style="padding: 10px;">
-                    <img :src="config.publicBucketDomain + item.itemThumbnail" width="72" height="72">
-                    <div style="display: inline-block; margin-left: 10px;">
-                        <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
-                            {{itemName(item.itemName)}}
-                        </div>
-                        <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 5px;">
-                            {{specText(item.itemSpecificationValues)}}
-                        </div>
-                        <div style="font-size: 11pt;">
-                            <span>数量: x{{item.itemNums}}</span>
-                        </div>
-                        <Button v-if="item.passed && item.additional == null" @click="goAddAdditional(item.id)"
-                                style="float: right;"
-                                type="primary">
-                            追加评价
-                        </Button>
-                    </div>
+                    <img :src="config.publicBucketDomain + item.clientAvatar" width="42" height="42">
+                    <span>{{item.clientNickname}}</span>
                 </div>
                 <div style="padding: 10px 10px 10px;">
-                    <div>
+                    <div style="margin-bottom: 10px;">
                         <span>评价:</span>
                         <span>{{item.remark}}</span>
                     </div>
                     <div v-if="item.photos != null">
-                        <img @click="showBigImg(config.publicBucketDomain + path)" style="margin-right: 5px;"
+                        <img style="margin-right: 10px;"
                              v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
-                             width="42" height="42"/>
+                             width="160" height="160"/>
                     </div>
-                    <div v-if="item.replyTime != null" style="background-color: #f5f5f5;">
+                    <div v-if="item.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.reply}}</div>
                         <div style="float: right;">{{item.replyTime}}</div>
-                        <div style="margin-bottom: 10px;" class="clearfix"></div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
-                    <div>
+                    <div style="margin-bottom: 10px;">
                         <span>追加评价:</span>
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos"
-                             :key="index"
+                        <img style="margin-right: 10px;"
+                             v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
-                             width="42" height="42"/>
+                             width="160" height="160"/>
                     </div>
-                    <div v-if="item.additionalEvaluation.replyTime != null" style="background-color: #f5f5f5;">
+                    <div v-if="item.additionalEvaluation.replyTime != null"
+                         style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.additionalEvaluation.reply}}</div>
                         <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
                     </div>
