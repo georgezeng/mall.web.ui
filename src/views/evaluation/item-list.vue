@@ -56,14 +56,14 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
+            <div v-if="popup" :style="modalStyle" style="position: absolute; z-index: 10000000;">
+                <mt-swipe :auto="0">
+                    <mt-swipe-item v-for="(img, index) in popupImgs" :key="index">
+                        <img :src="config.publicBucketDomain + img" :width="popupImgWidth" :height="popupImgWidth"/>
+                    </mt-swipe-item>
+                </mt-swipe>
+            </div>
             <Modal v-model="popup" footer-hide fullscreen>
-                <div :style="modalStyle" style="position: absolute; left: -10px;">
-                    <mt-swipe :auto="0">
-                        <mt-swipe-item v-for="(img, index) in popupImgs" :key="index">
-                            <img :src="config.publicBucketDomain + img" :width="popupImgWidth" :height="popupImgWidth"/>
-                        </mt-swipe-item>
-                    </mt-swipe>
-                </div>
             </Modal>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in list"
                  :key="item.id">
@@ -98,7 +98,7 @@
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
-                        <img @click="showBigImg(item.photos)" style="margin-right: 10px;"
+                        <img @click="showBigImg(item.additionalEvaluation.photos)" style="margin-right: 10px;"
                              v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
@@ -238,10 +238,12 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientWidth < 330
-            this.modalStyle = {
-                top: this.isSmallDevice ? '100px' : '160px'
-            }
             this.popupImgWidth = document.documentElement.clientWidth
+            this.modalStyle = {
+                width: '100%',
+                height: this.popupImgWidth + 'px',
+                top: this.isSmallDevice ? '50px' : '100px'
+            }
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'

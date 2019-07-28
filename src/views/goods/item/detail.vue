@@ -472,6 +472,10 @@
         },
         methods: {
             goEvaluation() {
+                Util.putForNav({
+                    from: 'GoodsItemDetail',
+                    id: this.item.id
+                })
                 Util.go('EvaluationItemList', {
                     id: this.item.id
                 })
