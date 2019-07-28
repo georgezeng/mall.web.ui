@@ -63,7 +63,7 @@
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
                 <div style="padding: 10px;">
-                    <img :src="config.publicBucketDomain + item.clientAvatar" width="42" height="42">
+                    <avatar :src="config.publicBucketDomain + item.clientAvatar" size="large" />
                     <span>{{item.clientNickname}}</span>
                 </div>
                 <div style="padding: 10px 10px 10px;">
