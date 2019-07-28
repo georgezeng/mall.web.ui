@@ -146,25 +146,31 @@
                     id: this.orderId,
                     status: this.status
                 })
-                switch (item.type.name) {
-                    case 'RefundOnly': {
-                        Util.go('AfterSaleRefundOnlyDetail', {
-                            id: item.id
-                        })
+                if(item.type) {
+                    switch (item.type.name) {
+                        case 'RefundOnly': {
+                            Util.go('AfterSaleRefundOnlyDetail', {
+                                id: item.id
+                            })
+                        }
+                            break
+                        case 'SalesReturn': {
+                            Util.go('AfterSaleSalesReturnDetail', {
+                                id: item.id
+                            })
+                        }
+                            break
+                        case 'Change': {
+                            Util.go('AfterSaleChangeDetail', {
+                                id: item.id
+                            })
+                        }
+                            break
                     }
-                        break
-                    case 'SalesReturn': {
-                        Util.go('AfterSaleSalesReturnDetail', {
-                            id: item.id
-                        })
-                    }
-                        break
-                    case 'Change': {
-                        Util.go('AfterSaleChangeDetail', {
-                            id: item.id
-                        })
-                    }
-                        break
+                } else {
+                    Util.go('MyOrderDetail', {
+                        id: item.parentId
+                    })
                 }
             },
             pickupConfirm(id) {
