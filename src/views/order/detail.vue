@@ -84,6 +84,7 @@
                             <span>x{{item.nums}}</span>
                         </div>
                     </div>
+                    <!--
                     <div style="float: right; position: relative; top: -28px;">
                         <Button v-if="form.status.name == 'Finished' && item.comment && !item.additionalComment"
                                 style="color: orangered; border: 1px solid orangered;">
@@ -98,10 +99,11 @@
                             查看评价
                         </Button>
                     </div>
+                    -->
                     <div v-if="form.status.name != 'Finished'" style="margin-bottom: 15px;"></div>
                     <div v-else class="clearfix"></div>
                 </div>
-                <div style="margin: 0 10px 10px; border: 1px solid #F5F5F5;"></div>
+                <div style="margin: 10px 10px 10px; border: 1px solid #F5F5F5;"></div>
                 <div style="padding: 0 15px; font-size: 14px;">
                     <div>
                         <span>商品总额:</span>
@@ -139,7 +141,7 @@
                 <Button size="large" :loading="loading" style="float: right; margin-left: 10px;" type="primary">去支付
                 </Button>
                 <Button size="large" :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
-                        type="primary">
+                        type="error">
                     取消订单
                 </Button>
                 <div class="clearfix"></div>
@@ -156,7 +158,7 @@
                         type="primary">
                     确认收货
                 </Button>
-                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" type="primary">
+                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" type="error">
                     取消订单
                 </Button>
                 <Button size="large" :loading="loading" style="float: right;" @click="goExpress(form.id)"
@@ -167,14 +169,14 @@
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Canceled'">
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="primary">
+                        type="error">
                     删除订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Closed'">
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="primary">
+                        type="error">
                     删除订单
                 </Button>
                 <div class="clearfix"></div>
@@ -194,7 +196,7 @@
                     申请售后
                 </Button>
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="primary">
+                        type="error">
                     删除订单
                 </Button>
                 <div class="clearfix"></div>
@@ -299,8 +301,9 @@
                     from: 'MyOrderDetail',
                     id: this.form.id
                 })
-                Util.go('MyEvaluation', {
+                Util.go('MyEvaluationList', {
                     id,
+                    status: 'UnComment'
                 })
             },
             pickupConfirm(id) {
