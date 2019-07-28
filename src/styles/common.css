@@ -92,3 +92,7 @@ input.vux-number-input {
     float: right;
     right: 0px;
 }
+
+.ivu-modal-fullscreen .ivu-modal-body {
+    overflow: visible !important;
+}

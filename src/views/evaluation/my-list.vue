@@ -113,8 +113,8 @@
                     <div v-if="item.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.reply}}</div>
                         <div style="float: right;">{{item.replyTime}}</div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
                     <div style="margin-bottom: 10px;">
@@ -129,8 +129,8 @@
                     <div v-if="item.additionalEvaluation.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.additionalEvaluation.reply}}</div>
                         <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>

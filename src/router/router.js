@@ -72,7 +72,7 @@ const routers = [
         component: (resolve) => require(['../views/goods/item/list.vue'], resolve)
     },
     {
-        path: '/Goods/Item/Detail/:id/:from',
+        path: '/Goods/Item/Detail/:id',
         name: 'GoodsItemDetail',
         meta: {
             title: '商品详情',
@@ -306,7 +306,7 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/identity.vue'], resolve)
     },
     {
-        path: '/MyAddress/List/:from',
+        path: '/MyAddress/List',
         name: 'MyAddressList',
         meta: {
             title: '收货地址',

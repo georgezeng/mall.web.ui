@@ -57,7 +57,9 @@
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
             <Modal v-model="popup" footer-hide fullscreen>
-                <img :src="popupImg" />
+                <div>
+                    <img :src="popupImg" width="300" height="300" />
+                </div>
             </Modal>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in list"
                  :key="item.id">
@@ -101,6 +103,7 @@
                          style="padding: 10px; background-color: #f5f5f5;">
                         <div>回复: {{item.additionalEvaluation.reply}}</div>
                         <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
