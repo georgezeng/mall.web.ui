@@ -40,7 +40,7 @@
                 <div style="background-color: #fff; padding: 10px;">
                     <div style="margin-top: 5px;">用户发起: 仅退款</div>
                     <div style="margin-top: 5px;">服务单号: {{item.serviceId}}</div>
-                    <div style="margin-top: 5px;">原订单号: {{item.order.id}}</div>
+                    <div style="margin-top: 5px;">原订单号: {{item.order.orderId}}</div>
                     <div style="margin-top: 5px;">货物状态: 未收到货</div>
                     <div style="margin-top: 5px;">售后原因: {{item.reason}}</div>
                     <div style="margin-top: 5px;">售后说明: {{item.description}}</div>
@@ -97,7 +97,7 @@
                 item: {
                     id: null,
                     order: {
-                        id: null
+                        orderId: null
                     },
                     serviceId: null,
                     status: null,
