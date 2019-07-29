@@ -103,7 +103,8 @@
                             <span>数量: x{{item.itemNums}}</span>
                         </div>
                     </div>
-                    <Button v-if="item.passed && item.additionalEvaluation == null" @click="goAddAdditional(item.id, $event)"
+                    <Button v-if="item.passed && item.additionalEvaluation == null"
+                            @click="goAddAdditional(item.id, $event)"
                             style="position: absolute; bottom: 0px; right: 10px;"
                             type="primary">
                         追加评价
@@ -120,7 +121,8 @@
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
                     </div>
-                    <div v-if="item.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
+                    <div v-if="item.replyTime != null"
+                         style="padding: 10px; background-color: #f5f5f5; font-size: 14px; color: gray;">
                         <div>回复: {{item.reply}}</div>
                         <div style="float: right;">{{item.replyTime}}</div>
                         <div class="clearfix"></div>
@@ -137,7 +139,8 @@
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
                     </div>
-                    <div v-if="item.additionalEvaluation.replyTime != null" style="padding: 10px; background-color: #f5f5f5;">
+                    <div v-if="item.additionalEvaluation.replyTime != null"
+                         style="padding: 10px; background-color: #f5f5f5; font-size: 14px; color: gray;">
                         <div>回复: {{item.additionalEvaluation.reply}}</div>
                         <div style="float: right;">{{item.additionalEvaluation.replyTime}}</div>
                         <div class="clearfix"></div>
