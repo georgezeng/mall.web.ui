@@ -63,7 +63,7 @@
             </Modal>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in uncommentList"
                  :key="item.id">
-                <div @click="goItem(item.itemId)" style="padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                <div @click="goItem(item.itemId)" style="padding: 10px;">
                     <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
