@@ -52,6 +52,15 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
+            <div v-if="popup" :style="modalStyle" style="position: absolute; z-index: 10000000;">
+                <mt-swipe :auto="0">
+                    <mt-swipe-item v-for="(img, index) in popupImgs" :key="index">
+                        <img :src="config.publicBucketDomain + img" :width="popupImgWidth" :height="popupImgWidth"/>
+                    </mt-swipe-item>
+                </mt-swipe>
+            </div>
+            <Modal v-model="popup" footer-hide fullscreen>
+            </Modal>
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in uncommentList"
                  :key="item.id">
                 <div @click="goItem(item.itemId)" style="padding: 10px; border-bottom: 1px solid #f5f5f5;">
@@ -81,7 +90,7 @@
                     <span>{{item.createTime}}</span>
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
-                <div style="padding: 10px; position: relative;">
+                <div @click="goItem(item.itemId)" style="padding: 10px; position: relative;">
                     <img :src="config.publicBucketDomain + item.itemThumbnail" width="72" height="72">
                     <div style="display: inline-block; margin-left: 10px;">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
@@ -94,7 +103,7 @@
                             <span>数量: x{{item.itemNums}}</span>
                         </div>
                     </div>
-                    <Button v-if="item.passed && item.additionalEvaluation == null" @click="goAddAdditional(item.id)"
+                    <Button v-if="item.passed && item.additionalEvaluation == null" @click="goAddAdditional(item.id, $event)"
                             style="position: absolute; bottom: 0px; right: 10px;"
                             type="primary">
                         追加评价
@@ -106,7 +115,8 @@
                         <span>{{item.remark}}</span>
                     </div>
                     <div v-if="item.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.photos" :key="index"
+                        <img @click="showBigImg(item.photos)" style="margin-right: 10px;"
+                             v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
                     </div>
@@ -122,7 +132,8 @@
                         <span>{{item.additionalEvaluation.remark}}</span>
                     </div>
                     <div v-if="item.additionalEvaluation.photos != null">
-                        <img style="margin-right: 5px;" v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
+                        <img @click="showBigImg(item.additionalEvaluation.photos)" style="margin-right: 10px;"
+                             v-for="(path, index) in item.additionalEvaluation.photos" :key="index"
                              :src="config.publicBucketDomain + path"
                              width="160" height="160"/>
                     </div>
@@ -173,10 +184,18 @@
                 showSpin: true,
                 isSmallDevice: false,
                 status: 'UnComment',
+                popup: false,
+                popupImgs: [],
+                popupImgWidth: 0,
+                modalStyle: null
             }
         },
         computed: {},
         methods: {
+            showBigImg(urls) {
+                this.popupImgs = urls
+                this.popup = true
+            },
             goItem(id) {
                 Util.putForNav({
                     from: 'MyEvaluationList',
@@ -198,7 +217,8 @@
                     type: 'comment'
                 })
             },
-            goAddAdditional(id) {
+            goAddAdditional(id, e) {
+                e.stopPropagation()
                 Util.putForNav({
                     from: 'MyEvaluationList',
                     id: this.orderId,
@@ -293,6 +313,12 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientWidth < 400
+            this.popupImgWidth = document.documentElement.clientWidth
+            this.modalStyle = {
+                width: '100%',
+                height: this.popupImgWidth + 'px',
+                top: this.isSmallDevice ? '50px' : '100px'
+            }
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'

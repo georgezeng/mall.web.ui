@@ -39,7 +39,7 @@
                         </RadioGroup>
                     </div>
                 </div>
-                <div style="position: absolute; bottom: 10px; right: 10px;">
+                <div v-if="!isAdditional" style="position: absolute; bottom: 10px; right: 10px;">
                     <check-icon style="position: relative; left: 5px;" :value.sync="form.anonymous"></check-icon>
                     匿名评价
                 </div>
@@ -106,8 +106,11 @@
             }
         },
         computed: {
+            isAdditional() {
+                return this.type != 'comment'
+            },
             title() {
-                return this.type == 'comment' ? '添加评价' : '追加评价'
+                return !this.isAdditional ? '添加评价' : '追加评价'
             }
         },
         methods: {

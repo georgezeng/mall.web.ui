@@ -164,19 +164,6 @@
         computed: {},
         methods: {
             showBigImg(urls) {
-                // this.$Modal.info({
-                //     render: (h) => {
-                //         return h('img', {
-                //             attrs: {
-                //                 src: url,
-                //             },
-                //             style: {
-                //                 width: (!this.isSmallDevice ? '300px' : '250px'),
-                //                 height: (!this.isSmallDevice ? '300px' : '250px')
-                //             }
-                //         })
-                //     }
-                // })
                 this.popupImgs = urls
                 this.popup = true
             },
