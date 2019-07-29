@@ -48,8 +48,11 @@
                 <div class="address">
                     <div :style="{marginLeft: isSmallDevice ? '16px' : '0'}" style="float: left;">
                         <img style="position: absolute; left: 8px;" :src="location" width="24" height="24"/>
-                        <span style="margin-left: 10px;">{{form.address.name}}</span>
-                        <span style="margin-left: 10px;">{{form.address.phone.substring(0, 3)}}****{{form.address.phone.substring(7, form.address.phone.length)}}</span>
+                        <div style="display: inline-block;position: absolute; left: 28px;">
+                            <span style="margin-left: 10px;">{{form.address.name}}</span>
+                            <span style="margin-left: 10px;">{{form.address.phone.substring(0, 3)}}****{{form.address.phone.substring(7, form.address.phone.length)}}</span>
+                        </div>
+                        <div style="margin-bottom: 25px;"></div>
                     </div>
                     <div class="clearfix"></div>
                     <div style="font-size: 12px; color: gray; position: relative; left: 28px;">
