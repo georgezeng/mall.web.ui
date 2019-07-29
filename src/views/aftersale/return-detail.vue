@@ -40,7 +40,7 @@
                 <div style="background-color: #fff; padding: 10px;">
                     <div style="margin-top: 5px;">用户发起: 退货退款</div>
                     <div style="margin-top: 5px;">服务单号: {{item.serviceId}}</div>
-                    <div style="margin-top: 5px;">原订单号: {{item.orderId}}</div>
+                    <div style="margin-top: 5px;">原订单号: {{item.order.id}}</div>
                     <div style="margin-top: 5px;">货物状态: 已收到货</div>
                     <div style="margin-top: 5px;">售后原因: {{item.reason}}</div>
                     <div style="margin-top: 5px;">售后说明: {{item.description}}</div>
@@ -74,8 +74,8 @@
                     用户寄回商品
                 </div>
                 <div style="background-color: #fff; padding: 10px;">
-                    <div style="margin-top: 5px;">物流公司: {{item.expressCompany}}</div>
-                    <div style="margin-top: 5px;">物流单号: {{item.expressNumber}}</div>
+                    <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>
+                    <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
                 </div>
             </div>
             <div v-if="item.receiveTime != null" style="font-size: 14px;">
@@ -136,7 +136,9 @@
                 },
                 item: {
                     id: null,
-                    orderId: null,
+                    order: {
+                        id: null
+                    },
                     serviceId: null,
                     status: null,
                     postTime: null,
@@ -145,8 +147,8 @@
                     returnTime: null,
                     rejectTime: null,
                     receiveTime: null,
-                    expressCompany: null,
-                    expressNumber: null,
+                    clientExpressCompany: null,
+                    clientExpressNumber: null,
                     subOrder: {
                         itemName: null,
                         thumbnail: null,
