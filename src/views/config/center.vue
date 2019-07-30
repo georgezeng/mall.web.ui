@@ -200,6 +200,7 @@
                         <Icon size="24" type="md-exit" style="margin-right: 10px;"/>
                         退出
                     </cell-box>
+                <a style="-webkit-tap-highlight-color: red; height: 20px; display: block;">测试</a>
                 </group>
             </div>
         </Content>
