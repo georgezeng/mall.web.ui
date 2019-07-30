@@ -100,6 +100,7 @@
     .optionPanel {
         font-size: 11pt;
         padding: 20px 10px;
+        -webkit-tap-highlight-color: red;
         .img {
             position: relative;
             top: 0px;
