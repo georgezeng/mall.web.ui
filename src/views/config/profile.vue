@@ -149,7 +149,11 @@
                 })
                 API.uploadAvatar(formData).then(filePath => {
                     // window.location.reload(true)
-                    this.info.avatar = filePath
+                    this.info.avatar = null
+                    setTimeout(() => {
+                        this.info.avatar = filePath
+                    }, 10)
+                    this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()
                 })
