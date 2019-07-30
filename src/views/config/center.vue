@@ -200,8 +200,8 @@
                         <Icon size="24" type="md-exit" style="margin-right: 10px;"/>
                         退出
                     </cell-box>
-                </group>
                 <div style="-webkit-tap-highlight-color: red !important;">测试</div>
+                </group>
             </div>
         </Content>
         <Footer selection="mine" :style="commonStyles.footer"/>
