@@ -40,7 +40,6 @@ Vue.component('swipeout', Swipeout)
 Vue.component('swipeout-item', SwipeoutItem)
 Vue.component('swipeout-button', SwipeoutButton)
 Vue.component('checklist', Checklist)
-Vue.use(WeVue)
 Vue.component('inline-x-number', InlineXNumber)
 Vue.use(ToastPlugin)
 Vue.component('x-number', XNumber)
@@ -59,6 +58,7 @@ Vue.component('cell', Cell)
 Vue.component('cell-box', CellBox)
 Vue.use(WechatPlugin)
 Vue.use(Mint)
+Vue.use(WeVue)
 
 new Vue({
     el: '#app',
