@@ -140,7 +140,7 @@
         color: #A8A8A8;
     }
 
-    .cart {
+    .more {
         position: fixed;
         top: 10px;
         z-index: 100;
@@ -151,11 +151,22 @@
         color: #fff;
     }
 
-    .share {
+    .cart {
         position: fixed;
         top: 10px;
         z-index: 100;
         right: 50px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        padding: 5px;
+        color: #fff;
+    }
+
+    .share {
+        position: fixed;
+        top: 10px;
+        z-index: 100;
+        right: 90px;
         background-color: rgba(0, 0, 0, 0.4);
         border-radius: 15px;
         padding: 5px;
@@ -275,6 +286,21 @@
                 </div>
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
+            <Dropdown @on-click="goPage" class="more">
+                <Icon size="24" type="ios-more" />
+                <DropdownMenu slot="list">
+                    <DropdownItem name="Home">
+                        <Icon size="16" type="md-home" /> 首页
+                    </DropdownItem>
+                    <DropdownItem name="GoodsCategory">
+                        <Icon size="16" type="md-apps" /> 分类
+                    </DropdownItem>
+                    <DropdownItem name="MyCenter">
+                        <Icon size="16" type="md-contact" /> 我的
+                    </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
@@ -471,6 +497,9 @@
             }
         },
         methods: {
+            goPage(name) {
+                Util.go(name)
+            },
             goEvaluation() {
                 Util.putForNav({
                     from: 'GoodsItemDetail',

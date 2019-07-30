@@ -50,7 +50,7 @@
                     购物车
                 </div>
             </div>
-            <div @click="goProfile" class="button">
+            <div @click="goCenter" class="button">
                 <div>
                     <Icon :style="mineStyle" type="md-contact" size="30"/>
                 </div>
@@ -99,7 +99,7 @@
             goCart() {
                 Util.go('MyCart')
             },
-            goProfile() {
+            goCenter() {
                 Util.go('MyCenter')
             }
         },
