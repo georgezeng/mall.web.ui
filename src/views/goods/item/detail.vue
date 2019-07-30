@@ -147,7 +147,7 @@
         right: 10px;
         background-color: rgba(0, 0, 0, 0.4);
         border-radius: 15px;
-        padding: 5px;
+        padding: 4px;
         color: #fff;
     }
 
@@ -300,7 +300,6 @@
                     </DropdownItem>
                 </DropdownMenu>
             </Dropdown>
-
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
