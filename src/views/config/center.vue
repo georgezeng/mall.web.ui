@@ -100,7 +100,6 @@
     .optionPanel {
         font-size: 11pt;
         padding: 20px 10px;
-        -webkit-tap-highlight-color: red;
         .img {
             position: relative;
             top: 0px;
@@ -193,7 +192,7 @@
                         <img :src="invite" width="24" height="24" class="img" style="margin-right: 10px;"/> 邀请好友
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
-                    <cell-box class="optionPanel" is-link @click.native="goSetting">
+                    <cell-box style="-webkit-tap-highlight-color: red;" class="optionPanel" is-link @click.native="goSetting">
                         <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 设置
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
