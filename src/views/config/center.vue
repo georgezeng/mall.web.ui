@@ -185,7 +185,6 @@
                     </div>
                 </div>
             </div>
-                <div style="-webkit-tap-highlight-color: red; display: block;padding: 10px; z-index: 1000000;">测试</div>
             <div style="position: relative;">
                 <div class="blockLine" style="position:absolute; top: 0px;"></div>
                 <group style="position: absolute; width: 100%; top: -10px;">
