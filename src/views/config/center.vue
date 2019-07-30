@@ -185,9 +185,9 @@
                     </div>
                 </div>
             </div>
+                <a href="javascript:;" style="-webkit-tap-highlight-color: red; display: block;padding: 10px; z-index: 1000000;">测试</a>
             <div style="position: relative;">
                 <div class="blockLine" style="position:absolute; top: 0px;"></div>
-                <a href="javascript:;" style="-webkit-tap-highlight-color: red; display: block;padding: 10px;">测试</a>
                 <group style="position: absolute; width: 100%; top: -10px;">
                     <cell-box class="optionPanel" is-link @click.native="goInvite">
                         <img :src="invite" width="24" height="24" class="img" style="margin-right: 10px;"/> 邀请好友
