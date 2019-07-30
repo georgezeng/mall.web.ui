@@ -127,7 +127,7 @@
                 return this.info.avatar ?
                     (this.info.avatar.startsWith('http') ?
                         this.info.avatar
-                        : config.publicBucketDomain + this.info.avatar)
+                        : config.publicBucketDomain + this.info.avatar + '?d=' + new Date().getTime())
                     : defaultAvatar
             },
             sex() {
@@ -149,10 +149,7 @@
                 })
                 API.uploadAvatar(formData).then(filePath => {
                     // window.location.reload(true)
-                    this.info.avatar = null
-                    setTimeout(() => {
-                        this.info.avatar = filePath
-                    }, 10)
+                    this.info.avatar = filePath
                     this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()
