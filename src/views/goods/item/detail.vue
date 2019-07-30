@@ -286,17 +286,20 @@
                 </div>
             </div>
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <Dropdown @on-click="goPage" class="more">
-                <Icon size="24" type="ios-more" />
+            <Dropdown @on-click="goPage" @on-visible-change="onMenuVisibleChange" :visible="menuVisible" class="more">
+                <Icon size="24" @click="menuVisible=!menuVisible" type="ios-more"/>
                 <DropdownMenu slot="list">
                     <DropdownItem name="Home">
-                        <Icon size="16" type="md-home" /> 首页
+                        <Icon size="20" type="md-home"/>
+                        <span style="font-size: 14px; position: relative; top: 2px;">首页</span>
                     </DropdownItem>
                     <DropdownItem name="GoodsCategory">
-                        <Icon size="16" type="md-apps" /> 分类
+                        <Icon size="20" type="md-apps"/>
+                        <span style="font-size: 14px; position: relative; top: 2px;">分类</span>
                     </DropdownItem>
                     <DropdownItem name="MyCenter">
-                        <Icon size="16" type="md-contact" /> 我的
+                        <Icon size="20" type="md-contact"/>
+                        <span style="font-size: 14px; position: relative; top: 2px;">我的</span>
                     </DropdownItem>
                 </DropdownMenu>
             </Dropdown>
@@ -416,6 +419,7 @@
                 confirmBuy: false,
                 nativeShare: new NativeShare(),
                 isBigDevice: false,
+                menuVisible: false,
             }
         },
         computed: {
@@ -496,6 +500,9 @@
             }
         },
         methods: {
+            onMenuVisibleChange(visible) {
+                this.menuVisible = visible
+            },
             goPage(name) {
                 Util.go(name)
             },
