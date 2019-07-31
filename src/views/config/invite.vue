@@ -98,7 +98,7 @@
         computed: {},
         methods: {
             showPoster() {
-                this.popupImgSrc = config.baseUrl + '/client/poster?d=' + new Date().getTime()
+                this.popupImgSrc = config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
                 this.popup = true
             },
             back() {
