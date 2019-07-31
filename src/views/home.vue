@@ -142,6 +142,7 @@
                         order: 'DESC'
                     }
                 },
+                allLoaded: false,
                 itemWidth: 0,
                 itemImageWidth: 0,
                 loadingList: false,

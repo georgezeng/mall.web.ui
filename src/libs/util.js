@@ -42,7 +42,7 @@ util.loginSuccess = (data, target) => {
     if (link.indexOf('?') == -1) {
         window.location.href = link.replace(/#.+/, '?uid=' + data.userId + '#' + target)
     } else {
-        window.location.href = link.replace(/\?.+/, '?uid=' + data.userId + '#' + target)
+        window.location.href = link.replace(/\?.+/, '?uid=' + data.userId).replace(/#.+/,  '#' + target)
     }
 }
 

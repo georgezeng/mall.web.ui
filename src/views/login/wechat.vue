@@ -44,6 +44,7 @@
                 form: {
                     username: null,
                     password: null,
+                    pid: null
                 },
                 rules: {
                     username: [
@@ -137,6 +138,10 @@
         mounted() {
             this.loginInfo = this.$router.currentRoute.params.info
             this.token = this.loginInfo.password
+            const uid = UrlParams(window.location.href, 'uid')
+            if (uid) {
+                this.form.pid = uid.replace(/#.+/, '')
+            }
             this.load()
         }
     }

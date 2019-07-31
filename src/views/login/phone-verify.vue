@@ -4,7 +4,8 @@
     <div style="border: none; padding: 20px;">
         <Form ref="form" :model="form" :rules="rules" :label-width="0">
             <FormItem prop="username">
-                <Input clearable size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
+                <Input clearable size="large" prefix="ios-phone-portrait" v-model="form.username"
+                       placeholder="输入手机号"></Input>
             </FormItem>
             <FormItem prop="password">
                 <Input clearable size="large" v-model="form.password" @on-search="sendCode" search
@@ -14,7 +15,8 @@
             <FormItem>
                 温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a href="javascript:;">《用户服务协议》</a>
             </FormItem>
-            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;" :show-loading="loading" @click.native="login">
+            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                      :show-loading="loading" @click.native="login">
                 <span style="font-size: 11pt; color: #fff;">登录/注册</span>
             </x-button>
         </Form>
@@ -24,6 +26,8 @@
     import {Message} from 'iview'
     import API from '../../api/login'
     import Util from '../../libs/util'
+    import UrlParams from 'get-url-param'
+
     export default {
         data() {
             return {
@@ -33,7 +37,8 @@
                 form: {
                     username: null,
                     password: null,
-                    type: 'PhoneVerify'
+                    type: 'PhoneVerify',
+                    pid: null
                 },
                 rules: {
                     username: [
@@ -93,6 +98,12 @@
             },
             goCenter() {
                 Util.go('MyCenter')
+            }
+        },
+        mounted() {
+            const uid = UrlParams(window.location.href, 'uid')
+            if (uid) {
+                this.form.pid = uid.replace(/#.+/, '')
             }
         }
     }

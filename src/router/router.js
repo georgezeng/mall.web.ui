@@ -279,6 +279,15 @@ const routers = [
         component: (resolve) => require(['../views/config/profile.vue'], resolve)
     },
     {
+        path: '/MyInvite',
+        name: 'MyInvite',
+        meta: {
+            title: '我的邀请',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/config/invite.vue'], resolve)
+    },
+    {
         path: '/MySetting',
         name: 'MySetting',
         meta: {
