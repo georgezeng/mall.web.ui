@@ -32,7 +32,7 @@
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 40px;">
             <div v-if="popup" :style="popupStyle" style="position: absolute; top: 50px; z-index: 10000000;">
-                <img :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
+                <img crossorigin="use-credentials" :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
             </div>
             <Modal v-model="popup" footer-hide fullscreen>
             </Modal>
