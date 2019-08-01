@@ -155,6 +155,7 @@
     import NativeShare from 'nativeshare'
     import UrlParams from 'get-url-param'
     import ProfileAPI from '../../api/profile.js'
+    import md5 from 'md5'
 
     export default {
         components: {},
@@ -190,9 +191,6 @@
             }
         },
         computed: {
-            posterUrl() {
-                return config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
-            },
             showModal() {
                 return this.popup && !this.showShareTipInBrowser && !this.showShareTip
             }
@@ -244,7 +242,7 @@
                     title:'注册邀请', // 分享标题
                     desc: (item.nickname ? item.nickname : '') + '邀请您注册成为商城会员', // 分享描述
                     link: window.location.protocol + "//" + window.location.host + "/" + uid + "#/Home", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                    imgUrl: this.posterUrl, // 分享图标
+                    imgUrl: config.publicBucketDomain + 'client/'+item.id+'/invite/poster_' + this.md5(item) + '.png', // 分享图标
                 }
                 if (Util.isInWechat()) {
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
@@ -258,11 +256,19 @@
                     })
                 }
             },
+            md5(item) {
+                let nickname = item.nickname
+                if(!nickname || nickname == '') {
+                    nickname = item.username
+                }
+                const seed = item.id + '_' + nickname
+                return md5(seed)
+            },
             closePoster() {
                 this.popup = false
             },
             showPoster() {
-                this.popupImgSrc = this.posterUrl
+                this.popupImgSrc = config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
                 this.popupStyle.zIndex = 100000
                 this.popup = true
             },
