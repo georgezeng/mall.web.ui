@@ -776,16 +776,6 @@
             }
         },
         created() {
-            if (!Util.getToken()) {
-                const link = window.location.href
-                if (link.indexOf('?') > -1) {
-                    const url = window.location.href.replace(/\#.+/, '')
-                    const parentUid = UrlParams(url, "uid")
-                    if (parentUid) {
-                        Util.put('parentUserId', parentUid)
-                    }
-                }
-            }
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
