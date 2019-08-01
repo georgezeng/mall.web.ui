@@ -300,9 +300,6 @@
                         this.showLoading = false
                     }
                 })
-                ProfileAPI.load().then(data => {
-                    this.updateShare(data)
-                })
             }
         },
         mounted() {
@@ -333,6 +330,9 @@
                     'updateTimelineShareData',
                 ])
             }
+            ProfileAPI.load().then(data => {
+                this.updateShare(data)
+            })
         }
     }
 </script>
