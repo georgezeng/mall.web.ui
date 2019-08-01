@@ -297,10 +297,10 @@
                 })
             },
             goMyChange() {
-                Util.go('MyChange')
+                // Util.go('MyChange')
             },
             goMyCoupon() {
-                Util.go('MyCoupon')
+                // Util.go('MyCoupon')
             },
             goOrders() {
                 Util.putForNav({
