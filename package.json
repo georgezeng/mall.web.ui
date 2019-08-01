@@ -15,6 +15,7 @@
     "axios": "^0.18.0",
     "get-url-param": "^1.0.1",
     "iview": "^3.0.0",
+    "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
     "masonry-layout": "^4.2.2",
     "mint-ui": "^2.2.13",

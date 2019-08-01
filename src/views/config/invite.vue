@@ -21,7 +21,7 @@
         background-size: contain;
         background-image: url("../../images/share-btn.png");
         position: absolute;
-        bottom: 0px;
+        bottom: 50px;
     }
 
     .wechat-friend {
@@ -103,17 +103,19 @@
                 <img crossorigin="use-credentials" :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
                 <div style="position: relative; top: -45px; border-top: 1px solid #CC6E2D;">
                 </div>
-                <div @click="save"
-                     style="position: absolute; bottom: 15px; left: 10px; color: #CC6E2D; padding-right: 17px; border-right: 1px solid #CC6E2D;">
+                <div
+                        style="position: absolute; bottom: 15px; left: 10px; color: #CC6E2D;">
                     <Icon size="16" type="md-download"/>
-                    保存海报到手机
+                    长按保存到手机
                 </div>
+                <div :style="{left: borderLeft}"
+                     style="position: absolute; bottom: 10px; border-right: 1px solid #CC6E2D; height: 33px;"></div>
                 <div @click="showSharePopup" style="position: absolute; bottom: 15px; right: 10px; color: #CC6E2D;">
                     <Icon size="16" type="md-share"/>
                     分享邀请好友
                 </div>
             </div>
-            <Modal v-model="popup" footer-hide fullscreen>
+            <Modal :value="showModal" @on-visible-change="popupChange" footer-hide fullscreen>
             </Modal>
             <div class="bg" :style="bgStyle">
                 <div @click="showPoster" class="share-btn" :style="btnStyle"></div>
@@ -182,11 +184,21 @@
                 showShare: false,
                 nativeShare: new NativeShare(),
                 popupHeight: 500,
-                minHeight: 0
+                minHeight: 0,
+                borderLeft: 0,
             }
         },
-        computed: {},
+        computed: {
+            showModal() {
+                return this.popup && !this.showShareTipInBrowser && !this.showShareTip
+            }
+        },
         methods: {
+            popupChange(value) {
+                if (!value && !this.showShareTip && !this.showShareTipInBrowser) {
+                    this.closePoster()
+                }
+            },
             share(type) {
                 try {
                     this.nativeShare.call(type)
@@ -197,12 +209,14 @@
                 }
             },
             closeShareTipPopup() {
+                this.showPoster()
                 this.showShareTip = false
                 this.showShareTipInBrowser = false
                 this.showShare = false
             },
             showSharePopup() {
-                this.closePoster()
+                // this.closePoster()
+                this.popupStyle.zIndex = 1
                 const token = Util.getToken()
                 if (!token) {
                     Util.go('Login')
@@ -241,27 +255,6 @@
                         desc: params.desc
                     })
                 }
-            },
-            save() {
-                const link = this.popupImgSrc
-
-                const blob = new Blob([''], {type: 'application/octet-stream'});
-
-                const url = URL.createObjectURL(blob);
-
-                const a = document.createElement('a');
-
-                a.href = link;
-
-                a.download = link.replace(/(.*\/)*([^.]+.*)/ig, "$2").split("?")[0];
-
-                const e = document.createEvent('MouseEvents');
-
-                e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-
-                a.dispatchEvent(e);
-
-                URL.revokeObjectURL(url);
             },
             closePoster() {
                 this.popup = false
@@ -320,9 +313,13 @@
                 left: document.documentElement.clientWidth * 0.1 + 'px'
             }
             this.popupImgWidth = document.documentElement.clientWidth * 0.8
+            this.borderLeft = document.documentElement.clientWidth * 0.42 + 'px'
             this.popupImgHeight = document.documentElement.clientWidth * 0.8 * 1497 / 984
             this.popupStyle = {
                 left: document.documentElement.clientWidth * 0.1 + 'px'
+            }
+            if (document.documentElement.clientWidth < 330) {
+                this.popupStyle.fontSize = '14px'
             }
             this.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75 + 'px'
@@ -330,6 +327,7 @@
                 Util.wxConfig([
                     'updateAppMessageShareData',
                 ])
+                this.updateShare()
             }
         }
     }

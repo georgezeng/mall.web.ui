@@ -346,7 +346,7 @@
             </div>
             <div class="blockLine"></div>
             <div style="text-align: center; font-weight: bold; margin: 10px 10px 20px;">图文详情</div>
-            <div v-html="item.content" style="margin-bottom: 40px;"></div>
+            <div ref="htmlContent" v-html="item.content" style="margin-bottom: 40px;"></div>
         </Content>
         <Footer style="position: fixed; bottom: 0px; width: 100%; padding:0; margin:0;">
             <div class="addToCartBtn" @click="addToCart">
@@ -367,7 +367,7 @@
     import ShareTipArrow from '../../../images/tip-arrow.png'
     import wx from 'weixin-js-sdk'
     import NativeShare from 'nativeshare'
-    import UrlParams from 'get-url-param'
+    import $ from "jquery";
 
     export default {
         components: {},
@@ -747,6 +747,12 @@
                         }
                         this.totalProperty.price = this.property.price
                         this.totalProperty.inventory = this.property.inventory
+
+                        setTimeout(() => {
+                            $(this.$refs.htmlContent).find('img').each((index, el) => {
+                                $(el).css('display', 'block')
+                            })
+                        }, 10)
 
                         // setting share
                         document.title = item.name
