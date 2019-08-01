@@ -190,6 +190,9 @@
             }
         },
         computed: {
+            posterUrl() {
+                return config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
+            },
             showModal() {
                 return this.popup && !this.showShareTipInBrowser && !this.showShareTip
             }
@@ -241,7 +244,7 @@
                     title:'注册邀请', // 分享标题
                     desc: (item.nickname ? item.nickname : '') + '邀请您注册成为商城会员', // 分享描述
                     link: window.location.protocol + "//" + window.location.host + "/" + uid + "#/Home", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                    imgUrl: this.popupImgSrc, // 分享图标
+                    imgUrl: this.posterUrl, // 分享图标
                 }
                 if (Util.isInWechat()) {
                     wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
@@ -259,7 +262,7 @@
                 this.popup = false
             },
             showPoster() {
-                this.popupImgSrc = config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
+                this.popupImgSrc = this.posterUrl
                 this.popupStyle.zIndex = 100000
                 this.popup = true
             },
