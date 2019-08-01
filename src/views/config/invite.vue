@@ -127,9 +127,9 @@
             </div>
             <div v-for="item in list" :key="item.id">
                 <div style="margin-top: 20px;"></div>
-                <mt-cell style="border-bottom: 1px solid #F5F5F5;">
+                <mt-cell style="border-bottom: 1px solid #F5F5F5; overflow: auto;">
                     <div slot="title">
-                        <div style="display: inline-block; margin-right: 10px;">
+                        <div style="display: inline-block; margin-right: 5px;">
                             <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
                         </div>
                         <div style="display: inline-block;">
