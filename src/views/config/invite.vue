@@ -83,7 +83,7 @@
             </div>
             <div v-if="showShareTip"
                  @click="closeShareTipPopup"
-                 style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
+                 style="position: fixed; top: 0px; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
                  :style="{height: minHeight}">
                 <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
@@ -93,7 +93,7 @@
 
             <div v-if="showShareTipInBrowser"
                  @click="closeShareTipPopup"
-                 style="position: fixed; width: 100%; z-index: 100000;"
+                 style="position: fixed; top: 0px; width: 100%; z-index: 100000;"
                  :style="{height: popupHeight}" align="center">
                 <div style="color: #fff; line-height: 400px; font-size: 14pt; font-weight: bold;">
                     如果不成功请打开浏览器的菜单进行分享
@@ -154,6 +154,7 @@
     import wx from 'weixin-js-sdk'
     import NativeShare from 'nativeshare'
     import UrlParams from 'get-url-param'
+    import ProfileAPI from '../../api/profile.js'
 
     export default {
         components: {},
@@ -201,7 +202,6 @@
             },
             share(type) {
                 try {
-                    this.updateShare()
                     this.nativeShare.call(type)
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
@@ -230,7 +230,7 @@
                     this.showShare = true
                 }
             },
-            updateShare() {
+            updateShare(item) {
                 let uid = UrlParams(window.location.href, 'uid')
                 if (uid) {
                     uid = '?uid=' + uid.replace(/#.+/, '')
@@ -238,7 +238,7 @@
                     uid = ''
                 }
                 const params = {
-                    title: '注册邀请', // 分享标题
+                    title:'注册邀请', // 分享标题
                     desc: item.nickname + '邀请您注册成为商城会员', // 分享描述
                     link: window.location.protocol + "//" + window.location.host + "/" + uid + "#/Home", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                     imgUrl: null, // 分享图标
@@ -300,6 +300,9 @@
                         this.showLoading = false
                     }
                 })
+                ProfileAPI.load().then(data => {
+                    this.updateShare(data)
+                })
             }
         },
         mounted() {
@@ -323,13 +326,12 @@
                 this.popupStyle.fontSize = '14px'
             }
             this.minHeight = document.documentElement.clientHeight + 'px'
-            this.popupHeight = document.documentElement.clientHeight * 0.75 + 'px'
+            this.popupHeight = document.documentElement.clientHeight + 'px'
             if (Util.isInWechat()) {
                 Util.wxConfig([
                     'updateAppMessageShareData',
                     'updateTimelineShareData',
                 ])
-                this.updateShare()
             }
         }
     }
