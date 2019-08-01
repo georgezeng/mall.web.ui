@@ -259,7 +259,7 @@
             md5(item) {
                 let nickname = item.nickname
                 if(!nickname || nickname == '') {
-                    nickname = item.username
+                    nickname = '****' + item.username.substring(7)
                 }
                 const seed = item.id + '_' + nickname
                 return md5(seed)
