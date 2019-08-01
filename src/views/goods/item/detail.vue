@@ -517,7 +517,6 @@
             },
             share(type) {
                 try {
-                    this.updateShare()
                     this.nativeShare.call(type)
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
@@ -557,10 +556,8 @@
                     })
                 } else {
                     this.nativeShare.setShareData({
-                        icon: params.imgUrl,
-                        link: params.link,
-                        title: params.title,
-                        desc: params.desc
+                        ...params,
+                        icon: params.imgUrl
                     })
                 }
             },

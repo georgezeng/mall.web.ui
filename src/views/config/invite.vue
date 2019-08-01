@@ -250,10 +250,8 @@
                     })
                 } else {
                     this.nativeShare.setShareData({
-                        icon: params.imgUrl,
-                        link: params.link,
-                        title: params.title,
-                        desc: params.desc
+                        ...params,
+                        icon: params.imgUrl
                     })
                 }
             },
