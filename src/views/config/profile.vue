@@ -42,8 +42,8 @@
                 <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
             </form>
             <group>
-                <cell class="optionalLine optionalCell" is-link title="头像" @click.native="editAvatar">
-                    <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -20px;"
+                <cell class="optionalLine optionalCell" style="margin: 5px 0;" is-link title="头像" @click.native="editAvatar">
+                    <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -24px;"
                             :src="avatar"/>
                 </cell>
                 <cell class="optionalLine optionalCell" :value="info.username" title="账号">

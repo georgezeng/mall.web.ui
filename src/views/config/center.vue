@@ -27,8 +27,8 @@
         .tip {
             font-size: 10pt;
             position: absolute;
-            top: 45px;
-            left: 65px;
+            top: 50px;
+            left: 75px;
         }
         .goArrow {
             position: absolute;

@@ -130,7 +130,7 @@
                 <mt-cell style="border-bottom: 1px solid #F5F5F5;">
                     <div slot="title">
                         <div style="display: inline-block; margin-right: 10px;">
-                            <Avatar style="position: relative; top: -10px;" size="large" :src="avatar(item.avatar)"/>
+                            <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
                         </div>
                         <div style="display: inline-block;">
                             <div style="margin-bottom: 5px;">{{item.nickname}}</div>

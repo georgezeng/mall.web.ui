@@ -92,3 +92,10 @@ input.vux-number-input {
     float: right;
     right: 0px;
 }
+
+.ivu-avatar-large {
+    width: 50px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+    border-radius: 40px !important;
+}
