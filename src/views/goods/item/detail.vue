@@ -269,7 +269,7 @@
 
             <div v-if="showShareTip"
                  @click="closeShareTipPopup"
-                 style="position: fixed; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
+                 style="position: fixed; top: 0px; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
                  :style="{height: contentStyle.minHeight}">
                 <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
@@ -279,7 +279,7 @@
 
             <div v-if="showShareTipInBrowser"
                  @click="closeShareTipPopup"
-                 style="position: fixed; width: 100%; z-index: 100000;"
+                 style="position: fixed; top: 0px; width: 100%; z-index: 100000;"
                  :style="{height: popupHeight + 'px'}" align="center">
                 <div style="color: #fff; line-height: 400px; font-size: 14pt; font-weight: bold;">
                     如果不成功请打开浏览器的菜单进行分享
