@@ -72,7 +72,7 @@
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 40px;">
             <div v-transfer-dom>
-                <popup v-model="showShare" style="background-color: #fff;">
+                <popup v-model="showShare" style="background-color: #fff; z-index: 1000000;">
                     <div style="height: 88px; position: relative;" align="center">
                         <div class="wechat-friend" @click="share('wechatFriend')"></div>
                         <div class="wechat-timeline" @click="share('wechatTimeline')"></div>
@@ -93,7 +93,7 @@
 
             <div v-if="showShareTipInBrowser"
                  @click="closeShareTipPopup"
-                 style="position: fixed; top: 0px; width: 100%; z-index: 100000;"
+                 style="position: fixed; top: 0px; width: 100%; z-index: 1000;"
                  :style="{height: popupHeight}" align="center">
                 <div style="color: #fff; line-height: 400px; font-size: 14pt; font-weight: bold;">
                     如果不成功请打开浏览器的菜单进行分享
