@@ -143,7 +143,7 @@
                     property: 'createTime'
                 },
                 // init: false,
-                showLoading: false,
+                showLoading: true,
                 loadingList: false,
                 clientY: 0,
                 nav: null

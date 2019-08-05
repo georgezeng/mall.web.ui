@@ -226,7 +226,7 @@
                 list: [],
                 showSpin: true,
                 isSmallDevice: false,
-                showLoading: false,
+                showLoading: true,
                 loadingList: false
             }
         },

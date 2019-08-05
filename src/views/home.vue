@@ -146,7 +146,7 @@
                 itemWidth: 0,
                 itemImageWidth: 0,
                 loadingList: false,
-                showLoading: false,
+                showLoading: true,
                 list: [],
                 categoryStyle: {}
             }

@@ -182,7 +182,7 @@
                 uncommentTotal: 0,
                 commentTotal: 0,
                 allLoaded: false,
-                showLoading: false,
+                showLoading: true,
                 loadingList: false,
                 showSpin: true,
                 isSmallDevice: false,

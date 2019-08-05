@@ -156,7 +156,7 @@
                 },
                 list: [],
                 allLoaded: false,
-                showLoading: false,
+                showLoading: true,
                 loadingList: false,
                 showSpin: true,
                 isSmallDevice: false,

@@ -152,7 +152,7 @@
                 neutralityTotal: 0,
                 badTotal: 0,
                 allLoaded: false,
-                showLoading: false,
+                showLoading: true,
                 loadingList: false,
                 showSpin: true,
                 isSmallDevice: false,

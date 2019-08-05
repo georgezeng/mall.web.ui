@@ -100,7 +100,7 @@
                     property: 'updateTime'
                 },
                 init: false,
-                showLoading: false,
+                showLoading: true,
                 loadingList: false
             }
         },

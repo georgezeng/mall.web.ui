@@ -175,7 +175,7 @@
                 list: [],
                 allLoaded: false,
                 loadingList: false,
-                showLoading: false,
+                showLoading: true,
                 popup: false,
                 popupImgSrc: null,
                 popupImgWidth: 0,
