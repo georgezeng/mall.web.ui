@@ -9,7 +9,7 @@
         left: 10px;
         position: absolute;
         top: 24px;
-        color: #fff;
+        color: #5C6677;
     }
 
     .key {
@@ -27,11 +27,13 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <Input size="large" v-model="key" ref="searchInput" class="searchInput"
-                   clearable
-                   :style="{width: searchInputWidth + 'px'}" search
-                   @on-keyup.13="goItemList(null)"
-                   placeholder="搜索商品"/>
+            <form action="" submit.prevent="">
+                <Input size="large" v-model="key" ref="searchInput" class="searchInput"
+                       clearable
+                       :style="{width: searchInputWidth + 'px'}" search
+                       @on-keyup.13="goItemList(null)"
+                       placeholder="搜索商品"/>
+            </form>
         </Header>
         <Content :style="contentStyle">
             <div style="padding: 30px 10px 10px;">
@@ -49,6 +51,7 @@
 <script>
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
+    import $ from 'jquery'
 
     export default {
         components: {},
@@ -103,6 +106,9 @@
                     }
                     key = this.key
                 }
+                if (key == '' || key == null) {
+                    return
+                }
                 Util.go('GoodsItemList', {
                     id: 0,
                     key
@@ -112,10 +118,13 @@
         mounted() {
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.contentStyle.backgroundColor = '#fff'
+            this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
-                this.$refs.searchInput.$el.children[2].focus()
+                const input = this.$refs.searchInput.$el.children[2]
+                $(input).css('backgroundColor', '#f5f5f5')
+                input.focus()
             })
             this.load()
         }
