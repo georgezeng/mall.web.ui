@@ -81,20 +81,22 @@
             <div style="margin-left: 80px;">
                 <mt-swipe :auto="4000" style="height: 150px; background-color: #556B9A;">
                     <mt-swipe-item>
-                        <div class="demo-carousel">1</div>
+                        <img :src="catetoryBanner1" width="bannerWidth" />
                     </mt-swipe-item>
                     <mt-swipe-item>
-                        <div class="demo-carousel">2</div>
+                        <img :src="catetoryBanner2" width="bannerWidth" />
                     </mt-swipe-item>
                     <mt-swipe-item>
-                        <div class="demo-carousel">3</div>
+                        <img :src="catetoryBanner3" width="bannerWidth" />
                     </mt-swipe-item>
                 </mt-swipe>
                 <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
                 <div align="center">
-                    <div class="demo-carousel2">1</div>
+                    <img :src="brand1" />
+                    <!--
                     <div class="demo-carousel2">2</div>
                     <div class="demo-carousel2">3</div>
+                    -->
                 </div>
                 <div :key="item.id" v-for="item in level2Categories">
                     <div class="secondCategory">{{item.name}}</div>
@@ -115,6 +117,10 @@
     import {Message} from 'iview'
     import Footer from '../footer'
     import commonStyles from '../../styles/common.js'
+    import brand1 from '../../images/brand-1.jpeg'
+    import catetoryBanner1 from '../../images/category-banner-1.jpeg'
+    import catetoryBanner2 from '../../images/category-banner-2.jpeg'
+    import catetoryBanner3 from '../../images/category-banner-3.jpeg'
 
     export default {
         components: {
@@ -122,6 +128,10 @@
         },
         data() {
             return {
+                catetoryBanner1,
+                catetoryBanner2,
+                catetoryBanner3,
+                brand1,
                 commonStyles,
                 contentStyle: {
                     ...commonStyles.content
@@ -132,7 +142,8 @@
                 isSelect: [],
                 wrapperHeight: 0,
                 level1Categories: [],
-                level2Categories: []
+                level2Categories: [],
+                bannerWidth: 0
             }
         },
         computed: {},
@@ -183,6 +194,7 @@
             this.headerStyle.boxShadow = '0px 0px 3px -1px gray'
             this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 60
             this.contentStyle.minHeight = this.wrapperHeight + "px"
+            this.bannerWidth = document.documentElement.clientWidth - 80
             this.load()
         }
     }
