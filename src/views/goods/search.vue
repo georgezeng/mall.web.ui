@@ -32,6 +32,7 @@
                    :style="{width: searchInputWidth + 'px'}" search
                    @on-keyup.13="goItemList(null)"
                    placeholder="搜索商品"/>
+            <input ref="input" @focus="onfocus" />
         </Header>
         <Content :style="contentStyle">
             <div style="padding: 30px 10px 10px;">
@@ -68,6 +69,11 @@
         },
         computed: {},
         methods: {
+            onfocus() {
+                this.$nextTick(() => {
+                    this.$refs.searchInput.$el.children[2].focus()
+                })
+            },
             clear() {
                 Util.putJson('SearchHistory', null)
                 this.keys = []
@@ -115,10 +121,7 @@
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
-                this.$refs.searchInput.$el.children[2].focus()
-                setTimeout(() => {
-                    this.$refs.searchInput.$el.children[2].focus()
-                }, 1000)
+                this.$refs.input.focus()
             })
             this.load()
         }
