@@ -123,7 +123,7 @@
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
                 const input = this.$refs.searchInput.$el.children[2]
-                $(input).css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
+                $(input).attr("type", "search").css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
                 input.focus()
             })
             this.load()
