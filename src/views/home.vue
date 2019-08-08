@@ -6,8 +6,8 @@
         display: inline-block;
         width: 80px;
         height: 40px;
-        left: 10px;
-        position: absolute;
+        position: relative;
+        left: -15px;
         top: 15px;
     }
 
@@ -22,8 +22,6 @@
         color: gray;
         line-height: 30px;
         padding-left: 10px;
-        position: relative;
-        left: 35px;
     }
 
     .carousel {
