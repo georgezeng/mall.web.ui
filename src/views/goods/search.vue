@@ -100,7 +100,7 @@
                             break
                         }
                     }
-                    if (!found) {
+                    if (this.key != null && this.key != '' && !found) {
                         history.keys.push(this.key)
                         Util.putJson('SearchHistory', history)
                     }
