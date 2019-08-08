@@ -115,9 +115,11 @@
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
+                this.$refs.searchInput.$el.children[2].focus()
                 setTimeout(() => {
-                    this.$refs.searchInput.$el.children[2].focus();
-                }, 100)
+                    this.$refs.searchInput.$el.children[2].focus()
+                }, 10)
+
             })
             this.load()
         }
