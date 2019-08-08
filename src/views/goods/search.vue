@@ -98,10 +98,10 @@
                         }
                     }
                     if (!found) {
-                        key = this.key
-                        history.keys.push(key)
+                        history.keys.push(this.key)
                         Util.putJson('SearchHistory', history)
                     }
+                    key = this.key
                 }
                 Util.go('GoodsItemList', {
                     id: 0,
