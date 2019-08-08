@@ -118,8 +118,7 @@
                 this.$refs.searchInput.$el.children[2].focus()
                 setTimeout(() => {
                     this.$refs.searchInput.$el.children[2].focus()
-                }, 10)
-
+                }, 1000)
             })
             this.load()
         }
