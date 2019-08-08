@@ -116,7 +116,7 @@
             }
         },
         mounted() {
-            this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
+            this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 80
             this.contentStyle.backgroundColor = '#fff'
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.marginTop = '60px'
