@@ -49,6 +49,7 @@
 <script>
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
+    import $ from 'jquery'
 
     export default {
         components: {},
@@ -114,11 +115,9 @@
             this.contentStyle.backgroundColor = '#fff'
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
-            setTimeout(() => {
-                this.$nextTick(() => {
-                    this.$refs.searchInput.$el.children[2].focus();
-                })
-            }, 10)
+            this.$nextTick(() => {
+                $(this.$refs.searchInput.$el).find('input').focus();
+            })
             this.load()
         }
     }
