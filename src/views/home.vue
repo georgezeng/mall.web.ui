@@ -7,7 +7,7 @@
         width: 80px;
         height: 40px;
         position: relative;
-        left: -5px;
+        left: -10px;
         top: 15px;
     }
 
