@@ -81,13 +81,13 @@
             <div style="margin-left: 80px;">
                 <mt-swipe :auto="4000" style="height: 150px; background-color: #556B9A;">
                     <mt-swipe-item>
-                        <img :src="catetoryBanner1" width="bannerWidth" />
+                        <img :src="catetoryBanner1" :width="bannerWidth" />
                     </mt-swipe-item>
                     <mt-swipe-item>
-                        <img :src="catetoryBanner2" width="bannerWidth" />
+                        <img :src="catetoryBanner2" :width="bannerWidth" />
                     </mt-swipe-item>
                     <mt-swipe-item>
-                        <img :src="catetoryBanner3" width="bannerWidth" />
+                        <img :src="catetoryBanner3" :width="bannerWidth" />
                     </mt-swipe-item>
                 </mt-swipe>
                 <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
