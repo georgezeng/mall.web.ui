@@ -7,7 +7,7 @@
         width: 80px;
         height: 40px;
         position: relative;
-        left: -15px;
+        left: -5px;
         top: 15px;
     }
 
@@ -100,6 +100,7 @@
                 <img class="category1" :style="categoryStyle" :src="category3"/>
                 <img class="category2" :style="categoryStyle" :src="category4"/>
             </div>
+            <div style="font-size: 14px; text-align: center; position: relative; top: -10px;">新品推荐</div>
             <div ref="grid" style="padding-left: 8px;">
                 <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                      @click="goDetail(item.id)">
