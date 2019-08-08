@@ -1,4 +1,17 @@
 <style scoped lang="less">
+    .search {
+        text-align: left;
+        background-color: lightgray;
+        height: 30px;
+        border-radius: 20px;
+        width: 90%;
+        display: inline-block;
+        font-size: 14px;
+        color: #fff;
+        line-height: 30px;
+        padding-left: 10px;
+    }
+
     .leftPanel {
         width: 80px;
         background-color: #F5F5F5;
@@ -68,7 +81,10 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
-            <Input size="large" @on-focus="goItemList" clearable search placeholder="搜索商品"/>
+            <div @click="goSearch" class="search">
+                <Icon type="ios-search" />
+                搜索商品
+            </div>
         </Header>
         <Content :style="contentStyle">
             <div class="wrapper leftPanel" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -148,6 +164,12 @@
         },
         computed: {},
         methods: {
+            goSearch() {
+                Util.putForNav({
+                    from: 'GoodsCategory'
+                })
+                Util.go('GoodsSearch')
+            },
             goItemList() {
                 Util.putForNav({
                     from: 'GoodsCategory'

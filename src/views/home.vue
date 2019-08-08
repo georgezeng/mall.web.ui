@@ -1,4 +1,31 @@
 <style scoped lang="less">
+    .logo {
+        background-image: url("../images/home-logo.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: inline-block;
+        width: 80px;
+        height: 40px;
+        left: 10px;
+        position: absolute;
+        top: 15px;
+    }
+
+    .search {
+        text-align: left;
+        background-color: #fff;
+        height: 30px;
+        border-radius: 20px;
+        width: 70%;
+        display: inline-block;
+        font-size: 14px;
+        color: gray;
+        line-height: 30px;
+        padding-left: 10px;
+        position: relative;
+        left: 35px;
+    }
+
     .carousel {
         height: 220px;
         width: 100%;
@@ -49,7 +76,11 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.header">
-            <Input size="large" @on-focus="goItemList" clearable search placeholder="搜索商品"/>
+            <div class="logo"></div>
+            <div @click="goSearch" class="search">
+                <Icon type="ios-search" />
+                搜索商品
+            </div>
         </Header>
         <Content :style="contentStyle">
             <mt-swipe :auto="4000" style="height: 185px;">
@@ -102,6 +133,7 @@
     import Footer from './footer'
     import commonStyles from '../styles/common'
     import API from '../api/goods-item-list'
+    import MerchantAPI from '../api/merchant'
     import config from '../config/index'
     import Masonry from 'masonry-layout'
     import Util from '../libs/util.js'
@@ -152,14 +184,11 @@
             }
         },
         methods: {
-            goItemList() {
+            goSearch() {
                 Util.putForNav({
                     from: 'Home'
                 })
-                Util.go('GoodsItemList', {
-                    id: 0,
-                    focus: 'true'
-                })
+                Util.go('GoodsSearch')
             },
             brand(item) {
                 return item.brand ? item.brand + '|' : ''
@@ -242,6 +271,9 @@
                 width: width + 'px',
                 height: height + 'px'
             }
+            MerchantAPI.loadShopName().then(data => {
+                document.title = data
+            })
             this.load()
         },
         destroyed() {

@@ -1,8 +1,15 @@
 <style scoped lang="less">
-    .searchInput {
-        position: relative;
-        top: -5px;
-        right: -10px;
+    .search {
+        text-align: left;
+        background-color: lightgray;
+        height: 30px;
+        border-radius: 20px;
+        width: 80%;
+        display: inline-block;
+        font-size: 14px;
+        color: #fff;
+        line-height: 30px;
+        padding-left: 10px;
     }
 
     .orderTab {
@@ -38,7 +45,7 @@
     .backArrow {
         left: 10px;
         position: absolute;
-        top: 20px;
+        top: 24px;
         color: #5C6677;
     }
 
@@ -84,11 +91,10 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <Input size="large" v-model="queryInfo.data" ref="searchInput" class="searchInput"
-                   clearable
-                   :style="{width: searchInputWidth + 'px'}" search
-                   @on-keyup.13="reload"
-                   placeholder="搜索商品"/>
+            <div @click="goSearch" class="search">
+                <Icon type="ios-search" />
+                {{keyword}}
+            </div>
             <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
                 <span class="orderTab" :class="{selected: isSelected.default}"
                       @click="orderBy('default', true)">默认</span>
@@ -222,7 +228,6 @@
                         order: 'DESC'
                     },
                 },
-                autofocus: false,
                 list: [],
                 showSpin: true,
                 isSmallDevice: false,
@@ -230,8 +235,19 @@
                 loadingList: false
             }
         },
-        computed: {},
+        computed: {
+            keyword() {
+                return this.queryInfo.data ? this.queryInfo.data : '搜索商品'
+            }
+        },
         methods: {
+            goSearch() {
+                Util.putForNav({
+                    from: 'GoodsItemList',
+                    id: this.categoryId
+                })
+                Util.go('GoodsSearch')
+            },
             brand(item) {
                 return item.brand ? item.brand + '|' : ''
             },
@@ -379,17 +395,8 @@
             this.itemImageWidth = this.itemWidth - 16
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
-            if (this.$router.currentRoute.params.focus == 'true') {
-                // setTimeout(() => {
-                //     this.$refs.searchInput.$el.children[2].focus()
-                //     this.$refs.searchInput.$el.children[2].click()
-                // }, 1000)
-                this.$nextTick(() => {
-                    this.$refs.searchInput.$el.children[2].focus();
-                });
-            }
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
-            Util.put('goodsCategoryId', this.categoryId)
+            this.queryInfo.data = this.$router.currentRoute.params.key
             this.orderBy('default', true)
         },
         destroyed() {
