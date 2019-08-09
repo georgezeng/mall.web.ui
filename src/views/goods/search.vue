@@ -135,6 +135,7 @@
                 if (key == '' || key == null) {
                     return
                 }
+                Util.getForNav()
                 Util.go('GoodsItemList', {
                     id: 0,
                     key
