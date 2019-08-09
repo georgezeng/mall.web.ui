@@ -251,10 +251,10 @@
         },
         methods: {
             goSearch() {
-                Util.putForNav({
-                    from: 'GoodsItemList',
-                    id: this.categoryId
-                })
+                // Util.putForNav({
+                //     from: 'GoodsItemList',
+                //     id: this.categoryId
+                // })
                 Util.go('GoodsSearch')
             },
             brand(item) {
