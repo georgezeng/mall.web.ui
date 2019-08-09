@@ -12,6 +12,15 @@
         padding-left: 10px;
     }
 
+    .searchInput {
+        color: #fff;
+        border: none;
+        width: 90%;
+        background-color: lightgray;
+        outline: none;
+        border-radius: 20px;
+    }
+
     .orderTab {
         position: relative;
         margin: 10px 40px;
@@ -91,9 +100,9 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <div @click="goSearch" class="search">
+            <div class="search">
                 <Icon type="ios-search" />
-                {{keyword}}
+                <input @focus="goSearch" class="searchInput" :value="keyword"/>
             </div>
             <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
                 <span class="orderTab" :class="{selected: isSelected.default}"

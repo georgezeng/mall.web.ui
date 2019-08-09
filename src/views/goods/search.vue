@@ -38,7 +38,7 @@
         <Content :style="contentStyle">
             <div style="padding: 30px 10px 10px;">
                 历史记录
-                <Icon @click="clear" style="float:right;" size="24" type="md-trash" />
+                <Icon @click="clear" style="float:right;" size="24" type="md-trash"/>
             </div>
             <div style="padding: 10px;">
                 <div @click="goItemList(item)" class="key" v-for="(item, index) in keys" :key="index">
@@ -123,7 +123,7 @@
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
                 const input = this.$refs.searchInput.$el.children[2]
-                $(input).attr("type", "search").css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
+                $(input).attr("type", "search").css('borderColor', '#dcdee2').css('outline', 'none').css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
                 input.focus()
             })
             this.load()

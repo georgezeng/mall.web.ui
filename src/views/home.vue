@@ -13,15 +13,24 @@
 
     .search {
         text-align: left;
-        background-color: #fff;
+        background-color: #f16051;
         height: 30px;
         border-radius: 20px;
         width: 70%;
         display: inline-block;
         font-size: 14px;
-        color: gray;
+        color: #fff;
         line-height: 30px;
         padding-left: 10px;
+    }
+
+    .searchInput {
+        color: #fff;
+        border: none;
+        width: 90%;
+        background-color: #f16051;
+        outline: none;
+        border-radius: 20px;
     }
 
     .carousel {
@@ -75,9 +84,9 @@
     <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.header">
             <div class="logo"></div>
-            <div @click="goSearch" class="search">
+            <div class="search">
                 <Icon type="ios-search" />
-                搜索商品
+                <input @focus="goSearch" class="searchInput" value="搜索商品"/>
             </div>
         </Header>
         <Content :style="contentStyle">

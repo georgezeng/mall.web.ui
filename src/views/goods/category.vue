@@ -12,6 +12,15 @@
         padding-left: 10px;
     }
 
+    .searchInput {
+        color: #fff;
+        border: none;
+        width: 90%;
+        background-color: lightgray;
+        outline: none;
+        border-radius: 20px;
+    }
+
     .leftPanel {
         width: 80px;
         background-color: #F5F5F5;
@@ -81,9 +90,9 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
-            <div @click="goSearch" class="search">
+            <div class="search">
                 <Icon type="ios-search" />
-                搜索商品
+                <input @focus="goSearch" class="searchInput" value="搜索商品"/>
             </div>
         </Header>
         <Content :style="contentStyle">
