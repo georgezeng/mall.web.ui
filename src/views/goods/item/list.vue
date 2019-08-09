@@ -102,7 +102,7 @@
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <div :style="{width: searchInputWidth + 'px'}" class="search">
                 <Icon style="color: gray;" type="ios-search" />
-                <input @focus="goSearch" class="searchInput" :value="keyword"/>
+                <input @focus="goSearch" class="searchInput" :placeholder="keyword"/>
             </div>
             <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
                 <span class="orderTab" :class="{selected: isSelected.default}"

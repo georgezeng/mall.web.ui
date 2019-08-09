@@ -92,7 +92,7 @@
         <Header :style="headerStyle">
             <div class="search">
                 <Icon style="color: gray;" type="ios-search" />
-                <input @focus="goSearch" class="searchInput" value="搜索商品"/>
+                <input @focus="goSearch" class="searchInput" placeholder="搜索商品"/>
             </div>
         </Header>
         <Content :style="contentStyle">
