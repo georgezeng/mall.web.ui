@@ -18,6 +18,7 @@
         background-color: #f5f5f5;
         outline: none;
         border-radius: 20px;
+        line-height: 30px;
     }
 
     .backArrow {
