@@ -1,8 +1,23 @@
 <style scoped lang="less">
+    .search {
+        text-align: left;
+        background-color: #f5f5f5;
+        height: 33px;
+        border-radius: 20px;
+        display: inline-block;
+        font-size: 14px;
+        line-height: 30px;
+        padding-left: 10px;
+        margin-left: 20px;
+        border: 1px solid #dcdee2;
+    }
+
     .searchInput {
-        position: relative;
-        top: 0px;
-        right: -10px;
+        border: none;
+        width: 85%;
+        background-color: #f5f5f5;
+        outline: none;
+        border-radius: 20px;
     }
 
     .backArrow {
@@ -28,11 +43,17 @@
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <form action="" submit.prevent="">
-                <Input size="large" v-model="key" ref="searchInput" class="searchInput"
-                       clearable
-                       :style="{width: searchInputWidth + 'px'}" search
-                       @on-keyup.13="goItemList(null)"
-                       placeholder="搜索商品"/>
+                <!--<Input size="large" v-model="key" ref="searchInput" class="searchInput"-->
+                <!--clearable-->
+                <!--:style="{width: searchInputWidth + 'px'}" search-->
+                <!--@on-keyup.13="goItemList(null)"-->
+                <!--placeholder="搜索商品"/>-->
+                <div :style="{width: searchInputWidth + 'px'}" class="search">
+                    <Icon style="color: gray;" type="ios-search"/>
+                    <input @keyup="show=true" @keyup.13="goItemList(null)" type="search" ref="searchInput"
+                           class="searchInput" v-model="key" placeholder="搜索商品"/>
+                    <Icon v-if="show" @click="reset" style="color: gray;" size="20" type="ios-close"/>
+                </div>
             </form>
         </Header>
         <Content :style="contentStyle">
@@ -66,11 +87,16 @@
                 },
                 key: null,
                 searchInputWidth: 0,
-                keys: []
+                keys: [],
+                show: false
             }
         },
         computed: {},
         methods: {
+            reset() {
+                this.key = null
+                this.show = false
+            },
             clear() {
                 Util.putJson('SearchHistory', null)
                 this.keys = []
@@ -122,8 +148,8 @@
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
-                const input = this.$refs.searchInput.$el.children[2]
-                $(input).attr("type", "search").css('borderColor', '#dcdee2').css('outline', 'none').css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
+                const input = this.$refs.searchInput//.$el.children[2]
+                // $(input).attr("type", "search").css('borderColor', '#dcdee2').css('outline', 'none').css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
                 input.focus()
             })
             this.load()

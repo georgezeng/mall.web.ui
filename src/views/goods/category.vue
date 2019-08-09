@@ -1,22 +1,22 @@
 <style scoped lang="less">
     .search {
         text-align: left;
-        background-color: lightgray;
-        height: 30px;
+        background-color: #f5f5f5;
+        height: 33px;
         border-radius: 20px;
         width: 90%;
         display: inline-block;
         font-size: 14px;
-        color: #fff;
         line-height: 30px;
         padding-left: 10px;
+        border: 1px solid #dcdee2;
     }
 
     .searchInput {
-        color: #fff;
+        color: gray;
         border: none;
         width: 90%;
-        background-color: lightgray;
+        background-color: #f5f5f5;
         outline: none;
         border-radius: 20px;
     }
@@ -91,7 +91,7 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <div class="search">
-                <Icon type="ios-search" />
+                <Icon style="color: gray;" type="ios-search" />
                 <input @focus="goSearch" class="searchInput" value="搜索商品"/>
             </div>
         </Header>

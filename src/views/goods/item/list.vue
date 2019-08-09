@@ -1,22 +1,22 @@
 <style scoped lang="less">
     .search {
         text-align: left;
-        background-color: lightgray;
-        height: 30px;
+        background-color: #f5f5f5;
+        height: 33px;
         border-radius: 20px;
-        width: 80%;
         display: inline-block;
         font-size: 14px;
-        color: #fff;
         line-height: 30px;
         padding-left: 10px;
+        margin-left: 20px;
+        border: 1px solid #dcdee2;
     }
 
     .searchInput {
-        color: #fff;
+        color: gray;
         border: none;
         width: 90%;
-        background-color: lightgray;
+        background-color: #f5f5f5;
         outline: none;
         border-radius: 20px;
     }
@@ -100,8 +100,8 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <div class="search">
-                <Icon type="ios-search" />
+            <div :style="{width: searchInputWidth + 'px'}" class="search">
+                <Icon style="color: gray;" type="ios-search" />
                 <input @focus="goSearch" class="searchInput" :value="keyword"/>
             </div>
             <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
@@ -241,7 +241,7 @@
                 showSpin: true,
                 isSmallDevice: false,
                 showLoading: true,
-                loadingList: false
+                loadingList: false,
             }
         },
         computed: {
@@ -393,13 +393,13 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientHeight < 600
+            this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 60
             this.contentStyle.marginTop = '100px'
             this.headerStyle.height = '90px'
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.backgroundColor = '#F5F5F5'
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 100
             window.addEventListener('scroll', this.scrollHandler)
-            this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 50
             this.itemWidth = (document.documentElement.clientWidth - 24) / 2
             this.itemImageWidth = this.itemWidth - 16
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
