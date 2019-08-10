@@ -355,9 +355,8 @@
             }
         },
         mounted() {
-            if (document.documentElement.clientHeight < 600) {
-                this.contentStyle.minHeight = '600px'
-            }
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + 'px'
+            this.contentStyle.marginBottom = '80px'
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
                 if(docWidth < 375 && docWidth > 330) {
