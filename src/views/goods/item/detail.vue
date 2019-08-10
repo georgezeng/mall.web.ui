@@ -612,7 +612,6 @@
                     ]
                 }).then(key => {
                     Util.put('settleAccountData', null)
-                    Util.put('settleAccountKey', key)
                     Util.putForNav({
                         from: 'GoodsItemDetail',
                         id: this.item.id

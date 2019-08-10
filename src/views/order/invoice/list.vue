@@ -119,23 +119,17 @@
                     }
                 }
                 Util.putJson('settleAccountData', data)
-                Util.go('OrderSettleAccount', {
-                    key: Util.get('settleAccountKey')
-                })
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             back() {
-                const key = Util.get('settleAccountKey')
-                if (key) {
-                    Util.go('OrderSettleAccount', {
-                        key
-                    })
-                } else {
-                    Util.go('GoodsItemList', {
-                        id: 0
-                    })
-                }
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             goEdit(id) {
+                Util.putForNav({
+                    from: 'MyInvoiceList'
+                })
                 Util.go('MyInvoiceEdit', {
                     id
                 })

@@ -125,7 +125,8 @@
                 }
             },
             back() {
-                Util.go('MyInvoiceList')
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             save() {
                 if (!this.data.title || this.data.title == '') {

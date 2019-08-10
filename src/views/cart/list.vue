@@ -235,7 +235,6 @@
                     })
                 }).then(key => {
                     Util.put('settleAccountData', null)
-                    Util.put('settleAccountKey', key)
                     Util.putForNav({
                         from: 'MyCart'
                     })

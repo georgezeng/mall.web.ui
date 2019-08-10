@@ -146,22 +146,20 @@
                 showLoading: true,
                 loadingList: false,
                 clientY: 0,
-                nav: null
             }
         },
         computed: {},
         methods: {
             getItem(item, index) {
-                switch (this.nav.from) {
+                const nav = Util.getForNav()
+                switch (nav.from) {
                     case 'OrderSettleAccount': {
                         const data = Util.getJson('settleAccountData')
                         if (data) {
                             this.checkAsSelect(item.id, index)
                             data.address = item
                             Util.putJson('settleAccountData', data)
-                            Util.go('OrderSettleAccount', {
-                                key: Util.get('settleAccountKey')
-                            })
+                            Util.go(nav.from, nav)
                         }
                     }
                         break
@@ -171,17 +169,19 @@
                             this.checkAsSelect(item.id, index)
                             data.address = item
                             Util.putJson('afterSaleChangeData', data)
-                            Util.go('AfterSaleChange', {
-                                id: Util.get('afterSaleChangeId')
-                            })
+                            Util.go(nav.from, nav)
                         }
                     }
                 }
             },
             back() {
-                Util.go(this.nav.from, this.nav)
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             goEdit(id) {
+                Util.putForNav({
+                    from: 'MyAddressList'
+                })
                 Util.go('MyAddressEdit', {
                     id
                 })
@@ -236,7 +236,8 @@
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         let info = null
-                        switch (this.nav.from) {
+                        const nav = Util.peekForNav()
+                        switch (nav.from) {
                             case 'OrderSettleAccount':
                                 info = Util.getJson('settleAccountData');
                                 break
@@ -281,7 +282,6 @@
             this.footerStyle.padding = "20px"
             this.contentStyle.marginTop = "60px"
             this.contentStyle.marginBottom = "80px"
-            this.nav = Util.getForNav()
         },
         mounted() {
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80

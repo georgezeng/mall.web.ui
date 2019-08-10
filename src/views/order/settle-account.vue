@@ -373,7 +373,6 @@
                     //     width: '200px'
                     // })
                     Util.put('settleAccountData', null)
-                    Util.put('settleAccountKey', null)
                     if (Util.isInWechat()) {
                         switch (data.payment) {
                             case 'WePay': {
@@ -418,6 +417,10 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             goInvoice() {
+                Util.putForNav({
+                    from: 'OrderSettleAccount',
+                    key: this.key
+                })
                 Util.go('MyInvoiceList')
             },
             closeItemPopup() {
@@ -457,10 +460,9 @@
                 Util.go(nav.from, nav)
             },
             goPickupAddress() {
-                Util.putJson('settleAccountData', this.data)
-                Util.put('settleAccountKey', this.key)
                 Util.putForNav({
-                    from: 'OrderSettleAccount'
+                    from: 'OrderSettleAccount',
+                    key: this.key
                 })
                 Util.go('MyAddressList')
             },

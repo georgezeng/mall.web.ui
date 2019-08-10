@@ -51,7 +51,8 @@
                 addressData: ChinaAddressV4Data,
                 loading: false,
                 footerStyle: {
-                    ...commonStyles.footer
+                    ...commonStyles.
+                        footer
                 },
                 form: {
                     id: null,
@@ -73,7 +74,8 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
             },
             back() {
-                Util.go('MyAddressList')
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             save() {
                 if (!this.form.name || this.form.name == '') {

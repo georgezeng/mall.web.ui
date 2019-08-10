@@ -135,7 +135,6 @@ util.putForNav = function (navObj) {
 util.clear = function () {
     util.putJson('NavigateArrObj', null)
     util.putJson('settleAccountData', null)
-    util.putJson('settleAccountKey', null)
 }
 
 util.getForNav = function () {
@@ -147,6 +146,17 @@ util.getForNav = function () {
         }
     }
     util.putJson('NavigateArrObj', navList)
+    return nav
+}
+
+util.peekForNav = function () {
+    const navList = util.getJson('NavigateArrObj')
+    let nav = navList.list[navList.length-1]
+    if (!nav) {
+        nav = {
+            from: 'Home'
+        }
+    }
     return nav
 }
 
