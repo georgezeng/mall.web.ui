@@ -189,7 +189,7 @@ util.wepayForMweb = (orderId, callback) => {
         id: orderId,
         type: 'MWEB'
     }).then(data => {
-        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '/Order/List/All')
+        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '/#/Order/List/All')
         Vue.$vux.loading.hide()
     }).catch(e => {
         Vue.$vux.loading.hide()
