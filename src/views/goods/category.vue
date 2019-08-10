@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div style="margin-left: 80px;">
-                <mt-swipe :auto="4000" style="height: 150px; background-color: #556B9A;">
+                <mt-swipe :auto="4000" style="height: 150px;">
                     <mt-swipe-item>
                         <img :src="catetoryBanner1" :width="bannerWidth" />
                     </mt-swipe-item>
