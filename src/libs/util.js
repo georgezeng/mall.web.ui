@@ -42,7 +42,7 @@ util.loginSuccess = (data, target) => {
     if (link.indexOf('?') == -1) {
         window.location.href = link.replace(/#.+/, '?uid=' + data.userId + '#' + target)
     } else {
-        window.location.href = link.replace(/\?.+/, '?uid=' + data.userId).replace(/#.+/,  '') + '#' + target
+        window.location.href = link.replace(/\?.+/, '?uid=' + data.userId).replace(/#.+/, '') + '#' + target
     }
 }
 
@@ -132,7 +132,7 @@ util.putForNav = function (navObj) {
     util.putJson('NavigateArrObj', obj)
 }
 
-util.clear = function() {
+util.clear = function () {
     util.putJson('NavigateArrObj', null)
     util.putJson('settleAccountData', null)
     util.putJson('settleAccountKey', null)
@@ -189,7 +189,7 @@ util.wepayForMweb = (orderId, callback) => {
         id: orderId,
         type: 'MWEB'
     }).then(data => {
-        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.href + '?paid=true')
+        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '://' + window.location.host + '/Order/List/All')
         Vue.$vux.loading.hide()
     }).catch(e => {
         Vue.$vux.loading.hide()
