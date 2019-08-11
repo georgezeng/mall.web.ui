@@ -23,8 +23,8 @@
                 <div style="margin-bottom: 5px;">{{address.location}}</div>
             </div>
             <div style="margin-top: 20px;">
-                <div>
-                    已同意您的申请，请尽快寄回商品，并填写运单
+                <div style="margin-left: 10px; color: gray;">
+                    (已同意您的申请，请尽快寄回商品，并填写运单)
                 </div>
                 <group>
                     <x-input @on-blur="resetUI" title="物流公司:" placeholder="请填写物流公司名称"
@@ -35,10 +35,12 @@
             </div>
         </Content>
         <Footer :style="footerStyle">
-            <x-button :disabled="loading" :show-loading="loading" action-type="button"
-                      style="width: 100%; background-color: #008CEB;" @click.native="fillExpress">
-                <span style="font-size: 11pt; color: #fff;">确认发货</span>
-            </x-button>
+            <div style="padding: 0px 10px;">
+                <x-button :disabled="loading" :show-loading="loading" action-type="button"
+                          style="width: 100%; background-color: #008CEB;" @click.native="fillExpress">
+                    <span style="font-size: 11pt; color: #fff;">确认发货</span>
+                </x-button>
+            </div>
         </Footer>
     </Layout>
 </template>
