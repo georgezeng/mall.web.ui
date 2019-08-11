@@ -64,13 +64,14 @@
                                       @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
+                            <x-input ref="newPasswordInput" @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;"
+                                     class="optionalLine optionalCell" type="password" title="新密码"
+                                     placeholder="请输入新密码"
+                                     v-model="passwordModal.form.password"></x-input>
                             <x-input @on-blur="resetUI" @keypress.native="focusInput" class="optionalLine optionalCell"
                                      type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
-                            <wv-group title="无标签">
-                                <wv-input type="password" placeholder="请输入内容" v-model="passwordModal.form.password"></wv-input>
-                            </wv-group>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
                             <x-button action-type="button" :disabled="loading"
@@ -226,7 +227,10 @@
         },
         mounted() {
             this.popupHeight = document.documentElement.clientHeight
-            $(this.$refs.newPasswordInput.$el).find('input').attr('autofocus', 'true')
+            const inputEl = this.$refs.newPasswordInput.$el
+            const inputJQEl = $(inputEl).find('input').parent()
+            inputJQEl.find('input').remove()
+            inputJQEl.append('<input type="password" style="outline: none;" />')
         }
     }
 </script>
