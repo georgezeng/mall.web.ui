@@ -58,7 +58,7 @@
                                     @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <x-input @on-blur="resetUI" @keyup.native="focusInput" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
+                            <x-input @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
                                      placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
                             <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="确认密码"
