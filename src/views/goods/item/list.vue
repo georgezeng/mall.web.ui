@@ -317,13 +317,14 @@
                             this.allLoaded = true
                             this.showLoading = false
                         }
-                        setTimeout(() => {
-                            new Masonry(this.$refs.grid, {});
-                            this.showSpin = false
-                            // if (load) {
-                            //     this.$refs.wrapper.scrollTop = 0
-                            // }
-                        }, 100)
+                        this.showSpin = false
+                        // setTimeout(() => {
+                        //     new Masonry(this.$refs.grid, {});
+                        //     this.showSpin = false
+                        //     // if (load) {
+                        //     //     this.$refs.wrapper.scrollTop = 0
+                        //     // }
+                        // }, 100)
                     } else {
                         this.allLoaded = true
                         this.showLoading = false

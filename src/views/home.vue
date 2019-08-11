@@ -143,7 +143,7 @@
     import API from '../api/goods-item-list'
     import MerchantAPI from '../api/merchant'
     import config from '../config/index'
-    import Masonry from 'masonry-layout'
+    // import Masonry from 'masonry-layout'
     import Util from '../libs/util.js'
 
     import banner1 from '../images/banner-1.png'
@@ -254,9 +254,9 @@
                             this.allLoaded = true
                             this.showLoading = false
                         }
-                        setTimeout(() => {
-                            new Masonry(this.$refs.grid, {});
-                        }, 100)
+                        // setTimeout(() => {
+                        //     new Masonry(this.$refs.grid, {});
+                        // }, 100)
                     } else {
                         this.allLoaded = true
                         this.showLoading = false
