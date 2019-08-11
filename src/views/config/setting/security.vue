@@ -23,18 +23,9 @@
                             修改密码
                         </div>
                         <group>
-                            <x-input @on-blur="resetUI" @keypress.native="focusInput" class="optionalLine optionalCell"
-                                     type="password" title="旧密码"
-                                     placeholder="请输入旧密码"
-                                     v-model="passwordModal.form.oldPassword"></x-input>
-                            <x-input @on-blur="resetUI" @keypress.native="focusInput" class="optionalLine optionalCell"
-                                     type="password" title="新密码"
-                                     placeholder="请输入新密码"
-                                     v-model="passwordModal.form.password"></x-input>
-                            <x-input @on-blur="resetUI" @keypress.native="focusInput" class="optionalLine optionalCell"
-                                     type="password" title="确认密码"
-                                     placeholder="请输入确认密码"
-                                     v-model="passwordModal.form.confirmPassword"></x-input>
+                            <PasswordInput placeholder="请输入旧密码" title="旧密码" @change="changeOldPassword" />
+                            <PasswordInput placeholder="请输入新密码" title="新密码" @change="changeNewPassword" />
+                            <PasswordInput placeholder="请输入确认密码" title="确认密码" @change="changeConfirmPassword" />
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
                             <x-button action-type="button" :disabled="loading"
@@ -65,10 +56,7 @@
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
                             <PasswordInput placeholder="请输入新密码" title="新密码" @change="changeNewPassword" />
-                            <x-input @on-blur="resetUI" @keypress.native="focusInput" class="optionalLine optionalCell"
-                                     type="password" title="确认密码"
-                                     placeholder="请输入确认密码"
-                                     v-model="passwordModal.form.confirmPassword"></x-input>
+                            <PasswordInput placeholder="请输入确认密码" title="确认密码" @change="changeConfirmPassword" />
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
                             <x-button action-type="button" :disabled="loading"
@@ -124,6 +112,12 @@
         },
         computed: {},
         methods: {
+            changeOldPassword(value) {
+                this.passwordModal.form.oldPassword = value
+            },
+            changeConfirmPassword(value) {
+                this.passwordModal.form.confirmPassword = value
+            },
             changeNewPassword(value) {
                 this.passwordModal.form.password = value
             },
@@ -226,11 +220,6 @@
         },
         mounted() {
             this.popupHeight = document.documentElement.clientHeight
-            // const inputEl = this.$refs.newPasswordInput.$el
-            // const inputJQEl = $(inputEl).find('input').attr("type", "password")
-            //     .parent()
-            // inputJQEl.find('input').remove()
-            // inputJQEl.append('<input type="password" style="outline: none;" />')
         }
     }
 </script>
