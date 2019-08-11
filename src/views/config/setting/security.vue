@@ -17,17 +17,17 @@
         <Content :style="commonStyles.content" style="margin-top: 40px;">
             <div v-transfer-dom>
                 <popup v-model="passwordModal.editOpen" style="background-color: #fff;">
-                    <div style="height: 300px; position: relative;">
+                    <div :style="{height: popupHeight + 'px'}" style="position: relative;">
                         <Icon size="30" type="ios-close" class="popup-close" @click="closePasswordPopup"/>
                         <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
                             修改密码
                         </div>
                         <group>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="旧密码" placeholder="请输入旧密码"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="旧密码" placeholder="请输入旧密码"
                                      v-model="passwordModal.form.oldPassword"></x-input>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="新密码" placeholder="请输入新密码"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="新密码" placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="确认密码"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
@@ -42,7 +42,7 @@
                 </popup>
 
                 <popup v-model="passwordModal.resetOpen" style="background-color: #fff;">
-                    <div style="height: 300px; position: relative;">
+                    <div :style="{height: popupHeight + 'px'}" style="position: relative;">
                         <Icon size="30" type="ios-close" class="popup-close" @click="closePasswordPopup"/>
                         <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
                             重置密码
@@ -58,10 +58,10 @@
                                     @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
+                            <x-input @on-blur="resetUI" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
                                      placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" type="password" title="确认密码"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
@@ -107,7 +107,8 @@
                         oldPassword: null,
                         password: null,
                         confirmPassword: null
-                    }
+                    },
+                    popupHeight: 0
                 }
             }
         },
@@ -205,5 +206,8 @@
                 })
             },
         },
+        mounted() {
+            this.popupHeight = document.documentElement.clientHeight
+        }
     }
 </script>
