@@ -1,11 +1,6 @@
 <style scoped lang="less">
 </style>
 <template>
-    <div style="border-top: 2px solid #EDEDED; border-bottom: 2px solid #EDEDED;">
-
-        <input class="weui-input" ref="input" :value="value" @change="change" type="password"
-               style="outline: none; border: none; width: 100%; height: 25px;"/>
-    </div>
     <x-input ref="input" @on-blur="resetUI" style="clear: both;"
              class="optionalLine optionalCell" :title="title"
              :placeholder="placeholder">
@@ -24,13 +19,15 @@
         ],
         data() {
             return {
-
+                input: null
             }
         },
         computed: {
         },
         watch: {
-
+            value: function(val) {
+                this.input.val(val)
+            }
         },
         methods: {
             change(e) {
@@ -41,13 +38,12 @@
             },
         },
         mounted() {
-            const wrapperEl = $(this.$refs.inputWrapper.$el).find('input').parent()
+            const wrapperEl = $(this.$refs.input.$el).find('input').parent()
             wrapperEl.find('input').remove()
-            const input = $('<input type="password"' +
+            this.input = $('<input type="password"' +
                 ' style="outline: none; border: none; width: 100%; height: 25px;"/>')
-            input.change(this.change)
-            input.val(this.value)
-            wrapperEl.append(input)
+            this.input.change(this.change)
+            wrapperEl.append(this.input)
         }
     }
 </script>
