@@ -176,6 +176,12 @@
                     }).then(res => {
                         this.loading = false
                         this.closePasswordPopup()
+                        this.passwordModal.form = {
+                            verifyCode: null,
+                            oldPassword: null,
+                            password: null,
+                            confirmPassword: null
+                        }
                         this.$vux.toast.show({text: '保存成功'})
                     }).catch(e => {
                         this.loading = false
@@ -184,6 +190,12 @@
                     API.updatePassword(this.passwordModal.form).then(res => {
                         this.loading = false
                         this.closePasswordPopup()
+                        this.passwordModal.form = {
+                            verifyCode: null,
+                            oldPassword: null,
+                            password: null,
+                            confirmPassword: null
+                        }
                         this.$vux.toast.show({text: '保存成功'})
                     }).catch(e => {
                         this.loading = false
