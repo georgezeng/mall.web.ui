@@ -64,7 +64,7 @@
                                       @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <x-input @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;"
+                            <x-input ref="newPasswordInput" @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;"
                                      class="optionalLine optionalCell" type="password" title="新密码"
                                      placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
@@ -98,6 +98,7 @@
     import Util from '../../../libs/util.js'
     import {Message} from 'iview'
     import commonStyles from '../../../styles/common.js'
+    import $ from 'jquery'
 
     export default {
         components: {},
@@ -226,6 +227,7 @@
         },
         mounted() {
             this.popupHeight = document.documentElement.clientHeight
+            $(this.$refs.newPasswordInput.$el).find('input').attr('autofocus', 'true')
         }
     }
 </script>
