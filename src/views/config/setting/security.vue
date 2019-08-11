@@ -127,8 +127,9 @@
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
-            focusInput() {
+            focusInput(e) {
                 this.input = true
+                e.target.autofocus = true
             },
             resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
