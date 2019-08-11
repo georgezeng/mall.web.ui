@@ -56,7 +56,11 @@
                 footerStyle: {
                     ...commonStyles.footer
                 },
-                address: {},
+                address: {
+                    name: null,
+                    phone: null,
+                    location: null
+                },
                 data: {
                     id: null,
                     company: null,
@@ -92,7 +96,9 @@
             load() {
                 if (this.data.id > 0) {
                     API.returnAddress().then(address => {
-                        this.address = address
+                        if (address) {
+                            this.address = address
+                        }
                     })
                 }
             }

@@ -23,9 +23,11 @@
                             修改密码
                         </div>
                         <group>
-                            <PasswordInput placeholder="请输入旧密码" title="旧密码" @change="changeOldPassword" />
-                            <PasswordInput placeholder="请输入新密码" title="新密码" @change="changeNewPassword" />
-                            <PasswordInput placeholder="请输入确认密码" title="确认密码" @change="changeConfirmPassword" />
+                            <PasswordInput :value="passwordModal.form.oldPassword" placeholder="请输入旧密码" title="旧密码" @change="changeOldPassword" />
+                            <PasswordInput :value="passwordModal.form.password" placeholder="请输入新密码" title="新密码"
+                                           @change="changeNewPassword"/>
+                            <PasswordInput :value="passwordModal.form.confirmPassword" placeholder="请输入确认密码"
+                                           title="确认密码" @change="changeConfirmPassword"/>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
                             <x-button action-type="button" :disabled="loading"
@@ -55,8 +57,10 @@
                                       @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <PasswordInput placeholder="请输入新密码" title="新密码" @change="changeNewPassword" />
-                            <PasswordInput placeholder="请输入确认密码" title="确认密码" @change="changeConfirmPassword" />
+                            <PasswordInput :value="passwordModal.form.password" placeholder="请输入新密码" title="新密码"
+                                           @change="changeNewPassword"/>
+                            <PasswordInput :value="passwordModal.form.confirmPassword" placeholder="请输入确认密码"
+                                           title="确认密码" @change="changeConfirmPassword"/>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
                             <x-button action-type="button" :disabled="loading"
@@ -176,12 +180,6 @@
                     }).then(res => {
                         this.loading = false
                         this.closePasswordPopup()
-                        this.passwordModal.form = {
-                            verifyCode: null,
-                            oldPassword: null,
-                            password: null,
-                            confirmPassword: null
-                        }
                         this.$vux.toast.show({text: '保存成功'})
                     }).catch(e => {
                         this.loading = false
@@ -190,12 +188,6 @@
                     API.updatePassword(this.passwordModal.form).then(res => {
                         this.loading = false
                         this.closePasswordPopup()
-                        this.passwordModal.form = {
-                            verifyCode: null,
-                            oldPassword: null,
-                            password: null,
-                            confirmPassword: null
-                        }
                         this.$vux.toast.show({text: '保存成功'})
                     }).catch(e => {
                         this.loading = false

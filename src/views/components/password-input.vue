@@ -3,8 +3,7 @@
 <template>
     <x-input ref="input" @on-blur="resetUI" style="clear: both;"
              class="optionalLine optionalCell" :title="title"
-             :placeholder="placeholder"
-             :value="value"></x-input>
+             :placeholder="placeholder"></x-input>
 </template>
 <script>
     import $ from 'jquery'

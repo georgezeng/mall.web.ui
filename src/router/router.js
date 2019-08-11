@@ -168,7 +168,7 @@ const routers = [
             title: '物流详情',
             needLogin: true
         },
-        component: (resolve) => require(['../views/order/express.vue'], resolve)
+        component: (resolve) => require(['../views/aftersale/express.vue'], resolve)
     },
     {
         path: '/AfterSale/List/:id/:status',
