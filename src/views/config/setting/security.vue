@@ -128,11 +128,10 @@
             },
             resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
-                // if (this.input) {
-                //     e.target.focus()
-                //     this.input = false
-                // }
-                e.target.focus()
+                if (this.input) {
+                    e.target.focus()
+                    this.setTimeout(() => this.input = false, 10)
+                }
             },
             back() {
                 Util.go('MySetting')
