@@ -121,16 +121,8 @@
             changeNewPassword(value) {
                 this.passwordModal.form.password = value
             },
-            focusInput(e) {
-                this.input = true
-                e.target.autofocus = true
-            },
             resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
-                if (this.input) {
-                    // e.target.focus()
-                    // window.setTimeout(() => this.input = false, 10)
-                }
             },
             back() {
                 Util.go('MySetting')
@@ -180,7 +172,7 @@
                 if (this.passwordModal.resetOpen) {
                     API.resetPassword({
                         ...this.passwordModal.form,
-                        oldPassword: this.passwordModal.fom.verifyCode
+                        oldPassword: this.passwordModal.form.verifyCode
                     }).then(res => {
                         this.loading = false
                         this.closePasswordPopup()

@@ -4,7 +4,7 @@
     <x-input ref="input" @on-blur="resetUI" style="clear: both;"
              class="optionalLine optionalCell" :title="title"
              :placeholder="placeholder"
-             :value="value" @on-change="change"></x-input>
+             :value="value"></x-input>
 </template>
 <script>
     import $ from 'jquery'
@@ -23,8 +23,8 @@
         },
         computed: {},
         methods: {
-            change(value) {
-                this.$emit("change", value)
+            change(e) {
+                this.$emit("change", e.target.value)
             },
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
@@ -34,7 +34,9 @@
             const inputEl = this.$refs.input.$el
             const inputJQEl = $(inputEl).find('input').parent()
             inputJQEl.find('input').remove()
-            inputJQEl.append('<input type="password" style="outline: none; border: none; width: 100%; height: 25px;" />')
+            const input = $('<input type="password" style="outline: none; border: none; width: 100%; height: 25px;" />')
+            input.change(this.change)
+            inputJQEl.append(input)
         }
     }
 </script>
