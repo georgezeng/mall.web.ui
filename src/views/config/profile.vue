@@ -149,10 +149,10 @@
                 })
                 API.uploadAvatar(formData).then(filePath => {
                     // window.location.reload(true)
-                    this.info.avatar = filePath + '?d=' + new Date().getTime()
-                    alert(this.info.avatar)
+                    this.info.avatar = filePath// + '?d=' + new Date().getTime()
                     this.$vux.loading.hide()
                 }).catch(e => {
+                    alert(e)
                     this.$vux.loading.hide()
                 })
             },
