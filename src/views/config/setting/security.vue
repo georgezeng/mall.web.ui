@@ -23,16 +23,19 @@
                             修改密码
                         </div>
                         <group>
-                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="旧密码" placeholder="请输入旧密码"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="旧密码"
+                                     placeholder="请输入旧密码"
                                      v-model="passwordModal.form.oldPassword"></x-input>
-                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="新密码" placeholder="请输入新密码"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="新密码"
+                                     placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
                             <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
-                            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                            <x-button action-type="button" :disabled="loading"
+                                      style="width: 100%; background-color: #008CEB;"
                                       :show-loading="loading"
                                       @click.native="savePassword">
                                 <span style="font-size: 11pt; color: #fff;">保存</span>
@@ -53,12 +56,13 @@
                                      v-model="passwordModal.form.verifyCode">
                             </x-input>
                             <x-button action-type="button"
-                                    :disabled="passwordModal.loading"
-                                    style="position: relative; top: 10px; left: -10px;float: right; width: 35%; background-color: #008CEB;"
-                                    @click.native="sendCode">
+                                      :disabled="passwordModal.loading"
+                                      style="position: relative; top: 10px; left: -10px;float: right; width: 35%; background-color: #008CEB;"
+                                      @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <x-input @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
+                            <x-input @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;"
+                                     class="optionalLine optionalCell" type="password" title="新密码"
                                      placeholder="请输入新密码"
                                      v-model="passwordModal.form.password"></x-input>
                             <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="确认密码"
@@ -66,7 +70,8 @@
                                      v-model="passwordModal.form.confirmPassword"></x-input>
                         </group>
                         <div style="position: fixed; bottom: 0px; width: 100%; z-index: 100; padding: 10px;">
-                            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+                            <x-button action-type="button" :disabled="loading"
+                                      style="width: 100%; background-color: #008CEB;"
                                       :show-loading="loading"
                                       @click.native="savePassword">
                                 <span style="font-size: 11pt; color: #fff;">保存</span>
@@ -109,7 +114,8 @@
                         confirmPassword: null
                     },
                 },
-                popupHeight: 0
+                popupHeight: 0,
+                input: false
             }
         },
         computed: {},
@@ -117,11 +123,15 @@
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
-            focusInput(e) {
-                this.$nextTick(() => e.target.focus())
+            focusInput() {
+                this.input = true
             },
-            resetUI() {
+            resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
+                if (this.input) {
+                    e.target.focus()
+                    this.input = false
+                }
             },
             back() {
                 Util.go('MySetting')
