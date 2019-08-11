@@ -117,8 +117,8 @@
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
-            focusInput(e) {alert(e.target.focus)
-                setTimeout(() => e.target.focus(), 10)
+            focusInput(e) {
+                setTimeout(() => e.target.focus(), 100)
             },
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
