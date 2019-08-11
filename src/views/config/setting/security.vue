@@ -134,8 +134,8 @@
             resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
                 if (this.input) {
-                    e.target.focus()
-                    window.setTimeout(() => this.input = false, 10)
+                    // e.target.focus()
+                    // window.setTimeout(() => this.input = false, 10)
                 }
             },
             back() {
