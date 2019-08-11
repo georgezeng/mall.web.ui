@@ -123,15 +123,16 @@
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
-            focusInput() {alert(1)
+            focusInput() {
                 this.input = true
             },
-            resetUI(value, e) {alert(2)
+            resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
-                if (this.input) {
-                    e.target.focus()
-                    this.input = false
-                }
+                // if (this.input) {
+                //     e.target.focus()
+                //     this.input = false
+                // }
+                e.target.focus()
             },
             back() {
                 Util.go('MySetting')
