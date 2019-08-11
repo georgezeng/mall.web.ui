@@ -130,7 +130,7 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0
                 if (this.input) {
                     e.target.focus()
-                    this.setTimeout(() => this.input = false, 10)
+                    window.setTimeout(() => this.input = false, 10)
                 }
             },
             back() {
