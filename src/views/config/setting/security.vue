@@ -46,7 +46,7 @@
                         <Icon size="30" type="ios-close" class="popup-close" @click="closePasswordPopup"/>
                         <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
                             设置/重置密码
-                        </div><mt-field label="密码" placeholder="Input password" type="password" v-model="passwordModal.form.password"></mt-field>
+                        </div>
                         <group>
                             <x-input class="optionalLine optionalCell" style="width: 65%; float: left;"
                                      title="验证码" placeholder="请输入验证码"
@@ -58,7 +58,9 @@
                                     @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-
+                            <x-input @on-blur="resetUI" style="clear: both;" class="optionalLine optionalCell" type="password" title="新密码"
+                                     placeholder="请输入新密码"
+                                     v-model="passwordModal.form.password"></x-input>
                             <x-input @on-blur="resetUI" class="optionalLine optionalCell" type="password" title="确认密码"
                                      placeholder="请输入确认密码"
                                      v-model="passwordModal.form.confirmPassword"></x-input>
@@ -115,9 +117,9 @@
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
-            resetUI() {
+            resetUI(value, e) {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
-
+                e.target.focus()
             },
             back() {
                 Util.go('MySetting')
