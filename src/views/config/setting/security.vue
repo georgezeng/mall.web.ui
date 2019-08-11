@@ -118,7 +118,7 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 1000
             },
             focusInput(e) {
-                setTimeout(() => e.target.focus(), 100)
+                this.$nextTick(() => e.target.focus())
             },
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
