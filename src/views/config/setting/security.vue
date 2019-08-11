@@ -64,10 +64,7 @@
                                       @click.native="sendCode">
                                 <span style="font-size: 11pt; color: #fff;">{{passwordModal.codeBtnText}}</span>
                             </x-button>
-                            <x-input ref="newPasswordInput" @on-blur="resetUI" @keypress.native="focusInput" style="clear: both;"
-                                     class="optionalLine optionalCell" type="password" title="新密码"
-                                     placeholder="请输入新密码"
-                                     v-model="passwordModal.form.password"></x-input>
+                            <PasswordInput placeholder="请输入新密码" title="新密码" @change="changeNewPassword" />
                             <x-input @on-blur="resetUI" @keypress.native="focusInput" class="optionalLine optionalCell"
                                      type="password" title="确认密码"
                                      placeholder="请输入确认密码"
@@ -96,12 +93,14 @@
 <script>
     import API from '../../../api/security.js'
     import Util from '../../../libs/util.js'
-    import {Message} from 'iview'
     import commonStyles from '../../../styles/common.js'
     import $ from 'jquery'
+    import PasswordInput from '../../components/password-input'
 
     export default {
-        components: {},
+        components: {
+            PasswordInput
+        },
         data() {
             return {
                 commonStyles,
@@ -125,8 +124,8 @@
         },
         computed: {},
         methods: {
-            slideUp() {
-                document.body.scrollTop = document.documentElement.scrollTop = 1000
+            changeNewPassword(value) {
+                this.passwordModal.form.password = value
             },
             focusInput(e) {
                 this.input = true
@@ -227,10 +226,11 @@
         },
         mounted() {
             this.popupHeight = document.documentElement.clientHeight
-            const inputEl = this.$refs.newPasswordInput.$el
-            const inputJQEl = $(inputEl).find('input').parent()
-            inputJQEl.find('input').remove()
-            inputJQEl.append('<input type="password" style="outline: none;" />')
+            // const inputEl = this.$refs.newPasswordInput.$el
+            // const inputJQEl = $(inputEl).find('input').attr("type", "password")
+            //     .parent()
+            // inputJQEl.find('input').remove()
+            // inputJQEl.append('<input type="password" style="outline: none;" />')
         }
     }
 </script>
