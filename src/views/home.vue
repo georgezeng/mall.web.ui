@@ -92,7 +92,7 @@
         <Content :style="contentStyle">
             <swiper :aspect-ratio="220/375" auto loop :show-dots="false">
                 <swiper-item v-for="(url, index) in [banner1, banner2, banner3]" :key="index">
-                    <img :src="url">
+                    <img :src="url" width="100%">
                 </swiper-item>
             </swiper>
             <div align="center" style="margin: 20px 12px 5px;">
