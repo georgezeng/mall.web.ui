@@ -123,13 +123,7 @@
                 })
             },
             goSuccess() {
-                let uid = UrlParams(window.location.href, 'uid')
-                if (uid) {
-                    uid = uid.replace(/#.+/, '')
-                    window.location.href = '/?uid=' + uid + '#/Order/List/All'
-                } else {
-                    window.location.href = '/'
-                }
+                window.location.href = '/?uid=' + Util.get('userId') + '#/Order/List/All'
             },
             showTip() {
                 this.show = true

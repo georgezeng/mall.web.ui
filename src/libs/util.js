@@ -162,8 +162,7 @@ util.peekForNav = function () {
 }
 
 util.alipay = (orderId, from) => {
-    const uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
-    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '/' + from
+    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + util.get('userId') + '/' + orderId + '/' + from
 }
 
 util.wepayForJsApi = (orderId, callback) => {

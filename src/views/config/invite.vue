@@ -238,12 +238,7 @@
                 }
             },
             updateShare(item) {
-                let uid = UrlParams(window.location.href, 'uid')
-                if (uid) {
-                    uid = '?uid=' + uid.replace(/#.+/, '')
-                } else {
-                    uid = ''
-                }
+                let uid = Util.get('userId')
                 let nickname = item.nickname
                 if (!nickname || nickname == '') {
                     nickname = '****' + item.username.substring(7)
@@ -278,7 +273,7 @@
                 this.popup = false
             },
             showPoster() {
-                this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster.png?d=' + new Date().getTime()
+                this.popupImgSrc = config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
                 this.popupStyle.zIndex = 100000
                 this.popup = true
             },
