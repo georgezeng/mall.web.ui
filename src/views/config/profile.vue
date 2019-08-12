@@ -38,11 +38,13 @@
                     </div>
                 </popup>
             </div>
-            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
+            <form style="display: none;" :action="config.baseUrl + '/client/avatar/upload'" ref="uploadform"
+                  method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
             </form>
             <group>
-                <cell class="optionalLine optionalCell" style="margin: 5px 0;" is-link title="头像" @click.native="editAvatar">
+                <cell class="optionalLine optionalCell" style="margin: 5px 0;" is-link title="头像"
+                      @click.native="editAvatar">
                     <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -24px;"
                             :src="avatar"/>
                 </cell>
@@ -142,19 +144,20 @@
         },
         methods: {
             fileChange() {
-                const formData = new FormData(this.$refs.uploadform)
-                formData.append('file', this.$refs.uploadFile.files[0])
-                this.$vux.loading.show({
-                    text: '上传中...'
-                })
-                API.uploadAvatar(formData).then(filePath => {
-                    // window.location.reload(true)
-                    this.info.avatar = filePath// + '?d=' + new Date().getTime()
-                    this.$vux.loading.hide()
-                }).catch(e => {
-                    alert(e)
-                    this.$vux.loading.hide()
-                })
+                // const formData = new FormData(this.$refs.uploadform)
+                // formData.append('file', this.$refs.uploadFile.files[0])
+                // this.$vux.loading.show({
+                //     text: '上传中...'
+                // })
+                // API.uploadAvatar(formData).then(filePath => {
+                //     // window.location.reload(true)
+                //     this.info.avatar = filePath// + '?d=' + new Date().getTime()
+                //     this.$vux.loading.hide()
+                // }).catch(e => {
+                //     alert(e)
+                //     this.$vux.loading.hide()
+                // })
+                this.$refs.uploadform.submit()
             },
             slideUp() {
                 document.body.scrollTop = document.documentElement.scrollTop = 2000
