@@ -43,7 +43,7 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <form action="" submit.prevent="">
+            <form action="" @submit.prevent="">
                 <!--<Input size="large" v-model="key" ref="searchInput" class="searchInput"-->
                 <!--clearable-->
                 <!--:style="{width: searchInputWidth + 'px'}" search-->
@@ -51,7 +51,7 @@
                 <!--placeholder="搜索商品"/>-->
                 <div :style="{width: searchInputWidth + 'px'}" class="search">
                     <Icon style="color: gray;" type="ios-search"/>
-                    <input @keyup="show=true" @keyup.13="goItemList(null)" type="search" ref="searchInput"
+                    <input @keyup="show=true" @keyup.13="goItemList()" type="search" ref="searchInput"
                            class="searchInput" v-model="key" placeholder="搜索商品"/>
                     <Icon v-if="show" @click="reset" style="color: gray;" size="20" type="ios-close"/>
                 </div>
@@ -133,7 +133,7 @@
                     }
                     key = this.key
                 }
-                if (key == '' || key == null) {
+                if (!key || key == '') {
                     return
                 }
                 Util.getForNav()
