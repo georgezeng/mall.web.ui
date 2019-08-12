@@ -392,11 +392,7 @@
                     } else {
                         switch (data.payment) {
                             case 'WePay': {
-                                Util.wepayForMweb(id, () => {
-                                    Util.go('MyOrderList', {
-                                        type: 'All'
-                                    })
-                                })
+                                Util.wepayForMweb(id)
                             }
                                 break
                             case 'AliPay': {

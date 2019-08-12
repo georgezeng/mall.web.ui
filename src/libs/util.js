@@ -191,7 +191,7 @@ util.wepayForJsApi = (orderId, callback) => {
     })
 }
 
-util.wepayForMweb = (orderId, callback) => {
+util.wepayForMweb = (orderId) => {
     Vue.$vux.loading.show({
         text: '加载中...'
     })
