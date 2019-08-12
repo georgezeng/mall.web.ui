@@ -306,13 +306,11 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <mt-swipe :auto="3000" style="height: 375px;">
-                <mt-swipe-item :key="photo.id" v-for="photo in item.photos">
-                    <div align="center">
-                        <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
-                    </div>
-                </mt-swipe-item>
-            </mt-swipe>
+            <swiper :aspect-ratio="1" auto loop :show-dots="false">
+                <swiper-item v-for="photo in item.photos" :key="photo.id">
+                    <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
+                </swiper-item>
+            </swiper>
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>

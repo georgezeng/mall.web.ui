@@ -30,7 +30,10 @@ import { XSwitch } from 'vux'
 import { Badge } from 'vux'
 import { LoadMore } from 'vux'
 import  { LoadingPlugin } from 'vux'
+import { Swiper, SwiperItem } from 'vux'
 
+Vue.component('swiper-item', SwiperItem)
+Vue.component('swiper', Swiper)
 Vue.use(LoadingPlugin)
 Vue.component('load-more', LoadMore)
 Vue.component('badge', Badge)

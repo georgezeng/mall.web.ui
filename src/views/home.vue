@@ -90,17 +90,11 @@
             </div>
         </Header>
         <Content :style="contentStyle">
-            <mt-swipe :auto="4000" style="height: 185px;">
-                <mt-swipe-item>
-                    <img class="carousel" :src="banner1">
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <img class="carousel" :src="banner2">
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <img class="carousel" :src="banner3">
-                </mt-swipe-item>
-            </mt-swipe>
+            <swiper :aspect-ratio="220/375" auto loop :show-dots="false">
+                <swiper-item v-for="(url, index) in [banner1, banner2, banner3]" :key="index">
+                    <img :src="url">
+                </swiper-item>
+            </swiper>
             <div align="center" style="margin: 20px 12px 5px;">
                 <img @click="goItemList(20)" class="category1" :style="categoryStyle" :src="category1"/>
                 <img @click="goItemList(11)" class="category2" :style="categoryStyle" :src="category2"/>

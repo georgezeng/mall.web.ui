@@ -78,7 +78,7 @@
                     <span style="color: orangered;">￥{{item.totalPrice}}</span> (含运费)
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
-                    <CountDown style="float: left; color: orangered;" :form="item" @close="reload" />
+                    <CountDown style="float: left; color: orangered; font-size: 14px;" :form="item" @close="reload" />
                     <Button @click="pay(item)" style="float: right; margin-left: 10px;" type="primary">去支付</Button>
                     <Button @click="cancelConfirm(item.id)" style="float: right;" type="error">
                         取消订单
