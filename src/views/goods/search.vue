@@ -31,6 +31,7 @@
         background-color: gray;
         color: #fff;
         padding: 5px 15px;
+        margin-bottom: 10px;
         display: inline-block;
         margin-right: 10px;
         border-radius: 10px;
