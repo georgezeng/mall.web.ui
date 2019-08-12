@@ -53,11 +53,11 @@
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div v-if="popup" :style="modalStyle" style="position: absolute; z-index: 10000000;">
-                <mt-swipe :auto="0">
-                    <mt-swipe-item v-for="(img, index) in popupImgs" :key="index">
-                        <img :src="config.publicBucketDomain + img" :width="popupImgWidth" :height="popupImgWidth"/>
-                    </mt-swipe-item>
-                </mt-swipe>
+                <swiper :aspect-ratio="1" auto loop :show-dots="false">
+                    <swiper-item v-for="(url, index) in popupImgs" :key="index">
+                        <img :src="config.publicBucketDomain + url" :width="popupImgWidth" :height="popupImgWidth">
+                    </swiper-item>
+                </swiper>
             </div>
             <Modal v-model="popup" footer-hide fullscreen>
             </Modal>

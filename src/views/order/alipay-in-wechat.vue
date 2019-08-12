@@ -84,16 +84,12 @@
                 <div class="result-logo"></div>
                 <div class="result-title">&nbsp;</div>
                 <div class="result-tips">1.如果未打开支付宝客户端或未完成付款，请点击“继续支付”;</div>
-                <div class="result-tips">2.如果你已完成，请点击“已完成付款”;</div>
-                <div class="result-tips" style="margin-bottom: 60px;">3.如果你不想支付，请点击“关闭付款”；</div>
+                <div class="result-tips">2.如果你已完成或不想支付，请点击“已完成/关闭付款”;</div>
                 <div class="result-botton">
                     <a @click="showTip" class="J-h5pay am-button am-button-blue" href="javascript:;">继续支付</a>
                 </div>
                 <div class="result-botton">
                     <a @click="goSuccess" class="J-complete am-button am-button-white" href="javascript:;">已完成付款</a>
-                </div>
-                <div class="result-botton">
-                    <a @click="goOrderList" class="J-complete am-button am-button-white" href="javascript:;">关闭付款</a>
                 </div>
             </div>
         </div>
@@ -117,13 +113,10 @@
             }
         },
         methods: {
-            goOrderList() {
+            goSuccess() {
                 Util.go('MyOrderList', {
                     type: 'All'
                 })
-            },
-            goSuccess() {
-                window.location.href = '/?uid=' + Util.get('userId') + '#/Order/List/All'
             },
             showTip() {
                 this.show = true
