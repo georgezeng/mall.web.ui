@@ -26,14 +26,14 @@
                         商品评分等级
                     </div>
                     <div style="background-color: #f5f5f5; display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 5px;">
-                        <RadioGroup v-model="form.value">
-                            <Radio label="Bad">
+                        <RadioGroup size="large" v-model="form.value">
+                            <Radio :disabled="isAdditional" label="Bad">
                                 <span style="position: relative; left: -3px;">差评</span>
                             </Radio>
-                            <Radio label="Neutrality">
+                            <Radio :disabled="isAdditional" label="Neutrality">
                                 <span style="position: relative; left: -3px;">中评</span>
                             </Radio>
-                            <Radio label="Good">
+                            <Radio :disabled="isAdditional" label="Good">
                                 <span style="position: relative; left: -3px;">好评</span>
                             </Radio>
                         </RadioGroup>
@@ -176,6 +176,7 @@
                         })
                     } else {
                         API.load(this.form.id).then(data => {
+                            this.form.value = data.value.name
                             this.form.itemThumbnail = data.itemThumbnail
                             this.loading = false
                         }).catch(e => {

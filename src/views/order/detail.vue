@@ -141,7 +141,8 @@
         </Content>
         <Footer :style="footerStyle">
             <div style="margin: 10px;" v-if="form.status.name == 'UnPay'">
-                <Button size="large" :loading="loading" style="float: right; margin-left: 10px;" type="primary">去支付
+                <Button @click="pay" size="large" :loading="loading" style="float: right; margin-left: 10px;"
+                        type="primary">去支付
                 </Button>
                 <Button size="large" :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
                         type="error">
@@ -259,6 +260,44 @@
             }
         },
         methods: {
+            pay() {
+                this.loading = true
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
+                const id = this.form.id
+                if (Util.isInWechat()) {
+                    switch (this.form.payment.name) {
+                        case 'WePay': {
+                            Util.wepayForJsApi(id, () => {
+                                Util.go('MyOrderList', {
+                                    type: 'All'
+                                })
+                            })
+                        }
+                            break
+                        case 'AliPay': {
+                            Util.go('AlipayInWechat', {
+                                id
+                            })
+                        }
+                            break
+                    }
+                } else {
+                    switch (this.form.payment.name) {
+                        case 'WePay': {
+                            Util.wepayForMweb(id)
+                        }
+                            break
+                        case 'AliPay': {
+                            Util.alipay(id, 'system')
+                        }
+                            break
+                    }
+                }
+                this.$vux.loading.hide()
+                this.loading = false
+            },
             goRefundOnly(id) {
                 Util.putForNav({
                     from: 'MyOrderDetail',
@@ -311,22 +350,28 @@
             },
             pickupConfirm(id) {
                 MessageBox.confirm('你确定已经收到商品吗?').then(action => {
+                    this.loading = true
                     API.pickup(id).then(res => {
                         this.reload()
+                        this.loading = false
                     })
                 })
             },
             deleteConfirm(id) {
                 MessageBox.confirm('你确定要删除订单吗?').then(action => {
+                    this.loading = true
                     API.delete(id).then(res => {
                         this.reload()
+                        this.loading = false
                     })
                 })
             },
             cancelConfirm(id) {
                 MessageBox.confirm('你确定要取消订单吗?').then(action => {
+                    this.loading = true
                     API.cancel(id).then(res => {
                         this.reload()
+                        this.loading = false
                     })
                 })
             },

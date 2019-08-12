@@ -203,9 +203,7 @@
                     switch (item.payment.name) {
                         case 'WePay': {
                             Util.wepayForJsApi(id, () => {
-                                Util.go('MyOrderList', {
-                                    type: 'All'
-                                })
+                                this.reload()
                             })
                         }
                             break
@@ -219,11 +217,7 @@
                 } else {
                     switch (item.payment.name) {
                         case 'WePay': {
-                            Util.wepayForMweb(id, () => {
-                                Util.go('MyOrderList', {
-                                    type: 'All'
-                                })
-                            })
+                            Util.wepayForMweb(id)
                         }
                             break
                         case 'AliPay': {

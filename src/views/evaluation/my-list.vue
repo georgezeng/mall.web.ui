@@ -103,7 +103,7 @@
                             <span>数量: x{{item.itemNums}}</span>
                         </div>
                     </div>
-                    <Button v-if="item.passed && item.additionalEvaluation == null"
+                    <Button v-if="item.additionalEvaluation == null"
                             @click="goAddAdditional(item.id, $event)"
                             style="position: absolute; bottom: 0px; right: 10px;"
                             type="primary">
