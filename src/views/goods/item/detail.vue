@@ -175,7 +175,7 @@
 
     .cartItems {
         position: fixed;
-        right: 5px;
+        right: 45px;
         z-index: 1000;
         top: 5px;
         border-radius: 10px !important;
