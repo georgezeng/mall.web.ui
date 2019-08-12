@@ -179,8 +179,7 @@ util.wepayForJsApi = (orderId, callback) => {
             package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
             signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
             paySign: data.paySign, // 支付签名
-            success: function (res) {
-                alert(res)
+            complete: function() {
                 if (typeof(callback) === 'function') {
                     callback()
                 }
