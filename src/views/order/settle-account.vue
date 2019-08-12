@@ -371,11 +371,12 @@
                     //     type: 'success',
                     //     width: '200px'
                     // })
-                    Util.put('settleAccountData', null)
+                    // Util.put('settleAccountData', null)
                     if (Util.isInWechat()) {
                         switch (data.payment) {
                             case 'WePay': {
                                 Util.wepayForJsApi(id, () => {
+                                    Util.put('settleAccountData', null)
                                     Util.go('MyOrderList', {
                                         type: 'All'
                                     })
@@ -383,6 +384,7 @@
                             }
                                 break
                             case 'AliPay': {
+                                Util.put('settleAccountData', null)
                                 Util.go('AlipayInWechat', {
                                     id
                                 })
@@ -393,6 +395,7 @@
                         switch (data.payment) {
                             case 'WePay': {
                                 Util.wepayForMweb(id, () => {
+                                    Util.put('settleAccountData', null)
                                     Util.go('MyOrderList', {
                                         type: 'All'
                                     })
@@ -400,6 +403,7 @@
                             }
                                 break
                             case 'AliPay': {
+                                Util.put('settleAccountData', null)
                                 Util.alipay(id, 'system')
                             }
                                 break

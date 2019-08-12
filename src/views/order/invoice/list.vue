@@ -186,7 +186,7 @@
                                 this.showLoading = false
                             }
                         } else {
-                            Util.go('MyCart')
+                            this.$vux.toast.show({text: "找不到结算信息，请返回重新下单", type: 'text'})
                         }
                     } else {
                         this.allLoaded = true
