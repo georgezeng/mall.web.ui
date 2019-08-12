@@ -110,6 +110,7 @@
                 const data = Util.getJson('settleAccountData')
                 if (item != null) {
                     data.invoice = item
+                    data.invoice.type = item.type.name
                 } else {
                     data.invoice = {
                         title: null,
