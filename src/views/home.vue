@@ -135,7 +135,6 @@
     import Footer from './footer'
     import commonStyles from '../styles/common'
     import API from '../api/goods-item-list'
-    import MerchantAPI from '../api/merchant'
     import config from '../config/index'
     // import Masonry from 'masonry-layout'
     import Util from '../libs/util.js'
@@ -279,9 +278,6 @@
                 width: width + 'px',
                 height: height + 'px'
             }
-            MerchantAPI.loadShopName().then(data => {
-                document.title = data
-            })
             this.load()
         },
         destroyed() {

@@ -6,6 +6,7 @@ import wx from 'weixin-js-sdk'
 import {Message} from 'iview'
 import Vue from 'vue'
 import UrlParams from 'get-url-param'
+import MerchantAPI from '../api/merchant'
 
 let util = {};
 util.title = function (title) {
@@ -206,4 +207,9 @@ util.wepayForMweb = (orderId) => {
     })
 }
 
+util.fixTitle = () => {
+    MerchantAPI.loadShopName().then(data => {
+        document.title = data
+    })
+}
 export default util;

@@ -15,8 +15,8 @@ const RouterConfig = {
 const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
-    iView.LoadingBar.start();
-    Util.title(to.meta.title);
+    iView.LoadingBar.start()
+    Util.fixTitle()
     if(to.meta.needLogin) {
         const token = Util.getToken()
         if(!token) {
