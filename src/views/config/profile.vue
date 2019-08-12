@@ -17,13 +17,13 @@
         <Content :style="commonStyles.content" style="margin-top: 40px;">
             <div v-transfer-dom>
                 <popup v-model="nicknameModal.open" style="background-color: #fff;">
-                    <div style="height: 200px; position: relative;">
+                    <div :style="{height: popupHeight + 'px'}" style="position: relative;">
                         <Icon size="30" type="ios-close" class="popup-close" @click="closePopup"/>
                         <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
                             编辑昵称
                         </div>
                         <group>
-                            <x-input @on-blur="resetUI" @on-focus="slideUp" class="optionalLine optionalCell" title="昵称"
+                            <x-input @on-blur="resetUI" class="optionalLine optionalCell" title="昵称"
                                      placeholder="请输入昵称"
                                      v-model="nicknameModal.value"></x-input>
                         </group>
@@ -103,6 +103,7 @@
                         value: 'Female'
                     }
                 ]],
+                popupHeight: 0,
                 info: {
                     id: null,
                     avatar: null,
@@ -155,9 +156,6 @@
                 }).catch(e => {
                     this.$vux.loading.hide()
                 })
-            },
-            slideUp() {
-                document.body.scrollTop = document.documentElement.scrollTop = 2000
             },
             resetUI() {
                 document.body.scrollTop = document.documentElement.scrollTop = 0
@@ -249,6 +247,7 @@
             },
         },
         mounted() {
+            this.popupHeight = document.documentElement.clientHeight
             this.load()
             // if (Util.isInWechat()) {
             //     Util.wxConfig([

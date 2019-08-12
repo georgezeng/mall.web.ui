@@ -50,7 +50,7 @@
             <div style="padding: 10px; border-top: 2px solid #f5f5f5;">
                 退还数量:
                 <span style="float: right">
-                    <wv-number-spinner :min="1" :max="99" input-width="30px"
+                    <wv-number-spinner :min="1" :max="form.nums" input-width="30px"
                                        v-model="form.nums"></wv-number-spinner>
                 </span>
             </div>
