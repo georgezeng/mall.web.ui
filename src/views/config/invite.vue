@@ -1,27 +1,38 @@
 <style scoped lang="less">
     .header {
-        background-color: #F1CA6F;
+        background-color: #fff;
         height: 60px;
         box-shadow: 0px 0px 3px -1px gray;
         position: fixed;
         width: 100%;
         z-index: 100;
-        color: #fff;
     }
 
     .bg {
-        background-image: url("../../images/share-bg.png");
+        background-image: url("../../images/invite-share-bg.png");
         background-repeat: no-repeat;
         background-size: contain;
         position: relative;
     }
 
+    .save-to-local-btn {
+        background-image: url("../../images/invite-save-btn.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .invite-btn {
+        background-image: url("../../images/invite-share-btn.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
     .share-btn {
         background-repeat: no-repeat;
         background-size: contain;
-        background-image: url("../../images/share-btn.png");
+        background-image: url("../../images/invite-share-btn2.png");
         position: absolute;
-        bottom: 50px;
+        bottom: 20px;
     }
 
     .wechat-friend {
@@ -101,24 +112,15 @@
             </div>
             <div v-if="popup" :style="popupStyle" style="position: absolute; top: 50px;">
                 <img crossorigin="use-credentials" :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
-                <div style="position: relative; top: -45px; border-top: 1px solid #CC6E2D;">
+                <div class="save-to-local-btn" :style="saveBtnStyle" style="position: absolute; bottom: 10px; left: 10px;">
                 </div>
-                <div
-                        style="position: absolute; bottom: 15px; left: 10px; color: #CC6E2D;">
-                    <Icon size="16" type="md-download"/>
-                    长按保存到手机
-                </div>
-                <div :style="{left: borderLeft}"
-                     style="position: absolute; bottom: 10px; border-right: 1px solid #CC6E2D; height: 33px;"></div>
-                <div @click="showSharePopup" style="position: absolute; bottom: 15px; right: 10px; color: #CC6E2D;">
-                    <Icon size="16" type="md-share"/>
-                    分享邀请好友
+                <div class="invite-btn" @click="showSharePopup" :style="inviteBtnStyle" style="position: absolute; bottom: 10px; right: 10px;">
                 </div>
             </div>
             <Modal :value="showModal" @on-visible-change="popupChange" footer-hide fullscreen>
             </Modal>
             <div class="bg" :style="bgStyle">
-                <div @click="showPoster" class="share-btn" :style="btnStyle"></div>
+                <div @click="showPoster" class="share-btn" :style="shareBtnStyle"></div>
             </div>
             <div align="center">
                 <div style="width: 100px; text-align: center; padding: 10px; border-bottom: 3px solid lightgray; margin-bottom: 40px;">
@@ -165,7 +167,9 @@
                 ShareTipArrow,
                 commonStyles,
                 bgStyle: null,
-                btnStyle: null,
+                shareBtnStyle: null,
+                saveBtnStyle: null,
+                inviteBtnStyle: null,
                 page: {
                     num: 1,
                     size: 10,
@@ -317,12 +321,20 @@
             this.load()
             this.bgStyle = {
                 width: document.documentElement.clientWidth + 'px',
-                height: document.documentElement.clientWidth * 786 / 1125 + 'px'
+                height: document.documentElement.clientWidth * 500 / 750 + 'px'
             }
-            this.btnStyle = {
-                width: document.documentElement.clientWidth * 0.8 + 'px',
-                height: document.documentElement.clientWidth * 0.8 * 192 / 885 + 'px',
-                left: document.documentElement.clientWidth * 0.1 + 'px'
+            this.shareBtnStyle = {
+                width: document.documentElement.clientWidth * 0.5 + 'px',
+                height: document.documentElement.clientWidth * 0.5 * 68 / 359 + 'px',
+                left: document.documentElement.clientWidth * 0.25 + 'px'
+            }
+            this.saveBtnStyle = {
+                width: document.documentElement.clientWidth * 0.35 + 'px',
+                height: document.documentElement.clientWidth * 0.35 * 92 / 314 + 'px',
+            }
+            this.inviteBtnStyle = {
+                width: document.documentElement.clientWidth * 0.35 + 'px',
+                height: document.documentElement.clientWidth * 0.35 * 92 / 314 + 'px',
             }
             this.popupImgWidth = document.documentElement.clientWidth * 0.8
             this.borderLeft = document.documentElement.clientWidth * 0.42 + 'px'
