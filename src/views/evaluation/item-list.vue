@@ -213,8 +213,13 @@
                         for (let i in data) {
                             this.list.push(data[i])
                         }
+                        if(data.length < this.queryInfo.page.size) {
+                            this.allLoaded = true
+                            this.showLoading = false
+                        }
                     } else {
-                        this.allLoaded = true;
+                        this.allLoaded = true
+                        this.showLoading = false
                     }
                     this.showSpin = false
                     this.loadingList = false

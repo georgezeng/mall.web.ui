@@ -282,8 +282,13 @@
                             for (let i in data) {
                                 this.uncommentList.push(data[i])
                             }
+                            if(data.length < this.page.size) {
+                                this.allLoaded = true
+                                this.showLoading = false
+                            }
                         } else {
-                            this.allLoaded = true;
+                            this.allLoaded = true
+                            this.showLoading = false
                         }
                         this.showSpin = false
                         this.loadingList = false
@@ -301,8 +306,13 @@
                             for (let i in data) {
                                 this.list.push(data[i])
                             }
+                            if(data.length < this.page.size) {
+                                this.allLoaded = true
+                                this.showLoading = false
+                            }
                         } else {
-                            this.allLoaded = true;
+                            this.allLoaded = true
+                            this.showLoading = false
                         }
                         this.showSpin = false
                         this.loadingList = false
