@@ -465,13 +465,6 @@
                 })
                 Util.go('MyAddressList')
             },
-            loadAddress() {
-                AddressAPI.loadDefault().then(address => {
-                    if (address) {
-                        this.data.address = address
-                    }
-                })
-            },
             load() {
                 AddressAPI.loadDefault().then(address => {
                     if (address) {
