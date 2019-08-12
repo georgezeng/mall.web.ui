@@ -6,7 +6,7 @@ const header = {
     zIndex: 1000,
     width: '100%',
     color: '#fff',
-    fontSize: '16pt',
+    fontSize: '14pt',
     textAlign: 'center',
     boxShadow: '0px 0px 3px -1px gray'
 }
