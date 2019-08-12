@@ -85,7 +85,7 @@
         <Header :style="commonStyles.header">
             <div class="logo"></div>
             <div class="search">
-                <Icon type="ios-search" />
+                <Icon type="ios-search"/>
                 <input @focus="goSearch" class="searchInput" value="搜索商品"/>
             </div>
         </Header>
@@ -102,12 +102,12 @@
                 </mt-swipe-item>
             </mt-swipe>
             <div align="center" style="margin: 20px 12px 5px;">
-                <img class="category1" :style="categoryStyle" :src="category1"/>
-                <img class="category2" :style="categoryStyle" :src="category2"/>
+                <img @click="goItemList(20)" class="category1" :style="categoryStyle" :src="category1"/>
+                <img @click="goItemList(11)" class="category2" :style="categoryStyle" :src="category2"/>
             </div>
             <div align="center" style="margin: 0px 12px 20px;">
-                <img class="category1" :style="categoryStyle" :src="category3"/>
-                <img class="category2" :style="categoryStyle" :src="category4"/>
+                <img @click="goItemList(17)" class="category1" :style="categoryStyle" :src="category3"/>
+                <img @click="goItemList(14)" class="category2" :style="categoryStyle" :src="category4"/>
             </div>
             <div style="font-size: 14px; text-align: center; position: relative; top: -10px;">新品推荐</div>
             <div ref="grid" style="padding-left: 8px;">
@@ -168,7 +168,7 @@
                 banner1,
                 banner2,
                 banner3,
-
+                Util,
                 config,
                 commonStyles,
                 contentStyle: {
@@ -192,6 +192,12 @@
             }
         },
         methods: {
+            goItemList(id) {
+                Util.putForNav({
+                    from: 'Home'
+                })
+                Util.go('GoodsItemList', {id})
+            },
             goSearch() {
                 Util.putForNav({
                     from: 'Home'
