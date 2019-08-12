@@ -180,6 +180,7 @@ util.wepayForJsApi = (orderId, callback) => {
             signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
             paySign: data.paySign, // 支付签名
             success: function (res) {
+                alert(res)
                 if (typeof(callback) === 'function') {
                     callback()
                 }
