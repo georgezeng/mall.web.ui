@@ -89,7 +89,7 @@
                     <a @click="showTip" class="J-h5pay am-button am-button-blue" href="javascript:;">继续支付</a>
                 </div>
                 <div class="result-botton">
-                    <a @click="goSuccess" class="J-complete am-button am-button-white" href="javascript:;">已完成付款</a>
+                    <a @click="goSuccess" class="J-complete am-button am-button-white" href="javascript:;">已完成/关闭付款</a>
                 </div>
             </div>
         </div>
