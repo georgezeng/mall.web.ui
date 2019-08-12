@@ -142,6 +142,8 @@
         },
         methods: {
             fileChange() {
+                alert(1)
+                alert(this.$refs.uploadFile.files[0].name)
                 const formData = new FormData(this.$refs.uploadform)
                 formData.append('file', this.$refs.uploadFile.files[0])
                 this.$vux.loading.show({
