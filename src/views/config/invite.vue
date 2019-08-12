@@ -112,9 +112,11 @@
             </div>
             <div v-if="popup" :style="popupStyle" style="position: absolute; top: 50px;">
                 <img crossorigin="use-credentials" :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
-                <div class="save-to-local-btn" :style="saveBtnStyle" style="position: absolute; bottom: 10px; left: 10px;">
+                <div class="save-to-local-btn" :style="saveBtnStyle"
+                     style="position: absolute; bottom: 10px; left: 10px;">
                 </div>
-                <div class="invite-btn" @click="showSharePopup" :style="inviteBtnStyle" style="position: absolute; bottom: 10px; right: 10px;">
+                <div class="invite-btn" @click="showSharePopup" :style="inviteBtnStyle"
+                     style="position: absolute; bottom: 10px; right: 10px;">
                 </div>
             </div>
             <Modal :value="showModal" @on-visible-change="popupChange" footer-hide fullscreen>
@@ -276,7 +278,7 @@
                 this.popup = false
             },
             showPoster() {
-                this.popupImgSrc = config.baseUrl + '/client/poster.png?d=' + new Date().getTime()
+                this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster.png?d=' + new Date().getTime()
                 this.popupStyle.zIndex = 100000
                 this.popup = true
             },

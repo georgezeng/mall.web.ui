@@ -38,6 +38,7 @@ util.go = function (name, params) {
 util.loginSuccess = (data, target) => {
     util.clear()
     util.setToken(data.token)
+    util.put('userId', data.userId)
     const link = window.location.href
     if (link.indexOf('?') == -1) {
         window.location.href = link.replace(/#.+/, '?uid=' + data.userId + '#' + target)
