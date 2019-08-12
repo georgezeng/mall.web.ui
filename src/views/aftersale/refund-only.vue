@@ -142,6 +142,7 @@
                     for (let i in filePaths) {
                         this.form.photos.push(filePaths[i])
                     }
+                    this.$vux.toast.show({text: '上传成功', type: 'success'})
                     this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()

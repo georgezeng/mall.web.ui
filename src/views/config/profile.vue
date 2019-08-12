@@ -150,8 +150,8 @@
                 })
                 API.uploadAvatar(formData).then(filePath => {
                     // window.location.reload(true)
-                    this.$vux.toast.show({text: '上传成功', type: 'success'})
                     this.info.avatar = filePath// + '?d=' + new Date().getTime()
+                    this.$vux.toast.show({text: '上传成功', type: 'success'})
                     this.$vux.loading.hide()
                 }).catch(e => {
                     this.$vux.loading.hide()
