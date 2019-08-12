@@ -300,7 +300,6 @@
                         type: null
                     },
                     items: [],
-                    fromCart: false,
                     remark: null
                 },
                 loading: false,
@@ -474,26 +473,30 @@
                 })
             },
             load() {
-                this.loadAddress()
-                API.getPreview(this.key).then(data => {
-                    if (!data) {
-                        this.$vux.toast.show({
-                            text: '结算失效，请重新下单',
-                            type: 'text',
-                            width: '250px'
-                        })
-                        setTimeout(() => {
-                            Util.go('GoodsItemList', {
-                                id: 0
-                            })
-                        }, 1000)
-                        return
+                AddressAPI.loadDefault().then(address => {
+                    if (address) {
+                        this.data.address = address
                     }
-                    this.data.items = data.items
-                    this.data.fromCart = data.fromCart
-                    Util.putJson('settleAccountData', this.data)
-                    this.show = false
+                    API.getPreview(this.key).then(data => {
+                        if (!data) {
+                            this.$vux.toast.show({
+                                text: '结算失效，请重新下单',
+                                type: 'text',
+                                width: '250px'
+                            })
+                            setTimeout(() => {
+                                Util.go('GoodsItemList', {
+                                    id: 0
+                                })
+                            }, 1000)
+                            return
+                        }
+                        this.data.items = data.items
+                        Util.putJson('settleAccountData', this.data)
+                        this.show = false
+                    })
                 })
+
             },
             specText(attrs) {
                 let title = ''
