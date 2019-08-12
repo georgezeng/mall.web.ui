@@ -207,11 +207,13 @@
                     switch (item.payment.name) {
                         case 'WePay': {
                             Util.wepayForJsApi(id, () => {
+                                this.$vux.loading.hide()
                                 this.reload()
                             })
                         }
                             break
                         case 'AliPay': {
+                            this.$vux.loading.hide()
                             Util.go('AlipayInWechat', {
                                 id
                             })
@@ -222,15 +224,17 @@
                     switch (item.payment.name) {
                         case 'WePay': {
                             Util.wepayForMweb(id)
+                            this.$vux.loading.hide()
                         }
                             break
                         case 'AliPay': {
                             Util.alipay(id, 'system')
+                            this.$vux.loading.hide()
                         }
                             break
                     }
                 }
-                this.$vux.loading.hide()
+
             },
             goDetail(id) {
                 Util.putForNav({
