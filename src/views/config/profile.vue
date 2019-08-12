@@ -143,7 +143,6 @@
         methods: {
             fileChange() {
                 const formData = new FormData(this.$refs.uploadform)
-                alert(this.$refs.uploadFile.files[0].name)
                 formData.append('file', this.$refs.uploadFile.files[0])
                 this.$vux.loading.show({
                     text: '上传中...'

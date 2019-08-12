@@ -28,6 +28,7 @@ ajax.interceptors.response.use(function (response) {
     }
     return response.data.data || response.data.datas
 }, function (ex) {
+    alert(ex)
     return Promise.reject(ex)
 })
 
@@ -41,7 +42,7 @@ function alertError(error) {
         for (let i in error.msgs) {
             errors += error.msgs[i] + '<br />'
         }
-        console.log(error.traceId + ": " + errors)
+        console.log(error)
     } else {
         errors = '服务请求失败,请稍后重试'
     }
