@@ -43,7 +43,7 @@
             <div class="info">
                 <div style="width: 90%; margin: 0 auto; color: #fff; padding: 20px 0 10px;">
                     <div style="float: left; ">{{form.status.clientText}}</div>
-                    <div style="float: right;">{{countDownText}}</div>
+                    <CountDown style="float: right;" :form="form" @close="refresh" />
                 </div>
                 <div class="address">
                     <div :style="{marginLeft: isSmallDevice ? '16px' : '0'}" style="float: left;">
@@ -216,9 +216,12 @@
     import location from '../../images/location.png';
     import moment from 'moment';
     import config from '../../config/index.js'
+    import CountDown from './countdown'
 
     export default {
-        components: {},
+        components: {
+            CountDown
+        },
         data() {
             return {
                 config,
@@ -249,8 +252,6 @@
                     payment: {},
                     invoice: null,
                 },
-                countDownTime: null,
-                countDownText: '',
                 isSmallDevice: false
             }
         },
@@ -260,6 +261,9 @@
             }
         },
         methods: {
+            refresh() {
+                window.location.reload(true)
+            },
             pay() {
                 this.loading = true
                 this.$vux.loading.show({
@@ -375,28 +379,6 @@
                     })
                 })
             },
-            countDown() {
-                if (this.form.status.name == 'UnPay') {
-                    this.countDownText = '剩余时间: '
-                    const endTime = moment(this.form.createTime, 'YYYY-MM-DD HH:mm:ss').add(1, 'day')
-                    const now = moment()
-                    if (moment.max(now, endTime) == endTime) {
-                        this.countDownTime = endTime.subtract(now.hour(), 'h').subtract(now.minute(), 'm').subtract(now.second(), 's').format('HH:mm:ss')
-                        this.countDownText += this.countDownTime
-                    } else {
-                        this.countDownTime = '00:00:00'
-                    }
-                    if (this.countDownTime != '00:00:00') {
-                        setTimeout(this.countDown, 1000)
-                    } else {
-                        this.countDownText = ''
-                        this.form.status = {
-                            name: 'Closed',
-                            clientText: '已关闭'
-                        }
-                    }
-                }
-            },
             goDetail(id) {
                 Util.putForNav({
                     from: 'MyOrderDetail',
@@ -415,7 +397,6 @@
                     this.loading = true
                     API.load(this.form.id).then(data => {
                         this.form = data
-                        this.countDown()
                         this.loading = false
                     }).catch(e => {
                         this.loading = false
