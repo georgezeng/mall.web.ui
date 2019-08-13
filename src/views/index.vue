@@ -16,7 +16,11 @@
                 return
             }
             // 解决ios下webview和safari不能获取跨域cookie的问题
-            window.location.href = config.baseUrl + "/index?url=" + encodeURIComponent(window.location.protocol + "//" + window.location.host + "/#/Home")
+            let host = window.location.host
+            if (host.split('.').length == 1) {
+                host = 'www.' + host
+            }
+            window.location.href = config.baseUrl + "/index?url=" + encodeURIComponent(window.location.protocol + "//" + host + "/#/Home")
         }
     }
 </script>
