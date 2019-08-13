@@ -72,7 +72,7 @@
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
                 <div style="padding: 10px;">
-                    <avatar :src="config.publicBucketDomain + item.clientAvatar" size="large"/>
+                    <avatar :src="avatar(item.clientAvatar)" size="large"/>
                     <span>{{item.clientNickname}}</span>
                 </div>
                 <div style="padding: 10px 10px 10px;">
@@ -121,7 +121,7 @@
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
-    import {MessageBox} from 'mint-ui';
+    import defaultAvatar from '../../images/avatar.png'
 
     export default {
         components: {},
@@ -164,6 +164,14 @@
         },
         computed: {},
         methods: {
+            avatar(img) {
+                const avatar = img
+                return avatar ?
+                    (avatar.startsWith('http') ?
+                        avatar
+                        : config.publicBucketDomain + avatar)
+                    : defaultAvatar
+            },
             showBigImg(urls) {
                 this.popupImgs = urls
                 this.popup = true
@@ -213,7 +221,7 @@
                         for (let i in data) {
                             this.list.push(data[i])
                         }
-                        if(data.length < this.queryInfo.page.size) {
+                        if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
                         }
