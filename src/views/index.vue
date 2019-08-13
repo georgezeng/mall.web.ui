@@ -20,6 +20,7 @@
             if (host.split('.').length == 1) {
                 host = 'www.' + host
             }
+            alert(host)
             window.location.href = config.baseUrl + "/index?url=" + encodeURIComponent(window.location.protocol + "//" + host + "/#/Home")
         }
     }
