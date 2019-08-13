@@ -3,6 +3,7 @@
 </template>
 <script>
     import moment from 'moment';
+    import config from '../../config/index'
 
     export default {
         components: {},
@@ -36,7 +37,9 @@
                         setTimeout(this.countDown, 1000)
                     } else {
                         this.countDownText = ''
-                        this.$emit('close')
+                        if (config.env != 'development') {
+                            this.$emit('close')
+                        }
                     }
                 }
             },

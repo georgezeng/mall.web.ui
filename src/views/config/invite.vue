@@ -273,7 +273,7 @@
                 this.popup = false
             },
             showPoster() {
-                this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster.png?d=' + new Date().getTime()
+                this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png?d=' + new Date().getTime()
                 this.popupStyle.zIndex = 100000
                 this.popup = true
             },

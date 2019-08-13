@@ -10,7 +10,7 @@
 
 </style>
 <template>
-    <Layout v-if="show" :style="commonStyles.layout">
+    <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.header">
             <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
             <div>登录商城</div>
@@ -32,7 +32,7 @@
                     <div class="gradient"></div>
                 </div>
                 <x-button action-type="button" :disabled="loading" type="primary" style="width: 100%;"
-                          :show-loading="loading" @click.native="goWechatLogin">
+                          :show-loading="loading" @click.native="authorize">
                     <Icon type="ios-chatbubbles" style="color: #fff;"/>
                     <span style="font-size: 11pt;">微信登录</span>
                 </x-button>
@@ -58,8 +58,6 @@
             return {
                 commonStyles,
                 loading: false,
-                wechatLoginInfo: null,
-                show: false
             }
         },
         methods: {
@@ -67,6 +65,9 @@
                 window.location.href = '/#/MyCenter'
             },
             loadWechatInfo() {
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
                 this.loading = true
                 let code = UrlParams(window.location.href, "code").replace(/#.+/, '')
                 this.token = UrlParams(window.location.href, "state").replace(/#.+/, '')
@@ -75,26 +76,27 @@
                     password: code,
                 }).then(info => {
                     this.loading = false
-                    this.wechatLoginInfo = info
-                    this.show = true
+                    this.$vux.loading.hide()
+                    Util.go('WechatLogin', {
+                        info
+                    })
                 }).catch(e => {
                     this.loading = false
                 })
             },
             authorize() {
                 this.loading = true
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
                 WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
+                    this.$vux.loading.hide()
                     window.location.href = url
                 }).catch(e => {
                     this.loading = false
                 })
             },
-            goWechatLogin() {
-                Util.go('WechatLogin', {
-                    info: this.wechatLoginInfo
-                })
-            }
         },
         computed: {
             isWechat() {
@@ -111,9 +113,7 @@
                     return
                 }
                 const code = UrlParams(window.location.href, "code")
-                if (!code) {
-                    this.authorize()
-                } else {
+                if (code) {
                     this.loadWechatInfo()
                 }
             } else {

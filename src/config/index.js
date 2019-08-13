@@ -1,6 +1,7 @@
 import internalConfig from './config'
 
 const config = {
+    env: internalConfig.env,
     tokenKey: 'token'
 }
 

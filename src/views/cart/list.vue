@@ -52,7 +52,7 @@
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
-            <div v-if="showEmpty && !show" align="center" style="padding-top: 200px; background-color: #F5F5F5;">
+            <div v-if="showEmpty && !show" align="center" style="padding-top: 150px; background-color: #F5F5F5;">
                 <div>
                     <img :src="Cart" width="200px" height="200"/>
                 </div>

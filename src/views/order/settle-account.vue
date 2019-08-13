@@ -299,6 +299,7 @@
                         content: null,
                         type: null
                     },
+                    fromCart: false,
                     items: [],
                     remark: null
                 },
@@ -366,12 +367,8 @@
                     text: '加载中...'
                 })
                 API.create(data).then(id => {
-                    // this.$vux.toast.show({
-                    //     text: '创建订单成功',
-                    //     type: 'success',
-                    //     width: '200px'
-                    // })
                     // Util.put('settleAccountData', null)
+
                     if (Util.isInWechat()) {
                         switch (data.payment) {
                             case 'WePay': {
@@ -481,6 +478,7 @@
                             return
                         }
                         this.data.items = data.items
+                        this.data.fromCart = data.fromCart
                         Util.putJson('settleAccountData', this.data)
                         this.show = false
                     })
