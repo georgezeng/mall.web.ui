@@ -242,7 +242,7 @@
                     return
                 }
                 this.loadingList = true
-                API.list(0, 'default', this.queryInfo).then(data => {
+                API.list(0, 'putTime', this.queryInfo).then(data => {
                     this.loadingList = false
                     if (data && data.length > 0) {
                         this.queryInfo.page.num++

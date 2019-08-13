@@ -44,11 +44,6 @@
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <form action="" @submit.prevent="">
-                <!--<Input size="large" v-model="key" ref="searchInput" class="searchInput"-->
-                <!--clearable-->
-                <!--:style="{width: searchInputWidth + 'px'}" search-->
-                <!--@on-keyup.13="goItemList(null)"-->
-                <!--placeholder="搜索商品"/>-->
                 <div :style="{width: searchInputWidth + 'px'}" class="search">
                     <Icon style="color: gray;" type="ios-search"/>
                     <input @keyup="show=true" @keyup.13="goItemList()" type="search" ref="searchInput"
@@ -150,8 +145,7 @@
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.$nextTick(() => {
-                const input = this.$refs.searchInput//.$el.children[2]
-                // $(input).attr("type", "search").css('borderColor', '#dcdee2').css('outline', 'none').css('backgroundColor', '#f5f5f5').css('borderRadius', '20px')
+                const input = this.$refs.searchInput
                 input.focus()
             })
             this.load()
