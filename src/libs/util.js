@@ -163,7 +163,7 @@ util.peekForNav = function () {
 }
 
 util.alipay = (orderId, from) => {
-    let uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
+    const uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
     window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '/' + from
 }
 
