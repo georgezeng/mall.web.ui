@@ -203,8 +203,10 @@
                     <cell-box class="optionPanel">
                         <Icon size="24" type="md-contacts" style="margin-right: 10px;"/>
                         <span>客服: 广州多呗生活</span>
-                        <input ref="contactText" readonly value="广州多呗生活" style="width: 1px; opacity: 0; border:none; outline: none;" />
-                        <div @click="copyContact" style="border: 1px solid orangered; color: orangered; padding: 5px; position: absolute; right: 10px;">
+                        <input ref="contactText" readonly value="广州多呗生活"
+                               style="width: 1px; opacity: 0; border:none; outline: none;"/>
+                        <div @click="copyContact"
+                             style="border: 1px solid orangered; color: orangered; padding: 5px; position: absolute; right: 10px;">
                             复制微信号
                         </div>
                     </cell-box>
@@ -262,7 +264,8 @@
                 dshNums: 0,
                 dpjNums: 0,
                 tkNums: 0,
-                badgeItemStyle: {}
+                badgeItemStyle: {},
+                isSmallDevice: false
             }
         },
         computed: {
@@ -278,7 +281,7 @@
                     : defaultAvatar
             },
             nickname() {
-                return this.info.nickname ? this.info.nickname : (this.isLogin ? '未设置昵称' : '立即登录')
+                return this.info.nickname ? this.info.nickname.length < 15 ? this.info.nickname : this.info.nickname.substring(0, this.isSmallDevice ? 6 : 10) + '...' : (this.isLogin ? '未设置昵称' : '立即登录')
             },
         },
         methods: {
@@ -368,8 +371,12 @@
             }
         },
         mounted() {
-            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
-            this.contentStyle.marginBottom = '60px'
+            this.isSmallDevice = document.documentElement.clientHeight < 600
+            if (this.isSmallDevice) {
+                this.contentStyle.minHeight = (document.documentElement.clientHeight + 200) + 'px'
+            } else {
+                this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
+            }
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
                 if (docWidth < 375 && docWidth > 330) {

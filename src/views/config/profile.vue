@@ -42,7 +42,8 @@
                 <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
             </form>
             <group>
-                <cell class="optionalLine optionalCell" style="margin: 5px 0;" is-link title="头像" @click.native="editAvatar">
+                <cell class="optionalLine optionalCell" style="margin: 5px 0;" is-link title="头像"
+                      @click.native="editAvatar">
                     <Avatar ref="avatar" size="large" style="position: absolute; right: 15px; top: -24px;"
                             :src="avatar"/>
                 </cell>
@@ -58,7 +59,7 @@
                               :data="sexList">
                 </popup-picker>
                 <datetime popup-title="生日"
-                          @on-change="changeBirthday"
+                          @on-confirm="changeBirthday"
                           class="optionalLine optionalCell" title="生日"
                           :min-year="1900" :max-year="2100"
                           v-model="info.birthday"/>
@@ -166,6 +167,10 @@
             saveNickname() {
                 if (!this.nicknameModal.value || this.nicknameModal.value == '') {
                     this.$vux.toast.show({text: '昵称不能为空', type: 'text'})
+                    return
+                }
+                if (this.nicknameModal.value.length > 15) {
+                    this.$vux.toast.show({text: '昵称长度不能超过15个字符', type: 'text'})
                     return
                 }
                 this.loading = true

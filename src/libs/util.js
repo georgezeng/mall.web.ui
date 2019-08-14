@@ -153,7 +153,7 @@ util.getForNav = function () {
 
 util.peekForNav = function () {
     const navList = util.getJson('NavigateArrObj')
-    let nav = navList.list[navList.length-1]
+    let nav = navList.list[navList.list.length-1]
     if (!nav) {
         nav = {
             from: 'Home'

@@ -22,7 +22,7 @@
 
     .title {
         display: inline-block;
-        width: 18%;
+        width: 48%;
         text-align: center;
         margin: 0;
         padding: 0;

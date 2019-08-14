@@ -3,7 +3,7 @@ const header = {
     padding: '0 10px',
     backgroundColor: '#DA4935',
     position: 'fixed',
-    zIndex: 1000,
+    zIndex: 500,
     width: '100%',
     color: '#fff',
     fontSize: '14pt',
@@ -46,7 +46,7 @@ const footer = {
     width: '100%',
     backgroundColor: '#fff',
     position: 'fixed',
-    zIndex: 1000,
+    zIndex: 500,
     padding: '5px 0',
     bottom: '0px',
     boxShadow: '0px 0px 3px -1px gray'

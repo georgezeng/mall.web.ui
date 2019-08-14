@@ -43,7 +43,7 @@
                     <div slot="content" class="item vux-1px-t">
                         <table width="100%">
                             <tr>
-                                <td width="30" rowspan="2" v-if="from != 'MySetting'">
+                                <td width="30" rowspan="2" v-if="nav.from != 'MySetting'">
                                     <check-icon class="checker"
                                                 :value.sync="isSelected[index]"></check-icon>
                                 </td>
@@ -146,6 +146,9 @@
                 showLoading: true,
                 loadingList: false,
                 clientY: 0,
+                nav: {
+                    from: null
+                }
             }
         },
         computed: {},
@@ -236,8 +239,7 @@
                     if (data && data.length > 0) {
                         this.pageInfo.num++
                         let info = null
-                        const nav = Util.peekForNav()
-                        switch (nav.from) {
+                        switch (this.nav.from) {
                             case 'OrderSettleAccount':
                                 info = Util.getJson('settleAccountData');
                                 break
@@ -286,6 +288,7 @@
         mounted() {
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80
             window.addEventListener('scroll', this.scrollHandler)
+            this.nav = Util.peekForNav()
             this.load()
         },
         destroyed() {
