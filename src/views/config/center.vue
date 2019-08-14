@@ -84,10 +84,10 @@
         .box {
             position: relative;
             display: inline-block;
-            width: 22%;
+            width: 18%;
             margin-bottom: 10px;
             .title {
-                font-size: 10pt;
+                font-size: 12px;
                 color: #9B9B9B;
             }
             .img2 {
@@ -122,9 +122,8 @@
     .badge-nums {
         position: absolute;
         top: -3px;
-        color: orangered;
-        border: 1px solid orangered;
-        background-color: #fff;
+        color: #fff;
+        background-color: orangered;
     }
 </style>
 <template>
@@ -165,22 +164,27 @@
                 <div align="center">
                     <div class="box" @click="goUnPayOrders">
                         <div class="img"><img :src="dfk" width="40" height="40"/></div>
-                        <div class="title">待付款</div>
+                        <div class="title" :style="{fontSize: titleFont}">待付款</div>
                         <badge class="badge-nums" :style="badgeItemStyle" v-if="dfkNums > 0" :text="dfkNums"></badge>
+                    </div>
+                    <div class="box" @click="goPaidOrders">
+                        <div class="img"><img :src="dfh" width="40" height="40"/></div>
+                        <div class="title" :style="{fontSize: titleFont}">待发货</div>
+                        <badge class="badge-nums" :style="badgeItemStyle" v-if="dfhNums > 0" :text="dfhNums"></badge>
                     </div>
                     <div class="box" @click="getShippedOrders">
                         <div class="img"><img :src="dsh" width="40" height="40"/></div>
-                        <div class="title">待收货</div>
+                        <div class="title" :style="{fontSize: titleFont}">待收货</div>
                         <badge class="badge-nums" :style="badgeItemStyle" v-if="dshNums > 0" :text="dshNums"></badge>
                     </div>
                     <div class="box" @click="goUncommentList">
-                        <div class="img2"><img :src="evaluate" width="44" height="44"/></div>
-                        <div class="title">待评价</div>
+                        <div class="img"><img :src="evaluate" width="40" height="40"/></div>
+                        <div class="title" :style="{fontSize: titleFont}">待评价</div>
                         <badge class="badge-nums" :style="badgeItemStyle" v-if="dpjNums > 0" :text="dpjNums"></badge>
                     </div>
                     <div class="box" @click="goAfterSale">
-                        <div class="img2"><img :src="tuihuo" width="50" height="50"/></div>
-                        <div class="title">退款/售后</div>
+                        <div class="img"><img :src="tuihuo" width="40" height="40"/></div>
+                        <div class="title" :style="{fontSize: titleFont}">退款/售后</div>
                         <badge class="badge-nums" :style="badgeItemStyle" v-if="tkNums > 0" :text="tkNums"></badge>
                     </div>
                 </div>
@@ -227,6 +231,7 @@
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
     import dfk from '../../images/daifukuan.png'
+    import dfh from '../../images/daifahuo.png'
     import dsh from '../../images/daishouhuo.png'
     import done from '../../images/done.png'
     import setting from '../../images/setting.png'
@@ -243,6 +248,7 @@
         data() {
             return {
                 dfk,
+                dfh,
                 dsh,
                 done,
                 setting,
@@ -261,11 +267,13 @@
                     nickname: null
                 },
                 dfkNums: 0,
+                dfhNums: 0,
                 dshNums: 0,
                 dpjNums: 0,
                 tkNums: 0,
                 badgeItemStyle: {},
-                isSmallDevice: false
+                isSmallDevice: false,
+                titleFont: '14px'
             }
         },
         computed: {
@@ -293,6 +301,11 @@
             getDfkNums() {
                 OrderAPI.count('UnPay').then(nums => {
                     this.dfkNums = nums
+                })
+            },
+            getDfhNums() {
+                OrderAPI.count('Paid').then(nums => {
+                    this.dfhNums = nums
                 })
             },
             getDshNums() {
@@ -332,6 +345,14 @@
                 })
                 Util.go('MyOrderList', {
                     type: 'UnPay'
+                })
+            },
+            goPaidOrders() {
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
+                Util.go('MyOrderList', {
+                    type: 'Paid'
                 })
             },
             getShippedOrders() {
@@ -374,22 +395,26 @@
             this.isSmallDevice = document.documentElement.clientHeight < 600
             if (this.isSmallDevice) {
                 this.contentStyle.minHeight = (document.documentElement.clientHeight + 200) + 'px'
+                this.titleFont = '12px'
             } else {
                 this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             }
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
                 if (docWidth < 375 && docWidth > 330) {
-                    this.badgeItemStyle.left = '50px'
+                    this.badgeItemStyle.left = '40px'
                 } else if (docWidth < 330) {
-                    this.badgeItemStyle.left = '45px'
+                    this.badgeItemStyle.left = '38px'
+                } else if(docWidth < 400) {
+                    this.badgeItemStyle.left = '42px'
                 } else {
-                    this.badgeItemStyle.left = '55px'
+                    this.badgeItemStyle.left = '45px'
                 }
                 ProfileAPI.load().then(data => {
                     this.info = data
                 })
                 this.getDfkNums()
+                this.getDfhNums()
                 this.getDshNums()
                 this.getDpjNums()
             }
