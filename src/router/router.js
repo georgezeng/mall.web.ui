@@ -157,7 +157,7 @@ const routers = [
         name: 'AlipayInWechat',
         meta: {
             title: '支付宝支付',
-            needLogin: true
+            needLogin: false
         },
         component: (resolve) => require(['../views/order/alipay-in-wechat.vue'], resolve)
     },

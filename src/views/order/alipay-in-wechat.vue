@@ -115,7 +115,7 @@
         methods: {
             goSuccess() {
                 Util.go('MyOrderList', {
-                    type: 'All'
+                    type: 'Paid'
                 })
             },
             showTip() {

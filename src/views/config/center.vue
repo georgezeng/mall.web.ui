@@ -138,7 +138,7 @@
             <div class="info" @click="goProfile">
                 <Avatar ref="avatar" size="large" class="avatar" :src="avatar"/>
                 <span class="nickname">{{nickname}}</span>
-                <span v-if="isLogin" class="level">普通会员</span>
+                <span v-if="isLogin" class="level">优享会员</span>
                 <div v-if="isLogin" class="tip">点击查看或编辑个人信息</div>
                 <div v-else class="tip">登录后购买商品</div>
                 <Icon type="ios-arrow-forward" size="30" class="goArrow"/>
@@ -199,6 +199,14 @@
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
                         <Icon size="24" type="md-exit" style="margin-right: 10px;"/>
                         退出
+                    </cell-box>
+                    <cell-box class="optionPanel">
+                        <Icon size="24" type="md-contacts" style="margin-right: 10px;"/>
+                        <span>客服: 广州多呗生活</span>
+                        <input ref="contactText" readonly value="广州多呗生活" style="width: 1px; opacity: 0; border:none; outline: none;" />
+                        <div @click="copyContact" style="border: 1px solid orangered; color: orangered; padding: 5px; position: absolute; right: 10px;">
+                            复制微信号
+                        </div>
                     </cell-box>
                 </group>
             </div>
@@ -274,6 +282,11 @@
             },
         },
         methods: {
+            copyContact() {
+                this.$refs.contactText.select()
+                document.execCommand('copy', false)
+                this.$vux.toast.show('复制成功')
+            },
             getDfkNums() {
                 OrderAPI.count('UnPay').then(nums => {
                     this.dfkNums = nums
@@ -292,7 +305,7 @@
             exit() {
                 API.logout().then(res => {
                     Util.setToken('')
-                    window.location.href = '/#/MyCenter'
+                    // window.location.href = '/#/MyCenter'
                     window.location.reload(true)
                 })
             },
@@ -359,9 +372,9 @@
             this.contentStyle.marginBottom = '60px'
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
-                if(docWidth < 375 && docWidth > 330) {
+                if (docWidth < 375 && docWidth > 330) {
                     this.badgeItemStyle.left = '50px'
-                } else if(docWidth < 330) {
+                } else if (docWidth < 330) {
                     this.badgeItemStyle.left = '45px'
                 } else {
                     this.badgeItemStyle.left = '55px'

@@ -43,6 +43,10 @@
                 <div class="title" @click="selectStatus('NotYet')" :class="{'selected-title': status == 'NotYet'}">
                     未申请
                 </div>
+                <div class="title" @click="selectStatus('All')" :class="{'selected-title': status == 'All'}">
+                    申请记录
+                </div>
+                <!--
                 <div class="title" @click="selectStatus('Processing')"
                      :class="{'selected-title': status == 'Processing'}">
                     审核中
@@ -58,6 +62,7 @@
                 <div class="title" @click="selectStatus('Finished')" :class="{'selected-title': status == 'Finished'}">
                     申请记录
                 </div>
+                -->
             </div>
         </Header>
         <Content :style="contentStyle">

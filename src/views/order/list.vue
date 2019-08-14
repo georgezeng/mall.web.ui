@@ -9,7 +9,7 @@
 
     .titlePanel {
         color: #5C6677;
-        font-size: 12pt;
+        font-size: 14px;
         background-color: #fff;
         margin: 0;
         padding: 0;
@@ -22,7 +22,7 @@
 
     .title {
         display: inline-block;
-        width: 23%;
+        width: 18%;
         text-align: center;
         margin: 0;
         padding: 0;
@@ -41,6 +41,7 @@
             <div class="titlePanel">
                 <div class="title" @click="selectType('All')" :class="{'selected-title': type == 'All'}">全部</div>
                 <div class="title" @click="selectType('UnPay')" :class="{'selected-title': type == 'UnPay'}">待付款</div>
+                <div class="title" @click="selectType('Paid')" :class="{'selected-title': type == 'Paid'}">待发货</div>
                 <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货
                 </div>
                 <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">已完成
