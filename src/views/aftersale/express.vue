@@ -82,7 +82,7 @@
                     }
                     Util.go(nav.from, {
                         id: nav.id ? nav.id : 0,
-                        status: 'WaitForConfirm'
+                        status: 'WaitForReceive'
                     })
                 }).catch(e => {
                     this.loading = false
