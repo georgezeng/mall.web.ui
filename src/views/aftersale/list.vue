@@ -151,7 +151,7 @@
                     id: this.orderId,
                     status: this.status
                 })
-                if(item.type) {
+                if (item.type) {
                     switch (item.type.name) {
                         case 'RefundOnly': {
                             Util.go('AfterSaleRefundOnlyDetail', {
@@ -223,6 +223,7 @@
                 this.allLoaded = false
                 this.page.num = 1
                 this.list = []
+                this.loadingList = false
                 this.showSpin = true
                 this.load()
             },
@@ -264,13 +265,18 @@
                         for (let i in data) {
                             this.list.push(data[i])
                         }
-                        if(data.length < this.page.size) {
+                        if (data.length < this.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
                         }
                     } else {
                         this.allLoaded = true
                         this.showLoading = false
+                        if (this.list.length == 0 && this.status == 'NotYet') {
+                            this.status = 'All'
+                            this.reload()
+                            return
+                        }
                     }
                     this.showSpin = false
                     this.loadingList = false
