@@ -209,6 +209,7 @@
                         case 'WePay': {
                             Util.wepayForJsApi(id, () => {
                                 this.$vux.loading.hide()
+                                this.type = 'Paid'
                                 this.reload()
                             })
                         }

@@ -114,8 +114,16 @@
         },
         methods: {
             goSuccess() {
-                Util.go('MyOrderList', {
-                    type: 'Paid'
+                API.checkPaid(this.id).then(paid => {
+                    if (paid) {
+                        Util.go('MyOrderList', {
+                            type: 'Paid'
+                        })
+                    } else {
+                        Util.go('MyOrderList', {
+                            type: 'UnPay'
+                        })
+                    }
                 })
             },
             showTip() {
