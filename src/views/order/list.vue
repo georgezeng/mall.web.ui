@@ -116,7 +116,7 @@
                     <Button v-else @click="goEvaluate(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         查看评价
                     </Button>
-                    <Button @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                    <Button v-if="!item.applied" @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         申请售后
                     </Button>
                     <Button @click="deleteConfirm(item.id)" style="float: right;" type="error">

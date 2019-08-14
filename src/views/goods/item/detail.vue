@@ -572,21 +572,11 @@
                     Util.go('Login')
                     return
                 }
-                if (this.values.length == 0) {
+                // if (this.values.length == 0) {
                     this.showPopup()
                     this.confirmAddToCart = true
                     return
-                }
-                CartAPI.save({
-                    itemId: this.item.id,
-                    propertyId: this.property.id,
-                    nums: this.nums
-                }).then(data => {
-                    this.cartItems = data.total
-                    this.itemNums = data.itemNums
-                    this.confirmAddToCart = false
-                    this.$vux.toast.show({text: '添加成功'})
-                })
+                // }
             },
             buy() {
                 const token = Util.getToken()
@@ -683,7 +673,16 @@
                 }
                 this.values = this.tempValues
                 if (this.confirmAddToCart) {
-                    this.addToCart()
+                    CartAPI.save({
+                        itemId: this.item.id,
+                        propertyId: this.property.id,
+                        nums: this.nums
+                    }).then(data => {
+                        this.cartItems = data.total
+                        this.itemNums = data.itemNums
+                        this.confirmAddToCart = false
+                        this.$vux.toast.show({text: '添加成功'})
+                    })
                 } else if (this.confirmBuy) {
                     this.buy()
                 }
