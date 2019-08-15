@@ -184,7 +184,6 @@
                         text: '加载中...'
                     })
                     API.pickup(id).then(res => {
-                        this.status = 'Finished'
                         this.$vux.loading.hide()
                         this.reload()
                     }).catch(e => {
