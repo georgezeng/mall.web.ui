@@ -129,8 +129,10 @@
 <template>
     <Layout :style="commonStyles.layout">
         <Header :style="commonStyles.tideHeader">
+            <!--
             <Icon v-if="isLogin" size="24" style="right: 10px; position: absolute; top: 10px;"
                   type="md-notifications-outline"/>
+                  -->
         </Header>
         <div style="height: 40px;"></div>
         <Content :style="contentStyle">

@@ -110,7 +110,7 @@
                     如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
-            <div v-show="popup" :style="popupStyle" style="position: absolute; top: 50px;">
+            <div v-show="popup" :style="popupStyle" style="position: fixed; top: 50px;">
                 <img crossorigin="use-credentials" :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
                 <div class="save-to-local-btn" :style="saveBtnStyle"
                      style="position: absolute; bottom: 10px; left: 10px;">

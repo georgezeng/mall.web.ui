@@ -2,14 +2,14 @@
 
     .marketPrice {
         display: inline-block;
-        font-size: 11pt;
+        font-size: 16pt;
         color: #c5c8ce;
         text-decoration: line-through;
     }
 
     .realPrice {
         display: inline-block;
-        font-size: 13pt;
+        font-size: 18pt;
         color: orangered;
         font-weight: bold;
         margin-top: 10px;
@@ -18,7 +18,7 @@
 
     .discount {
         display: inline-block;
-        font-size: 11pt;
+        font-size: 16pt;
         color: gray;
     }
 
@@ -224,6 +224,17 @@
         background-repeat: no-repeat;
         background-size: contain;
     }
+
+    .posterTip {
+        border-radius: 25px;
+        position: absolute;
+        right: 10px;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 0px 0px 5px -1px gray;
+        padding: 5px;
+        z-index: 500;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -265,6 +276,16 @@
                         <div class="qq-zone" @click="share('qZone')"></div>
                     </div>
                 </popup>
+                <popup v-model="posterPopup" style="background-color: #fff; z-index: 1000000;">
+                    <div style="height: 88px; position: relative;" align="center">
+                        <div>
+                            海报分享提示
+                        </div>
+                        <div style="padding: 10px;">
+                            长按图片保存海报到本地相册，可以把图片发送到好友或者朋友圈，好友可以扫描二维码下单！
+                        </div>
+                    </div>
+                </popup>
             </div>
 
             <div v-if="showShareTip"
@@ -285,6 +306,19 @@
                     如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
+
+            <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed; top: 50px;">
+                <img crossorigin="use-credentials" :src="posterSrc" :width="posterWidth" :height="posterHeight"/>
+            </div>
+
+            <div @click="showPoster" class="posterTip" :style="{position: posterTipPosition, top: posterTipTop + 'px'}">
+                <div>
+                    <img style="position: relative; top: 5px;" :src="PosterTipLogo" width="20" height="20"/>
+                </div>
+                <div style="font-size: 6px;">分享海报</div>
+            </div>
+
+
             <Icon size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <Dropdown @on-click="goPage" @on-visible-change="onMenuVisibleChange" :visible="menuVisible" class="more">
                 <Icon size="24" @click="menuVisible=!menuVisible" type="ios-more"/>
@@ -316,7 +350,7 @@
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
                 <span class="discount" v-if="isSinglePrice">{{discount}}</span>
             </div>
-            <div class="name">{{item.name}}</div>
+            <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
             <div class="blockLine"></div>
             <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择">
@@ -363,14 +397,24 @@
     import defaultAvatar from '../../../images/avatar.png'
     import Util from '../../../libs/util.js'
     import ShareTipArrow from '../../../images/tip-arrow.png'
+    import PosterTipLogo from '../../../images/goods-share-logo.png'
     import wx from 'weixin-js-sdk'
     import NativeShare from 'nativeshare'
-    import $ from "jquery";
+    import $ from "jquery"
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {},
         data() {
             return {
+                posterPopup: false,
+                posterPopupStyle: {},
+                posterSrc: null,
+                posterWidth: 0,
+                posterHeight: 0,
+                PosterTipLogo,
+                posterTipTop: 0,
+                posterTipPosition: 'absolute',
                 ShareTipArrow,
                 config,
                 commonStyles,
@@ -498,6 +542,10 @@
             }
         },
         methods: {
+            showPoster() {
+                this.posterPopupStyle.zIndex = 100000
+                this.posterPopup = true
+            },
             onMenuVisibleChange(visible) {
                 this.menuVisible = visible
             },
@@ -528,11 +576,6 @@
                 this.showShare = false
             },
             showSharePopup() {
-                const token = Util.getToken()
-                if (!token) {
-                    Util.go('Login')
-                    return
-                }
                 if (Util.isInWechat()) {
                     this.showShareTip = true
                 } else {
@@ -573,9 +616,9 @@
                     return
                 }
                 // if (this.values.length == 0) {
-                    this.showPopup()
-                    this.confirmAddToCart = true
-                    return
+                this.showPopup()
+                this.confirmAddToCart = true
+                return
                 // }
             },
             buy() {
@@ -773,14 +816,39 @@
                     }
                 }
                 return selectedValues
+            },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                const top = document.body.scrollHeight - this.itemImgSize + 62
+                if (scrollTop < top) {
+                    this.posterTipPosition = 'fixed'
+                    this.posterTipTop = 60
+                } else {
+                    this.posterTipPosition = 'absolute'
+                    this.posterTipTop = this.itemImgSize + 3
+                }
             }
         },
         created() {
+            let uid = UrlParams(window.location.href, 'uid')
+            if (uid) {
+                uid = uid.replace(/#.+/, '')
+            } else {
+                uid = 0
+            }
+            this.posterWidth = document.documentElement.clientWidth * 0.8
+            this.posterHeight = document.documentElement.clientWidth * 0.8 * 1161 / 750
+            this.posterPopupStyle = {
+                left: document.documentElement.clientWidth * 0.1 + 'px'
+            }
+            window.addEventListener('scroll', this.scrollHandler)
+            this.posterTipTop = this.itemImgSize + 3
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
+            this.posterSrc = config.baseUrl + '/goods/item/' + this.item.id + "/" + uid + '/poster/share.png?d=' + new Date().getTime()
             this.load()
             if (Util.isInWechat()) {
                 Util.wxConfig([
@@ -788,6 +856,9 @@
                     'updateTimelineShareData',
                 ])
             }
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>
