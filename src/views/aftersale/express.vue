@@ -77,13 +77,7 @@
                 API.fillExpress(this.data).then(res => {
                     this.loading = false
                     let nav = Util.getForNav()
-                    if (nav.from != 'AfterSaleList') {
-                        nav = Util.getForNav()
-                    }
-                    Util.go(nav.from, {
-                        id: nav.id ? nav.id : 0,
-                        status: 'WaitForReceive'
-                    })
+                    Util.go(nav.from, nav)
                 }).catch(e => {
                     this.loading = false
                 })
