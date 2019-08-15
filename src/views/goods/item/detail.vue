@@ -226,7 +226,7 @@
     }
 
     .posterTip {
-        border-radius: 30px;
+        border-radius: 40px;
         position: absolute;
         right: 10px;
         text-align: center;
@@ -313,9 +313,9 @@
 
             <div @click="showPoster" class="posterTip" :style="{position: posterTipPosition, top: posterTipTop + 'px'}">
                 <div>
-                    <img style="position: relative; top: 5px;" :src="PosterTipLogo" width="15" height="15"/>
+                    <img style="position: relative; top: 0px;" :src="PosterTipLogo" width="16" height="16"/>
                 </div>
-                <div style="font-size: 8px;">分享海报</div>
+                <div style="font-size: 8px; position: relative; top: -3px;">分享海报</div>
             </div>
 
 
@@ -842,7 +842,7 @@
                 left: document.documentElement.clientWidth * 0.1 + 'px'
             }
             window.addEventListener('scroll', this.scrollHandler)
-            this.posterTipTop = this.itemImgSize + 3
+            this.posterTipTop = this.itemImgSize + 5
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
