@@ -277,12 +277,12 @@
                     </div>
                 </popup>
                 <popup v-model="posterPopup" style="background-color: #fff; z-index: 1000000;">
-                    <div style="height: 88px; position: relative;" align="center">
-                        <div>
+                    <div style="height: 88px; position: relative; color: orangered; font-size: 12px;">
+                        <div align="center" style="padding-top: 10px;">
                             海报分享提示
                         </div>
                         <div style="padding: 10px;">
-                            长按图片保存海报到本地相册，可以把图片发送到好友或者朋友圈，好友可以扫描二维码下单！
+                            长按图片保存海报到本地相册，把图片发送到好友或者朋友圈，好友可以扫描二维码下单！
                         </div>
                     </div>
                 </popup>
