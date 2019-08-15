@@ -277,7 +277,7 @@
                     </div>
                 </popup>
                 <popup v-model="posterPopup" style="background-color: #fff; z-index: 1000000;">
-                    <div style="height: 88px; position: relative; color: orangered; font-size: 14px;">
+                    <div style="height: 100px; position: relative; color: orangered; font-size: 14px;">
                         <div align="center" style="padding-top: 10px; font-weight: bold;">
                             海报分享提示
                         </div>
