@@ -819,13 +819,13 @@
             },
             scrollHandler(e) {
                 const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
-                const top = document.body.scrollHeight - this.itemImgSize + 62
+                const top = document.body.scrollHeight - this.itemImgSize + 67
                 if (scrollTop < top) {
                     this.posterTipPosition = 'fixed'
-                    this.posterTipTop = 60
+                    this.posterTipTop = 63
                 } else {
                     this.posterTipPosition = 'absolute'
-                    this.posterTipTop = this.itemImgSize + 3
+                    this.posterTipTop = this.itemImgSize + 8
                 }
             }
         },
@@ -842,7 +842,7 @@
                 left: document.documentElement.clientWidth * 0.1 + 'px'
             }
             window.addEventListener('scroll', this.scrollHandler)
-            this.posterTipTop = this.itemImgSize + 5
+            this.posterTipTop = this.itemImgSize + 8
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75
