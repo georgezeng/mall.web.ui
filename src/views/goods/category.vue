@@ -104,17 +104,11 @@
                 </div>
             </div>
             <div style="margin-left: 80px;">
-                <mt-swipe :auto="4000" style="height: 150px;">
-                    <mt-swipe-item>
-                        <img :src="catetoryBanner1" :width="bannerWidth" />
-                    </mt-swipe-item>
-                    <mt-swipe-item>
-                        <img :src="catetoryBanner2" :width="bannerWidth" />
-                    </mt-swipe-item>
-                    <mt-swipe-item>
-                        <img :src="catetoryBanner3" :width="bannerWidth" />
-                    </mt-swipe-item>
-                </mt-swipe>
+                <swiper :aspect-ratio="150/300" auto loop :show-dots="false">
+                    <swiper-item v-for="(url, index) in [catetoryBanner1, catetoryBanner2, catetoryBanner3]" :key="index">
+                        <img :src="url" width="100%">
+                    </swiper-item>
+                </swiper>
                 <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
                 <div align="center">
                     <img :src="brand1" />
