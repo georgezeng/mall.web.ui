@@ -226,7 +226,7 @@
     }
 
     .posterTip {
-        border-radius: 25px;
+        border-radius: 30px;
         position: absolute;
         right: 10px;
         text-align: center;
@@ -313,9 +313,9 @@
 
             <div @click="showPoster" class="posterTip" :style="{position: posterTipPosition, top: posterTipTop + 'px'}">
                 <div>
-                    <img style="position: relative; top: 5px;" :src="PosterTipLogo" width="20" height="20"/>
+                    <img style="position: relative; top: 5px;" :src="PosterTipLogo" width="15" height="15"/>
                 </div>
-                <div style="font-size: 6px;">分享海报</div>
+                <div style="font-size: 8px;">分享海报</div>
             </div>
 
 
