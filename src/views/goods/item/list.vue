@@ -393,7 +393,7 @@
             }
         },
         mounted() {
-            this.isSmallDevice = document.documentElement.clientHeight < 600
+            this.isSmallDevice = document.documentElement.clientHeight < 610
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 60
             this.contentStyle.marginTop = '100px'
             this.headerStyle.height = '90px'

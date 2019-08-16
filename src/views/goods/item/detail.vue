@@ -844,7 +844,7 @@
             } else {
                 this.uid = 0
             }
-            if(document.documentElement.clientHeight < 600) {
+            if(document.documentElement.clientHeight < 610) {
                 this.posterWidth = document.documentElement.clientWidth * 0.7
                 this.posterHeight = document.documentElement.clientWidth * 0.7 * 1161 / 750
                 this.posterPopupStyle = {

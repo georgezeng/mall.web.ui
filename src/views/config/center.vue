@@ -421,8 +421,8 @@
                 Util.go('MyProfile')
             }
         },
-        mounted() {alert(document.documentElement.clientHeight)
-            this.isSmallDevice = document.documentElement.clientHeight < 600
+        mounted() {alert(document.documentElement.clientWidth)
+            this.isSmallDevice = document.documentElement.clientHeight < 610
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             if (this.isSmallDevice) {
                 this.titleFont = '12px'
