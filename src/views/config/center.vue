@@ -209,7 +209,7 @@
                     <cell-box class="optionPanel">
                         <Icon size="24" type="md-contacts" style="margin-right: 10px;"/>
                         <span>客服: 广州多呗生活</span>
-                        <input ref="contactText" readonly value="广州多呗生活"
+                        <input ref="contactText" value="广州多呗生活"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyContact"
                              style="border: 1px solid orangered; color: orangered; padding: 5px; position: absolute; right: 10px;">
@@ -242,6 +242,7 @@
     import coupon from '../../images/coupon.png'
     import evaluate from '../../images/evaluate.png'
     import tuihuo from '../../images/tuihuo.png'
+    import $ from 'jquery'
 
     export default {
         components: {
@@ -399,6 +400,8 @@
             if (this.isSmallDevice) {
                 this.contentStyle.marginBottom = '100px'
                 this.titleFont = '12px'
+            } else {
+                $(this.$refs.contactText).attr('readonly', 'true')
             }
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
