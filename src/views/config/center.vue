@@ -216,7 +216,7 @@
                             复制微信号
                         </div>
                     </cell-box>
-                    <cell-box v-if="isSmallDevice" class="optionPanel" style="visibility: hidden;">
+                    <cell-box v-if="isSmallDevice" class="optionPanel" style="visibility: hidden; margin-top: 30px;">
                     </cell-box>
                 </group>
             </div>
