@@ -844,14 +844,26 @@
             } else {
                 this.uid = 0
             }
-            this.posterWidth = document.documentElement.clientWidth * 0.8
-            this.posterHeight = document.documentElement.clientWidth * 0.8 * 1161 / 750
-            this.posterPopupStyle = {
-                left: document.documentElement.clientWidth * 0.1 + 'px',
-                width: this.posterWidth + 'px',
-                height: this.posterHeight + 'px',
-                top: document.documentElement.clientHeight < 600 ? '20px' : '50px'
+            if(document.documentElement.clientHeight < 600) {
+                this.posterWidth = document.documentElement.clientWidth * 0.7
+                this.posterHeight = document.documentElement.clientWidth * 0.7 * 1161 / 750
+                this.posterPopupStyle = {
+                    left: document.documentElement.clientWidth * 0.15 + 'px',
+                    width: this.posterWidth + 'px',
+                    height: this.posterHeight + 'px',
+                    top: '20px'
+                }
+            } else {
+                this.posterWidth = document.documentElement.clientWidth * 0.8
+                this.posterHeight = document.documentElement.clientWidth * 0.8 * 1161 / 750
+                this.posterPopupStyle = {
+                    left: document.documentElement.clientWidth * 0.1 + 'px',
+                    width: this.posterWidth + 'px',
+                    height: this.posterHeight + 'px',
+                    top: '50px'
+                }
             }
+
             window.addEventListener('scroll', this.scrollHandler)
             this.posterTipTop = this.itemImgSize + 8
             this.isBigDevice = document.documentElement.clientWidth > 500
