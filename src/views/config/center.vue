@@ -421,10 +421,10 @@
                 Util.go('MyProfile')
             }
         },
-        mounted() {
+        mounted() {alert(document.documentElement.clientHeight)
             this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
-            if (this.isSmallDevice) {alert(222)
+            if (this.isSmallDevice) {
                 this.titleFont = '12px'
             }
             if (this.isLogin) {
