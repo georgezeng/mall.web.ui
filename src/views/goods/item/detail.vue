@@ -75,6 +75,7 @@
         text-align: center;
         padding: 3px 5px;
         margin-right: 10px;
+        margin-bottom: 10px;
         font-size: 11pt;
         border: 2px solid #F5F5F5;
     }
