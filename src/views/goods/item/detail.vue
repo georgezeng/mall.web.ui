@@ -307,7 +307,7 @@
                 </div>
             </div>
 
-            <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed; top: 50px;">
+            <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed;">
                 <swiper ref="posterSwiper" loop dots-position="center">
                     <swiper-item v-for="(photo, index) in item.photos" :key="index">
                         <img crossorigin="use-credentials" :src="getPosterSrc(index)" :width="posterWidth"
@@ -849,7 +849,8 @@
             this.posterPopupStyle = {
                 left: document.documentElement.clientWidth * 0.1 + 'px',
                 width: this.posterWidth + 'px',
-                height: this.posterHeight + 'px'
+                height: this.posterHeight + 'px',
+                top: document.documentElement.clientWidth < 350 ? '20px' : '50px'
             }
             window.addEventListener('scroll', this.scrollHandler)
             this.posterTipTop = this.itemImgSize + 8
