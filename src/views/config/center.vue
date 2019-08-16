@@ -421,7 +421,7 @@
                 Util.go('MyProfile')
             }
         },
-        mounted() {alert(document.documentElement.clientWidth)
+        mounted() {
             this.isSmallDevice = document.documentElement.clientHeight < 610
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             if (this.isSmallDevice) {
