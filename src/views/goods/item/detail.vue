@@ -850,7 +850,7 @@
                 left: document.documentElement.clientWidth * 0.1 + 'px',
                 width: this.posterWidth + 'px',
                 height: this.posterHeight + 'px',
-                top: document.documentElement.clientWidth < 370 ? '20px' : '50px'
+                top: document.documentElement.clientHeight < 600 ? '20px' : '50px'
             }
             window.addEventListener('scroll', this.scrollHandler)
             this.posterTipTop = this.itemImgSize + 8
