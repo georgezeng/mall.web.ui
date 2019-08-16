@@ -297,7 +297,7 @@
         methods: {
             copyContact() {
                 this.$refs.contactText.select()
-                document.execCommand('copy', false)
+                document.execCommand('copy')
                 this.$vux.toast.show('复制成功')
             },
             getDfkNums() {
