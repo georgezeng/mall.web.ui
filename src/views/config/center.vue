@@ -209,12 +209,14 @@
                     <cell-box class="optionPanel">
                         <Icon size="24" type="md-contacts" style="margin-right: 10px;"/>
                         <span>客服: 广州多呗生活</span>
-                        <input ref="contactText" contenteditable="true" value="广州多呗生活"
+                        <input ref="contactText" readonly value="广州多呗生活"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyContact"
                              style="border: 1px solid orangered; color: orangered; padding: 5px; position: absolute; right: 10px;">
                             复制微信号
                         </div>
+                    </cell-box>
+                    <cell-box v-if="isSmallDevice" class="optionPanel" style="visibility: hidden;">
                     </cell-box>
                 </group>
             </div>
@@ -296,9 +298,35 @@
         },
         methods: {
             copyContact() {
-                this.$refs.contactText.select()
-                document.execCommand('copy')
+
+                const isIOSDevice = window.navigator.userAgent.match(/ipad|iphone/i);
+                if (isIOSDevice) {
+                    let el = this.$refs.contactText
+
+                    let oldContentEditable = el.contentEditable,
+                        oldReadOnly = el.readOnly,
+                        range = document.createRange();
+
+                    el.contentEditable = true;
+                    el.readOnly = false;
+                    range.selectNodeContents(el);
+
+                    let s = window.getSelection();
+                    s.removeAllRanges();
+                    s.addRange(range);
+
+                    el.setSelectionRange(0, 999999); // A big number, to cover anything that could be inside the element.
+
+                    el.contentEditable = oldContentEditable;
+                    el.readOnly = oldReadOnly;
+
+                } else {
+                    this.$refs.contactText.select()
+                }
+
+                document.execCommand('copy');
                 this.$vux.toast.show('复制成功')
+
             },
             getDfkNums() {
                 OrderAPI.count('UnPay').then(nums => {
@@ -397,7 +425,6 @@
             this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             if (this.isSmallDevice) {
-                this.contentStyle.marginBottom = '100px'
                 this.titleFont = '12px'
             }
             if (this.isLogin) {
@@ -406,7 +433,7 @@
                     this.badgeItemStyle.left = '40px'
                 } else if (docWidth < 330) {
                     this.badgeItemStyle.left = '38px'
-                } else if(docWidth < 400) {
+                } else if (docWidth < 400) {
                     this.badgeItemStyle.left = '42px'
                 } else {
                     this.badgeItemStyle.left = '45px'
