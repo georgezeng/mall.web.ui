@@ -314,7 +314,7 @@
             }
         },
         mounted() {
-            this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png?d=' + new Date().getTime()
+            this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
             this.load()
             this.bgStyle = {
                 width: document.documentElement.clientWidth + 'px',

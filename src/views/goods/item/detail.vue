@@ -308,7 +308,12 @@
             </div>
 
             <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed; top: 50px;">
-                <img crossorigin="use-credentials" :src="posterSrc" :width="posterWidth" :height="posterHeight"/>
+                <swiper ref="posterSwiper" loop dots-position="center">
+                    <swiper-item v-for="(photo, index) in item.photos" :key="index">
+                        <img crossorigin="use-credentials" :src="getPosterSrc(index)" :width="posterWidth"
+                             :height="posterHeight"/>
+                    </swiper-item>
+                </swiper>
             </div>
 
             <div @click="showPoster" class="posterTip" :style="{position: posterTipPosition, top: posterTipTop + 'px'}">
@@ -341,7 +346,7 @@
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <swiper :aspect-ratio="1" auto loop :show-dots="false">
-                <swiper-item v-for="photo in item.photos" :key="photo.id">
+                <swiper-item v-for="(photo, index) in item.photos" :key="index">
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
@@ -409,7 +414,6 @@
             return {
                 posterPopup: false,
                 posterPopupStyle: {},
-                posterSrc: null,
                 posterWidth: 0,
                 posterHeight: 0,
                 PosterTipLogo,
@@ -462,6 +466,7 @@
                 nativeShare: new NativeShare(),
                 isBigDevice: false,
                 menuVisible: false,
+                uid: 0
             }
         },
         computed: {
@@ -542,6 +547,9 @@
             }
         },
         methods: {
+            getPosterSrc(index) {
+                return config.baseUrl + '/goods/item/' + this.item.id + "/" + index + "/" + this.uid + '/poster/share.png'
+            },
             showPoster() {
                 this.posterPopupStyle.zIndex = 100000
                 this.posterPopup = true
@@ -830,16 +838,18 @@
             }
         },
         created() {
-            let uid = UrlParams(window.location.href, 'uid')
-            if (uid) {
-                uid = uid.replace(/#.+/, '')
+            this.uid = UrlParams(window.location.href, 'uid')
+            if (this.uid) {
+                this.uid = this.uid.replace(/#.+/, '')
             } else {
-                uid = 0
+                this.uid = 0
             }
             this.posterWidth = document.documentElement.clientWidth * 0.8
             this.posterHeight = document.documentElement.clientWidth * 0.8 * 1161 / 750
             this.posterPopupStyle = {
-                left: document.documentElement.clientWidth * 0.1 + 'px'
+                left: document.documentElement.clientWidth * 0.1 + 'px',
+                width: this.posterWidth + 'px',
+                height: this.posterHeight + 'px'
             }
             window.addEventListener('scroll', this.scrollHandler)
             this.posterTipTop = this.itemImgSize + 8
@@ -848,7 +858,6 @@
             this.popupHeight = document.documentElement.clientHeight * 0.75
             this.item.id = this.$router.currentRoute.params.id
             this.item.id = this.item.id > 0 ? this.item.id : null
-            this.posterSrc = config.baseUrl + '/goods/item/' + this.item.id + "/" + uid + '/poster/share.png?d=' + new Date().getTime()
             this.load()
             if (Util.isInWechat()) {
                 Util.wxConfig([
@@ -856,6 +865,11 @@
                     'updateTimelineShareData',
                 ])
             }
+        },
+        mounted() {
+            setTimeout(() => {
+                $(this.$refs.posterSwiper.$el).find('div.vux-swiper').css("height", this.posterHeight + 'px')
+            }, 100)
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
