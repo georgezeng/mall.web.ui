@@ -424,7 +424,7 @@
         mounted() {
             this.isSmallDevice = document.documentElement.clientHeight < 600
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
-            if (this.isSmallDevice) {
+            if (this.isSmallDevice) {alert(222)
                 this.titleFont = '12px'
             }
             if (this.isLogin) {
