@@ -395,11 +395,10 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientHeight < 600
+            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             if (this.isSmallDevice) {
-                this.contentStyle.minHeight = (document.documentElement.clientHeight + 200) + 'px'
+                this.contentStyle.marginBottom = '100px'
                 this.titleFont = '12px'
-            } else {
-                this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             }
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
