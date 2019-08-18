@@ -152,7 +152,7 @@
                 </div>
                 <div class="gradient"></div>
                 <div align="center" class="numberBlock" @click="goMyCoupon">
-                    <div v-if="isLogin" class="number">0</div>
+                    <div v-if="isLogin" class="number">{{couponAmount}}</div>
                     <div v-else><img :src="coupon" width="24" height="24"/></div>
                     <div class="title">优惠券</div>
                 </div>
@@ -277,7 +277,8 @@
                 tkNums: 0,
                 badgeItemStyle: {},
                 isSmallDevice: false,
-                titleFont: '14px'
+                titleFont: '14px',
+                couponAmount: 0
             }
         },
         computed: {
@@ -440,6 +441,9 @@
                 }
                 ProfileAPI.load().then(data => {
                     this.info = data
+                })
+                API.totalUnUseCouponAmount().then(data => {
+                    this.couponAmount = data
                 })
                 this.getDfkNums()
                 this.getDfhNums()
