@@ -72,7 +72,7 @@ const routers = [
         component: (resolve) => require(['../views/goods/category.vue'], resolve)
     },
     {
-        path: '/Goods/Item/List/:id',
+        path: '/Goods/Item/List/:type/:id',
         name: 'GoodsItemList',
         meta: {
             title: '商品列表',
@@ -99,6 +99,15 @@ const routers = [
         component: (resolve) => require(['../views/cart/list.vue'], resolve)
     },
     {
+        path: '/MyCoupon/:type',
+        name: 'MyCoupon',
+        meta: {
+            title: '我的优惠券',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/coupon/list.vue'], resolve)
+    },
+    {
         path: '/MyInvoice/List',
         name: 'MyInvoiceList',
         meta: {
@@ -115,6 +124,15 @@ const routers = [
             needLogin: true
         },
         component: (resolve) => require(['../views/order/invoice/edit.vue'], resolve)
+    },
+    {
+        path: '/Order/Coupon/List/:key',
+        name: 'OrderCouponList',
+        meta: {
+            title: '可用优惠券',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/order/coupon-list.vue'], resolve)
     },
     {
         path: '/Order/List/:type',

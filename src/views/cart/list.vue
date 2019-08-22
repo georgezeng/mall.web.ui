@@ -275,7 +275,7 @@
                     from: 'MyCart'
                 })
                 Util.go('GoodsItemList', {
-                    id: 0
+                    id: 0, type: 'category'
                 })
             },
             remove(id) {

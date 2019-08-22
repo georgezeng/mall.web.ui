@@ -360,7 +360,9 @@
                 // Util.go('MyChange')
             },
             goMyCoupon() {
-                // Util.go('MyCoupon')
+                Util.go('MyCoupon', {
+                    type: 'UnUse'
+                })
             },
             goOrders() {
                 Util.putForNav({

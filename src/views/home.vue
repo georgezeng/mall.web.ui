@@ -189,7 +189,7 @@
                 Util.putForNav({
                     from: 'Home'
                 })
-                Util.go('GoodsItemList', {id})
+                Util.go('GoodsItemList', {id, type: 'category'})
             },
             goSearch() {
                 Util.putForNav({
@@ -242,7 +242,7 @@
                     return
                 }
                 this.loadingList = true
-                API.list(0, 'putTime', this.queryInfo).then(data => {
+                API.list('category', 0, 'putTime', this.queryInfo).then(data => {
                     this.loadingList = false
                     if (data && data.length > 0) {
                         this.queryInfo.page.num++

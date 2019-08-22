@@ -125,6 +125,7 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
+            <load-more v-if="showLoading" tip="正在加载"></load-more>
         </Content>
     </Layout>
 </template>

@@ -179,7 +179,7 @@
                 })
                 Util.go('GoodsItemList', {
                     id: 0,
-                    focus: 'true'
+                    type: 'category'
                 })
             },
             goGoodsList(id) {
@@ -187,7 +187,8 @@
                     from: 'GoodsCategory'
                 })
                 Util.go('GoodsItemList', {
-                    id
+                    id,
+                    type: 'category'
                 })
             },
             img(url) {

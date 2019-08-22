@@ -242,6 +242,7 @@
                 isSmallDevice: false,
                 showLoading: true,
                 loadingList: false,
+                type: null
             }
         },
         computed: {
@@ -253,7 +254,8 @@
             goSearch() {
                 Util.putForNav({
                     from: 'GoodsItemList',
-                    id: this.categoryId
+                    id: this.categoryId,
+                    type: this.type
                 })
                 Util.go('GoodsSearch')
             },
@@ -281,7 +283,8 @@
             goDetail(id) {
                 Util.putForNav({
                     from: 'GoodsItemList',
-                    id: this.categoryId
+                    id: this.categoryId,
+                    type: this.type
                 })
                 Util.go('GoodsItemDetail', {
                     id
@@ -307,7 +310,7 @@
                     return
                 }
                 this.loadingList = true
-                API.list(this.categoryId, this.searchType, this.queryInfo).then(data => {
+                API.list(this.type, this.categoryId, this.searchType, this.queryInfo).then(data => {
                     if (data && data.length > 0) {
                         this.queryInfo.page.num++
                         for (let i in data) {
@@ -405,6 +408,7 @@
             this.itemImageWidth = this.itemWidth - 16
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + 'px'
             this.categoryId = this.$router.currentRoute.params.id
+            this.type = this.$router.currentRoute.params.type
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             this.queryInfo.data = this.$router.currentRoute.params.key
             this.orderBy('default', true)

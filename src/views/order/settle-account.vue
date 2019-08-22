@@ -204,12 +204,12 @@
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
-                <mt-cell class="coupon">
+                <mt-cell class="coupon" @click.native="goCoupon">
                     <div slot="title" style="font-size: 11pt;">
                         优惠券
                     </div>
                     <div style="font-size: 11pt;">
-                        <span>暂无可用</span>
+                        <span>{{data.coupons && data.coupons.length > 0 ? `使用${data.coupons.length}张` : '尚未使用'}}</span>
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>
@@ -312,7 +312,12 @@
                 return price.toFixed(2)
             },
             couponPrice() {
-                return 0;
+                let total = 0
+                for (let i in this.data.coupons) {
+                    let item = this.data.coupons[i];
+                    total += item.amount
+                }
+                return total.toFixed(2)
             },
             totalPrice() {
                 let total = 0
@@ -327,6 +332,15 @@
             }
         },
         methods: {
+            goCoupon() {
+                Util.putForNav({
+                    from: 'OrderSettleAccount',
+                    key: this.key
+                })
+                Util.go('OrderCouponList', {
+                    key: this.key
+                })
+            },
             createOrder() {
                 const data = {
                     ...this.data,
@@ -472,7 +486,8 @@
                             })
                             setTimeout(() => {
                                 Util.go('GoodsItemList', {
-                                    id: 0
+                                    id: 0,
+                                    type: 'category'
                                 })
                             }, 1000)
                             return

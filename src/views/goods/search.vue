@@ -134,6 +134,7 @@
                 Util.getForNav()
                 Util.go('GoodsItemList', {
                     id: 0,
+                    type: 'category',
                     key
                 })
             }
