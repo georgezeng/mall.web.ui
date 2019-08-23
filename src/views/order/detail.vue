@@ -118,11 +118,18 @@
                     </div>
                     <div style="margin-top: 5px;">
                         <span>商品优惠:</span>
-                        <div style="float: right;">￥0.00</div>
+                        <div style="float: right;">-￥{{form.couponAmount}}</div>
                     </div>
                 </div>
                 <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span
-                        style="color: orangered;">￥{{total}}</span></div>
+                        style="color: orangered;">￥{{form.realPrice}}</span></div>
+            </div>
+            <div style="background-color: #f5f5f5; height: 10px;"></div>
+            <div style="background-color: #fff; padding: 15px; font-size: 14px;">
+                <div v-for="coupon in form.coupons" :key="coupon.id">
+                    <div style="display: inline-block; margin-right: 10px;">优惠券编号: {{coupon.couponId}}</div>
+                    <div style="display: inline-block;">优惠金额: ￥{{coupon.amount}}</div>
+                </div>
             </div>
             <div style="background-color: #f5f5f5; height: 10px;"></div>
             <div style="background-color: #fff; padding: 15px; font-size: 14px;">
@@ -234,6 +241,7 @@
                 form: {
                     id: null,
                     orderId: null,
+                    coupons: [],
                     address: {
                         name: '',
                         phone: '',
@@ -247,6 +255,8 @@
                     status: {},
                     comment: null,
                     totalPrice: 0,
+                    realPrice: 0,
+                    couponAmount: 0,
                     createTime: null,
                     payTime: null,
                     payment: {},

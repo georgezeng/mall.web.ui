@@ -101,7 +101,7 @@
             <div align="center" style="color: #fff;">我的优惠券</div>
             <div class="titlePanel">
                 <div class="title" @click="selectType('UnUse')" :class="{'selected-title': type == 'UnUse'}">
-                    未使用({{unuseCount}})
+                    已领取({{unuseCount}})
                 </div>
                 <div class="title" @click="selectType('Used')" :class="{'selected-title': type == 'Used'}">
                     已使用({{usedCount}})
