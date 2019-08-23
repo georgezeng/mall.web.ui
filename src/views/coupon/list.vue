@@ -107,7 +107,7 @@
                     已使用({{usedCount}})
                 </div>
                 <div class="title" @click="selectType('Out')" :class="{'selected-title': type == 'Out'}">
-                    已过期({{outCount}})
+                    已失效({{outCount}})
                 </div>
             </div>
         </Header>
