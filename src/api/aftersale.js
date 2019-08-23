@@ -28,5 +28,8 @@ export default {
     },
     fillExpress(dto) {
         return axios.post('/afterSale/fillExpress', dto)
+    },
+    countUnFinished() {
+        return axios.get('/afterSale/count/unFinished')
     }
 }

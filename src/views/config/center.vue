@@ -187,7 +187,7 @@
                     <div class="box" @click="goAfterSale">
                         <div class="img"><img :src="tuihuo" width="40" height="40"/></div>
                         <div class="title" :style="{fontSize: titleFont}">退款/售后</div>
-                        <badge class="badge-nums" :style="badgeItemStyle" v-if="tkNums > 0" :text="tkNums"></badge>
+                        <badge class="badge-nums" :style="badgeItemStyle" v-if="tkshNums > 0" :text="tkshNums"></badge>
                     </div>
                 </div>
             </div>
@@ -226,6 +226,7 @@
 </template>
 <script>
     import API from '../../api/center.js'
+    import AfterSaleAPI from '../../api/aftersale.js'
     import OrderAPI from '../../api/order.js'
     import ProfileAPI from '../../api/profile.js'
     import config from '../../config/index.js'
@@ -274,7 +275,7 @@
                 dfhNums: 0,
                 dshNums: 0,
                 dpjNums: 0,
-                tkNums: 0,
+                tkshNums: 0,
                 badgeItemStyle: {},
                 isSmallDevice: false,
                 titleFont: '14px',
@@ -347,6 +348,11 @@
             getDpjNums() {
                 OrderAPI.countUncomment().then(nums => {
                     this.dpjNums = nums
+                })
+            },
+            getTkShNums() {
+                AfterSaleAPI.countUnFinished().then(nums => {
+                    this.tkshNums = nums
                 })
             },
             exit() {
@@ -451,6 +457,7 @@
                 this.getDfhNums()
                 this.getDshNums()
                 this.getDpjNums()
+                this.getTkShNums()
             }
         }
     }
