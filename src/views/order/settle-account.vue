@@ -388,7 +388,7 @@
                             case 'WePay': {
                                 Util.wepayForJsApi(id, () => {
                                     Util.go('MyOrderList', {
-                                        type: 'Paid'
+                                        type: 'All'
                                     })
                                 })
                             }

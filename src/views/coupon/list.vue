@@ -255,10 +255,11 @@
                 })
             },
             selectType(type) {
-                if (this.queryInfo.data == type) {
+                if (this.type == type) {
                     return
                 }
                 this.queryInfo.data = type
+                this.type = type
                 this.reload()
             },
             reload() {
