@@ -202,7 +202,7 @@
                         style="float: right; margin-left: 10px;" type="primary">
                     查看评价
                 </Button>
-                <Button size="large" :loading="loading" @click="goAfterSale(form.id)"
+                <Button v-if="!form.applied" size="large" :loading="loading" @click="goAfterSale(form.id)"
                         style="float: right; margin-left: 10px;" type="primary">
                     申请售后
                 </Button>
@@ -261,6 +261,7 @@
                     payTime: null,
                     payment: {},
                     invoice: null,
+                    applied: false
                 },
                 isSmallDevice: false
             }

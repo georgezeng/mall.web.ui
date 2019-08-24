@@ -90,6 +90,12 @@
                     <Button @click="cancelConfirm(item.id)" style="float: right;" type="error">取消订单</Button>
                     <div class="clearfix"></div>
                 </div>
+                <div style="margin: 10px;" v-if="item.status.name == 'CanceledForRefund'">
+                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="primary">
+                        申请退款
+                    </Button>
+                    <div class="clearfix"></div>
+                </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
                     <Button @click="pickupConfirm(item.id)" style="float: right; margin-left: 10px;" type="primary">
                         确认收货
