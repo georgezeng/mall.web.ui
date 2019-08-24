@@ -84,7 +84,7 @@
                 <div class="result-logo"></div>
                 <div class="result-title">&nbsp;</div>
                 <div class="result-tips">1.如果未打开支付宝客户端或未完成付款，请点击“继续支付”;</div>
-                <div class="result-tips">2.如果你已完成或不想支付，请点击“已完成/关闭付款”;</div>
+                <div class="result-tips">2.如果您已完成或不想支付，请点击“已完成/关闭付款”;</div>
                 <div style="margin-top: 60px;" class="result-botton">
                     <a @click="showTip" class="J-h5pay am-button am-button-blue" href="javascript:;">继续支付</a>
                 </div>

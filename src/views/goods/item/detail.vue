@@ -295,7 +295,7 @@
                  :style="{height: contentStyle.minHeight}">
                 <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
-                    点击右上角的"..."，分享给你的好友吧
+                    点击右上角的"..."，分享给您的好友吧
                 </div>
             </div>
 
@@ -576,7 +576,7 @@
                     // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
                     // 类似的命令下面有介绍
                 } catch (e) {
-                    // 如果不支持，你可以在这里做降级处理
+                    // 如果不支持，您可以在这里做降级处理
                 }
             },
             closeShareTipPopup() {

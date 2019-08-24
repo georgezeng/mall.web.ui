@@ -163,6 +163,12 @@
                 </Button>
                 <div class="clearfix"></div>
             </div>
+            <div style="margin: 10px;" v-if="form.status.name == 'CanceledForRefund'">
+                <Button @click="refundConfirm(form.id)" style="float: right;" type="primary">
+                    申请退款
+                </Button>
+                <div class="clearfix"></div>
+            </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Shipped'">
                 <Button size="large" :loading="loading" @click="pickupConfirm(form.id)"
                         style="float: right; margin-left: 10px;"
@@ -272,6 +278,19 @@
             }
         },
         methods: {
+            refundConfirm(id) {
+                MessageBox.confirm('您确定要申请退款吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
+                    API.refundApply(id).then(res => {
+                        this.$vux.loading.hide()
+                        this.load()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
+                    })
+                })
+            },
             refresh() {
                 window.location.reload(true)
             },
@@ -364,29 +383,41 @@
                 })
             },
             pickupConfirm(id) {
-                MessageBox.confirm('你确定已经收到商品吗?').then(action => {
-                    this.loading = true
+                MessageBox.confirm('您确定已经收到商品吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
                     API.pickup(id).then(res => {
-                        this.reload()
-                        this.loading = false
+                        this.$vux.loading.hide()
+                        this.load()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
                     })
                 })
             },
             deleteConfirm(id) {
-                MessageBox.confirm('你确定要删除订单吗?').then(action => {
-                    this.loading = true
+                MessageBox.confirm('您确定要删除订单吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
                     API.delete(id).then(res => {
-                        this.reload()
-                        this.loading = false
+                        this.$vux.loading.hide()
+                        this.load()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
                     })
                 })
             },
             cancelConfirm(id) {
-                MessageBox.confirm('你确定要取消订单吗?').then(action => {
-                    this.loading = true
+                MessageBox.confirm('您确定要取消订单吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
                     API.cancel(id).then(res => {
-                        this.reload()
-                        this.loading = false
+                        this.$vux.loading.hide()
+                        this.load()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
                     })
                 })
             },

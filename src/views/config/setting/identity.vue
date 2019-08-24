@@ -23,7 +23,7 @@
                 <x-input class="optionalLine" title="身份证号" v-model="data.number" placeholder="申请人身份证号"></x-input>
             </group>
             <div style="background-color: #F5F5F5; padding: 10px;">
-                请上传你的身份证原件，确保照片清晰，四角完整
+                请上传您的身份证原件，确保照片清晰，四角完整
             </div>
             <div style="margin: 20px 0;" align="center">
                 <img :src="faceIdentity" crossorigin="use-credentials" width="300" height="182" @click="uploadFaceIdentity"/>

@@ -91,7 +91,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'CanceledForRefund'">
-                    <Button @click="cancelConfirm(item.id)" style="float: right;" type="primary">
+                    <Button @click="refundConfirm(item.id)" style="float: right;" type="primary">
                         申请退款
                     </Button>
                     <div class="clearfix"></div>
@@ -177,6 +177,20 @@
         },
         computed: {},
         methods: {
+            refundConfirm(id) {
+                MessageBox.confirm('您确定要申请退款吗?').then(action => {
+                    this.$vux.loading.show({
+                        text: '加载中...'
+                    })
+                    API.refundApply(id).then(res => {
+                        this.type = 'All'
+                        this.$vux.loading.hide()
+                        this.reload()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
+                    })
+                })
+            },
             goAfterSale(id) {
                 Util.putForNav({
                     from: 'MyOrderList',
@@ -286,7 +300,7 @@
                 this.load()
             },
             pickupConfirm(id) {
-                MessageBox.confirm('你确定已经收到商品吗?').then(action => {
+                MessageBox.confirm('您确定已经收到商品吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
                     })
@@ -300,7 +314,7 @@
                 })
             },
             deleteConfirm(id) {
-                MessageBox.confirm('你确定要删除订单吗?').then(action => {
+                MessageBox.confirm('您确定要删除订单吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
                     })
@@ -317,7 +331,7 @@
                 })
             },
             cancelConfirm(id) {
-                MessageBox.confirm('你确定要取消订单吗?').then(action => {
+                MessageBox.confirm('您确定要取消订单吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
                     })

@@ -86,7 +86,7 @@
                     商城确认收货
                 </div>
                 <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    即将为你寄出新的物品，请耐心等待...
+                    即将为您寄出新的物品，请耐心等待...
                 </div>
             </div>
             <div v-if="item.sendTime != null" style="font-size: 14px;">
@@ -179,7 +179,7 @@
         computed: {},
         methods: {
             pickupConfirm() {
-                MessageBox.confirm('你确定已经收到商品吗?').then(action => {
+                MessageBox.confirm('您确定已经收到商品吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
                     })

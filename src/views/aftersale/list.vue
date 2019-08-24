@@ -179,7 +179,7 @@
                 }
             },
             pickupConfirm(id) {
-                MessageBox.confirm('你确定已经收到商品吗?').then(action => {
+                MessageBox.confirm('您确定已经收到商品吗?').then(action => {
                     this.$vux.loading.show({
                         text: '加载中...'
                     })

@@ -31,6 +31,9 @@ export default {
     pickup(id) {
         return axios.get('/order/pickup/params/' + id)
     },
+    refundApply(id) {
+        return axios.get('/order/refundApply/params/' + id)
+    },
     countUncomment() {
         return axios.get('/order/count/uncomment')
     },
