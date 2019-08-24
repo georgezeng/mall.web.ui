@@ -106,7 +106,7 @@
                     <Button @click="goExpress(item.id)" style="float: right;" type="primary">查看物流</Button>
                     <div class="clearfix"></div>
                 </div>
-                <div style="margin: 10px;" v-if="item.status.name == 'Canceled'">
+                <div style="margin: 10px;" v-if="item.status.name == 'Canceled' || item.status.name == 'Refunded'">
                     <Button @click="deleteConfirm(item.id)" style="float: right;" type="error">删除订单</Button>
                     <div class="clearfix"></div>
                 </div>

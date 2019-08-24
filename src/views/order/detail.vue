@@ -184,7 +184,7 @@
                 </Button>
                 <div class="clearfix"></div>
             </div>
-            <div style="margin: 10px;" v-if="form.status.name == 'Canceled'">
+            <div style="margin: 10px;" v-if="form.status.name == 'Canceled' || form.status.name == 'Refunded'">
                 <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
                         type="error">
                     删除订单
