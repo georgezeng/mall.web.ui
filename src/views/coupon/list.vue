@@ -40,7 +40,7 @@
         width: 50px;
         height: 50px;
         top: 0px;
-        right: 0px;
+        left: 0px;
         z-index: 10;
     }
 
@@ -52,7 +52,7 @@
         width: 50px;
         height: 50px;
         top: 0px;
-        right: 0px;
+        left: 0px;
         z-index: 10;
     }
 
@@ -64,7 +64,7 @@
         width: 50px;
         height: 50px;
         top: 0px;
-        right: 0px;
+        left: 0px;
         z-index: 10;
     }
 

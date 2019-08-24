@@ -91,7 +91,7 @@
             },
             load() {
                 if (this.data.id > 0) {
-                    API.returnAddress().then(address => {
+                    API.returnAddress(this.data.id).then(address => {
                         if (address) {
                             this.address = address
                         }

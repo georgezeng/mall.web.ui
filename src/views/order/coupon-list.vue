@@ -86,7 +86,9 @@
                      :style="{width: couponWidth}">
                     <div style="margin: 5px 10px;">
                         <div class="hxType">{{hxTypeText(item.hxType)}}</div>
-                        <div class="couponTitle">{{item.title}}</div>
+                        <div class="couponTitle">{{item.title.length > 8 ? item.title.substring(0, 8) + "..." :
+                            item.title}}
+                        </div>
                     </div>
                     <div style="margin: 5px 10px;">{{item.startDate}}-{{item.endDate ? + item.endDate : '不限期'}}</div>
                     <div @click="showPopup(item)" style="margin: 5px 10px; text-decoration: underline;">使用说明</div>
