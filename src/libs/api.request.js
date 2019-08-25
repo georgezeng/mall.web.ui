@@ -17,7 +17,7 @@ const ajax = axios.create({
 })
 
 ajax.interceptors.response.use(function (response) {
-    if (response.data.code == -1) {alert('request: ' + response.request)
+    if (response.data.code == -1) {alert(response.request.responseURL  + ': ' + response.request.responseText)
         router.push({
             name: LOGIN_PAGE_NAME
         })
