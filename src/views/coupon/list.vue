@@ -189,7 +189,7 @@
                         num: 1,
                         size: 10,
                         property: 'receivedTime',
-                        order: 'ASC'
+                        order: 'DESC'
                     },
                 },
                 list: [],
@@ -262,6 +262,17 @@
             selectType(type) {
                 if (this.type == type) {
                     return
+                }
+                switch (type) {
+                    case 'UnUse':
+                        this.queryInfo.page.property = 'receivedTime';
+                        break;
+                    case 'Used':
+                        this.queryInfo.page.property = 'usedTime';
+                        break;
+                    case 'Out':
+                        this.queryInfo.page.property = 'outTime';
+                        break;
                 }
                 this.queryInfo.data = type
                 this.type = type
