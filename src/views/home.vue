@@ -90,7 +90,7 @@
 
     .bonusImg {
         position: relative;
-        background-image: url("../../images/registration_bonus.png");
+        background-image: url("../images/registration_bonus.png");
         background-repeat: no-repeat;
         background-size: contain;
     }
@@ -102,7 +102,7 @@
     }
 
     .bonusBtn {
-        background-image: url("../../images/get-btn.png");
+        background-image: url("../images/get-btn.png");
         background-repeat: no-repeat;
         background-size: contain;
         position: absolute;
