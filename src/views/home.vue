@@ -349,7 +349,7 @@
                 this.bonusBtnBottom = 60 * this.bonusImgHeight / 972
                 this.bonusBtnLeft = (this.bonusImgWidth - this.bonusBtnWidth) / 2
                 CenterAPI.registrationBonus().then(amount => {
-                    if (!amount) {
+                    if (amount) {
                         this.bonus = amount
                         this.bonusPopup = true
                     }
