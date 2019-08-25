@@ -110,7 +110,7 @@
                 <div style="padding: 0 15px; font-size: 14px;">
                     <div>
                         <span>商品总额:</span>
-                        <div style="float: right;">￥{{form.totalPrice.toFixed(2)}}</div>
+                        <div style="float: right;">￥{{form.totalPrice}}</div>
                     </div>
                     <div style="margin-top: 5px;">
                         <span style="margin-left: 28px;">运费:</span>
@@ -273,9 +273,6 @@
             }
         },
         computed: {
-            total() {
-                return this.form.totalPrice.toFixed(2)
-            }
         },
         methods: {
             refundConfirm(id) {

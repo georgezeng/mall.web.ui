@@ -76,7 +76,7 @@
                 </div>
                 <div style="text-align: right; margin-right: 10px;">共{{item.subList ? item.subList.length : 0}}件商品,
                     实际支付:
-                    <span style="color: orangered;">￥{{item.totalPrice}}</span> (含运费)
+                    <span style="color: orangered;">￥{{item.realPrice}}</span> (含运费)
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
                     <CountDown style="float: left; color: orangered; font-size: 14px;" :form="item" @close="reload" />
