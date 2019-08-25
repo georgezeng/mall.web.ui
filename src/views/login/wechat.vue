@@ -138,7 +138,7 @@
             const uid = UrlParams(window.location.href, 'uid')
             if (uid) {
                 this.form.pid = uid.replace(/#.+/, '')
-                Util.log('pid: ' + pid)
+                Util.log('pid: ' + uid)
             }
             this.load()
         }
