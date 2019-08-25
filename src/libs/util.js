@@ -14,6 +14,12 @@ util.title = function (title) {
     window.document.title = title;
 };
 
+util.log = function (msg) {
+    if (config.env.debug) {
+        console.log(msg)
+    }
+}
+
 util.setToken = function (token) {
     Cookies.set(config.tokenKey, token, {expires: 14})
 }
