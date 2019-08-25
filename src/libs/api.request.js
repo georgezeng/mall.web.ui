@@ -1,6 +1,7 @@
 // import HttpRequest from '@/libs/axios'
 import axios from 'axios'
 import config from '../config/index'
+import Util from '../libs/util'
 import router from '../router/index'
 import {Message} from 'iview'
 import Vue from 'vue'
@@ -17,7 +18,8 @@ const ajax = axios.create({
 })
 
 ajax.interceptors.response.use(function (response) {
-    if (response.data.code == -1) {alert(response.request.responseURL  + ': ' + response.request.responseText)
+    if (response.data.code == -1) {
+        Util.setToken(null)
         router.push({
             name: LOGIN_PAGE_NAME
         })
