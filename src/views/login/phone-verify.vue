@@ -63,7 +63,7 @@
                         this.loading = true
                         API.login(this.form).then(data => {
                             this.loading = false
-                            Util.loginSuccess(data, '/MyCenter')
+                            Util.loginSuccess(data, '/Home')
                         }).catch(ex => {
                             this.loading = false
                         })
@@ -95,9 +95,6 @@
                 API.sendCode(this.form.username).then(res => {
                     this.$vux.toast.show({text: "发送成功"})
                 })
-            },
-            goCenter() {
-                Util.go('MyCenter')
             }
         },
         mounted() {

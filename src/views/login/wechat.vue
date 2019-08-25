@@ -66,9 +66,6 @@
             back() {
                 window.location.href = '/#/Login'
             },
-            goCenter() {
-                window.location.href = '/#/MyCenter'
-            },
             load() {
                 if (this.loginInfo.username) {
                     this.login()
@@ -83,7 +80,7 @@
                     type: 'Wechat'
                 }).then(data => {
                     this.loading = false
-                    Util.loginSuccess(data, '/MyCenter')
+                    Util.loginSuccess(data, '/Home')
                 }).catch(ex => {
                     this.loading = false
                 })

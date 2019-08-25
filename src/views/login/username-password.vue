@@ -47,7 +47,7 @@
                         this.loading = true
                         API.login(this.form).then(data => {
                             this.loading = false
-                            Util.loginSuccess(data, '/MyCenter')
+                            Util.loginSuccess(data, '/Home')
                         }).catch(ex => {
                             this.loading = false
                         })
@@ -57,11 +57,6 @@
             goForgetPassword() {
                 this.$router.push({
                     name: 'ForgetPasswordStep1'
-                })
-            },
-            goCenter() {
-                this.$router.push({
-                    name: 'MyCenter'
                 })
             }
         }
