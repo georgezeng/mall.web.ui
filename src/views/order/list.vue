@@ -340,7 +340,7 @@
                         this.type = 'All'
                         this.reload()
                         this.$vux.toast.show({
-                            text: '退款成功'
+                            text: '申请成功'
                         })
                     }).catch(e => {
                         this.$vux.loading.hide()
