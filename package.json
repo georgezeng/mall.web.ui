@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "eruda": "^1.5.8",
     "get-url-param": "^1.0.1",
     "iview": "^3.0.0",
     "jquery": "^3.4.1",

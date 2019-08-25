@@ -41,10 +41,14 @@ util.loginSuccess = (data, target) => {
     util.setToken(data.token)
     util.put('userId', data.userId)
     const link = window.location.href
+    let params = '?uid=' + data.userId
+    if (config.env == 'uat' && config.debug) {
+        params += '&eruda=true'
+    }
     if (link.indexOf('?') == -1) {
-        window.location.href = link.replace(/#.+/, '?uid=' + data.userId + '#' + target)
+        window.location.href = link.replace(/#.+/, params + '#' + target)
     } else {
-        window.location.href = link.replace(/\?.+/, '?uid=' + data.userId).replace(/#.+/, '') + '#' + target
+        window.location.href = link.replace(/\?.+/, params).replace(/#.+/, '') + '#' + target
     }
 }
 
@@ -153,7 +157,7 @@ util.getForNav = function () {
 
 util.peekForNav = function () {
     const navList = util.getJson('NavigateArrObj')
-    let nav = navList.list[navList.list.length-1]
+    let nav = navList.list[navList.list.length - 1]
     if (!nav) {
         nav = {
             from: 'Home'
@@ -181,7 +185,7 @@ util.wepayForJsApi = (orderId, callback) => {
             package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
             signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
             paySign: data.paySign, // 支付签名
-            complete: function() {
+            complete: function () {
                 if (typeof(callback) === 'function') {
                     callback()
                 }
