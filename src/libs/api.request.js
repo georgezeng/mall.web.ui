@@ -27,7 +27,7 @@ ajax.interceptors.response.use(function (response) {
         return Promise.reject(response.data)
     }
     return response.data.datas || response.data.data
-}, function (ex) {alert(response.request.url + ', '  +ex)
+}, function (ex) {alert(ex)
     alertError(ex)
     return Promise.reject(ex)
 })
