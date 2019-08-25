@@ -90,7 +90,7 @@
                             item.title}}
                         </div>
                     </div>
-                    <div style="margin: 5px 10px;">{{item.startDate}}-{{item.endDate ? + item.endDate : '不限期'}}</div>
+                    <div style="margin: 5px 10px;">{{item.startDate}}-{{item.endDate ? item.endDate : '不限期'}}</div>
                     <div @click="showPopup(item)" style="margin: 5px 10px; text-decoration: underline;">使用说明</div>
                 </div>
                 <div class="clearfix"></div>
