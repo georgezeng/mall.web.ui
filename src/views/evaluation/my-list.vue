@@ -323,8 +323,16 @@
                 }
 
             },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
         },
         mounted() {
+            window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 400
             this.popupImgWidth = document.documentElement.clientWidth
             this.modalStyle = {
@@ -347,6 +355,9 @@
                 data: this.orderId,
                 page: this.page
             }).then(total => total ? this.uncommentTotal = total : this.uncommentTotal = 0)
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>

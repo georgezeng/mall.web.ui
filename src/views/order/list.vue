@@ -398,8 +398,16 @@
                     this.loadingList = false
                 })
             },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
         },
         mounted() {
+            window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 400
             this.contentStyle.marginTop = '125px'
             // this.headerStyle.height = '90px'
@@ -412,6 +420,9 @@
                     'chooseWXPay',
                 ])
             }
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>

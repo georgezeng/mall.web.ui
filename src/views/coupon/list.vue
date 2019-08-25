@@ -307,8 +307,16 @@
                     this.loadingList = false
                 })
             },
+            scrollHandler(e) {
+                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
+                if (scrollTop == document.documentElement.clientHeight) {
+                    this.showLoading = true
+                    this.load();
+                }
+            },
         },
         mounted() {
+            window.addEventListener('scroll', this.scrollHandler)
             // this.isSmallDevice = document.documentElement.clientWidth < 400
             this.couponWidth = (document.documentElement.clientWidth - 20 - 150) + "px"
             this.contentStyle.marginTop = '125px'
@@ -319,6 +327,9 @@
             this.type = this.$router.currentRoute.params.type
             this.reload()
             this.count()
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
         }
     }
 </script>

@@ -281,7 +281,11 @@
                         text: '加载中...'
                     })
                     API.refundApply(id).then(res => {
+                        this.type = 'All'
                         this.$vux.loading.hide()
+                        this.$vux.toast.show({
+                            text: '申请成功'
+                        })
                         this.load()
                     }).catch(e => {
                         this.$vux.loading.hide()
@@ -385,7 +389,11 @@
                         text: '加载中...'
                     })
                     API.pickup(id).then(res => {
+                        this.type = 'Finished'
                         this.$vux.loading.hide()
+                        this.$vux.toast.show({
+                            text: '已确认收货'
+                        })
                         this.load()
                     }).catch(e => {
                         this.$vux.loading.hide()
@@ -399,6 +407,10 @@
                     })
                     API.delete(id).then(res => {
                         this.$vux.loading.hide()
+                        this.type = 'All'
+                        this.$vux.toast.show({
+                            text: '删除成功'
+                        })
                         this.load()
                     }).catch(e => {
                         this.$vux.loading.hide()
@@ -412,6 +424,10 @@
                     })
                     API.cancel(id).then(res => {
                         this.$vux.loading.hide()
+                        this.type = 'All'
+                        this.$vux.toast.show({
+                            text: '取消成功'
+                        })
                         this.load()
                     }).catch(e => {
                         this.$vux.loading.hide()
