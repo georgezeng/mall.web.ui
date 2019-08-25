@@ -19,7 +19,7 @@ const ajax = axios.create({
 
 ajax.interceptors.response.use(function (response) {
     if (response.data.code == -1) {
-        // Util.setToken(null)
+        Util.setToken(null)
         if(router.currentRoute.meta.needLogin) {
             router.push({
                 name: LOGIN_PAGE_NAME
@@ -31,7 +31,7 @@ ajax.interceptors.response.use(function (response) {
         return Promise.reject(response.data)
     }
     return response.data.datas || response.data.data
-}, function (ex) {alert(ex)
+}, function (ex) {
     alertError(ex)
     return Promise.reject(ex)
 })
