@@ -15,7 +15,7 @@ util.title = function (title) {
 };
 
 util.log = function (msg) {
-    if (config.env.debug) {
+    if (config.debug) {
         console.log(msg)
     }
 }
