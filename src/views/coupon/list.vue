@@ -124,7 +124,8 @@
                             <span v-if="coupon.hxType.name == 'Category'">
                                 仅限类型:
                             </span>
-                            <span v-if="coupon.hxType.name == 'Category'" v-for="(category,index) in coupon.categories" :key="index">
+                            <span v-if="coupon.hxType.name == 'Category'" v-for="(category,index) in coupon.categories"
+                                  :key="index">
                                 {{category.name}}{{index < coupon.categories.length - 1 ? ', ' : ''}}
                             </span>
                             <span v-if="coupon.hxType.name == 'Item'">
@@ -151,7 +152,7 @@
                      :style="{width: couponWidth}">
                     <div style="margin: 5px 10px;">
                         <div class="hxType">{{hxTypeText(item.hxType.name)}}</div>
-                        <div class="couponTitle">{{item.title}}</div>
+                        <div class="couponTitle">{{title(item)}}</div>
                     </div>
                     <div style="margin: 5px 10px;">{{item.startDate}}-{{item.endDate ? + item.endDate : '不限期'}}</div>
                     <div @click="showPopup(item)" style="margin: 5px 10px; text-decoration: underline;">使用说明</div>
@@ -205,11 +206,15 @@
                 coupon: {
                     hxType: {}
                 },
-                popupHeight: 0
+                popupHeight: 0,
+                isSmallDevice: document.documentElement.clientWidth < 380
             }
         },
         computed: {},
         methods: {
+            title(item) {
+                return this.isSmallDevice && item.title.length > 10 ? item.title.substring(0, 8) + '...' : item.title
+            },
             closePopup() {
                 this.popup = false
             },

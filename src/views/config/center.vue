@@ -125,9 +125,45 @@
         color: #fff;
         background-color: orangered;
     }
+
+    .bonusModal {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.4);
+        width: 100%;
+        height: 100%;
+        z-index: 100000000;
+    }
+
+    .bonusImg {
+        position: relative;
+        background-image: url("../../images/registration_bonus.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .bonusTip {
+        color: red;
+        font-size: 20px;
+        position: relative;
+    }
+
+    .bonusBtn {
+        background-image: url("../../images/get-btn.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
+        <div v-if="bonusPopup" align="center" class="bonusModal">
+            <div class="bonusImg"
+                 :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
+                <div class="bonusTip" :style="{top: bonusTipTop + 'px'}">{{bonus}}元优惠券</div>
+                <div @click="goMyCoupon" class="bonusBtn"
+                     :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
+            </div>
+        </div>
         <Header :style="commonStyles.tideHeader">
             <!--
             <Icon v-if="isLogin" size="24" style="right: 10px; position: absolute; top: 10px;"
@@ -264,6 +300,16 @@
                 tuihuo,
                 defaultAvatar,
                 commonStyles,
+                bonusPopup: false,
+                bonusBtnBottom: null,
+                bonusBtnLeft: null,
+                bonusImgHeight: null,
+                bonusImgWidth: null,
+                bonusImgTop: null,
+                bonusBtnWidth: null,
+                bonusBtnHeight: null,
+                bonusTipTop: null,
+                bonus: null,
                 contentStyle: {
                     ...commonStyles.content
                 },
@@ -279,7 +325,7 @@
                 badgeItemStyle: {},
                 isSmallDevice: false,
                 titleFont: '14px',
-                couponNums: 0
+                couponNums: 0,
             }
         },
         computed: {
@@ -300,7 +346,6 @@
         },
         methods: {
             copyContact() {
-
                 const isIOSDevice = window.navigator.userAgent.match(/ipad|iphone/i);
                 if (isIOSDevice) {
                     let el = this.$refs.contactText
@@ -437,6 +482,14 @@
                 this.titleFont = '12px'
             }
             if (this.isLogin) {
+                this.bonusImgWidth = document.documentElement.clientWidth * 0.9
+                this.bonusImgHeight = this.bonusImgWidth * 972 / 750
+                this.bonusBtnWidth = document.documentElement.clientWidth * 0.5
+                this.bonusBtnHeight = this.bonusBtnWidth * 118 / 432
+                this.bonusTipTop = 180 * this.bonusImgHeight / 972
+                this.bonusImgTop = (document.documentElement.clientHeight - this.bonusImgHeight) / 2
+                this.bonusBtnBottom = 60 * this.bonusImgHeight / 972
+                this.bonusBtnLeft = (this.bonusImgWidth - this.bonusBtnWidth) / 2
                 const docWidth = document.documentElement.clientWidth
                 if (docWidth < 375 && docWidth > 330) {
                     this.badgeItemStyle.left = '40px'
@@ -452,6 +505,12 @@
                 })
                 API.totalUnUseCouponNums().then(data => {
                     this.couponNums = data
+                })
+                API.registrationBonus().then(amount => {
+                    if (amount) {
+                        this.bonus = amount
+                        this.bonusPopup = true
+                    }
                 })
                 this.getDfkNums()
                 this.getDfhNums()
