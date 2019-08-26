@@ -245,6 +245,7 @@
                 this.list = []
                 this.uncommentList = []
                 this.showSpin = true
+                this.loadingList = false
                 this.load()
             },
             itemName(name) {
@@ -289,6 +290,11 @@
                         } else {
                             this.allLoaded = true
                             this.showLoading = false
+                            if (this.uncommentList.length == 0) {
+                                this.status = 'All'
+                                this.reload()
+                                return
+                            }
                         }
                         this.showSpin = false
                         this.loadingList = false

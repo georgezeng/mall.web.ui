@@ -156,7 +156,7 @@
                         orderId: null
                     },
                     serviceId: null,
-                    status: null,
+                    status: {},
                     postTime: null,
                     processedTime: null,
                     refundTime: null,
@@ -206,15 +206,15 @@
             },
             itemName(name) {
                 if (!this.isSmallDevice) {
-                    return name.length > 18 ? name.substring(0, 18) + '...' : name
+                    return name && name.length > 18 ? name.substring(0, 18) + '...' : name
                 }
-                return name.length > 12 ? name.substring(0, 12) + '...' : name
+                return name && name.length > 12 ? name.substring(0, 12) + '...' : name
             },
             specText(values) {
                 if (!this.isSmallDevice) {
-                    return values.length > 20 ? values.substring(0, 20) + '...' : values
+                    return values && values.length > 20 ? values.substring(0, 20) + '...' : values
                 }
-                return values.length > 14 ? values.substring(0, 14) + '...' : values
+                return values && values.length > 14 ? values.substring(0, 14) + '...' : values
             },
             back() {
                 const nav = Util.getForNav()

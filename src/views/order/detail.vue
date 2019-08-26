@@ -43,7 +43,7 @@
             <div class="info">
                 <div style="width: 90%; margin: 0 auto; color: #fff; padding: 20px 0 10px;">
                     <div style="float: left; ">{{form.status.clientText}}</div>
-                    <CountDown style="float: right;" :form="form" @close="refresh" />
+                    <CountDown style="float: right;" :form="form" @close="refresh"/>
                 </div>
                 <div class="address">
                     <div :style="{marginLeft: isSmallDevice ? '16px' : '0'}" style="float: left;">
@@ -199,12 +199,12 @@
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Finished'">
-                <Button size="large" :loading="loading" v-if="!form.comment" @click="goEvaluate(form.id)"
+                <Button size="large" :loading="loading" v-if="!form.comment" @click="goEvaluate(form.id, 'UnComment')"
                         style="float: right; margin-left: 10px;"
                         type="primary">
                     评价
                 </Button>
-                <Button size="large" :loading="loading" v-else @click="goEvaluate(form.id)"
+                <Button size="large" :loading="loading" v-else @click="goEvaluate(form.id, 'All')"
                         style="float: right; margin-left: 10px;" type="primary">
                     查看评价
                 </Button>
@@ -272,8 +272,7 @@
                 isSmallDevice: false
             }
         },
-        computed: {
-        },
+        computed: {},
         methods: {
             refundConfirm(id) {
                 MessageBox.confirm('您确定要申请退款吗?').then(action => {
@@ -373,14 +372,14 @@
                 }
                 return values.length > 13 ? values.substring(0, 13) + '...' : values
             },
-            goEvaluate(id) {
+            goEvaluate(id, status) {
                 Util.putForNav({
                     from: 'MyOrderDetail',
                     id: this.form.id
                 })
                 Util.go('MyEvaluationList', {
                     id,
-                    status: 'UnComment'
+                    status
                 })
             },
             pickupConfirm(id) {

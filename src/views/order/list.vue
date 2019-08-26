@@ -115,11 +115,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Finished'">
-                    <Button v-if="!item.comment" @click="goEvaluate(item.id)" style="float: right; margin-left: 10px;"
+                    <Button v-if="!item.comment" @click="goEvaluate(item.id, 'UnComment')" style="float: right; margin-left: 10px;"
                             type="primary">
                         评价
                     </Button>
-                    <Button v-else @click="goEvaluate(item.id)" style="float: right; margin-left: 10px;" type="primary">
+                    <Button v-else @click="goEvaluate(item.id, 'All')" style="float: right; margin-left: 10px;" type="primary">
                         查看评价
                     </Button>
                     <Button v-if="!item.applied" @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;" type="primary">
@@ -271,14 +271,14 @@
                     id
                 })
             },
-            goEvaluate(id) {
+            goEvaluate(id, status) {
                 Util.putForNav({
                     from: 'MyOrderList',
                     type: this.type
                 })
                 Util.go('MyEvaluationList', {
                     id,
-                    status: 'UnComment'
+                    status
                 })
             },
             selectType(type) {
