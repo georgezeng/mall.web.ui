@@ -23,8 +23,8 @@ export default {
     pickup(id) {
         return axios.get('/afterSale/pickup/params/' + id)
     },
-    returnAddress() {
-        return axios.get('/afterSale/returnAddress/load')
+    returnAddress(id) {
+        return axios.get('/afterSale/returnAddress/load/params/' + id)
     },
     fillExpress(dto) {
         return axios.post('/afterSale/fillExpress', dto)
