@@ -905,6 +905,15 @@
                 // } else {
                 //     this.posterTipTop = this.itemImgSize * 480 / 640 + 6
                 // }
+            },
+            initVedio() {
+                if (this.$refs.vedio) {
+                    this.$refs.vedio.addEventListener('timeupdate', () => {
+                        this.$refs.vedio.setAttribute("controls", "controls");
+                    }, false)
+                } else {
+                    setTimeout(this.initVedio, 100)
+                }
             }
         },
         created() {
@@ -953,6 +962,7 @@
             setTimeout(() => {
                 $(this.$refs.posterSwiper.$el).find('div.vux-swiper').css("height", this.posterHeight + 'px')
             }, 100)
+            // this.initVedio()
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
