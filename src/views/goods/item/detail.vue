@@ -593,7 +593,7 @@
         methods: {
             showVedio(value) {
                 this.vedio = value
-                if (value) {
+                if (!value) {
                     this.fitVedio(0)
                 } else {
                     this.fitVedio(40)
