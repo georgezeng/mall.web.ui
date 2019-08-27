@@ -885,11 +885,11 @@
                     this.resetPosterTip()
                 }
             },
-            fitVedio() {alert(this.topBarHeight)
+            fitVedio() {
                 if (this.topBarHeight == 0) {
                     this.topBarHeight = 60
                     this.vedioHeight = this.itemImgSize - this.topBarHeight
-                    this.$refs.vedio.play()
+                    // this.$refs.vedio.play()
                 }
             },
             resetPosterTip() {
