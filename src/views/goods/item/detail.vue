@@ -369,9 +369,9 @@
             <video v-show="vedio" x5-video-orientation="landscape|portrait" v-if="item.vedioPath != null" playsinline
                    :poster="config.publicBucketDomain + item.photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
-                   :width="itemImgSize" :height="itemImgSize*480/640"  controls="controls">
+                   :width="itemImgSize" :height="itemImgSize"  controls="controls">
             </video>
-            <swiper v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
+            <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
@@ -879,11 +879,11 @@
                 }
             },
             resetPosterTip() {
-                if (!this.vedio) {
+                // if (!this.vedio) {
                     this.posterTipTop = this.itemImgSize + 6
-                } else {
-                    this.posterTipTop = this.itemImgSize * 480 / 640 + 6
-                }
+                // } else {
+                //     this.posterTipTop = this.itemImgSize * 480 / 640 + 6
+                // }
             }
         },
         created() {
