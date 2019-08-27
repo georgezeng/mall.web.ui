@@ -366,7 +366,7 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <video v-show="vedio" v-if="item.vedioPath != null" :poster="config.publicBucketDomain + item.photos[0]"
+            <video v-show="vedio" v-if="item.vedioPath != null" playsinline :poster="config.publicBucketDomain + item.photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
                    :width="itemImgSize" :height="itemImgSize*480/640" controls>
             </video>
