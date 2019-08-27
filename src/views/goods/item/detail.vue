@@ -368,7 +368,7 @@
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <video v-show="vedio" v-if="item.vedioPath != null" :poster="config.publicBucketDomain + item.photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
-                   :width="itemImgSize" height="100%" autoplay controls>
+                   :width="itemImgSize" :height="itemImgSize*480/640" controls>
             </video>
             <swiper v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
