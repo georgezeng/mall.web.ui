@@ -889,7 +889,7 @@
             fitVedio() {
                 if (this.topBarHeight == 0) {
                     this.vedioPanelzIndex = -1
-                    this.topBarHeight = 50
+                    this.topBarHeight = 40
                     this.vedioHeight = this.itemImgSize - this.topBarHeight
                     this.$refs.vedio.play()
                 }
