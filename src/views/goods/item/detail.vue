@@ -885,7 +885,7 @@
                     this.resetPosterTip()
                 }
             },
-            fitVedio() {
+            fitVedio() {alert(this.topBarHeight)
                 if (this.topBarHeight == 0) {
                     this.topBarHeight = 60
                     this.vedioHeight = this.itemImgSize - this.topBarHeight
