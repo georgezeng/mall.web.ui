@@ -12,10 +12,9 @@
     .cartItems {
         position: absolute;
         top: -3px;
-        color: red;
+        color: #fff;
         border-radius: 10px !important;
-        background-color: #fff !important;
-        border: 1px solid red;
+        background-color: red !important;
         padding: 0px 0px !important;
         width: 18px;
         height: 16px;
@@ -27,7 +26,7 @@
         <div align="center">
             <div @click="goHome" class="button">
                 <div>
-                    <Icon :style="homeStyle" type="md-home" size="30"/>
+                    <img :src="home" width="30" height="30" class="img"/>
                 </div>
                 <div :style="homeStyle">
                     首页
@@ -35,7 +34,7 @@
             </div>
             <div @click="goCategory" class="button">
                 <div>
-                    <Icon :style="categoryStyle" type="md-apps" size="30"/>
+                    <img :src="category" width="30" height="30" class="img"/>
                 </div>
                 <div :style="categoryStyle">
                     分类
@@ -43,8 +42,9 @@
             </div>
             <div @click="goCart" class="button" style="position: relative;">
                 <div>
-                    <Icon :style="cartStyle" type="md-cart" size="30"/>
-                    <mt-badge :style="cartItemStyle" class="cartItems" v-if="cartItems > 0" size="small" >{{cartItems}}</mt-badge>
+                    <img :src="cart" width="30" height="30" class="img"/>
+                    <mt-badge :style="cartItemStyle" class="cartItems" v-if="cartItems > 0" size="small">{{cartItems}}
+                    </mt-badge>
                 </div>
                 <div :style="cartStyle">
                     购物车
@@ -52,7 +52,7 @@
             </div>
             <div @click="goCenter" class="button">
                 <div>
-                    <Icon :style="mineStyle" type="md-contact" size="30"/>
+                    <img :src="mine" width="30" height="30" class="img"/>
                 </div>
                 <div :style="mineStyle">
                     我的
@@ -60,30 +60,47 @@
             </div>
         </div>
         <!--<div align="center">-->
-            <!--<a href="http://www.beian.miit.gov.cn">粤ICP备17125109号</a>-->
+        <!--<a href="http://www.beian.miit.gov.cn">粤ICP备17125109号</a>-->
         <!--</div>-->
     </Footer>
 </template>
 <script>
     import Util from '../libs/util.js'
     import CartAPI from '../api/cart.js'
+    import home from '../images/home.png'
+    import homeSelected from '../images/home-selected.png'
+    import category from '../images/category.png'
+    import categorySelected from '../images/category-selected.png'
+    import cart from '../images/cart2.png'
+    import cartSelected from '../images/cart-selected.png'
+    import mine from '../images/mine.png'
+    import mineSelected from '../images/mine-selected.png'
+
     export default {
         props: [
-          'selection'
+            'selection'
         ],
         data() {
             return {
+                home,
+                homeSelected,
+                category,
+                categorySelected,
+                cart,
+                cartSelected,
+                mine,
+                mineSelected,
                 mineStyle: {
-                    color: null
+                    color: '#B69C7D'
                 },
                 cartStyle: {
-                    color: null
+                    color: '#B69C7D'
                 },
                 categoryStyle: {
-                    color: null
+                    color: '#B69C7D'
                 },
                 homeStyle: {
-                    color: null
+                    color: '#B69C7D'
                 },
                 cartItemStyle: {},
                 cartItems: 0,
@@ -105,18 +122,34 @@
         },
         mounted() {
             const docWidth = document.documentElement.clientWidth
-            if(docWidth < 375 && docWidth > 330) {
+            if (docWidth < 375 && docWidth > 330) {
                 this.cartItemStyle.left = '45px'
-            } else if(docWidth < 330) {
+            } else if (docWidth < 330) {
                 this.cartItemStyle.left = '40px'
             } else {
                 this.cartItemStyle.left = '50px'
             }
-            switch(this.selection) {
-                case 'mine': this.mineStyle.color = '#DA4935'; break
-                case 'cart': this.cartStyle.color = '#DA4935'; break
-                case 'category': this.categoryStyle.color = '#DA4935'; break
-                case 'home': this.homeStyle.color = '#DA4935'; break
+            switch (this.selection) {
+                case 'mine': {
+                    this.mineStyle.color = '#586274'
+                    this.mine = this.mineSelected
+                }
+                    break
+                case 'cart': {
+                    this.cartStyle.color = '#586274'
+                    this.cart = this.cartSelected
+                }
+                    break
+                case 'category': {
+                    this.categoryStyle.color = '#586274'
+                    this.category = this.categorySelected
+                }
+                    break
+                case 'home': {
+                    this.homeStyle.color = '#586274'
+                    this.home = this.homeSelected
+                }
+                    break
             }
             const token = Util.getToken()
             if (token) {

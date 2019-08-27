@@ -1,7 +1,7 @@
 const header = {
     margin: 0,
     padding: '0 10px',
-    backgroundColor: '#DA4935',
+    backgroundColor: '#AD9979',
     position: 'fixed',
     zIndex: 500,
     width: '100%',

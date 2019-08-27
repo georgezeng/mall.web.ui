@@ -13,22 +13,22 @@
 
     .search {
         text-align: left;
-        background-color: #f16051;
+        background-color: #f5f5f5;
         height: 30px;
         border-radius: 20px;
         width: 70%;
         display: inline-block;
         font-size: 14px;
-        color: #fff;
+        color: #586274;
         line-height: 30px;
         padding-left: 10px;
     }
 
     .searchInput {
-        color: #fff;
+        color: gray;
         border: none;
         width: 90%;
-        background-color: #f16051;
+        background-color: #f5f5f5;
         outline: none;
         border-radius: 20px;
     }

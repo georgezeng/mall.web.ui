@@ -1,42 +1,46 @@
 <style scoped lang="less">
-    .info {
-        /*background-color: #DA4935;*/
+    .infoPanel {
         background-image: url("../../images/center-header.png");
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: unset;
         width: 100%;
-        height: 80px;
+        height: 120px;
         position: relative;
-        color: #fff;
-        padding: 0;
-        .avatar {
-            margin: 10px;
+        .info {
+            /*background-color: #DA4935;*/
+            color: #fff;
+            padding: 0;
+            height: 80px;
             position: relative;
-            top: 10px;
-        }
-        .nickname {
-            font-size: 12pt;
-            margin-right: 5px;
-        }
-        .level {
-            border-radius: 20px;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 5px 8px;
-            font-size: 6pt;
-        }
-        .tip {
-            font-size: 10pt;
-            position: absolute;
-            top: 50px;
-            left: 75px;
-        }
-        .goArrow {
-            position: absolute;
-            top: 25px;
-            right: 7px;
-            color: #fff !important;
+            .avatar {
+                margin: 15px 10px 10px 15px;
+            }
+            .nickname {
+                font-size: 12pt;
+                margin-bottom: 5px;
+            }
+            .level {
+                border-radius: 20px;
+                background-color: rgba(0, 0, 0, 0.2);
+                padding: 5px 8px;
+                font-size: 12px;
+                float: left;
+            }
+            .tip {
+                font-size: 10pt;
+                position: absolute;
+                top: 50px;
+                left: 75px;
+            }
+            .goArrow {
+                position: absolute;
+                top: 25px;
+                right: 7px;
+                color: #fff !important;
+            }
         }
     }
+
 
     .finance {
         .gradient {
@@ -129,21 +133,22 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header :style="commonStyles.tideHeader">
-            <!--
-            <Icon v-if="isLogin" size="24" style="right: 10px; position: absolute; top: 10px;"
-                  type="md-notifications-outline"/>
-                  -->
-        </Header>
-        <div style="height: 40px;"></div>
         <Content :style="contentStyle">
-            <div class="info" @click="goProfile">
-                <Avatar ref="avatar" size="large" class="avatar" :src="avatar"/>
-                <span class="nickname">{{nickname}}</span>
-                <span v-if="isLogin" class="level">优享会员</span>
-                <div v-if="isLogin" class="tip">点击查看或编辑个人信息</div>
-                <div v-else class="tip">登录后购买商品</div>
-                <Icon type="ios-arrow-forward" size="30" class="goArrow"/>
+            <div class="infoPanel">
+                <div style="height: 40px;"></div>
+                <div class="info" @click="goProfile">
+                    <Avatar ref="avatar" size="large" class="avatar" :src="avatar"/>
+                    <div v-if="isLogin" style="display: inline-block; position: relative; top: -15px;">
+                        <div class="nickname">{{nickname}}</div>
+                        <div class="level">优享会员</div>
+                    </div>
+                    <div v-else style="display: inline-block; position: relative; top: 5px;">
+                        立即登录
+                    </div>
+                    <!--<div v-if="isLogin" class="tip">点击查看或编辑个人信息</div>
+                    <div v-else class="tip">登录后购买商品</div>-->
+                    <Icon type="ios-arrow-forward" size="30" class="goArrow"/>
+                </div>
             </div>
             <div class="finance">
                 <div align="center" class="numberBlock" @click="goMyChange">
@@ -204,16 +209,16 @@
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
-                        <Icon size="24" type="md-exit" style="margin-right: 10px;"/>
+                        <img :src="exitImg" width="24" height="24" class="img" style="margin-right: 10px;"/>
                         退出
                     </cell-box>
                     <cell-box class="optionPanel">
-                        <Icon size="24" type="md-contacts" style="margin-right: 10px;"/>
+                        <img :src="contact" width="24" height="24" class="img" style="margin-right: 10px;"/>
                         <span>客服: 广州多呗生活</span>
                         <input ref="contactText" readonly value="广州多呗生活"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyContact"
-                             style="border: 1px solid orangered; color: orangered; padding: 5px; position: absolute; right: 10px;">
+                             style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px;">
                             复制微信号
                         </div>
                     </cell-box>
@@ -241,6 +246,8 @@
     import dsh from '../../images/daishouhuo.png'
     import done from '../../images/done.png'
     import setting from '../../images/setting.png'
+    import exitImg from '../../images/exit.png'
+    import contact from '../../images/contact.png'
     import invite from '../../images/invite.png'
     import yuan from '../../images/yuan.png'
     import coupon from '../../images/coupon.png'
@@ -253,6 +260,8 @@
         },
         data() {
             return {
+                contact,
+                exitImg,
                 dfk,
                 dfh,
                 dsh,
