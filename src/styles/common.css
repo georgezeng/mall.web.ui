@@ -99,3 +99,8 @@ input.vux-number-input {
     line-height: 50px !important;
     border-radius: 40px !important;
 }
+
+video::-webkit-media-controls-panel {
+    display: flex !important;
+    opacity: 1 !important;
+}

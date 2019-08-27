@@ -366,14 +366,14 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <div :style="{height: topBarHeight + 'px'}"></div>
+            <!--<div :style="{height: topBarHeight + 'px'}"></div>
             <div @click="fitVedio(40, true)" style="position: absolute; z-index: 100000;"
-                 :style="{width: itemImgSize + 'px', height: vedioHeight + 'px', zIndex: vedioPanelzIndex}"></div>
+                 :style="{width: itemImgSize + 'px', height: vedioHeight + 'px', zIndex: vedioPanelzIndex}"></div>-->
             <video ref="vedio" v-show="vedio"
                    v-if="item.vedioPath != null" playsinline preload controls
                    :poster="config.publicBucketDomain + item.photos[0]"
                    :src="config.publicBucketDomain + this.item.vedioPath"
-                   :width="itemImgSize" :height="vedioHeight">
+                   :width="itemImgSize" :height="itemImgSize">
             </video>
             <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
                     :show-dots="false">
@@ -593,11 +593,11 @@
         methods: {
             showVedio(value) {
                 this.vedio = value
-                if (!value) {
-                    this.fitVedio(0)
-                } else {
-                    this.fitVedio(40)
-                }
+                // if (!value) {
+                //     this.fitVedio(0)
+                // } else {
+                //     this.fitVedio(40)
+                // }
                 this.resetPosterTip()
             },
             getPosterSrc(index) {
