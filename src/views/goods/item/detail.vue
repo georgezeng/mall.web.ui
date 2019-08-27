@@ -341,7 +341,7 @@
                 <div>
                     <img style="position: relative; top: 0px;" :src="PosterTipLogo" width="20" height="20"/>
                 </div>
-                <div style="font-size: 12px; position: relative; top: -3px;">分享海报</div>
+                <div style="font-size: 10px; position: relative; top: -3px;">分享海报</div>
             </div>
 
 
