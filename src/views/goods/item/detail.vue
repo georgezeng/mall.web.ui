@@ -886,8 +886,8 @@
                 }
             },
             fitVedio() {
-                if (this.topBarHeight == 0) {
                     this.topBarHeight = 60
+                if (this.topBarHeight == 0) {
                     this.vedioHeight = this.itemImgSize - this.topBarHeight
                     // this.$refs.vedio.play()
                 }
