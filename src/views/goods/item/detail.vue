@@ -366,12 +366,15 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <video v-show="vedio" x5-video-orientation="landscape|portrait" v-if="item.vedioPath != null" playsinline
+            <div :style="{height: topBarHeight + 'px'}"></div>
+            <video ref="vedio" @click="fitVedio" v-show="vedio" x5-video-orientation="landscape|portrait"
+                   v-if="item.vedioPath != null" playsinline
                    :poster="config.publicBucketDomain + item.photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
-                   :width="itemImgSize" :height="itemImgSize"  controls="controls">
+                   :width="itemImgSize" :height="vedioHeight" controls="controls">
             </video>
-            <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
+            <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
+                    :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
@@ -447,6 +450,7 @@
         components: {},
         data() {
             return {
+                topBarHeight: 0,
                 vedio: false,
                 posterPopup: false,
                 posterPopupStyle: {},
@@ -454,6 +458,7 @@
                 posterHeight: 0,
                 PosterTipLogo,
                 posterTipTop: 0,
+                vedioHeight: 0,
                 posterTipPosition: 'absolute',
                 ShareTipArrow,
                 config,
@@ -878,9 +883,13 @@
                     this.resetPosterTip()
                 }
             },
+            fitVedio() {
+                this.topBarHeight = 60
+                this.vedioHeight = this.itemImgSize - this.topBarHeight
+            },
             resetPosterTip() {
                 // if (!this.vedio) {
-                    this.posterTipTop = this.itemImgSize + 6
+                this.posterTipTop = this.itemImgSize + 6
                 // } else {
                 //     this.posterTipTop = this.itemImgSize * 480 / 640 + 6
                 // }
@@ -912,7 +921,7 @@
                     top: '50px'
                 }
             }
-
+            this.vedioHeight = this.itemImgSize
             window.addEventListener('scroll', this.scrollHandler)
             this.resetPosterTip()
             this.isBigDevice = document.documentElement.clientWidth > 500
