@@ -367,7 +367,7 @@
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <div :style="{height: topBarHeight + 'px'}"></div>
-            <div @click="fitVedio" style="position: absolute; z-index: 100000;"
+            <div @click="fitVedio(40, true)" style="position: absolute; z-index: 100000;"
                  :style="{width: itemImgSize + 'px', height: vedioHeight + 'px', zIndex: vedioPanelzIndex}"></div>
             <video ref="vedio" v-show="vedio"
                    v-if="item.vedioPath != null" playsinline preload controls
@@ -594,9 +594,9 @@
             showVedio(value) {
                 this.vedio = value
                 if (value) {
-                    this.topBarHeight = 0
+                    this.fitVedio(0)
                 } else {
-                    this.topBarHeight = 40
+                    this.fitVedio(40)
                 }
                 this.resetPosterTip()
             },
@@ -891,11 +891,11 @@
                     this.resetPosterTip()
                 }
             },
-            fitVedio() {
-                if (this.topBarHeight == 0) {
-                    this.vedioPanelzIndex = -1
-                    this.topBarHeight = 40
-                    this.vedioHeight = this.itemImgSize - this.topBarHeight
+            fitVedio(height, play) {
+                this.vedioPanelzIndex = -1
+                this.topBarHeight = height
+                this.vedioHeight = this.itemImgSize - this.topBarHeight
+                if (play) {
                     this.$refs.vedio.play()
                 }
             },
