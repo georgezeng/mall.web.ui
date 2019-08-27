@@ -339,9 +339,9 @@
 
             <div @click="showPoster" class="posterTip" :style="{position: posterTipPosition, top: posterTipTop + 'px'}">
                 <div>
-                    <img style="position: relative; top: 0px;" :src="PosterTipLogo" width="16" height="16"/>
+                    <img style="position: relative; top: 0px;" :src="PosterTipLogo" width="20" height="20"/>
                 </div>
-                <div style="font-size: 8px; position: relative; top: -3px;">分享海报</div>
+                <div style="font-size: 12px; position: relative; top: -3px;">分享海报</div>
             </div>
 
 
@@ -366,15 +366,17 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <video v-show="vedio" v-if="item.vedioPath != null" :src="config.publicBucketDomain + item.vedioPath"
+            <video v-show="vedio" v-if="item.vedioPath != null" :poster="config.publicBucketDomain + item.photos[0]"
+                   :src="config.publicBucketDomain + item.vedioPath"
                    :width="itemImgSize" height="100%" autoplay controls>
             </video>
-            <swiper style="margin-bottom: 10px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
+            <swiper v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
-            <div v-if="item.vedioPath != null" style="position: absolute; width: 100%;" align="center">
+            <div v-if="item.vedioPath != null" style="margin-top: 10px; position: absolute; width: 100%;"
+                 align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
                       style="margin-right: 10px;" @click="showVedio(true)">视频</span>
                 <span :class="{'unselected-swiper-btn': vedio, 'selected-swiper-btn': !vedio}"
@@ -383,7 +385,7 @@
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
             </div>
-            <div style="margin-left: 10px;">
+            <div style="margin-left: 10px;" v-if="item.marketPrice != null">
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
                 <span class="discount" v-if="isSinglePrice">{{discount}}</span>
             </div>
@@ -869,7 +871,7 @@
                 const top = document.body.scrollHeight - this.itemImgSize + 67
                 if (scrollTop < top) {
                     this.posterTipPosition = 'fixed'
-                    this.posterTipTop = 63
+                    this.posterTipTop = 61
                 } else {
                     this.posterTipPosition = 'absolute'
                     this.resetPosterTip()
@@ -877,9 +879,9 @@
             },
             resetPosterTip() {
                 if (!this.vedio) {
-                    this.posterTipTop = this.itemImgSize + 8
+                    this.posterTipTop = this.itemImgSize + 6
                 } else {
-                    this.posterTipTop = this.itemImgSize * 480 / 640 + 8
+                    this.posterTipTop = this.itemImgSize * 480 / 640 + 6
                 }
             }
         },
