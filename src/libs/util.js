@@ -223,4 +223,12 @@ util.fixTitle = () => {
         document.title = data
     })
 }
+
+util.scrollHandler = (e, _this) => {
+    const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop - 50
+    if (scrollTop < document.documentElement.clientHeight) {
+        _this.showLoading = true
+        _this.load();
+    }
+}
 export default util;

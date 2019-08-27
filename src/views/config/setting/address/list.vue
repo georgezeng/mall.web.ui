@@ -220,11 +220,7 @@
                 })
             },
             scrollHandler(e) {
-                const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop
-                if (scrollTop == document.documentElement.clientHeight) {
-                    this.showLoading = true
-                    this.load()
-                }
+                Util.scrollHandler(e, this)
             },
             load() {
                 if (this.allLoaded) {

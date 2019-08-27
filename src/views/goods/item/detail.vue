@@ -885,7 +885,7 @@
                 const top = document.body.scrollHeight - this.itemImgSize + 67
                 if (scrollTop < top) {
                     this.posterTipPosition = 'fixed'
-                    this.posterTipTop = 61
+                    this.posterTipTop = 63
                 } else {
                     this.posterTipPosition = 'absolute'
                     this.resetPosterTip()
