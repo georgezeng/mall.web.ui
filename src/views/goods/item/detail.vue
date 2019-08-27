@@ -366,9 +366,10 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <video v-show="vedio" v-if="item.vedioPath != null" playsinline :poster="config.publicBucketDomain + item.photos[0]"
+            <video v-show="vedio" x5-video-orientation="landscape|portrait" v-if="item.vedioPath != null" playsinline
+                   :poster="config.publicBucketDomain + item.photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
-                   :width="itemImgSize" :height="itemImgSize*480/640" controls>
+                   :width="itemImgSize" :height="itemImgSize*480/640"  controls="controls">
             </video>
             <swiper v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
