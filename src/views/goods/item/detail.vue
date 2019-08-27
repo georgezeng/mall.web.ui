@@ -593,6 +593,11 @@
         methods: {
             showVedio(value) {
                 this.vedio = value
+                if (value) {
+                    this.topBarHeight = 0
+                } else {
+                    this.topBarHeight = 40
+                }
                 this.resetPosterTip()
             },
             getPosterSrc(index) {
