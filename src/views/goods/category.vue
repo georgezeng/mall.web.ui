@@ -41,7 +41,7 @@
     .selected:before {
         display: inline-block;
         height: 40px;
-        background-color: orangered;
+        background-color: #B69C7D;
         width: 3px;
         content: '';
         float: left;
