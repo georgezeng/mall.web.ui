@@ -884,6 +884,7 @@
                 }
             },
             fitVedio() {
+                Util.log('fitting vedio size...')
                 this.topBarHeight = 60
                 this.vedioHeight = this.itemImgSize - this.topBarHeight
             },
