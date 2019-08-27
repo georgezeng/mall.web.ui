@@ -2,14 +2,15 @@
 
     .marketPrice {
         display: inline-block;
-        font-size: 16pt;
+        font-size: 14pt;
+        font-weight: bold;
         color: #c5c8ce;
         text-decoration: line-through;
     }
 
     .realPrice {
         display: inline-block;
-        font-size: 18pt;
+        font-size: 20pt;
         color: orangered;
         font-weight: bold;
         margin-top: 10px;
@@ -18,7 +19,8 @@
 
     .discount {
         display: inline-block;
-        font-size: 16pt;
+        font-size: 14pt;
+        font-weight: bold;
         color: gray;
     }
 
@@ -227,7 +229,7 @@
     }
 
     .posterTip {
-        border-radius: 40px;
+        border-radius: 50px;
         position: absolute;
         right: 10px;
         text-align: center;
@@ -235,6 +237,24 @@
         box-shadow: 0px 0px 5px -1px gray;
         padding: 5px;
         z-index: 500;
+    }
+
+    .unselected-swiper-btn {
+        display: inline-block;
+        padding: 3px 10px;
+        background-color: #dfdfdf;
+        color: #717171;
+        border-radius: 20px;
+        font-size: 14px;
+    }
+
+    .selected-swiper-btn {
+        display: inline-block;
+        padding: 3px 10px;
+        background-color: #E66C36;
+        color: #fff;
+        border-radius: 20px;
+        font-size: 14px;
     }
 </style>
 <template>
@@ -311,7 +331,7 @@
             <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed;">
                 <swiper ref="posterSwiper" loop dots-position="center">
                     <swiper-item v-for="(photo, index) in item.photos" :key="index">
-                        <img crossorigin="use-credentials" :src="getPosterSrc(index)" :width="posterWidth"
+                        <img :src="getPosterSrc(index)" :width="posterWidth"
                              :height="posterHeight"/>
                     </swiper-item>
                 </swiper>
@@ -346,13 +366,24 @@
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
-            <swiper :aspect-ratio="1" auto loop :show-dots="false">
+            <video v-show="vedio" v-if="item.vedioPath != null" :src="config.publicBucketDomain + item.vedioPath"
+                   :width="itemImgSize" height="100%" autoplay controls>
+            </video>
+            <swiper style="margin-bottom: 10px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
+            <div v-if="item.vedioPath != null" style="position: absolute; width: 100%;" align="center">
+                <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
+                      style="margin-right: 10px;" @click="showVedio(true)">视频</span>
+                <span :class="{'unselected-swiper-btn': vedio, 'selected-swiper-btn': !vedio}"
+                      @click="showVedio(false)">图片</span>
+            </div>
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
+            </div>
+            <div style="margin-left: 10px;">
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
                 <span class="discount" v-if="isSinglePrice">{{discount}}</span>
             </div>
@@ -413,6 +444,7 @@
         components: {},
         data() {
             return {
+                vedio: false,
                 posterPopup: false,
                 posterPopupStyle: {},
                 posterWidth: 0,
@@ -548,6 +580,10 @@
             }
         },
         methods: {
+            showVedio(value) {
+                this.vedio = value
+                this.resetPosterTip()
+            },
             getPosterSrc(index) {
                 return config.baseUrl + '/goods/item/' + this.item.id + "/" + index + "/" + this.uid + '/poster/share.png'
             },
@@ -771,6 +807,8 @@
                             return
                         }
                         this.item = item
+                        this.vedio = item.vedioPath != null
+                        this.resetPosterTip()
                         this.property.price = item.minPrice
                         if (item.properties && item.properties.length > 0) {
                             for (let i in item.properties) {
@@ -834,7 +872,14 @@
                     this.posterTipTop = 63
                 } else {
                     this.posterTipPosition = 'absolute'
+                    this.resetPosterTip()
+                }
+            },
+            resetPosterTip() {
+                if (!this.vedio) {
                     this.posterTipTop = this.itemImgSize + 8
+                } else {
+                    this.posterTipTop = this.itemImgSize * 480 / 640 + 8
                 }
             }
         },
@@ -845,7 +890,7 @@
             } else {
                 this.uid = 0
             }
-            if(document.documentElement.clientHeight < 610) {
+            if (document.documentElement.clientHeight < 610) {
                 this.posterWidth = document.documentElement.clientWidth * 0.7
                 this.posterHeight = document.documentElement.clientWidth * 0.7 * 1161 / 750
                 this.posterPopupStyle = {
@@ -866,7 +911,7 @@
             }
 
             window.addEventListener('scroll', this.scrollHandler)
-            this.posterTipTop = this.itemImgSize + 8
+            this.resetPosterTip()
             this.isBigDevice = document.documentElement.clientWidth > 500
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight * 0.75

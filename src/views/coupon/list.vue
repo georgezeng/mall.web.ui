@@ -117,29 +117,47 @@
                 <popup v-model="popup" style="background-color: #fff;">
                     <div :style="{height: popupHeight + 'px'}" style="position: relative;">
                         <Icon size="30" type="ios-close" class="popup-close" @click="closePopup"/>
-                        <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+                        <div style="font-weight: bold; width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
                             使用说明
                         </div>
-                        <div style="margin: 10px; overflow: auto;" :style="{maxHeight: popupHeight/2 + 'px'}">
-                            <span v-if="coupon.hxType.name == 'Category'">
-                                仅限类型:
-                            </span>
-                            <span v-if="coupon.hxType.name == 'Category'" v-for="(category,index) in coupon.categories"
-                                  :key="index">
-                                {{category.name}}{{index < coupon.categories.length - 1 ? ', ' : ''}}
-                            </span>
-                            <span v-if="coupon.hxType.name == 'Item'">
-                                仅限商品:
-                            </span>
-                            <span v-if="coupon.hxType.name == 'Item'" v-for="(item,index) in coupon.items" :key="index">
-                                {{item.name}}{{index < coupon.items.length - 1 ? ', ' : ''}}
-                            </span>
-                            <span v-if="coupon.hxType.name == 'All'">
-                                适用全部商品
-                            </span>
-                        </div>
-                        <div style="margin: 10px;">
-                            说明详情: {{coupon.description}}
+                        <div>
+                            <div style="margin: 10px;">
+                                <div style="margin-bottom: 5px;">券编号: {{coupon.couponId}}</div>
+                                <div style="margin-bottom: 5px;">获取途径: {{coupon.eventType.text}}</div>
+                                <div style="margin-bottom: 5px;" v-if="coupon.fromOrderId != null">
+                                    订单号: {{coupon.fromOrderId}}
+                                </div>
+                                <div style="margin-bottom: 5px;" v-if="coupon.invitee != null">
+                                    分享用户: {{coupon.invitee}}
+                                </div>
+                            </div>
+                            <div style="margin: 10px;" :style="{maxHeight: popupHeight/2 + 'px'}">
+                                <div>核销说明</div>
+                                <div style="font-size: 14px; color: gray;">
+                                    <div v-if="coupon.hxType.name == 'Category'">
+                                        <span>限购买</span>
+                                        <span
+                                                v-for="(category,index) in coupon.categories"
+                                                :key="index">
+                                            {{category.name}}{{index < coupon.categories.length - 1 ? ', ' : ''}}
+                                        </span>
+                                    </div>
+                                    <div v-if="coupon.hxType.name == 'Item'">
+                                        <span>限购买</span>
+                                        <span  v-for="(item,index) in coupon.items"
+                                               :key="index">
+                                            {{item.name}}{{index < coupon.items.length - 1 ? ', ' : ''}}
+                                        </span>
+                                    </div>
+                                    <div v-if="coupon.hxType.name == 'All'">
+                                        <span>适用全部商品</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;">
+                                <div>使用详情</div>
+                                <div>{{coupon.description}}</div>
+                            </div>
                         </div>
                     </div>
                 </popup>
@@ -204,6 +222,10 @@
                 outCount: 0,
                 popup: false,
                 coupon: {
+                    couponId: null,
+                    fromOrderId: null,
+                    invitee: null,
+                    eventType: {},
                     hxType: {}
                 },
                 popupHeight: 0,
@@ -333,7 +355,7 @@
             this.contentStyle.marginTop = '125px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.popupHeight = document.documentElement.clientHeight * 0.8
+            this.popupHeight = document.documentElement.clientHeight
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.type = this.$router.currentRoute.params.type
             this.reload()
