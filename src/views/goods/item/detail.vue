@@ -367,12 +367,14 @@
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
             <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <div :style="{height: topBarHeight + 'px'}"></div>
-            <video ref="vedio" @click="fitVedio" v-show="vedio" x5-video-orientation="landscape|portrait"
-                   v-if="item.vedioPath != null" playsinline
-                   :poster="config.publicBucketDomain + item.photos[0]"
-                   :src="config.publicBucketDomain + item.vedioPath"
-                   :width="itemImgSize" :height="vedioHeight" controls="controls">
-            </video>
+            <div @click="fitVedio">
+                <video ref="vedio" v-show="vedio" x5-video-orientation="landscape|portrait"
+                       v-if="item.vedioPath != null" playsinline
+                       :poster="config.publicBucketDomain + item.photos[0]"
+                       :src="config.publicBucketDomain + item.vedioPath"
+                       :width="itemImgSize" :height="vedioHeight" controls>
+                </video>
+            </div>
             <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
                     :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
@@ -884,9 +886,11 @@
                 }
             },
             fitVedio() {
-                Util.log('fitting vedio size...')
-                this.topBarHeight = 60
-                this.vedioHeight = this.itemImgSize - this.topBarHeight
+                if (this.topBarHeight == 0) {
+                    this.topBarHeight = 60
+                    this.vedioHeight = this.itemImgSize - this.topBarHeight
+                    this.$refs.vedio.play()
+                }
             },
             resetPosterTip() {
                 // if (!this.vedio) {
