@@ -14,9 +14,11 @@
         <Content :style="commonStyles.content">
             <div align="center" style="height: 40px;">
                 <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
+            </div>
+            <div align="center" style="padding-top: 30px;">
                 <img :src="logo" />
             </div>
-            <Tabs ref="tabs" style="margin-top: 100px;" value="verify">
+            <Tabs ref="tabs" value="verify">
                 <TabPane label="验证码登录" name="verify">
                     <PhoneVerifyPanel/>
                 </TabPane>
