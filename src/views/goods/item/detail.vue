@@ -381,7 +381,7 @@
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
-            <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex, left: vedioLeft + 'px'}" style="margin-top: -50px; position: absolute; width: 111px;"
+            <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex, left: vedioLeft + 'px'}" style="margin-top: -50px; position: absolute; width: 120px;"
                  align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
                       style="margin-right: 10px;" @click="showVedio(true)">视频</span>
@@ -934,7 +934,7 @@
             } else {
                 this.uid = 0
             }
-            this.vedioLeft = (document.documentElement.clientWidth - 111) / 2
+            this.vedioLeft = (document.documentElement.clientWidth - 120) / 2
             if (document.documentElement.clientHeight < 610) {
                 this.posterWidth = document.documentElement.clientWidth * 0.7
                 this.posterHeight = document.documentElement.clientWidth * 0.7 * 1161 / 750
