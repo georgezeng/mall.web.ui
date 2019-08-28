@@ -381,7 +381,7 @@
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
-            <div v-if="item.vedioPath != null" style="margin-top: 10px; position: absolute; width: 100%;"
+            <div v-if="item.vedioPath != null" style="margin-top: -50px; position: absolute; width: 100%;"
                  align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
                       style="margin-right: 10px;" @click="showVedio(true)">视频</span>
@@ -393,7 +393,7 @@
             </div>
             <div style="margin-left: 10px;" v-if="item.marketPrice != null">
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
-                <span class="discount" v-if="isSinglePrice">{{discount}}</span>
+                <span class="discount" v-if="item.marketPrice != null">{{discount}}</span>
             </div>
             <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
