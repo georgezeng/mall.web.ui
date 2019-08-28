@@ -151,8 +151,8 @@
                 </div>
             </div>
             <div class="finance">
-                <div align="center" class="numberBlock" @click="goMyChange">
-                    <div v-if="isLogin" class="number">0</div>
+                <div align="center" class="numberBlock" @click="goMyPoints">
+                    <div v-if="isLogin" class="number">{{points}}</div>
                     <div v-else><img :src="yuan" width="32" height="32"/></div>
                     <div class="title">积分</div>
                 </div>
@@ -234,6 +234,7 @@
     import API from '../../api/center.js'
     import AfterSaleAPI from '../../api/aftersale.js'
     import OrderAPI from '../../api/order.js'
+    import PointsAPI from '../../api/points.js'
     import ProfileAPI from '../../api/profile.js'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
@@ -290,6 +291,7 @@
                 isSmallDevice: false,
                 titleFont: '14px',
                 couponNums: 0,
+                points: 0
             }
         },
         computed: {
@@ -371,8 +373,8 @@
                     window.location.reload(true)
                 })
             },
-            goMyChange() {
-                // Util.go('MyChange')
+            goMyPoints() {
+                Util.go('MyPoints')
             },
             goMyCoupon() {
                 Util.go('MyCoupon', {
@@ -437,6 +439,11 @@
             },
             goProfile() {
                 Util.go('MyProfile')
+            },
+            getPoints() {
+                PointsAPI.current().then(data => {
+                    this.points = data
+                })
             }
         },
         mounted() {
@@ -467,6 +474,7 @@
                 this.getDshNums()
                 this.getDpjNums()
                 this.getTkShNums()
+                this.getPoints()
             }
         }
     }

@@ -99,6 +99,15 @@ const routers = [
         component: (resolve) => require(['../views/cart/list.vue'], resolve)
     },
     {
+        path: '/MyPoints',
+        name: 'MyPoints',
+        meta: {
+            title: '我的积分',
+            needLogin: true
+        },
+        component: (resolve) => require(['../views/points/list.vue'], resolve)
+    },
+    {
         path: '/MyCoupon/:type',
         name: 'MyCoupon',
         meta: {

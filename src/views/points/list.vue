@@ -1,0 +1,136 @@
+<style scoped lang="less">
+
+    .backArrow {
+        left: 10px;
+        position: absolute;
+        top: 20px;
+        color: #fff;
+    }
+
+</style>
+<template>
+    <Layout :style="commonStyles.layout">
+        <Header :style="headerStyle">
+            <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
+            <div align="center" style="color: #fff;">我的积分</div>
+        </Header>
+        <Content :style="contentStyle">
+            <div style="background-color: #B69C7D; color: #fff; padding: 10px;">
+                <div style="margin: 10px 0;">
+                    当前积分
+                </div>
+                <div style="margin: 0 0 10px; position: relative; top: -10px;">
+                    <span style="font-size: 18pt; font-weight: bold;">{{data.currentAmount}}</span>
+                    <span>DB</span>
+                </div>
+                <div>累积获得: {{data.accumulatedAmount}} DB</div>
+            </div>
+            <Spin size="large" fix v-if="showSpin"></Spin>
+            <div style="margin: 10px;">积分明细</div>
+            <div style="margin: 10px; position: relative;" v-for="item in list" :key="item.id">
+                <div style="background-color: #fff; font-size: 14px;">
+                    <div>
+                        <span>{{item.createTime}}</span>
+                        <span v-if="item.type.name == 'In'" style="float: right; color: orangered;">购物赠送 +{{item.bonusAmount}}</span>
+                        <span v-else style="float: right; color: gray;">退款扣除 -{{item.bonusAmount}}</span>
+                    </div>
+                    <div>订单号: {{item.orderId}}</div>
+                    <div>消费金额: {{item.amount}}</div>
+                </div>
+            </div>
+            <load-more v-if="showLoading" tip="正在加载"></load-more>
+        </Content>
+    </Layout>
+</template>
+<script>
+    import API from '../../api/points.js'
+    import config from '../../config/index.js'
+    import Util from '../../libs/util.js'
+    import commonStyles from '../../styles/common.js'
+
+    export default {
+        components: {},
+        data() {
+            return {
+                config,
+                commonStyles,
+                headerStyle: {
+                    ...commonStyles.header
+                },
+                contentStyle: {
+                    ...commonStyles.content
+                },
+                data: {
+                    currentAmount: 0,
+                    accumulatedAmount: 0
+                },
+                queryInfo: {
+                    data: null,
+                    page: {
+                        num: 1,
+                        size: 10,
+                        property: 'createTime',
+                        order: 'DESC'
+                    },
+                },
+                list: [],
+                allLoaded: false,
+                showLoading: true,
+                loadingList: false,
+                showSpin: true,
+            }
+        },
+        computed: {},
+        methods: {
+            back() {
+                Util.go('MyCenter')
+            },
+            load() {
+                if (this.allLoaded) {
+                    this.showLoading = false
+                    return
+                }
+                if (this.loadingList) {
+                    return
+                }
+                this.loadingList = true
+                API.journals(this.queryInfo).then(data => {
+                    if (data && data.length > 0) {
+                        this.queryInfo.page.num++
+                        for (let i in data) {
+                            this.list.push(data[i])
+                        }
+                        if (data.length < this.queryInfo.page.size) {
+                            this.allLoaded = true
+                            this.showLoading = false
+                        }
+                    } else {
+                        this.allLoaded = true
+                        this.showLoading = false
+                    }
+                    this.showSpin = false
+                    this.loadingList = false
+                }).catch(e => {
+                    this.showSpin = false
+                    this.loadingList = false
+                })
+            },
+            scrollHandler(e) {
+                Util.scrollHandler(e, this)
+            },
+        },
+        mounted() {
+            window.addEventListener('scroll', this.scrollHandler)
+            this.contentStyle.marginTop = '60px'
+            this.contentStyle.backgroundColor = '#F5F5F5'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
+            this.load()
+            API.baseInfo().then(data => {
+                this.data = data
+            })
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.scrollHandler)
+        }
+    }
+</script>
