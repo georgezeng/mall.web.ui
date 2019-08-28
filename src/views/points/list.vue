@@ -31,8 +31,8 @@
                 <div style="background-color: #fff; font-size: 14px; padding: 10px;">
                     <div style="border-bottom: 1px solid #F1F1F1; padding-bottom: 5px; margin-bottom: 5px;">
                         <span style="color: gray;">{{item.createTime}}</span>
-                        <span v-if="item.balanceType.name == 'In'" style="float: right; color: orangered;">{{item.type.text}} +{{item.bonusAmount}}DBB</span>
-                        <span v-else style="float: right; color: gray;">{{item.type.text}} -{{item.bonusAmount}}DBB</span>
+                        <span v-if="item.balanceType.name == 'In'" style="float: right; color: orangered;">{{item.type.text}} +{{item.bonusAmount}} DBB</span>
+                        <span v-else style="float: right; color: gray;">{{item.type.text}} -{{item.bonusAmount}} DBB</span>
                     </div>
                     <div>订单号: {{item.orderId}}</div>
                     <div>消费金额: ￥{{item.amount.toFixed(2)}}</div>
