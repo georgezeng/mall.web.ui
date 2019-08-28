@@ -381,7 +381,7 @@
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
-            <div v-if="item.vedioPath != null" style="margin-top: -50px; position: absolute; width: 100%;"
+            <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex}" style="margin-top: -50px; position: absolute; width: 100%;"
                  align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
                       style="margin-right: 10px;" @click="showVedio(true)">视频</span>
@@ -452,6 +452,7 @@
         components: {},
         data() {
             return {
+                vedioZIndex: 100000,
                 topBarHeight: 0,
                 vedio: false,
                 posterPopup: false,
@@ -908,8 +909,14 @@
             },
             initVedio() {
                 if (this.$refs.vedio) {
-                    this.$refs.vedio.addEventListener('timeupdate', () => {
-                        this.$refs.vedio.setAttribute("controls", "controls");
+                    this.$refs.vedio.addEventListener('play', () => {
+                        this.vedioZIndex = -1
+                    }, false)
+                    this.$refs.vedio.addEventListener('ended', () => {
+                        this.vedioZIndex = 100000
+                    }, false)
+                    this.$refs.vedio.addEventListener('pause', () => {
+                        this.vedioZIndex = 100000
                     }, false)
                 } else {
                     setTimeout(this.initVedio, 100)
@@ -962,7 +969,7 @@
             setTimeout(() => {
                 $(this.$refs.posterSwiper.$el).find('div.vux-swiper').css("height", this.posterHeight + 'px')
             }, 100)
-            // this.initVedio()
+            this.initVedio()
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
