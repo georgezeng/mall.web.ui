@@ -28,8 +28,8 @@
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div style="margin: 10px;">积分明细</div>
             <div style="margin: 10px; position: relative;" v-for="item in list" :key="item.id">
-                <div style="background-color: #fff; font-size: 14px;">
-                    <div>
+                <div style="background-color: #fff; font-size: 14px; margin: 10px; padding: 10px;">
+                    <div style="border-bottom: 1px solid #DFDFDF; padding-bottom: 5px; margin-bottom: 5px;">
                         <span>{{item.createTime}}</span>
                         <span v-if="item.type.name == 'In'" style="float: right; color: orangered;">购物赠送 +{{item.bonusAmount}}</span>
                         <span v-else style="float: right; color: gray;">退款扣除 -{{item.bonusAmount}}</span>
