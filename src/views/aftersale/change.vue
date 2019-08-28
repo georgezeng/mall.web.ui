@@ -139,6 +139,7 @@
         },
         data() {
             return {
+                Util,
                 config,
                 commonStyles,
                 footerStyle: {

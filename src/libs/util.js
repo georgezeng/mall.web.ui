@@ -238,5 +238,6 @@ util.getLongLocation = (data) => {
         location += data.city
     }
     location += data.district + data.location
+    return location
 }
 export default util;

@@ -14,11 +14,13 @@
     .address:after {
         background-image: url('../../images/mail.png');
         content: ' ';
-        height: 5px;
+        height: 14px;
         width: 100%;
         display: block;
         position: relative;
-        top: 10px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        top: 12px;
     }
 
     .address {
@@ -261,6 +263,7 @@
         components: {},
         data() {
             return {
+                Util,
                 More,
                 WechatLogo,
                 AlipayLogo,

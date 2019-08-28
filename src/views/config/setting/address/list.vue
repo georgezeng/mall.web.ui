@@ -125,6 +125,7 @@
         components: {},
         data() {
             return {
+                Util,
                 commonStyles,
                 footerStyle: {
                     ...commonStyles.footer
