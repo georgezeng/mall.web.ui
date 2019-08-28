@@ -18,7 +18,7 @@
             <div align="center" style="padding-top: 30px;">
                 <img :src="logo" />
             </div>
-            <Tabs ref="tabs" value="verify">
+            <Tabs ref="tabs" style="margin-top: 10px;" value="verify">
                 <TabPane label="验证码登录" name="verify">
                     <PhoneVerifyPanel/>
                 </TabPane>
