@@ -21,9 +21,9 @@
                 </div>
                 <div style="margin: 0 0 10px; position: relative; top: -10px;">
                     <span style="font-size: 18pt; font-weight: bold;">{{data.currentAmount}}</span>
-                    <span>DB</span>
+                    <span>DBB</span>
                 </div>
-                <div style="font-size: 14px;">累积获得: {{data.accumulatedAmount}} DB</div>
+                <div style="font-size: 14px;">累积获得: {{data.accumulatedAmount}} DBB</div>
             </div>
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div style="margin: 10px;">积分明细</div>
@@ -31,8 +31,8 @@
                 <div style="background-color: #fff; font-size: 14px; padding: 10px;">
                     <div style="border-bottom: 1px solid #F1F1F1; padding-bottom: 5px; margin-bottom: 5px;">
                         <span style="color: gray;">{{item.createTime}}</span>
-                        <span v-if="item.type.name == 'In'" style="float: right; color: orangered;">购物赠送 +{{item.bonusAmount}}</span>
-                        <span v-else style="float: right; color: gray;">退款扣除 -{{item.bonusAmount}}</span>
+                        <span v-if="item.balanceType.name == 'In'" style="float: right; color: orangered;">{{item.type.text}} +{{item.bonusAmount}}DBB</span>
+                        <span v-else style="float: right; color: gray;">{{item.type.text}} -{{item.bonusAmount}}DBB</span>
                     </div>
                     <div>订单号: {{item.orderId}}</div>
                     <div>消费金额: ￥{{item.amount.toFixed(2)}}</div>
