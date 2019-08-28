@@ -448,7 +448,7 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientHeight < 610
-            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight + 30) + 'px'
             if (this.isSmallDevice) {
                 this.titleFont = '12px'
             }
