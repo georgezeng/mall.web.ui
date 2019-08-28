@@ -15,7 +15,7 @@
             <div align="center" style="color: #fff;">我的积分</div>
         </Header>
         <Content :style="contentStyle">
-            <div style="background-color: #B69C7D; color: #fff; padding: 10px;">
+            <div style="background-color: #AD9979; color: #fff; padding: 10px;">
                 <div style="margin: 10px 0;">
                     当前积分
                 </div>
@@ -23,19 +23,19 @@
                     <span style="font-size: 18pt; font-weight: bold;">{{data.currentAmount}}</span>
                     <span>DB</span>
                 </div>
-                <div>累积获得: {{data.accumulatedAmount}} DB</div>
+                <div style="font-size: 14px;">累积获得: {{data.accumulatedAmount}} DB</div>
             </div>
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div style="margin: 10px;">积分明细</div>
             <div style="margin: 10px; position: relative;" v-for="item in list" :key="item.id">
-                <div style="background-color: #fff; font-size: 14px; margin: 10px; padding: 10px;">
-                    <div style="border-bottom: 1px solid #DFDFDF; padding-bottom: 5px; margin-bottom: 5px;">
-                        <span>{{item.createTime}}</span>
+                <div style="background-color: #fff; font-size: 14px; padding: 10px;">
+                    <div style="border-bottom: 1px solid #F1F1F1; padding-bottom: 5px; margin-bottom: 5px;">
+                        <span style="color: gray;">{{item.createTime}}</span>
                         <span v-if="item.type.name == 'In'" style="float: right; color: orangered;">购物赠送 +{{item.bonusAmount}}</span>
                         <span v-else style="float: right; color: gray;">退款扣除 -{{item.bonusAmount}}</span>
                     </div>
                     <div>订单号: {{item.orderId}}</div>
-                    <div>消费金额: {{item.amount}}</div>
+                    <div>消费金额: ￥{{item.amount.toFixed(2)}}</div>
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
@@ -55,7 +55,8 @@
                 config,
                 commonStyles,
                 headerStyle: {
-                    ...commonStyles.header
+                    ...commonStyles.header,
+                    boxShadow: ''
                 },
                 contentStyle: {
                     ...commonStyles.content
