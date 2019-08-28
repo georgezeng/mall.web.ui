@@ -13,7 +13,7 @@
 
     .search {
         text-align: left;
-        background-color: #f5f5f5;
+        background-color: #D9CCAB;
         height: 30px;
         border-radius: 20px;
         width: 70%;
@@ -25,10 +25,10 @@
     }
 
     .searchInput {
-        color: gray;
+        color: #586274;
         border: none;
         width: 90%;
-        background-color: #f5f5f5;
+        background-color: #D9CCAB;
         outline: none;
         border-radius: 20px;
     }

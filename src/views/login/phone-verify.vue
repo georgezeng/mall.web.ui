@@ -8,14 +8,14 @@
                        placeholder="输入手机号"></Input>
             </FormItem>
             <FormItem prop="password">
-                <Input clearable size="large" v-model="form.password" @on-search="sendCode" search
+                <Input ref="verifyCode" clearable size="large" v-model="form.password" @on-search="sendCode" search
                        :enter-button="codeBtnText"
                        placeholder="输入验证码"></Input>
             </FormItem>
             <FormItem>
                 温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a href="javascript:;">《用户服务协议》</a>
             </FormItem>
-            <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
+            <x-button action-type="button" :disabled="loading" style="width: 100%;"
                       :show-loading="loading" @click.native="login">
                 <span style="font-size: 11pt; color: #fff;">登录/注册</span>
             </x-button>
@@ -27,6 +27,7 @@
     import API from '../../api/login'
     import Util from '../../libs/util'
     import UrlParams from 'get-url-param'
+    import $ from 'jquery'
 
     export default {
         data() {
@@ -102,6 +103,9 @@
             if (uid) {
                 this.form.pid = uid.replace(/#.+/, '')
             }
+            setTimeout(() => {
+                $(this.$refs.verifyCode.$el).find('.ivu-input-search').css('cssText', 'background-color: #B69C7D !important; border-color: #B69C7D !important;')
+            }, 10)
         }
     }
 </script>

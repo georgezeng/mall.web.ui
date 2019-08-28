@@ -148,74 +148,65 @@
         </Content>
         <Footer :style="footerStyle">
             <div style="margin: 10px;" v-if="form.status.name == 'UnPay'">
-                <Button @click="pay" size="large" :loading="loading" style="float: right; margin-left: 10px;"
-                        type="primary">去支付
+                <Button @click="pay"  :loading="loading" style="float: right; margin-left: 10px;"
+                        >去支付
                 </Button>
-                <Button size="large" :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
-                        type="error">
+                <Button  :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
+                        >
                     取消订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Paid'">
-                <Button size="large" :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
-                        type="primary">取消订单
+                <Button  :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
+                        >取消订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'CanceledForRefund'">
-                <Button @click="refundConfirm(form.id)" style="float: right;" type="primary">
+                <Button @click="refundConfirm(form.id)" style="float: right;" >
                     申请退款
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Shipped'">
-                <Button size="large" :loading="loading" @click="pickupConfirm(form.id)"
-                        style="float: right; margin-left: 10px;"
-                        type="primary">
+                <Button :loading="loading" @click="pickupConfirm(form.id)"
+                        style="border-color: #B69C7D; color: #B69C7D; float: right; margin-left: 10px;"
+                        >
                     确认收货
                 </Button>
-                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" type="error">
+                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" >
                     取消订单
                 </Button>
-                <Button size="large" :loading="loading" style="float: right;" @click="goExpress(form.id)"
-                        type="primary">
+                <Button :loading="loading" style="float: right;" @click="goExpress(form.id)"
+                        >
                     查看物流
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Canceled' || form.status.name == 'Refunded'">
-                <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="error">
-                    删除订单
-                </Button>
+                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Closed'">
-                <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="error">
-                    删除订单
-                </Button>
+                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Finished'">
-                <Button size="large" :loading="loading" v-if="!form.comment" @click="goEvaluate(form.id, 'UnComment')"
+                <Button  :loading="loading" v-if="!form.comment" @click="goEvaluate(form.id, 'UnComment')"
                         style="float: right; margin-left: 10px;"
-                        type="primary">
+                        >
                     评价
                 </Button>
-                <Button size="large" :loading="loading" v-else @click="goEvaluate(form.id, 'All')"
-                        style="float: right; margin-left: 10px;" type="primary">
+                <Button  :loading="loading" v-else @click="goEvaluate(form.id, 'All')"
+                        style="float: right; margin-left: 10px;" >
                     查看评价
                 </Button>
-                <Button v-if="!form.applied" size="large" :loading="loading" @click="goAfterSale(form.id)"
-                        style="float: right; margin-left: 10px;" type="primary">
+                <Button v-if="!form.applied"  :loading="loading" @click="goAfterSale(form.id)"
+                        style="float: right; margin-left: 10px;" >
                     申请售后
                 </Button>
-                <Button size="large" :loading="loading" @click="deleteConfirm(form.id)" style="float: right;"
-                        type="error">
-                    删除订单
-                </Button>
+                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
                 <div class="clearfix"></div>
             </div>
         </Footer>
@@ -230,6 +221,7 @@
     import moment from 'moment';
     import config from '../../config/index.js'
     import CountDown from './countdown'
+    import trash from '../../images/trash.png'
 
     export default {
         components: {
@@ -237,6 +229,7 @@
         },
         data() {
             return {
+                trash,
                 config,
                 location,
                 commonStyles,

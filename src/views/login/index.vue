@@ -11,11 +11,11 @@
 </style>
 <template>
     <Layout v-if="show" :style="commonStyles.layout">
-        <Header :style="commonStyles.header">
-            <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
-            <div>登录商城</div>
-        </Header>
         <Content :style="commonStyles.content">
+            <div align="center" style="height: 40px;">
+                <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
+                <img :src="logo" />
+            </div>
             <Tabs ref="tabs" style="margin-top: 100px;" value="verify">
                 <TabPane label="验证码登录" name="verify">
                     <PhoneVerifyPanel/>
@@ -31,7 +31,7 @@
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
                     <div class="gradient"></div>
                 </div>
-                <x-button action-type="button" :disabled="loading" type="primary" style="width: 100%;"
+                <x-button action-type="button" :disabled="loading" style="background-color: #B69C7D; width: 100%;"
                           :show-loading="loading" @click.native="goWechatLogin">
                     <Icon type="ios-chatbubbles" style="color: #fff;"/>
                     <span style="font-size: 11pt;">微信登录</span>
@@ -47,6 +47,7 @@
     import PhoneVerifyPanel from './phone-verify'
     import Util from '../../libs/util'
     import config from '../../config/index'
+    import logo from '../../images/logo.png'
     import UrlParams from 'get-url-param'
 
     export default {
@@ -56,6 +57,7 @@
         },
         data() {
             return {
+                logo,
                 commonStyles,
                 loading: false,
                 wechatLoginInfo: null,

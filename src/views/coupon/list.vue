@@ -29,7 +29,7 @@
     }
 
     .selected-title {
-        color: orangered;
+        color: #B69C7D;
     }
 
     .stamp_unuse {

@@ -152,9 +152,9 @@
             </div>
             <div class="finance">
                 <div align="center" class="numberBlock" @click="goMyChange">
-                    <div v-if="isLogin" class="number">￥0.00</div>
+                    <div v-if="isLogin" class="number">0</div>
                     <div v-else><img :src="yuan" width="32" height="32"/></div>
-                    <div class="title">余额</div>
+                    <div class="title">积分</div>
                 </div>
                 <div class="gradient"></div>
                 <div align="center" class="numberBlock" @click="goMyCoupon">

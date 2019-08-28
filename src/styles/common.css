@@ -100,6 +100,26 @@ input.vux-number-input {
     border-radius: 40px !important;
 }
 
+.ivu-btn-default {
+    border-radius: 20px !important;
+}
+
+.weui-btn {
+    background-color: #B69C7D !important;
+}
+
+.ivu-tabs-nav .ivu-tabs-tab-active {
+    color: #B69C7D !important;
+}
+
+.ivu-tabs-ink-bar {
+    background-color: #B69C7D !important;
+}
+
+a {
+    color: #B69C7D !important;
+}
+
 /*video::-webkit-media-controls-panel {*/
     /*display: flex !important;*/
     /*opacity: 1 !important;*/

@@ -10,7 +10,7 @@
                     <Input clearable size="large" prefix="ios-phone-portrait" v-model="form.username" placeholder="输入手机号"></Input>
                 </FormItem>
                 <FormItem prop="password">
-                    <Input clearable size="large" v-model="form.password" @on-search="sendCode" search
+                    <Input ref="verifyCode" clearable size="large" v-model="form.password" @on-search="sendCode" search
                            :enter-button="codeBtnText"
                            placeholder="输入验证码"></Input>
                 </FormItem>
@@ -26,6 +26,7 @@
     import {Message} from 'iview'
     import commonStyles from '../../styles/common.js'
     import Util from '../../libs/util.js'
+    import $ from 'jquery'
 
     export default {
         data() {
@@ -107,5 +108,10 @@
                 })
             },
         },
+        mounted() {
+            setTimeout(() => {
+                $(this.$refs.verifyCode.$el).find('.ivu-input-search').css('cssText', 'background-color: #B69C7D !important; border-color: #B69C7D !important;')
+            }, 10)
+        }
     }
 </script>
