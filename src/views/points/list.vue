@@ -23,7 +23,7 @@
                     <span style="font-size: 18pt; font-weight: bold;">{{data.currentAmount}}</span>
                     <span>DBB</span>
                 </div>
-                <div style="font-size: 14px;">累积获得: {{data.accumulatedAmount}} DBB</div>
+                <div style="font-size: 14px;">累积获得: {{data.accInAmount}} DBB</div>
             </div>
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div style="margin: 10px;">积分明细</div>
@@ -34,8 +34,9 @@
                         <span v-if="item.balanceType.name == 'In'" style="float: right; color: orangered;">{{item.type.text}} +{{item.bonusAmount}} DBB</span>
                         <span v-else style="float: right; color: gray;">{{item.type.text}} -{{item.bonusAmount}} DBB</span>
                     </div>
-                    <div>订单号: {{item.orderId}}</div>
-                    <div>消费金额: ￥{{item.amount.toFixed(2)}}</div>
+                    <div v-if="item.orderId != null">订单号: {{item.orderId}}</div>
+                    <div v-if="item.amount != null">消费金额: ￥{{item.amount.toFixed(2)}}</div>
+                    <div v-else>备注: {{item.remark}}</div>
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
@@ -63,7 +64,7 @@
                 },
                 data: {
                     currentAmount: 0,
-                    accumulatedAmount: 0
+                    accInAmount: 0
                 },
                 queryInfo: {
                     data: null,
