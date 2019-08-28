@@ -12,7 +12,7 @@
                 <span style="font-size: 11pt; color: #fff;">登录</span>
             </x-button>
             <a href="javascript:;"
-               style="float: right; margin-top: 10px;"
+               style="color: #B69C7D !important; float: right; margin-top: 10px;"
                @click="goForgetPassword">忘记密码?</a>
         </Form>
     </div>

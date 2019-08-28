@@ -1,6 +1,6 @@
 <style scoped lang="less">
     .goAroundBtn {
-        background-color: red;
+        background-color: #B69C7D;
         color: #fff;
         padding: 10px 20px;
         width: 160px;
@@ -39,7 +39,7 @@
     .checkBtn {
         float: right;
         padding: 10px 20px;
-        background-color: orangered;
+        background-color: #B69C7D;
         color: #fff;
     }
 

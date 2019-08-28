@@ -407,7 +407,7 @@
             <div class="blockLine"></div>
             <div style="font-size: 11pt; margin: 10px;">
                 <span>商品评价({{item.totalEvaluations}})</span>
-                <span @click="goEvaluation" style="color: orangered;float: right;">查看全部 ></span>
+                <span @click="goEvaluation" style="color: #B69C7D;float: right;">查看全部 ></span>
             </div>
             <div v-if="item.topEvaluation == null" style="text-align: center; font-size: 11pt;">
                 暂无评论

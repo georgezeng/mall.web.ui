@@ -36,7 +36,7 @@
     }
 
     .selected {
-        color: orangered;
+        color: #B69C7D;
     }
 
     .orderUpBtn {

@@ -241,7 +241,7 @@
                 ￥{{finalPrice}}
             </div>
             <div @click="createOrder"
-                 style="float: right; display: inline-block; padding: 10px 20px; background-color: #E55038; color: #fff;">
+                 style="float: right; display: inline-block; padding: 10px 20px; background-color: #B69C7D; color: #fff;">
                 提交订单
             </div>
         </Footer>

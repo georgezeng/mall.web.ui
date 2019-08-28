@@ -13,7 +13,7 @@
                        placeholder="输入验证码"></Input>
             </FormItem>
             <FormItem>
-                温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a href="javascript:;">《用户服务协议》</a>
+                温馨提示：未注册XXX账号的手机号，登录时将自动注册，且代表您已同意<a style="color: #B69C7D !important;" href="javascript:;">《用户服务协议》</a>
             </FormItem>
             <x-button action-type="button" :disabled="loading" style="width: 100%;"
                       :show-loading="loading" @click.native="login">
