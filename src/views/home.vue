@@ -151,7 +151,7 @@
                     <div class="marketPrice" v-if="isSinglePrice(item)">{{item.marketPrice ? '￥' +
                         item.marketPrice : ''}}
                     </div>
-                    <div class="discount" v-if="isSinglePrice(item)">{{discount(item)}}</div>
+                    <div class="discount" v-if="item.marketPrice != null">{{discount(item)}}</div>
                     <div class="name">{{brand(item)}}{{item.name.length > 15 ? item.name.substring(0, 15) +
                         '...' : item.name}}
                     </div>
