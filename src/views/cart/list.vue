@@ -28,7 +28,7 @@
 
     .cartFooter {
         position: fixed;
-        bottom: 61px;
+        bottom: 70px;
         left: 0px;
         width: 100%;
         background-color: #fff;
