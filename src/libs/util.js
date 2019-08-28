@@ -231,4 +231,12 @@ util.scrollHandler = (e, _this) => {
         _this.load();
     }
 }
+
+util.getLongLocation = (data) => {
+    let location = data.province
+    if (data.city.indexOf('市') > -1) {
+        location += data.city
+    }
+    location += data.district + data.location
+}
 export default util;

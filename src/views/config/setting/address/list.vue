@@ -54,7 +54,7 @@
                             </tr>
                             <tr>
                                 <td class="wrap address">
-                                    {{item.province+item.city.replace('市辖区', '')+item.district+item.location}}
+                                    {{Util.getLongLocation(item)}}
                                 </td>
                                 <td width="30" rowspan="2" style="text-align: right;">
                                     <div v-if="item.asDefault"

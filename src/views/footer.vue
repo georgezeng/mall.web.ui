@@ -13,19 +13,19 @@
         position: absolute;
         top: -3px;
         color: #fff;
-        border-radius: 10px !important;
-        background-color: red !important;
+        border-radius: 18px !important;
+        background-color: orangered !important;
         padding: 0px 0px !important;
         width: 18px;
-        height: 16px;
-        line-height: 14px;
+        height: 18px;
+        line-height: 18px;
     }
 </style>
 <template>
     <Footer class="footer">
         <div align="center">
             <div @click="goHome" class="button">
-                <div>
+                <div style="position: relative; top: 5px;">
                     <img :src="home" width="30" height="30" class="img"/>
                 </div>
                 <div :style="homeStyle">
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div @click="goCategory" class="button">
-                <div>
+                <div style="position: relative; top: 5px;">
                     <img :src="category" width="30" height="30" class="img"/>
                 </div>
                 <div :style="categoryStyle">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div @click="goCart" class="button" style="position: relative;">
-                <div>
+                <div style="position: relative; top: 5px;">
                     <img :src="cart" width="30" height="30" class="img"/>
                     <mt-badge :style="cartItemStyle" class="cartItems" v-if="cartItems > 0" size="small">{{cartItems}}
                     </mt-badge>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div @click="goCenter" class="button">
-                <div>
+                <div style="position: relative; top: 5px;">
                     <img :src="mine" width="30" height="30" class="img"/>
                 </div>
                 <div :style="mineStyle">
@@ -91,16 +91,16 @@
                 mine,
                 mineSelected,
                 mineStyle: {
-                    color: '#B69C7D'
+                    color: '#B69C7D',
                 },
                 cartStyle: {
-                    color: '#B69C7D'
+                    color: '#B69C7D',
                 },
                 categoryStyle: {
-                    color: '#B69C7D'
+                    color: '#B69C7D',
                 },
                 homeStyle: {
-                    color: '#B69C7D'
+                    color: '#B69C7D',
                 },
                 cartItemStyle: {},
                 cartItems: 0,

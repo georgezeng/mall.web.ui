@@ -61,7 +61,7 @@
             top: -10px;
             .number {
                 font-size: 16pt;
-                color: #2D7AF6;
+                color: #B69C7D;
                 margin-bottom: 10px;
             }
             .title {

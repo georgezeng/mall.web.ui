@@ -56,8 +56,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div style="font-size: 12px; color: gray; position: relative; left: 28px;">
-                        {{form.address.province+form.address.city.replace('市辖区',
-                        '')+form.address.district+form.address.location}}
+                        {{Util.getLongLocation(form.address)}}
                     </div>
                 </div>
             </div>
@@ -229,6 +228,7 @@
         },
         data() {
             return {
+                Util,
                 trash,
                 config,
                 location,

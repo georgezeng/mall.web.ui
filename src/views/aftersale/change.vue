@@ -184,7 +184,7 @@
             },
             location() {
                 if (this.form.id != null) {
-                    return this.form.address.province + this.form.address.city.replace('市辖区', '') + this.form.address.district + this.form.address.location
+                    return Util.getLongLocation(this.form.address)
                 } else {
                     return ''
                 }

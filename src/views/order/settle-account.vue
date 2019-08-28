@@ -167,7 +167,7 @@
                             <span class="phone">{{data.address.phone.substring(0, 3)}}****{{data.address.phone.substring(7, data.address.phone.length)}}</span>
                         </div>
                         <div>
-                            <span class="location">{{data.address.province + data.address.city.replace('市辖区', '') + data.address.district + data.address.location}}</span>
+                            <span class="location">{{Util.getLongLocation(data.address)}}</span>
                         </div>
                     </div>
                 </mt-cell>
