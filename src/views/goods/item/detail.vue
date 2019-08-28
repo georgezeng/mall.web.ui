@@ -381,7 +381,7 @@
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
                 </swiper-item>
             </swiper>
-            <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex}" style="margin-top: -50px; position: absolute; width: 100%;"
+            <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex, left: vedioLeft + 'px'}" style="margin-top: -50px; position: absolute; width: 111px;"
                  align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
                       style="margin-right: 10px;" @click="showVedio(true)">视频</span>
@@ -452,6 +452,7 @@
         components: {},
         data() {
             return {
+                vedioLeft: 0,
                 vedioZIndex: 100000,
                 topBarHeight: 0,
                 vedio: false,
@@ -912,6 +913,9 @@
                     this.$refs.vedio.addEventListener('play', () => {
                         this.vedioZIndex = -1
                     }, false)
+                    // this.$refs.vedio.addEventListener('timeupdate', () => {
+                    //     this.vedioZIndex = -1
+                    // }, false)
                     this.$refs.vedio.addEventListener('ended', () => {
                         this.vedioZIndex = 100000
                     }, false)
@@ -930,6 +934,7 @@
             } else {
                 this.uid = 0
             }
+            this.vedioLeft = (document.documentElement.clientWidth - 111) / 2
             if (document.documentElement.clientHeight < 610) {
                 this.posterWidth = document.documentElement.clientWidth * 0.7
                 this.posterHeight = document.documentElement.clientWidth * 0.7 * 1161 / 750
