@@ -18,12 +18,12 @@
         left: 0px;
         box-shadow: 0px 0px 3px -1px gray;
         overflow: auto;
+        width: 100%;
     }
 
     .title {
         display: inline-block;
-        width: 20%;
-        text-align: center;
+        width: 80px;
         margin: 0;
         padding: 0;
     }
@@ -38,15 +38,20 @@
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <div align="center" style="color: #fff;">我的订单</div>
-            <div class="titlePanel" :style="{width: titlePanelWidth + 'px'}">
-                <div class="title" @click="selectType('All')" :class="{'selected-title': type == 'All'}">全部</div>
-                <div class="title" @click="selectType('UnPay')" :class="{'selected-title': type == 'UnPay'}">待付款</div>
-                <div class="title" @click="selectType('Paid')" :class="{'selected-title': type == 'Paid'}">待发货</div>
-                <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货
-                </div>
-                <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">已完成
-                </div>
-                <div class="title" @click="selectType('Canceled')" :class="{'selected-title': type == 'Canceled'}">已取消
+            <div class="titlePanel">
+                <div style="width: 500px; float: left;">
+                    <div class="title" @click="selectType('All')" :class="{'selected-title': type == 'All'}">全部</div>
+                    <div class="title" @click="selectType('UnPay')" :class="{'selected-title': type == 'UnPay'}">待付款
+                    </div>
+                    <div class="title" @click="selectType('Paid')" :class="{'selected-title': type == 'Paid'}">待发货</div>
+                    <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货
+                    </div>
+                    <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">
+                        已完成
+                    </div>
+                    <div class="title" @click="selectType('Canceled')" :class="{'selected-title': type == 'Canceled'}">
+                        已取消
+                    </div>
                 </div>
             </div>
         </Header>
@@ -81,7 +86,7 @@
                     <span style="color: orangered;">￥{{item.realPrice}}</span> (含运费)
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
-                    <CountDown style="float: left; color: orangered; font-size: 14px;" :form="item" @close="reload" />
+                    <CountDown style="float: left; color: orangered; font-size: 14px;" :form="item" @close="reload"/>
                     <Button @click="pay(item)" style="float: right; margin-left: 10px;">去支付</Button>
                     <Button @click="cancelConfirm(item.id)" style="float: right;">
                         取消订单
@@ -99,7 +104,8 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Shipped'">
-                    <Button @click="pickupConfirm(item.id)" style="border-color: #B69C7D; color: #B69C7D; float: right; margin-left: 10px;">
+                    <Button @click="pickupConfirm(item.id)"
+                            style="border-color: #B69C7D; color: #B69C7D; float: right; margin-left: 10px;">
                         确认收货
                     </Button>
                     <Button @click="goRefundOnly(item.id)" style="float: right; margin-left: 10px;">
@@ -109,15 +115,18 @@
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Canceled' || item.status.name == 'Refunded'">
-                    <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
+                    <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash"
+                         width="20" height="20"/>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Closed'">
-                    <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
+                    <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash"
+                         width="20" height="20"/>
                     <div class="clearfix"></div>
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'Finished'">
-                    <Button v-if="!item.comment" @click="goEvaluate(item.id, 'UnComment')" style="float: right; margin-left: 10px;">
+                    <Button v-if="!item.comment" @click="goEvaluate(item.id, 'UnComment')"
+                            style="float: right; margin-left: 10px;">
                         评价
                     </Button>
                     <Button v-else @click="goEvaluate(item.id, 'All')" style="float: right; margin-left: 10px;">
@@ -126,7 +135,8 @@
                     <Button v-if="!item.applied" @click="goAfterSale(item.id)" style="float: right; margin-left: 10px;">
                         申请售后
                     </Button>
-                    <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
+                    <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash"
+                         width="20" height="20"/>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -151,7 +161,6 @@
         },
         data() {
             return {
-                titlePanelWidth: 0,
                 trash,
                 config,
                 commonStyles,
@@ -385,7 +394,7 @@
                         for (let i in data) {
                             this.list.push(data[i])
                         }
-                        if(data.length < this.queryInfo.page.size) {
+                        if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
                         }
@@ -407,7 +416,6 @@
         mounted() {
             window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 400
-            this.titlePanelWidth = document.documentElement.clientWidth
             this.contentStyle.marginTop = '125px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
