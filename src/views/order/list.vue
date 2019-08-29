@@ -13,7 +13,6 @@
         background-color: #fff;
         margin: 0;
         padding: 0;
-        width: 100%;
         position: absolute;
         top: 65px;
         left: 0px;
@@ -39,7 +38,7 @@
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <div align="center" style="color: #fff;">我的订单</div>
-            <div class="titlePanel">
+            <div class="titlePanel" :style="{width: titlePanelWidth + 'px'}">
                 <div class="title" @click="selectType('All')" :class="{'selected-title': type == 'All'}">全部</div>
                 <div class="title" @click="selectType('UnPay')" :class="{'selected-title': type == 'UnPay'}">待付款</div>
                 <div class="title" @click="selectType('Paid')" :class="{'selected-title': type == 'Paid'}">待发货</div>
@@ -47,7 +46,7 @@
                 </div>
                 <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">已完成
                 </div>
-                <div class="title" @click="selectType('Canceled')" :class="{'selected-title': type == 'Canceled'}">已完成
+                <div class="title" @click="selectType('Canceled')" :class="{'selected-title': type == 'Canceled'}">已取消
                 </div>
             </div>
         </Header>
@@ -152,6 +151,7 @@
         },
         data() {
             return {
+                titlePanelWidth: 0,
                 trash,
                 config,
                 commonStyles,
@@ -407,6 +407,7 @@
         mounted() {
             window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 400
+            this.titlePanelWidth = document.documentElement.clientWidth
             this.contentStyle.marginTop = '125px'
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
