@@ -175,7 +175,7 @@
                     确认收货
                 </Button>
                 <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" >
-                    申请退款
+                    退款售后
                 </Button>
                 <Button :loading="loading" style="float: right;" @click="goExpress(form.id)"
                         >

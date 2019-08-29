@@ -18,11 +18,12 @@
         top: 65px;
         left: 0px;
         box-shadow: 0px 0px 3px -1px gray;
+        overflow: auto;
     }
 
     .title {
         display: inline-block;
-        width: 18%;
+        width: 20%;
         text-align: center;
         margin: 0;
         padding: 0;
@@ -45,6 +46,8 @@
                 <div class="title" @click="selectType('Shipped')" :class="{'selected-title': type == 'Shipped'}">待收货
                 </div>
                 <div class="title" @click="selectType('Finished')" :class="{'selected-title': type == 'Finished'}">已完成
+                </div>
+                <div class="title" @click="selectType('Canceled')" :class="{'selected-title': type == 'Canceled'}">已完成
                 </div>
             </div>
         </Header>
@@ -101,7 +104,7 @@
                         确认收货
                     </Button>
                     <Button @click="goRefundOnly(item.id)" style="float: right; margin-left: 10px;">
-                        申请退款
+                        退款售后
                     </Button>
                     <Button @click="goExpress(item.id)" style="float: right;">查看物流</Button>
                     <div class="clearfix"></div>
