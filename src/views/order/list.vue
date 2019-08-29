@@ -101,7 +101,7 @@
                         确认收货
                     </Button>
                     <Button @click="goRefundOnly(item.id)" style="float: right; margin-left: 10px;">
-                        取消订单
+                        申请退款
                     </Button>
                     <Button @click="goExpress(item.id)" style="float: right;">查看物流</Button>
                     <div class="clearfix"></div>
