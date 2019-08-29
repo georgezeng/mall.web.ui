@@ -1,13 +1,4 @@
 <style scoped lang="less">
-    .header {
-        background-color: #fff;
-        height: 60px;
-        position: fixed;
-        top: 0px;
-        z-index: 100;
-        width: 100%;
-        box-shadow: 0px 0px 3px -1px gray;
-    }
 
     .info {
         background-image: url("../../images/center-header.png");
@@ -15,7 +6,7 @@
         background-size: cover;
         background-position: 0px 0;
         width: 100%;
-        height: 100px;
+        height: 120px;
         position: relative;
         padding: 0;
     }
@@ -35,12 +26,11 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header class="header">
-            <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
-            <div align="center" style="position: relative; top: 0px;">订单详情</div>
-        </Header>
-        <Content :style="commonStyles.content" style="margin-top: 60px; margin-bottom: 60px;">
+        <Content :style="contentStyle" style="margin-bottom: 60px;">
             <div class="info">
+                <Icon size="24" style="left: 10px; position: absolute; top: 20px;color: #fff;" type="ios-arrow-back"
+                      @click="back"/>
+                <div align="center" style="position: relative; top: 20px;color: #fff; margin-bottom: 20px;">订单详情</div>
                 <div style="width: 90%; margin: 0 auto; color: #fff; padding: 20px 0 10px;">
                     <div style="float: left; ">{{form.status.clientText}}</div>
                     <CountDown style="float: right;" :form="form" @close="refresh"/>
@@ -60,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div style="background-color: #fff; padding: 40px 0 10px;">
+            <div style="background-color: #fff; padding: 70px 0 10px;">
                 <div style="margin: 0 15px;">
                     <Icon size="24" type="md-text"/>
                     <span>买家留言</span>
@@ -123,8 +113,9 @@
                 <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span
                         style="color: orangered;">￥{{form.realPrice}}</span></div>
             </div>
-            <div style="background-color: #f5f5f5; height: 10px;"></div>
-            <div style="background-color: #fff; padding: 15px; font-size: 14px;">
+            <div v-if="form.coupons && form.coupons.length > 0" style="background-color: #f5f5f5; height: 10px;"></div>
+            <div v-if="form.coupons && form.coupons.length > 0"
+                 style="background-color: #fff; padding: 15px; font-size: 14px;">
                 <div v-for="coupon in form.coupons" :key="coupon.id">
                     <div style="display: inline-block; margin-right: 10px;">优惠券编号: {{coupon.couponId}}</div>
                     <div style="display: inline-block;">优惠金额: ￥{{coupon.amount}}</div>
@@ -147,23 +138,23 @@
         </Content>
         <Footer :style="footerStyle">
             <div style="margin: 10px;" v-if="form.status.name == 'UnPay'">
-                <Button @click="pay"  :loading="loading" style="float: right; margin-left: 10px;"
-                        >去支付
+                <Button @click="pay" :loading="loading" style="float: right; margin-left: 10px;"
+                >去支付
                 </Button>
-                <Button  :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
-                        >
+                <Button :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
+                >
                     取消订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Paid'">
-                <Button  :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
-                        >取消订单
+                <Button :loading="loading" @click="cancelConfirm(form.id)" style="float: right;"
+                >取消订单
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'CanceledForRefund'">
-                <Button @click="refundConfirm(form.id)" style="float: right;" >
+                <Button @click="refundConfirm(form.id)" style="float: right;">
                     申请退款
                 </Button>
                 <div class="clearfix"></div>
@@ -171,41 +162,44 @@
             <div style="margin: 10px;" v-if="form.status.name == 'Shipped'">
                 <Button :loading="loading" @click="pickupConfirm(form.id)"
                         style="border-color: #B69C7D; color: #B69C7D; float: right; margin-left: 10px;"
-                        >
+                >
                     确认收货
                 </Button>
-                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;" >
+                <Button @click="goRefundOnly(form.id)" style="float: right; margin-left: 10px;">
                     退款售后
                 </Button>
                 <Button :loading="loading" style="float: right;" @click="goExpress(form.id)"
-                        >
+                >
                     查看物流
                 </Button>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Canceled' || form.status.name == 'Refunded'">
-                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
+                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash"
+                     width="20" height="20"/>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Closed'">
-                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
+                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash"
+                     width="20" height="20"/>
                 <div class="clearfix"></div>
             </div>
             <div style="margin: 10px;" v-if="form.status.name == 'Finished'">
-                <Button  :loading="loading" v-if="!form.comment" @click="goEvaluate(form.id, 'UnComment')"
+                <Button :loading="loading" v-if="!form.comment" @click="goEvaluate(form.id, 'UnComment')"
                         style="float: right; margin-left: 10px;"
-                        >
+                >
                     评价
                 </Button>
-                <Button  :loading="loading" v-else @click="goEvaluate(form.id, 'All')"
-                        style="float: right; margin-left: 10px;" >
+                <Button :loading="loading" v-else @click="goEvaluate(form.id, 'All')"
+                        style="float: right; margin-left: 10px;">
                     查看评价
                 </Button>
-                <Button v-if="!form.applied"  :loading="loading" @click="goAfterSale(form.id)"
-                        style="float: right; margin-left: 10px;" >
+                <Button v-if="!form.applied" :loading="loading" @click="goAfterSale(form.id)"
+                        style="float: right; margin-left: 10px;">
                     申请售后
                 </Button>
-                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash" width="20" height="20" />
+                <img @click="deleteConfirm(item.id)" style="float: right; position:relative; top:5px;" :src="trash"
+                     width="20" height="20"/>
                 <div class="clearfix"></div>
             </div>
         </Footer>
@@ -234,6 +228,9 @@
                 location,
                 commonStyles,
                 loading: false,
+                contentStyle: {
+                    ...commonStyles.content
+                },
                 footerStyle: {
                     ...commonStyles.footer
                 },
@@ -454,6 +451,8 @@
         created() {
         },
         mounted() {
+            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
+            this.contentStyle.backgroundColor = '#f5f5f5';
             this.isSmallDevice = document.documentElement.clientWidth < 370
             this.form.id = this.$router.currentRoute.params.id
             this.form.id = this.form.id > 0 ? this.form.id : null
