@@ -26,7 +26,7 @@
                 <div style="font-size: 14px;">累积获得: {{data.accInAmount}} DBB</div>
             </div>
             <Spin size="large" fix v-if="showSpin"></Spin>
-            <div style="margin: 10px;">积分明细</div>
+            <div v-if="list && list.length > 0" style="margin: 10px;">积分明细</div>
             <div style="margin: 10px; position: relative;" v-for="item in list" :key="item.id">
                 <div style="background-color: #fff; font-size: 14px; padding: 10px;">
                     <div style="border-bottom: 1px solid #F1F1F1; padding-bottom: 5px; margin-bottom: 5px;">
