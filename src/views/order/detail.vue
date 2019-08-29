@@ -28,7 +28,7 @@
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle" style="margin-bottom: 60px;">
             <div class="info">
-                <Icon size="24" style="left: 10px; position: absolute; top: 20px;color: #fff;" type="ios-arrow-back"
+                <Icon size="24" style="left: 10px; position: absolute; top: 20px;color: #fff;z-index: 100000;" type="ios-arrow-back"
                       @click="back"/>
                 <div align="center" style="position: relative; top: 20px;color: #fff; margin-bottom: 20px;">订单详情</div>
                 <div style="width: 90%; margin: 0 auto; color: #fff; padding: 20px 0 10px;">
