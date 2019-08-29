@@ -276,7 +276,7 @@
                         this.type = 'All'
                         this.$vux.loading.hide()
                         this.$vux.toast.show({
-                            text: '申请成功'
+                            text: '申请成功，等待平台审核'
                         })
                         this.load()
                     }).catch(e => {
