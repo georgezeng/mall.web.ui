@@ -837,7 +837,7 @@
                                 const value = values[i]
                                 this.definitionIds.push(value.parent.id)
                             }
-                            API.loadDefinitions(this.definitionIds).then(definitions => {
+                            API.loadDefinitions(item.id, this.definitionIds).then(definitions => {
                                 if (definitions.length > 0) {
                                     for (let i in definitions) {
                                         const definition = definitions[i]
