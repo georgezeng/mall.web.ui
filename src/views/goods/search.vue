@@ -93,6 +93,7 @@
                 if (!this.show) {
                     this.show = true
                 }
+                this.$refs.searchInput.focus()
             },
             reset() {
                 this.key = null
@@ -150,12 +151,8 @@
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
-            const input = this.$refs.searchInput
-            $(input).change(() => {
-                $(this).focus()
-            })
             this.$nextTick(() => {
-                input.focus()
+                this.$refs.searchInput.focus()
             })
             this.load()
         }
