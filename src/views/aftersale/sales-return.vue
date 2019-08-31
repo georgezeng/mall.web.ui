@@ -50,7 +50,7 @@
             <div style="padding: 10px; border-top: 2px solid #f5f5f5;">
                 退还数量:
                 <span style="float: right">
-                    <wv-number-spinner :min="1" :max="form.nums" input-width="30px"
+                    <wv-number-spinner :min="1" :max="maxNums" input-width="30px"
                                        v-model="form.nums"></wv-number-spinner>
                 </span>
             </div>
@@ -102,6 +102,7 @@
                         unitPrice: 0
                     }
                 },
+                maxNums: 0,
                 form: {
                     id: null,
                     type: 'SalesReturn',
@@ -188,6 +189,7 @@
                     API.load(this.form.id).then(data => {
                         this.item = data
                         this.form.nums = data.subOrder.nums
+                        this.maxNums = this.form.nums
                         this.loadReasons();
                         this.loading = false
                     }).catch(e => {
