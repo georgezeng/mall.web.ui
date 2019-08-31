@@ -151,7 +151,7 @@
             this.load()
         },
         updated() {
-            if (this.key != '') {
+            if (!this.key && this.key != '') {
                 this.show = true
             }
         }
