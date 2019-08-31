@@ -324,7 +324,7 @@
         },
         computed: {
             memberDiscount() {
-                return this.level && this.level.discount < 100 ? (this.level.discount / 10).toFixed(1) : '无优惠'
+                return this.level.discount < 100 ? (this.level.discount / 10).toFixed(1) + '折' : '无优惠'
             },
             finalPrice() {
                 const price = this.totalPrice * this.level.discount / 100 - this.couponPrice

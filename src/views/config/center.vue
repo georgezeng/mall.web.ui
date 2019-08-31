@@ -211,6 +211,7 @@
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
                         <img :src="exitImg" width="24" height="24" class="img" style="margin-right: 10px;"/>
                         退出
+                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box class="optionPanel">
                         <img :src="contact" width="24" height="24" class="img" style="margin-right: 10px;"/>

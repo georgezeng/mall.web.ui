@@ -111,7 +111,7 @@
                     </div>
                     <div style="margin-top: 5px;">
                         <span>会员折扣 ({{level.name}}):</span>
-                        <div style="float: right;">{{level.discount < 100 ? (level.discount / 10).toFixed(1) : '无优惠'}}</div>
+                        <div style="float: right;">{{level.discount < 100 ? (level.discount / 10).toFixed(1) + '折' : '无优惠'}}</div>
                     </div>
                 </div>
                 <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span
