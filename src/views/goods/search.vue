@@ -46,7 +46,7 @@
             <form action="" @submit.prevent="">
                 <div :style="{width: searchInputWidth + 'px'}" class="search">
                     <Icon style="color: gray;" type="ios-search"/>
-                    <input @keyup="show=true" @keyup.13="goItemList()" type="search" ref="searchInput"
+                    <input @keyup="showDeleteBtn" @keyup.13="goItemList()" type="search" ref="searchInput"
                            class="searchInput" v-model="key" placeholder="搜索商品"/>
                     <Icon v-show="show" @click="reset" style="color: gray;" size="20" type="ios-close"/>
                 </div>
@@ -89,6 +89,11 @@
         },
         computed: {},
         methods: {
+            showDeleteBtn() {
+                if (!this.show) {
+                    this.show = true
+                }
+            },
             reset() {
                 this.key = null
                 this.show = false
