@@ -309,7 +309,7 @@
                 </popup>
             </div>
 
-            <div v-if="showShareTip"
+            <div v-show="showShareTip"
                  @click="closeShareTipPopup"
                  style="position: fixed; top: 0px; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
                  :style="{height: contentStyle.minHeight}">
@@ -319,7 +319,7 @@
                 </div>
             </div>
 
-            <div v-if="showShareTipInBrowser"
+            <div v-show="showShareTipInBrowser"
                  @click="closeShareTipPopup"
                  style="position: fixed; top: 0px; width: 100%; z-index: 1000;"
                  :style="{height: popupHeight + 'px'}" align="center">
@@ -365,7 +365,7 @@
             </Dropdown>
             <Icon size="24" class="cart" type="ios-cart" @click="goCart"/>
             <Icon size="24" class="share" type="md-share" @click="showSharePopup"/>
-            <mt-badge class="cartItems" v-if="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
+            <mt-badge class="cartItems" v-show="cartItems > 0" size="small" type="error">{{cartItems}}</mt-badge>
             <!--<div :style="{height: topBarHeight + 'px'}"></div>
             <div @click="fitVedio(40, true)" style="position: absolute; z-index: 100000;"
                  :style="{width: itemImgSize + 'px', height: vedioHeight + 'px', zIndex: vedioPanelzIndex}"></div>-->
