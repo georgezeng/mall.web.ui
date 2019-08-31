@@ -145,17 +145,13 @@
             this.headerStyle.backgroundColor = '#fff'
             this.contentStyle.marginTop = '60px'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
-            // this.$nextTick(() => {
-            //     const input = this.$refs.searchInput
-            //     $(input).blur(() => {
-            //         input.focus()
-            //     }).focus()
-            // })
+            this.$nextTick(() => {
+                const input = this.$refs.searchInput
+                $(input).blur(() => {
+                    input.focus()
+                }).focus()
+            })
             this.load()
-        },
-        updated() {
-            const input = this.$refs.searchInput
-            input.focus()
         }
     }
 </script>
