@@ -402,7 +402,7 @@
                 <div slot="title">
                     <span>规格</span>
                 </div>
-                <div v-if="values.length > 0">{{pickupSpec}}</div>
+                <div v-show="values.length > 0">{{pickupSpec}}</div>
             </cell>
             <div class="blockLine"></div>
             <div style="font-size: 11pt; margin: 10px;">
