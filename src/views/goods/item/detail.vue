@@ -453,7 +453,7 @@
         data() {
             return {
                 vedioLeft: 0,
-                vedioZIndex: 100000,
+                vedioZIndex: 100,
                 topBarHeight: 0,
                 vedio: false,
                 posterPopup: false,
@@ -923,10 +923,10 @@
                     //     this.vedioZIndex = -1
                     // }, false)
                     this.$refs.vedio.addEventListener('ended', () => {
-                        this.vedioZIndex = 100000
+                        this.vedioZIndex = 100
                     }, false)
                     this.$refs.vedio.addEventListener('pause', () => {
-                        this.vedioZIndex = 100000
+                        this.vedioZIndex = 100
                     }, false)
                 } else {
                     setTimeout(this.initVedio, 100)
