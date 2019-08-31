@@ -140,7 +140,7 @@
                     <Avatar ref="avatar" size="large" class="avatar" :src="avatar"/>
                     <div v-if="isLogin" style="display: inline-block; position: relative; top: -15px;">
                         <div class="nickname">{{nickname}}</div>
-                        <div class="level">优享会员</div>
+                        <div class="level">{{level}}</div>
                     </div>
                     <div v-else style="display: inline-block; position: relative; top: 5px;">
                         立即登录
@@ -232,6 +232,7 @@
 </template>
 <script>
     import API from '../../api/center.js'
+    import ClientAPI from '../../api/client.js'
     import AfterSaleAPI from '../../api/aftersale.js'
     import OrderAPI from '../../api/order.js'
     import PointsAPI from '../../api/points.js'
@@ -291,7 +292,8 @@
                 isSmallDevice: false,
                 titleFont: '14px',
                 couponNums: 0,
-                points: 0
+                points: 0,
+                level: null
             }
         },
         computed: {
@@ -466,8 +468,11 @@
                 ProfileAPI.load().then(data => {
                     this.info = data
                 })
-                API.totalUnUseCouponNums().then(data => {
+                ClientAPI.totalUnUseCouponNums().then(data => {
                     this.couponNums = data
+                })
+                ClientAPI.currentLevel().then(data => {
+                    this.level = data.name
                 })
                 this.getDfkNums()
                 this.getDfhNums()

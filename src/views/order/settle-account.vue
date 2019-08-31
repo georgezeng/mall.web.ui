@@ -230,10 +230,18 @@
                 </mt-cell>
                 <mt-cell class="couponPrice">
                     <div slot="title" style="font-size: 11pt;">
-                        优惠金额
+                        优惠券抵扣
                     </div>
                     <div style="font-size: 11pt;">
                         <span style="color: orangered;">-￥{{couponPrice}}</span>
+                    </div>
+                </mt-cell>
+                <mt-cell class="couponPrice">
+                    <div slot="title" style="font-size: 11pt;">
+                        会员折扣 ({{level.name}})
+                    </div>
+                    <div style="font-size: 11pt;">
+                        <span style="color: orangered;">{{memberDiscount}}</span>
                     </div>
                 </mt-cell>
             </div>
@@ -252,6 +260,7 @@
 <script>
     import API from '../../api/order.js'
     import AddressAPI from '../../api/address.js'
+    import ClientAPI from '../../api/client.js'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
@@ -280,6 +289,10 @@
                 showPayment: false,
                 showItem: false,
                 popupHeight: 500,
+                level: {
+                    name: 0,
+                    discount: 100
+                },
                 data: {
                     address: {
                         id: null,
@@ -310,8 +323,11 @@
             }
         },
         computed: {
+            memberDiscount() {
+                return this.level && this.level.discount < 100 ? (this.level.discount / 10).toFixed(1) : '无优惠'
+            },
             finalPrice() {
-                const price = this.totalPrice - this.couponPrice
+                const price = this.totalPrice * this.level.discount / 100 - this.couponPrice
                 return price.toFixed(2)
             },
             couponPrice() {
@@ -530,6 +546,9 @@
                 Util.go('Home')
                 return
             }
+            ClientAPI.currentLevel().then(data => {
+                this.level = data
+            })
             const data = Util.getJson('settleAccountData')
             if (data) {
                 this.data = data

@@ -106,8 +106,12 @@
                         <div style="float: right;">￥0.00</div>
                     </div>
                     <div style="margin-top: 5px;">
-                        <span>商品优惠:</span>
-                        <div style="float: right;">-￥{{form.couponAmount}}</div>
+                        <span>优惠券抵扣:</span>
+                        <div style="float: right;">-￥{{form.couponAmount ? form.couponAmount : '0.00'}}</div>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <span>会员折扣 ({{level.name}}):</span>
+                        <div style="float: right;">{{level.discount < 100 ? (level.discount / 10).toFixed(1) : '无优惠'}}</div>
                     </div>
                 </div>
                 <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span
@@ -207,6 +211,7 @@
 </template>
 <script>
     import API from '../../api/order.js'
+    import ClientAPI from '../../api/client.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import {MessageBox} from 'mint-ui';
@@ -228,6 +233,10 @@
                 location,
                 commonStyles,
                 loading: false,
+                level: {
+                    name: null,
+                    discount: 100,
+                },
                 contentStyle: {
                     ...commonStyles.content
                 },
@@ -457,6 +466,9 @@
             this.form.id = this.$router.currentRoute.params.id
             this.form.id = this.form.id > 0 ? this.form.id : null
             this.load()
+            ClientAPI.currentLevel().then(data => {
+                this.level = data
+            })
         }
     }
 </script>

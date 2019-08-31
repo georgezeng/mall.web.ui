@@ -171,7 +171,7 @@
     import Footer from './footer'
     import commonStyles from '../styles/common'
     import API from '../api/goods-item-list'
-    import CenterAPI from '../api/center'
+    import ClientAPI from '../api/client'
     import config from '../config/index'
     // import Masonry from 'masonry-layout'
     import Util from '../libs/util.js'
@@ -344,7 +344,7 @@
                 this.bonusImgTop = (document.documentElement.clientHeight - this.bonusImgHeight) / 2
                 this.bonusBtnBottom = 60 * this.bonusImgHeight / 972
                 this.bonusBtnLeft = (this.bonusImgWidth - this.bonusBtnWidth) / 2
-                CenterAPI.registrationBonus().then(amount => {
+                ClientAPI.registrationBonus().then(amount => {
                     if (amount) {
                         this.bonus = amount
                         this.bonusPopup = true
