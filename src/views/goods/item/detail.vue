@@ -695,6 +695,9 @@
                     this.confirmBuy = true
                     return
                 }
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
                 OrderAPI.settleAccount({
                     fromCart: false,
                     items: [
@@ -713,6 +716,9 @@
                     Util.go('OrderSettleAccount', {
                         key
                     })
+                    this.$vux.loading.hide()
+                }).catch(e => {
+                    this.$vux.loading.hide()
                 })
             },
             toggleValue(definition, value) {
