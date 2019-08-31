@@ -91,7 +91,6 @@
         methods: {
             reset() {
                 this.key = null
-                this.show = false
             },
             clear() {
                 Util.putJson('SearchHistory', null)
@@ -151,9 +150,7 @@
             this.load()
         },
         updated() {
-            if (!this.key && this.key != '') {
-                this.show = true
-            }
+            this.show = this.key && this.key != ''
         }
     }
 </script>
