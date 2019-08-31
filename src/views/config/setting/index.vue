@@ -19,7 +19,6 @@
                 <cell class="optionalLine optionalCell" is-link title="账号安全" @click.native="goSecurity" />
                 <cell class="optionalLine optionalCell" is-link title="实名认证" @click.native="goIdentity" />
                 <cell class="optionalLine optionalCell" is-link title="收货地址" @click.native="goAddress" />
-                <cell class="optionalLine optionalCell" is-link title="关于我们" @click.native="goAbout" />
             </group>
         </Content>
     </Layout>
@@ -61,9 +60,6 @@
                     from: 'MySetting'
                 })
                 Util.go('MyAddressList')
-            },
-            goAbout() {
-                Util.go('AboutUs')
             },
         },
     }

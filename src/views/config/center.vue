@@ -210,7 +210,7 @@
                     </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
                         <img :src="exitImg" width="24" height="24" class="img" style="margin-right: 10px;"/>
-                        退出
+                        安全退出
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box class="optionPanel">
@@ -222,6 +222,10 @@
                              style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px;">
                             复制微信号
                         </div>
+                    </cell-box>
+                    <cell-box class="optionPanel" is-link @click.native="showAboutUsPopup">
+                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
+                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box v-if="isSmallDevice" class="optionPanel" style="visibility: hidden; margin-top: 30px;">
                     </cell-box>
