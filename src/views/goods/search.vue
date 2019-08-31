@@ -90,10 +90,10 @@
         computed: {},
         methods: {
             showDeleteBtn() {
-                if (!this.show) {
-                    this.show = true
-                }
-                this.$refs.searchInput.focus()
+                // if (!this.show) {
+                //     this.show = true
+                // }
+                // this.$refs.searchInput.focus()
             },
             reset() {
                 this.key = null
