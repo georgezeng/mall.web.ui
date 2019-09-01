@@ -351,7 +351,7 @@
                     text: '加载中...'
                 })
                 if (payment != item.payment.name) {
-                    API.changePayment(item.id, payment).then(res => {
+                    API.changePayment(item.id, payment.name).then(res => {
                         pay()
                     }).catch(e => {
                         this.$vux.loading.hide()
