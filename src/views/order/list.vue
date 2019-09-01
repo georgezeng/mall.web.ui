@@ -301,9 +301,13 @@
             pay() {
                 let payment = null
                 if (this.payment.selected[0]) {
-                    payment = 'WePay'
+                    payment = {
+                        name: 'WePay'
+                    }
                 } else {
-                    payment = 'AliPay'
+                    payment = {
+                        name: 'AliPay'
+                    }
                 }
                 const item = this.item
                 item.payment = payment
