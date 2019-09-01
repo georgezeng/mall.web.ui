@@ -313,20 +313,21 @@
                 const hasChanged = item.payment.name != payment.name
                 item.payment = payment
                 this.closePaymentPopup()
+                const _this = this
                 function pay() {
                     const id = item.id
                     if (Util.isInWechat()) {
                         switch (item.payment.name) {
                             case 'WePay': {
                                 Util.wepayForJsApi(id, () => {
-                                    this.$vux.loading.hide()
+                                    _this.$vux.loading.hide()
                                     // this.type = 'Paid'
-                                    this.reload()
+                                    _this.reload()
                                 })
                             }
                                 break
                             case 'AliPay': {
-                                this.$vux.loading.hide()
+                                _this.$vux.loading.hide()
                                 Util.go('AlipayInWechat', {
                                     id
                                 })
@@ -337,12 +338,12 @@
                         switch (item.payment.name) {
                             case 'WePay': {
                                 Util.wepayForMweb(id)
-                                this.$vux.loading.hide()
+                                _this.$vux.loading.hide()
                             }
                                 break
                             case 'AliPay': {
                                 Util.alipay(id, 'system')
-                                this.$vux.loading.hide()
+                                _this.$vux.loading.hide()
                             }
                                 break
                         }
