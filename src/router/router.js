@@ -3,7 +3,7 @@ const routers = [
         path: '/',
         name: 'Index',
         meta: {
-            title: '首页',
+            title: '',
             needLogin: false
         },
         component: (resolve) => require(['../views/index.vue'], resolve)
