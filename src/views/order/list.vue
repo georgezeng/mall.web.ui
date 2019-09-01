@@ -310,6 +310,7 @@
                     }
                 }
                 const item = this.item
+                const hasChanged = item.payment.name != payment.name
                 item.payment = payment
                 this.closePaymentPopup()
                 function pay() {
@@ -350,7 +351,7 @@
                 this.$vux.loading.show({
                     text: '加载中...'
                 })
-                if (payment != item.payment.name) {
+                if (hasChanged) {
                     API.changePayment(item.id, payment.name).then(res => {
                         pay()
                     }).catch(e => {
