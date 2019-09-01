@@ -18,8 +18,6 @@ router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
     if (to.name != 'Index') {
         Util.fixTitle()
-    } else {
-        Util.title(to.meta.title);
     }
     if (to.meta.needLogin) {
         const token = Util.getToken()
