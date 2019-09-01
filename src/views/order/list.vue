@@ -306,7 +306,8 @@
                     payment = 'AliPay'
                 }
                 const item = this.item
-
+                item.payment = payment
+                this.closePaymentPopup()
                 function pay() {
                     const id = item.id
                     if (Util.isInWechat()) {
@@ -342,7 +343,6 @@
                         }
                     }
                 }
-
                 this.$vux.loading.show({
                     text: '加载中...'
                 })
