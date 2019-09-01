@@ -43,4 +43,7 @@ export default {
     checkPaid(id) {
         return axios.get('/order/checkPaid/params/' + id)
     },
+    changePayment(id, payment) {
+        return axios.get('/order/changePayment/params/' + id + '/' + payment)
+    }
 }

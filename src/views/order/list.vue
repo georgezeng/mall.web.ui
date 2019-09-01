@@ -57,6 +57,41 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
+            <div v-transfer-dom>
+                <popup v-model="payPopup" style="z-index: 10000; background-color: #fff;">
+                    <div style="height: 300px; position: relative;">
+                        <Icon size="30" type="ios-close" class="popup-close" @click="closePaymentPopup"/>
+                        <div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+                            选择支付方式
+                        </div>
+                        <mt-cell class="payline">
+                            <div slot="title">
+                                <img :src="WechatLogo" width="42" height="42"/>
+                                微信支付
+                            </div>
+                            <div>
+                                <check-icon class="checker"
+                                            :value.sync="payment.selected[0]"
+                                            @click.native.stop="checkPayment(0)"></check-icon>
+                            </div>
+                        </mt-cell>
+                        <mt-cell class="payline">
+                            <div slot="title">
+                                <img :src="AlipayLogo" width="42" height="42"/>
+                                支付宝支付
+                            </div>
+                            <div>
+                                <check-icon class="checker"
+                                            :value.sync="payment.selected[1]"
+                                            @click.native.stop="checkPayment(1)"></check-icon>
+                            </div>
+                        </mt-cell>
+                        <div style="position: absolute; bottom: 0px; padding: 10px; width: 100%;">
+                            <x-button @click.native="pay" style="color: #fff; width: 100%;">确认支付</x-button>
+                        </div>
+                    </div>
+                </popup>
+            </div>
             <div style="background-color: #fff; margin: 20px 0px; padding: 10px 0;" v-for="item in list" :key="item.id">
                 <div style="padding: 10px 10px;">
                     <div style="float: left;">下单时间: {{item.createTime}}</div>
@@ -87,7 +122,7 @@
                 </div>
                 <div style="margin: 10px;" v-if="item.status.name == 'UnPay'">
                     <CountDown style="float: left; color: orangered; font-size: 14px;" :form="item" @close="reload"/>
-                    <Button @click="pay(item)" style="float: right; margin-left: 10px;">去支付</Button>
+                    <Button @click="showPaymentPopup(item)" style="float: right; margin-left: 10px;">去支付</Button>
                     <Button @click="cancelConfirm(item.id)" style="float: right;">
                         取消订单
                     </Button>
@@ -154,6 +189,8 @@
     import wx from 'weixin-js-sdk'
     import CountDown from './countdown'
     import trash from '../../images/trash.png'
+    import WechatLogo from '../../images/wechat-logo.png'
+    import AlipayLogo from '../../images/alipay-logo.png'
 
     export default {
         components: {
@@ -161,6 +198,8 @@
         },
         data() {
             return {
+                AlipayLogo,
+                WechatLogo,
                 trash,
                 config,
                 commonStyles,
@@ -184,6 +223,11 @@
                 showSpin: true,
                 isSmallDevice: false,
                 type: 'All',
+                payPopup: false,
+                item: null,
+                payment: {
+                    selected: [],
+                },
             }
         },
         computed: {},
@@ -234,44 +278,83 @@
                     id
                 })
             },
-            pay(item) {
-                this.$vux.loading.show({
-                    text: '加载中...'
-                })
-                const id = item.id
-                if (Util.isInWechat()) {
-                    switch (item.payment.name) {
-                        case 'WePay': {
-                            Util.wepayForJsApi(id, () => {
-                                this.$vux.loading.hide()
-                                // this.type = 'Paid'
-                                this.reload()
-                            })
-                        }
-                            break
-                        case 'AliPay': {
-                            this.$vux.loading.hide()
-                            Util.go('AlipayInWechat', {
-                                id
-                            })
-                        }
-                            break
-                    }
+            checkPayment(index) {
+                for (let i in this.payment.selected) {
+                    this.payment.selected[i] = false
+                }
+                this.payment.selected[index] = true
+            },
+            closePaymentPopup() {
+                this.payPopup = false
+            },
+            showPaymentPopup(item) {
+                this.item = item
+                if (item.payment.name == 'WePay') {
+                    this.payment.selected[0] = true
+                    this.payment.selected[1] = false
                 } else {
-                    switch (item.payment.name) {
-                        case 'WePay': {
-                            Util.wepayForMweb(id)
-                            this.$vux.loading.hide()
+                    this.payment.selected[0] = false
+                    this.payment.selected[1] = true
+                }
+                this.payPopup = true
+            },
+            pay() {
+                let payment = null
+                if (this.payment.selected[0]) {
+                    payment = 'WePay'
+                } else {
+                    payment = 'AliPay'
+                }
+                const item = this.item
+
+                function pay() {
+                    const id = item.id
+                    if (Util.isInWechat()) {
+                        switch (item.payment.name) {
+                            case 'WePay': {
+                                Util.wepayForJsApi(id, () => {
+                                    this.$vux.loading.hide()
+                                    // this.type = 'Paid'
+                                    this.reload()
+                                })
+                            }
+                                break
+                            case 'AliPay': {
+                                this.$vux.loading.hide()
+                                Util.go('AlipayInWechat', {
+                                    id
+                                })
+                            }
+                                break
                         }
-                            break
-                        case 'AliPay': {
-                            Util.alipay(id, 'system')
-                            this.$vux.loading.hide()
+                    } else {
+                        switch (item.payment.name) {
+                            case 'WePay': {
+                                Util.wepayForMweb(id)
+                                this.$vux.loading.hide()
+                            }
+                                break
+                            case 'AliPay': {
+                                Util.alipay(id, 'system')
+                                this.$vux.loading.hide()
+                            }
+                                break
                         }
-                            break
                     }
                 }
 
+                this.$vux.loading.show({
+                    text: '加载中...'
+                })
+                if (payment != item.payment.name) {
+                    API.changePayment(item.id, payment).then(res => {
+                        pay()
+                    }).catch(e => {
+                        this.$vux.loading.hide()
+                    })
+                } else {
+                    pay()
+                }
             },
             goDetail(id) {
                 Util.putForNav({
