@@ -10,21 +10,22 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header :style="headerStyle">
+        <Header :style="headerStyle" style="height: 160px;">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <div align="center" style="color: #fff;">我的积分</div>
-        </Header>
-        <Content :style="contentStyle">
-            <div style="background-color: #AD9979; color: #fff; padding: 10px;">
+            <div style="margin-top: -20px; background-color: #AD9979; color: #fff; padding: 10px; text-align: left; font-size: 12pt; line-height: 20px;">
                 <div style="margin: 10px 0;">
                     当前积分
                 </div>
-                <div style="margin: 0 0 10px; position: relative; top: -10px;">
+                <div style="margin: 0 0 10px;">
                     <span style="font-size: 18pt; font-weight: bold;">{{data.currentAmount}}</span>
                     <span>DBB</span>
                 </div>
-                <div style="font-size: 14px;">累积获得: {{data.accInAmount}} DBB</div>
+                <div style="position: relative; top: 5px; font-size: 14px;">累积获得: {{data.accInAmount}} DBB</div>
             </div>
+        </Header>
+        <Content :style="contentStyle">
+
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div v-if="list && list.length > 0" style="margin: 10px;">积分明细</div>
             <div style="margin: 10px; position: relative;" v-for="item in list" :key="item.id">
@@ -123,9 +124,9 @@
         },
         mounted() {
             window.addEventListener('scroll', this.scrollHandler)
-            this.contentStyle.marginTop = '60px'
+            this.contentStyle.marginTop = '160px'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 160) + "px"
             this.load()
             API.baseInfo().then(data => {
                 this.data = data

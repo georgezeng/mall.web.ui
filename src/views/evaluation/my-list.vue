@@ -42,11 +42,11 @@
             <div class="titlePanel">
                 <div class="title" @click="selectStatus('UnComment')"
                      :class="{'selected-title': status == 'UnComment'}">
-                    待评价 ({{uncommentTotal}})
+                    待评价<!-- ({{uncommentTotal}})-->
                 </div>
                 <div class="title" @click="selectStatus('All')"
                      :class="{'selected-title': status == 'All'}">
-                    全部评价 ({{commentTotal}})
+                    全部评价<!-- ({{commentTotal}})-->
                 </div>
             </div>
         </Header>
@@ -283,7 +283,7 @@
                             for (let i in data) {
                                 this.uncommentList.push(data[i])
                             }
-                            if(data.length < this.page.size) {
+                            if (data.length < this.page.size) {
                                 this.allLoaded = true
                                 this.showLoading = false
                             }
@@ -312,7 +312,7 @@
                             for (let i in data) {
                                 this.list.push(data[i])
                             }
-                            if(data.length < this.page.size) {
+                            if (data.length < this.page.size) {
                                 this.allLoaded = true
                                 this.showLoading = false
                             }
@@ -332,6 +332,16 @@
             scrollHandler(e) {
                 Util.scrollHandler(e, this)
             },
+            count() {
+                API.countComment({
+                    data: this.orderId,
+                    page: this.page
+                }).then(total => total ? this.commentTotal = total : this.commentTotal = 0)
+                API.countUnComment({
+                    data: this.orderId,
+                    page: this.page
+                }).then(total => total ? this.uncommentTotal = total : this.uncommentTotal = 0)
+            }
         },
         mounted() {
             window.addEventListener('scroll', this.scrollHandler)
@@ -349,14 +359,7 @@
             this.orderId = this.$router.currentRoute.params.id
             this.status = this.$router.currentRoute.params.status
             this.reload()
-            API.countComment({
-                data: this.orderId,
-                page: this.page
-            }).then(total => total ? this.commentTotal = total : this.commentTotal = 0)
-            API.countUnComment({
-                data: this.orderId,
-                page: this.page
-            }).then(total => total ? this.uncommentTotal = total : this.uncommentTotal = 0)
+            // this.count()
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)

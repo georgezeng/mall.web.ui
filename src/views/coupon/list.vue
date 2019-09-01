@@ -101,13 +101,13 @@
             <div align="center" style="color: #fff;">我的优惠券</div>
             <div class="titlePanel">
                 <div class="title" @click="selectType('UnUse')" :class="{'selected-title': type == 'UnUse'}">
-                    已领取({{unuseCount}})
+                    已领取<!--({{unuseCount}})-->
                 </div>
                 <div class="title" @click="selectType('Used')" :class="{'selected-title': type == 'Used'}">
-                    已使用({{usedCount}})
+                    已使用<!--({{usedCount}})-->
                 </div>
                 <div class="title" @click="selectType('Out')" :class="{'selected-title': type == 'Out'}">
-                    已失效({{outCount}})
+                    已失效<!--({{outCount}})-->
                 </div>
             </div>
         </Header>
@@ -355,7 +355,7 @@
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.type = this.$router.currentRoute.params.type
             this.reload()
-            this.count()
+            // this.count()
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
