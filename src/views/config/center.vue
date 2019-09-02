@@ -213,10 +213,10 @@
                         安全退出
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
-                    <cell-box class="optionPanel">
+                    <cell-box v-if="wechatService != null" class="optionPanel">
                         <img :src="contact" width="24" height="24" class="img" style="margin-right: 10px;"/>
-                        <span>客服: 广州多呗生活</span>
-                        <input ref="contactText" readonly value="广州多呗生活"
+                        <span>客服: {{wechatService}}</span>
+                        <input ref="contactText" readonly :value="wechatService"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyContact"
                              style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px;">
@@ -260,6 +260,7 @@
     import coupon from '../../images/coupon.png'
     import evaluate from '../../images/evaluate.png'
     import tuihuo from '../../images/tuihuo.png'
+    import MerchantAPI from '../../api/merchant'
 
     export default {
         components: {
@@ -284,6 +285,7 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
+                wechatService: null,
                 info: {
                     avatar: null,
                     nickname: null
@@ -453,12 +455,7 @@
                 })
             }
         },
-        mounted() {
-            this.isSmallDevice = document.documentElement.clientHeight < 610
-            this.contentStyle.minHeight = (document.documentElement.clientHeight + 30) + 'px'
-            if (this.isSmallDevice) {
-                this.titleFont = '12px'
-            }
+        created() {
             if (this.isLogin) {
                 const docWidth = document.documentElement.clientWidth
                 if (docWidth < 375 && docWidth > 330) {
@@ -485,6 +482,16 @@
                 this.getDpjNums()
                 this.getTkShNums()
                 this.getPoints()
+            }
+            MerchantAPI.loadSiteInfo().then(data => {
+                this.wechatService = data.wechatServiceAccount
+            })
+        },
+        mounted() {
+            this.isSmallDevice = document.documentElement.clientHeight < 610
+            this.contentStyle.minHeight = (document.documentElement.clientHeight + 30) + 'px'
+            if (this.isSmallDevice) {
+                this.titleFont = '12px'
             }
         }
     }

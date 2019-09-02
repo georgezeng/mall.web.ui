@@ -55,8 +55,8 @@
     import PhoneVerifyPanel from './phone-verify'
     import Util from '../../libs/util'
     import config from '../../config/index'
-    import logo from '../../images/logo.png'
     import UrlParams from 'get-url-param'
+    import MerchantAPI from '../../api/merchant'
 
     export default {
         components: {
@@ -65,7 +65,7 @@
         },
         data() {
             return {
-                logo,
+                logo: null,
                 commonStyles,
                 loading: false,
                 wechatLoginInfo: null,
@@ -110,6 +110,11 @@
             isWechat() {
                 return Util.isInWechat()
             }
+        },
+        created() {
+            MerchantAPI.loadSiteInfo().then(data => {
+                this.logo = config.publicBucketDomain + data.loginLogo
+            })
         },
         mounted() {
             if (this.isWechat) {

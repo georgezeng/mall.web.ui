@@ -1,6 +1,5 @@
 <style scoped lang="less">
     .logo {
-        background-image: url("../images/home-logo.png");
         background-repeat: no-repeat;
         background-size: cover;
         display: inline-block;
@@ -119,7 +118,7 @@
             </div>
         </div>
         <Header :style="commonStyles.header">
-            <div class="logo"></div>
+            <div class="logo" :style="{backgroundImage: logoImg}"></div>
             <div class="search">
                 <Icon type="ios-search"/>
                 <input @focus="goSearch" class="searchInput" value="搜索商品"/>
@@ -175,6 +174,7 @@
     import config from '../config/index'
     // import Masonry from 'masonry-layout'
     import Util from '../libs/util.js'
+    import MerchantAPI from '../api/merchant'
 
     import banner1 from '../images/banner-1.png'
     import banner2 from '../images/banner-2.png'
@@ -200,6 +200,7 @@
                 banner3,
                 Util,
                 config,
+                logoImg: null,
                 bonusPopup: false,
                 bonusBtnBottom: null,
                 bonusBtnLeft: null,
@@ -332,6 +333,9 @@
                 width: width + 'px',
                 height: height + 'px'
             }
+            MerchantAPI.loadSiteInfo().then(data => {
+                this.logoImg = 'url("' + config.publicBucketDomain + data.headerLogo + '")'
+            })
             this.load()
         },
         mounted() {

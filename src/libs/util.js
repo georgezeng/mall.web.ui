@@ -219,8 +219,8 @@ util.wepayForMweb = (orderId) => {
 }
 
 util.fixTitle = () => {
-    MerchantAPI.loadShopName().then(data => {
-        document.title = data
+    MerchantAPI.loadSiteInfo().then(data => {
+        document.title = data.title
     })
 }
 
