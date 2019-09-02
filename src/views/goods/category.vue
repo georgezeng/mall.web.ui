@@ -105,13 +105,13 @@
             </div>
             <div style="margin-left: 80px;">
                 <swiper :aspect-ratio="150/300" auto loop :show-dots="false">
-                    <swiper-item v-for="(url, index) in [catetoryBanner1, catetoryBanner2, catetoryBanner3]" :key="index">
-                        <img :src="url" width="100%">
+                    <swiper-item v-for="(banner, index) in banners" :key="index">
+                        <img @click="goPage(banner.link)" :src="config.publicBucketDomain + banner.path" width="100%">
                     </swiper-item>
                 </swiper>
                 <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
                 <div align="center">
-                    <img :src="brand1" />
+                    <img v-for="brand in brands" :src="config.publicBucketDomain + brand.path" width="27%" />
                     <!--
                     <div class="demo-carousel2">2</div>
                     <div class="demo-carousel2">3</div>
@@ -131,15 +131,12 @@
 </template>
 <script>
     import API from '../../api/goods-category.js'
+    import MerchantAPI from '../../api/merchant'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import {Message} from 'iview'
     import Footer from '../footer'
     import commonStyles from '../../styles/common.js'
-    import brand1 from '../../images/brand-1.jpeg'
-    import catetoryBanner1 from '../../images/category-banner-1.jpeg'
-    import catetoryBanner2 from '../../images/category-banner-2.jpeg'
-    import catetoryBanner3 from '../../images/category-banner-3.jpeg'
 
     export default {
         components: {
@@ -147,10 +144,7 @@
         },
         data() {
             return {
-                catetoryBanner1,
-                catetoryBanner2,
-                catetoryBanner3,
-                brand1,
+                config,
                 commonStyles,
                 contentStyle: {
                     ...commonStyles.content
@@ -162,7 +156,9 @@
                 wrapperHeight: 0,
                 level1Categories: [],
                 level2Categories: [],
-                bannerWidth: 0
+                bannerWidth: 0,
+                brands: [],
+                banners: []
             }
         },
         computed: {},
@@ -212,6 +208,14 @@
                     this.level2Categories = data
                 })
             }
+        },
+        created() {
+            MerchantAPI.loadCategoryBanner().then(data => {
+                this.banners = data
+            })
+            MerchantAPI.loadCategoryBrand().then(data => {
+                this.brands = data
+            })
         },
         mounted() {
             this.contentStyle.marginTop = '64px'

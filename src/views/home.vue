@@ -38,7 +38,7 @@
     }
 
     .category1 {
-        margin-right: 5px;
+        margin-right: 10px;
     }
 
     .item {
@@ -126,17 +126,15 @@
         </Header>
         <Content :style="contentStyle">
             <swiper :aspect-ratio="220/375" auto loop :show-dots="false">
-                <swiper-item v-for="(url, index) in [banner1, banner2, banner3]" :key="index">
-                    <img :src="url" width="100%">
+                <swiper-item v-for="(banner, index) in banners" :key="index">
+                    <img @click="goPage(banner.link)" :src="config.publicBucketDomain + banner.path" width="100%">
                 </swiper-item>
             </swiper>
-            <div align="center" style="margin: 20px 12px 5px;">
-                <img @click="goItemList(20)" class="category1" :style="categoryStyle" :src="category1"/>
-                <img @click="goItemList(11)" class="category2" :style="categoryStyle" :src="category2"/>
-            </div>
-            <div align="center" style="margin: 0px 12px 20px;">
-                <img @click="goItemList(17)" class="category1" :style="categoryStyle" :src="category3"/>
-                <img @click="goItemList(14)" class="category2" :style="categoryStyle" :src="category4"/>
+            <div v-for="(recommendLine, outerIndex) in recommends" :key="outerIndex" align="center"
+                 :style="{margin: (outerIndex % 2 == 0 ? '20px 12px 5px' : '0px 12px 20px')}">
+                <img v-for="(recommend, index) in recommendLine" :key="index" @click="goPage(recommend.link)"
+                     :class="`category${(index+1)}`" :style="categoryStyle"
+                     :src="config.publicBucketDomain + recommend.path"/>
             </div>
             <div style="font-size: 14px; text-align: center; position: relative; top: -10px;">新品推荐</div>
             <div ref="grid" style="padding-left: 8px;">
@@ -176,28 +174,12 @@
     import Util from '../libs/util.js'
     import MerchantAPI from '../api/merchant'
 
-    import banner1 from '../images/banner-1.png'
-    import banner2 from '../images/banner-2.png'
-    import banner3 from '../images/banner-3.png'
-    import category1 from '../images/category-1.png'
-    import category2 from '../images/category-2.png'
-    import category3 from '../images/category-3.png'
-    import category4 from '../images/category-4.png'
-
-
     export default {
         components: {
             Footer
         },
         data() {
             return {
-                category1,
-                category2,
-                category3,
-                category4,
-                banner1,
-                banner2,
-                banner3,
                 Util,
                 config,
                 logoImg: null,
@@ -229,7 +211,9 @@
                 loadingList: false,
                 showLoading: true,
                 list: [],
-                categoryStyle: {}
+                categoryStyle: {},
+                banners: [],
+                recommends: []
             }
         },
         computed: {
@@ -239,6 +223,14 @@
             },
         },
         methods: {
+            goPage(link) {
+                if(link) {
+                    Util.putForNav({
+                        from: 'Home'
+                    })
+                    window.location.href = link
+                }
+            },
             goItemList(id) {
                 Util.putForNav({
                     from: 'Home'
@@ -336,7 +328,29 @@
             MerchantAPI.loadSiteInfo().then(data => {
                 this.logoImg = 'url("' + config.publicBucketDomain + data.headerLogo + '")'
             })
+            MerchantAPI.loadHomeBanner().then(data => {
+                this.banners = data
+            })
+            MerchantAPI.loadHomeRecommend().then(data => {
+                this.recommends = []
+                let arr = null
+                for (let i in data) {
+                    if (i % 2 == 0) {
+                        arr = []
+                        this.recommends.push(arr)
+                    }
+                    arr.push(data[i])
+                }
+            })
             this.load()
+            if (this.isLogin) {
+                ClientAPI.registrationBonus().then(amount => {
+                    if (amount) {
+                        this.bonus = amount
+                        this.bonusPopup = true
+                    }
+                })
+            }
         },
         mounted() {
             if (this.isLogin) {
@@ -348,12 +362,6 @@
                 this.bonusImgTop = (document.documentElement.clientHeight - this.bonusImgHeight) / 2
                 this.bonusBtnBottom = 60 * this.bonusImgHeight / 972
                 this.bonusBtnLeft = (this.bonusImgWidth - this.bonusBtnWidth) / 2
-                ClientAPI.registrationBonus().then(amount => {
-                    if (amount) {
-                        this.bonus = amount
-                        this.bonusPopup = true
-                    }
-                })
             }
         },
         destroyed() {
