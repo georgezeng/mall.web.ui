@@ -223,12 +223,12 @@
                             复制微信号
                         </div>
                     </cell-box>
-                    <cell-box class="optionPanel" is-link @click.native="showAboutUsPopup">
+                    <cell-box class="optionPanel" is-link @click.native="goAboutUs">
                         <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box class="optionPanel">
-                        
+
                     </cell-box>
                     <cell-box class="optionPanel" style="visibility: hidden; margin-top: 60px;">
                     </cell-box>
@@ -323,7 +323,7 @@
             },
         },
         methods: {
-            showAboutUsPopup() {
+            goAboutUs() {
 
             },
             copyContact() {
