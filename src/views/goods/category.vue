@@ -49,30 +49,6 @@
         top: -8px;
     }
 
-    .demo-carousel {
-        height: 128px !important;
-        width: 100%;
-        background-color: #556B9A;
-        padding: 0 !important;
-        text-align: center;
-        color: #fff;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .demo-carousel2 {
-        height: 60px !important;
-        width: 27%;
-        background-color: #556B9A;
-        padding: 0 !important;
-        text-align: center;
-        color: #fff;
-        font-size: 20px;
-        font-weight: bold;
-        display: inline-block;
-        margin: 0 3px;
-    }
-
     .secondCategory {
         margin: 20px 10px 20px;
         font-weight: bold;
@@ -91,7 +67,7 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <div class="search">
-                <Icon style="color: gray;" type="ios-search" />
+                <Icon style="color: gray;" type="ios-search"/>
                 <input @focus="goSearch" class="searchInput" placeholder="搜索商品"/>
             </div>
         </Header>
@@ -111,16 +87,14 @@
                 </swiper>
                 <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
                 <div align="center">
-                    <img v-for="brand in brands" :src="config.publicBucketDomain + brand.path" width="27%" />
-                    <!--
-                    <div class="demo-carousel2">2</div>
-                    <div class="demo-carousel2">3</div>
-                    -->
+                    <img v-for="(brand,index) in brands" :key="index" @click="goPage(brand.link)"
+                         :src="config.publicBucketDomain + brand.path" width="27%"/>
                 </div>
                 <div :key="item.id" v-for="item in level2Categories">
                     <div class="secondCategory">{{item.name}}</div>
-                    <div :key="third.id" v-for="third in item.attrs" align="center" class="thirdCategory" @click="goGoodsList(third.id)">
-                        <img :src="img(third.icon)" width="64" height="64" />
+                    <div :key="third.id" v-for="third in item.attrs" align="center" class="thirdCategory"
+                         @click="goGoodsList(third.id)">
+                        <img :src="img(third.icon)" width="64" height="64"/>
                         <div style="margin-top: 5px; font-size: 10pt;">{{third.name}}</div>
                     </div>
                 </div>
@@ -163,6 +137,14 @@
         },
         computed: {},
         methods: {
+            goPage(link) {
+                if (link) {
+                    Util.putForNav({
+                        from: 'GoodsCategory'
+                    })
+                    window.location.href = link
+                }
+            },
             goSearch() {
                 Util.putForNav({
                     from: 'GoodsCategory'
@@ -193,7 +175,7 @@
             load() {
                 API.level1().then(data => {
                     this.level1Categories = data
-                    for(let i in data) {
+                    for (let i in data) {
                         this.isSelect.push(false)
                     }
                     this.select(data[0].id, 0)

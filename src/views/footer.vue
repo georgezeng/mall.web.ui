@@ -43,7 +43,7 @@
             <div @click="goCart" class="button" style="position: relative;">
                 <div style="position: relative; top: 5px;">
                     <img :src="cart" width="30" height="30" class="img"/>
-                    <mt-badge :style="cartItemStyle" class="cartItems" v-if="cartItems > 0" size="small">{{cartItems}}
+                    <mt-badge :style="cartItemStyle" class="cartItems" v-if="cartNums > 0" size="small">{{cartNums}}
                     </mt-badge>
                 </div>
                 <div :style="cartStyle">
@@ -78,7 +78,8 @@
 
     export default {
         props: [
-            'selection'
+            'selection',
+            'nums'
         ],
         data() {
             return {
@@ -104,6 +105,11 @@
                 },
                 cartItemStyle: {},
                 cartItems: 0,
+            }
+        },
+        computed: {
+            cartNums() {
+                return this.nums == null || isNaN(this.nums) ? this.cartItems : this.nums
             }
         },
         methods: {

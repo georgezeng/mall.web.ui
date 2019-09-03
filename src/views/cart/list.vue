@@ -138,14 +138,15 @@
         <div class="cartFooter" v-if="!showEmpty">
             <div style="display: inline-block; padding: 10px 20px 10px 10px;">
                 <check-icon @click.native="checkAll" :value.sync="allSelected"></check-icon>
-                <span>全选</span>
+                <span style="margin-right: 10px;">全选</span>
+                <img style="position: relative; top: 4px;" @click="deleteSelected" :src="trash" width="20" height="20"/>
             </div>
             <div class="checkBtn" @click="goSettleAccount">去结算{{selectedNums}}</div>
             <div class="totalPanel">
                 合计: <span style="color: orangered;">￥{{totalPrice}}</span>
             </div>
         </div>
-        <Footer selection="cart" :style="commonStyles.footer"/>
+        <Footer :nums="cartItems" selection="cart" :style="commonStyles.footer"/>
     </Layout>
 </template>
 <script>
@@ -157,6 +158,8 @@
     import Footer from '../footer'
     import commonStyles from '../../styles/common.js'
     import Cart from '../../images/cart.png'
+    import trash from '../../images/trash.png'
+    import {MessageBox} from 'mint-ui';
 
     export default {
         components: {
@@ -166,6 +169,7 @@
             return {
                 config,
                 Cart,
+                trash,
                 commonStyles,
                 contentStyle: {
                     ...commonStyles.content
@@ -174,7 +178,8 @@
                 allSelected: false,
                 show: true,
                 clearId: null,
-                isSmallDevice: false
+                isSmallDevice: false,
+                cartItems: null,
             }
         },
         computed: {
@@ -206,6 +211,22 @@
             }
         },
         methods: {
+            deleteSelected() {
+                MessageBox.confirm('您确定要删除所选记录吗?').then(action => {
+                    const ids = this.items.filter(item => {
+                        return item.selected
+                    }).map(item => item.id)
+                    if (ids == null || ids.length == 0) {
+                        this.$vux.toast.show({text: '请选择至少一个商品', type: 'text', width: '200px'})
+                        return
+                    }
+                    this.show = true
+                    API.delete(ids).then(res => {
+                        this.load()
+                        this.show = false
+                    }).catch(e => this.show = false)
+                })
+            },
             cartItemName(cartItem) {
                 if (!this.isSmallDevice) {
                     return cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
@@ -265,8 +286,12 @@
                 })
             },
             load() {
+                this.show = true
                 API.list().then(data => {
                     this.items = data
+                    this.cartItems = data.length
+                    this.show = false
+                }).catch(e => {
                     this.show = false
                 })
             },
@@ -280,8 +305,11 @@
             },
             remove(id) {
                 this.show = true
-                API.delete(id).then(res => {
+                API.delete([id]).then(res => {
                     this.load()
+                    this.show = false
+                }).catch(e => {
+                    this.show = false
                 })
             },
             swipeButtons(id) {
