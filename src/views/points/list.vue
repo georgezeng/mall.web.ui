@@ -25,7 +25,6 @@
             </div>
         </Header>
         <Content :style="contentStyle">
-
             <Spin size="large" fix v-if="showSpin"></Spin>
             <div v-if="list && list.length > 0" style="margin: 10px;">积分明细</div>
             <div style="margin: 10px; position: relative;" v-for="item in list" :key="item.id">

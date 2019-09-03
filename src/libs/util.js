@@ -225,7 +225,7 @@ util.fixTitle = () => {
 }
 
 util.scrollHandler = (e, _this) => {
-    const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop - 50
+    const scrollTop = document.body.scrollHeight - e.target.scrollingElement.scrollTop - 300
     if (scrollTop < document.documentElement.clientHeight) {
         _this.showLoading = true
         _this.load();
