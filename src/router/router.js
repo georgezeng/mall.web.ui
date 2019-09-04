@@ -328,6 +328,14 @@ const routers = [
         component: (resolve) => require(['../views/config/setting/address/edit.vue'], resolve)
     },
     {
+        path: '/Article/Detail/:key',
+        name: 'ArticleDetail',
+        meta: {
+            needLogin: false
+        },
+        component: (resolve) => require(['../views/article/detail.vue'], resolve)
+    },
+    {
         path: '/404',
         name: 'NotFound',
         meta: {

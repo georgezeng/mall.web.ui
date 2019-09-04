@@ -47,5 +47,8 @@ export default {
                 order: 'DESC'
             }
         })
+    },
+    searchArticle(title) {
+        return axios.get('/article/search/' + title)
     }
 }

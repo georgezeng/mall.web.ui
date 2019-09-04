@@ -324,7 +324,12 @@
         },
         methods: {
             goAboutUs() {
-
+                Util.putForNav({
+                    from: 'MyCenter'
+                })
+                Util.go('ArticleDetail', {
+                    key: '关于我们'
+                })
             },
             copyContact() {
                 const isIOSDevice = window.navigator.userAgent.match(/ipad|iphone/i);
