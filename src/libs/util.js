@@ -240,4 +240,14 @@ util.getLongLocation = (data) => {
     location += data.district + data.location
     return location
 }
+
+util.goLogin = () => {
+    let uid = UrlParams(window.location.href, 'uid')
+    if (uid) {
+        uid = uid.replace(/#.+/, '')
+        window.location.href = '/?uid=' + uid + '#/Login'
+    } else {
+        window.location.href = '/#/Login'
+    }
+}
 export default util;

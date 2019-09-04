@@ -52,13 +52,7 @@
             back() {
                 const nav = Util.getForNav()
                 if (nav.from == 'Login') {
-                    let uid = UrlParams(window.location.href, 'uid')
-                    if (uid) {
-                        uid = uid.replace(/#.+/, '')
-                        window.location.href = '/?uid=' + uid + '#/Login'
-                    } else {
-                        window.location.href = '/#/Login'
-                    }
+                    Util.goLogin()
                 } else {
                     Util.go(nav.from, nav)
                 }

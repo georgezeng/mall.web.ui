@@ -24,6 +24,7 @@
     import {Message} from 'iview'
     import commonStyles from '../../styles/common.js'
     import Util from '../../libs/util.js'
+    import UrlParams from 'get-url-param'
     export default {
         data() {
             const confirmPwdCheck = (rule, value, callback) => {
@@ -83,7 +84,7 @@
                 Util.go('ForgetPasswordStep1')
             },
             goLogin() {
-                Util.go('Login')
+                Util.goLogin()
             },
         },
         mounted() {

@@ -27,6 +27,7 @@
     import commonStyles from '../../styles/common.js'
     import Util from '../../libs/util.js'
     import $ from 'jquery'
+    import UrlParams from 'get-url-param'
 
     export default {
         data() {
@@ -97,7 +98,7 @@
                 })
             },
             back() {
-                Util.go('Login')
+                Util.goLogin()
             },
             goStep2() {
                 this.$router.push({

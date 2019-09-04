@@ -11,7 +11,7 @@
                            placeholder="输入手机号"></Input>
                 </FormItem>
                 <FormItem prop="password">
-                    <Input clearable size="large" v-model="form.password" @on-search="sendCode" search
+                    <Input ref="verifyCode" clearable size="large" v-model="form.password" @on-search="sendCode" search
                            :enter-button="codeBtnText"
                            placeholder="输入验证码"></Input>
                 </FormItem>
@@ -64,7 +64,7 @@
         },
         methods: {
             back() {
-                window.location.href = '/#/Login'
+                Util.goLogin()
             },
             load() {
                 if (this.loginInfo.username) {
@@ -132,7 +132,7 @@
                 })
             }
         },
-        mounted() {
+        created() {
             this.loginInfo = this.$router.currentRoute.params.info
             this.token = this.loginInfo.password
             const uid = UrlParams(window.location.href, 'uid')
@@ -141,6 +141,11 @@
                 Util.log('pid: ' + uid)
             }
             this.load()
+        },
+        mounted() {
+            setTimeout(() => {
+                $(this.$refs.verifyCode.$el).find('.ivu-input-search').css('cssText', 'background-color: #B69C7D !important; border-color: #B69C7D !important;')
+            }, 10)
         }
     }
 </script>
