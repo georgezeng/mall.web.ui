@@ -26,6 +26,7 @@
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {},
@@ -50,7 +51,15 @@
         methods: {
             back() {
                 const nav = Util.getForNav()
-                Util.go(nav.from, nav)
+                if (nav.from == 'Login') {
+                    let uid = UrlParams(window.location.href, 'uid')
+                    if (uid) {
+                        uid = uid.replace(/#.+/, '')
+                    }
+                    window.location.href = '/?uid=' + uid + '#/Login'
+                } else {
+                    Util.go(nav.from, nav)
+                }
             },
             load() {
                 API.searchArticle(this.data.title).then(data => {
