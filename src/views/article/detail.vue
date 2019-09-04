@@ -55,8 +55,10 @@
                     let uid = UrlParams(window.location.href, 'uid')
                     if (uid) {
                         uid = uid.replace(/#.+/, '')
+                        window.location.href = '/?uid=' + uid + '#/Login'
+                    } else {
+                        window.location.href = '/#/Login'
                     }
-                    window.location.href = '/?uid=' + uid + '#/Login'
                 } else {
                     Util.go(nav.from, nav)
                 }
