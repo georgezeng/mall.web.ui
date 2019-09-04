@@ -230,7 +230,7 @@
                     <cell-box class="optionPanel">
 
                     </cell-box>
-                    <cell-box class="optionPanel" style="visibility: hidden; margin-top: 60px;">
+                    <cell-box v-if="isLogin" class="optionPanel" style="visibility: hidden; margin-top: 60px;">
                     </cell-box>
                 </group>
             </div>
