@@ -17,7 +17,7 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
-            <div ref="htmlContent" v-html="data.content" style="margin-bottom: 40px;"></div>
+            <div ref="htmlContent" v-html="data.content" style="padding: 0 10px; margin-bottom: 40px;"></div>
         </Content>
     </Layout>
 </template>
