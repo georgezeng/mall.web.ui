@@ -205,7 +205,7 @@
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="goSetting">
-                        <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 设置
+                        <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 账户设置
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
@@ -213,9 +213,13 @@
                         安全退出
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
+                    <cell-box class="optionPanel" is-link @click.native="goAboutUs">
+                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
+                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
+                    </cell-box>
                     <cell-box v-if="wechatService != null" class="optionPanel">
                         <img :src="contact" width="24" height="24" class="img" style="margin-right: 10px;"/>
-                        <span>客服: {{wechatService}}</span>
+                        <span>微信客服: {{wechatService}}</span>
                         <input ref="contactText" readonly :value="wechatService"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyContact"
@@ -223,12 +227,7 @@
                             复制微信号
                         </div>
                     </cell-box>
-                    <cell-box class="optionPanel" is-link @click.native="goAboutUs">
-                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
-                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-                    </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel">
-
                     </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" style="visibility: hidden; margin-top: 60px;">
                     </cell-box>
