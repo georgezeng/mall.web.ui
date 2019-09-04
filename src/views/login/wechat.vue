@@ -30,6 +30,7 @@
     import {Message} from 'iview'
     import UrlParams from 'get-url-param'
     import Util from '../../libs/util'
+    import $ from 'jquery'
 
     export default {
         data() {
