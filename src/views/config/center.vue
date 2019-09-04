@@ -208,13 +208,13 @@
                         <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 账户设置
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
+                    <cell-box class="optionPanel" is-link @click.native="goAboutUs">
+                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
+                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
+                    </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
                         <img :src="exitImg" width="24" height="24" class="img" style="margin-right: 10px;"/>
                         安全退出
-                        <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
-                    </cell-box>
-                    <cell-box class="optionPanel" is-link @click.native="goAboutUs">
-                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box v-if="wechatService != null" class="optionPanel">
