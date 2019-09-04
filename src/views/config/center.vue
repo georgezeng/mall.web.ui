@@ -167,7 +167,7 @@
             <div class="orderPanel">
                 <div class="title-line">
                     <span style="font-weight: bold;">我的订单</span>
-                    <span class="more" @click="goOrders">查看全部 &gt;</span>
+                    <span v-if="isLogin" class="more" @click="goOrders">查看全部 &gt;</span>
                 </div>
                 <div align="center">
                     <div class="box" @click="goUnPayOrders">
@@ -200,11 +200,11 @@
             <div style="position: relative;">
                 <div class="blockLine" style="position:absolute; top: 0px;"></div>
                 <group style="position: absolute; width: 100%; top: -10px;">
-                    <cell-box class="optionPanel" is-link @click.native="goInvite">
+                    <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="goInvite">
                         <img :src="invite" width="24" height="24" class="img" style="margin-right: 10px;"/> 邀请好友
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
-                    <cell-box class="optionPanel" is-link @click.native="goSetting">
+                    <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="goSetting">
                         <img :src="setting" width="24" height="24" class="img" style="margin-right: 10px;"/> 设置
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
