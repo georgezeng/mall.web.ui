@@ -81,7 +81,7 @@
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">我的邀请</div>
         </Header>
-        <Content :style="commonStyles.content" style="margin-top: 40px;">
+        <Content :style="contentStyle" style="margin-top: 40px;">
             <div v-transfer-dom>
                 <popup v-model="showShare" style="background-color: #fff; z-index: 1000000;">
                     <div style="height: 88px; position: relative;" align="center">
@@ -143,7 +143,9 @@
                         </div>
                     </div>
                     <div style="font-size: 14px;">
-                        <div style="color: orangered; margin-bottom: 5px; text-align: right;">+ {{item.invitePoints ? item.invitePoints : 0}} DBB</div>
+                        <div style="color: orangered; margin-bottom: 5px; text-align: right;">+ {{item.invitePoints ?
+                            item.invitePoints : 0}} DBB
+                        </div>
                         <div>{{item.createTime}}</div>
                     </div>
                 </mt-cell>
@@ -177,6 +179,9 @@
                 saveBtnStyle: null,
                 inviteBtnStyle: null,
                 totalPoints: 0,
+                contentStyle: {
+                    ...commonStyles.content
+                },
                 page: {
                     num: 1,
                     size: 10,
@@ -351,6 +356,8 @@
             if (document.documentElement.clientWidth < 330) {
                 this.popupStyle.fontSize = '14px'
             }
+            this.contentStyle.backgroundColor = '#fff'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 40) + 'px'
             this.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight + 'px'
             if (Util.isInWechat()) {
