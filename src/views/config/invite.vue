@@ -124,7 +124,7 @@
             <div class="bg" :style="bgStyle">
                 <div @click="showPoster" class="share-btn" :style="shareBtnStyle"></div>
             </div>
-            <div style="font-size: 14px; padding: 10px;">累积邀请获得: {{totalPoints}} DBB</div>
+            <div style="padding: 10px;">累积邀请获得: {{totalPoints}} DBB</div>
             <div align="center">
                 <div style="width: 100px; text-align: center; padding: 10px; border-bottom: 3px solid lightgray; margin-bottom: 40px;">
                     分享动态
