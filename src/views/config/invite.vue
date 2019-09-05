@@ -137,7 +137,7 @@
                         <div style="display: inline-block; margin-right: 5px;">
                             <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
                         </div>
-                        <div style="position: relative; top: 8px; display: inline-block;">
+                        <div style="position: relative; top: 3px; display: inline-block;">
                             <div style="margin-bottom: 10px;">{{item.nickname}}</div>
                             <div>{{item.username}}</div>
                         </div>
