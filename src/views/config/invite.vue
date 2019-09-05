@@ -124,6 +124,7 @@
             <div class="bg" :style="bgStyle">
                 <div @click="showPoster" class="share-btn" :style="shareBtnStyle"></div>
             </div>
+            <div style="font-size: 14px; padding: 10px;">累积邀请获得: {{totalPoints}} DBB</div>
             <div align="center">
                 <div style="width: 100px; text-align: center; padding: 10px; border-bottom: 3px solid lightgray; margin-bottom: 40px;">
                     分享动态
@@ -141,7 +142,10 @@
                             <div>{{item.username}}</div>
                         </div>
                     </div>
-                    <div>{{item.createTime}}</div>
+                    <div style="font-size: 14px;">
+                        <div style="color: orangered; margin-bottom: 5px;">+ {{item.invitePoints ? item.invitePoints : 0}} DBB</div>
+                        <div>{{item.createTime}}</div>
+                    </div>
                 </mt-cell>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
@@ -172,6 +176,7 @@
                 shareBtnStyle: null,
                 saveBtnStyle: null,
                 inviteBtnStyle: null,
+                totalPoints: 0,
                 page: {
                     num: 1,
                     size: 10,
@@ -356,6 +361,9 @@
             }
             ProfileAPI.load().then(data => {
                 this.updateShare(data)
+            })
+            API.loadTotalPoints().then(data => {
+                this.totalPoints = data
             })
         },
         destroyed() {
