@@ -138,12 +138,12 @@
                             <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
                         </div>
                         <div style="position: relative; top: 8px; display: inline-block;">
-                            <div style="margin-bottom: 5px;">{{item.nickname}}</div>
+                            <div style="margin-bottom: 10px;">{{item.nickname}}</div>
                             <div>{{item.username}}</div>
                         </div>
                     </div>
                     <div style="font-size: 14px;">
-                        <div style="color: orangered; margin-bottom: 5px; text-align: right;">+ {{item.invitePoints ?
+                        <div style="color: orangered; margin-bottom: 10px; text-align: right;">+ {{item.invitePoints ?
                             item.invitePoints : 0}} DBB
                         </div>
                         <div>{{item.createTime}}</div>
