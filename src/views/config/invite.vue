@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <div style="font-size: 14px;">
-                        <div style="color: orangered; margin-bottom: 5px;">+ {{item.invitePoints ? item.invitePoints : 0}} DBB</div>
+                        <div style="color: orangered; margin-bottom: 5px; text-align: right;">+ {{item.invitePoints ? item.invitePoints : 0}} DBB</div>
                         <div>{{item.createTime}}</div>
                     </div>
                 </mt-cell>
