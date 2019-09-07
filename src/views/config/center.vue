@@ -22,7 +22,7 @@
             .level {
                 border-radius: 20px;
                 background-color: rgba(0, 0, 0, 0.2);
-                padding: 5px 8px;
+                padding: 4px 8px 5px;
                 font-size: 12px;
                 float: left;
             }
@@ -141,7 +141,7 @@
                         <div class="nickname">{{nickname}}</div>
                         <div class="level">
                             <img :src="config.publicBucketDomain + level.imgPath" width="18" height="18"
-                                 style="margin-right: 5px; position: relative; top: 3px;"/>
+                                 style="margin-right: 5px; position: relative; top: 4px;"/>
                             <span style="position: relative; top: -1px;">{{level.name}}</span>
                         </div>
                     </div>
