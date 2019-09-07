@@ -336,7 +336,7 @@
             },
         },
         mounted() {
-            this.noRecordTop = ((document.documentElement.clientHeight - 400) - 300) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 400) - 150) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
             this.load()

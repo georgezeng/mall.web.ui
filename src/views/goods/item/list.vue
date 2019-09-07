@@ -415,7 +415,7 @@
             this.type = this.$router.currentRoute.params.type
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             this.queryInfo.data = this.$router.currentRoute.params.key
-            this.noRecordTop = ((document.documentElement.clientHeight - 90) - 300) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 90) - 150) / 2
             this.orderBy('default', true)
         },
         destroyed() {
