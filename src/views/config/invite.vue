@@ -203,7 +203,7 @@
                 </div>
                 <div v-for="item in list" :key="item.id">
                     <div style="margin-top: 20px;"></div>
-                    <mt-cell style="border-bottom: 1px solid #f0f0f0; overflow: auto;">
+                    <mt-cell style="border-bottom: 1px solid #f5f5f5; overflow: auto;">
                         <div slot="title">
                             <div style="display: inline-block; margin-right: 5px;">
                                 <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
