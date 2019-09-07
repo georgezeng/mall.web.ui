@@ -250,7 +250,7 @@
             },
         },
         mounted() {
-            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 180) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 200) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 330
             this.popupImgWidth = document.documentElement.clientWidth

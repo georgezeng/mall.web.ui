@@ -341,7 +341,7 @@
             if (document.documentElement.clientHeight < 650) {
                 height = 450
             }
-            this.noRecordTop = ((document.documentElement.clientHeight - height) - 180) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - height) - 200) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
             this.load()

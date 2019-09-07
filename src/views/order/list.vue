@@ -519,7 +519,7 @@
             this.contentStyle.backgroundColor = '#F5F5F5'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.type = this.$router.currentRoute.params.type
-            this.noRecordTop = ((document.documentElement.clientHeight - 125) - 180) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 125) - 200) / 2
             this.reload()
             if (Util.isInWechat()) {
                 Util.wxConfig([

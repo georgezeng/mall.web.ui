@@ -135,7 +135,7 @@
             this.contentStyle.marginTop = '160px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 160) + "px"
-            this.noRecordTop = ((document.documentElement.clientHeight - 160) - 180) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 160) - 200) / 2
             this.load()
             API.baseInfo().then(data => {
                 this.data = data

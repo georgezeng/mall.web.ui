@@ -301,7 +301,7 @@
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.orderId = this.$router.currentRoute.params.id
             this.status = this.$router.currentRoute.params.status
-            this.noRecordTop = ((document.documentElement.clientHeight - 125) - 180) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 125) - 200) / 2
             Util.put('afterSaleOrderId', this.orderId)
             window.addEventListener('scroll', this.scrollHandler)
             this.reload()
