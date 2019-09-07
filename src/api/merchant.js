@@ -50,5 +50,8 @@ export default {
     },
     searchArticle(title) {
         return axios.get('/article/search/' + title)
+    },
+    loadClientPointsBonus() {
+        return axios.get('/merchant/clientPointsBonus')
     }
 }

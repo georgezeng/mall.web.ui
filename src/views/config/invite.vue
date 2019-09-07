@@ -259,7 +259,7 @@
                 let uid = Util.get('userId')
                 let nickname = item.nickname
                 if (!nickname || nickname == '') {
-                    nickname = '****' + item.username.substring(7)
+                    nickname = '********' + item.username.substring(7)
                 }
                 const params = {
                     title: '注册邀请', // 分享标题

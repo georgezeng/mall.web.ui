@@ -10,17 +10,10 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <Header :style="headerStyle" style="height: 160px;">
+        <Header :style="headerStyle" style="height: 90px;">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <div align="center" style="color: #fff;">我的积分</div>
             <div style="margin-top: -20px; background-color: #AD9979; color: #fff; padding: 10px; text-align: left; font-size: 12pt; line-height: 20px;">
-                <div style="margin: 10px 0;">
-                    当前积分
-                </div>
-                <div style="margin: 0 0 10px;">
-                    <span style="font-size: 18pt; font-weight: bold;">{{data.currentAmount}}</span>
-                    <span>DBB</span>
-                </div>
                 <div style="position: relative; top: 5px; font-size: 14px;">累积获得: {{data.accInAmount}} DBB</div>
             </div>
         </Header>
@@ -92,7 +85,8 @@
         computed: {},
         methods: {
             back() {
-                Util.go('MyCenter')
+                const nav = Util.getForNav()
+                Util.go(nav.from, nav)
             },
             load() {
                 if (this.allLoaded) {
@@ -132,10 +126,10 @@
         },
         mounted() {
             window.addEventListener('scroll', this.scrollHandler)
-            this.contentStyle.marginTop = '160px'
+            this.contentStyle.marginTop = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
-            this.contentStyle.minHeight = (document.documentElement.clientHeight - 160) + "px"
-            this.noRecordTop = ((document.documentElement.clientHeight - 160) - 200) / 2
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 90) + "px"
+            this.noRecordTop = ((document.documentElement.clientHeight - 90) - 200) / 2
             this.load()
             API.baseInfo().then(data => {
                 this.data = data

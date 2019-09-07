@@ -93,6 +93,14 @@ const routers = [
         meta: {
             needLogin: true
         },
+        component: (resolve) => require(['../views/points/index.vue'], resolve)
+    },
+    {
+        path: '/MyPoints/List',
+        name: 'MyPointsList',
+        meta: {
+            needLogin: true
+        },
         component: (resolve) => require(['../views/points/list.vue'], resolve)
     },
     {
