@@ -291,7 +291,7 @@
                 popupHeight: 500,
                 minHeight: 0,
                 borderLeft: 0,
-                numsMarginTop: '15px'
+                numsMarginTop: '20px'
             }
         },
         computed: {
