@@ -13,13 +13,24 @@
     <Layout :style="commonStyles.layout">
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
-            <div align="center" style="color: #fff;">{{data.title}}</div>
+            <div align="center" style="color: #fff;">{{data.category}}</div>
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
-            <div align="center">
+            <div v-if="!data.hidden">
+                <div align="center" style="font-weight: bold; padding: 10px; font-size: 12pt;">
+                    {{data.title}}
+                </div>
+                <div v-if="data.vedioPath != null" align="center" style="padding: 10px 10px 20px 10px;">
+                    <video ref="vedio"
+                           playsinline preload controls
+                           :src="config.publicBucketDomain + data.vedioPath"
+                           width="100%" height="100%"></video>
+                </div>
+            </div>
+            <div v-else-if="data.vedioPath != null" align="center" style="padding: 20px 10px 20px 10px;">
                 <video ref="vedio"
-                       v-if="data.vedioPath != null" playsinline preload controls
+                       playsinline preload controls
                        :src="config.publicBucketDomain + data.vedioPath"
                        width="100%" height="100%"></video>
             </div>
