@@ -151,7 +151,8 @@
                 </mt-cell>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center"
+                 style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无分享动态</div>
             </div>
@@ -336,7 +337,11 @@
             },
         },
         mounted() {
-            this.noRecordTop = ((document.documentElement.clientHeight - 300) - 150) / 2
+            let height = 550
+            if (document.documentElement.clientHeight < 650) {
+                height = 450
+            }
+            this.noRecordTop = ((document.documentElement.clientHeight - height) - 150) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
             this.load()
@@ -380,7 +385,9 @@
                 this.updateShare(data)
             })
             API.loadTotalPoints().then(data => {
-                this.totalPoints = data
+                if (data) {
+                    this.totalPoints = data
+                }
             })
         },
         destroyed() {
