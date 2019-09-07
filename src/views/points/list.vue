@@ -15,7 +15,7 @@
             <div align="center" style="color: #fff;">我的积分</div>
             <div style="margin-top: -20px; background-color: #AD9979; color: #fff; padding: 10px; text-align: left; font-size: 12pt; line-height: 20px;">
                 <div style="position: relative; top: 5px; font-size: 12pt; margin-bottom: 10px;">累积获得: {{data.accInAmount}} DBB</div>
-                <div style="font-size: 14px; color: #fff;">积分在订单确认收货完成后赠送，如有退货退款回扣除赠送数量</div>
+                <div style="font-size: 14px; color: #fff;">积分在订单确认收货完成后赠送，如果退货退款会扣除赠送数量</div>
             </div>
         </Header>
         <Content :style="contentStyle">
