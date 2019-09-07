@@ -152,7 +152,7 @@
                 neutralityTotal: 0,
                 badTotal: 0,
                 allLoaded: false,
-                showLoading: true,
+                showLoading: false,
                 loadingList: false,
                 showSpin: true,
                 isSmallDevice: false,
@@ -224,6 +224,8 @@
                         if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
+                        } else {
+                            this.showLoading = true
                         }
                     } else {
                         this.allLoaded = true

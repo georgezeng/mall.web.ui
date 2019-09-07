@@ -144,7 +144,7 @@
                     property: 'createTime'
                 },
                 // init: false,
-                showLoading: true,
+                showLoading: false,
                 loadingList: false,
                 clientY: 0,
                 nav: {
@@ -252,6 +252,8 @@
                         if (data.length < this.pageInfo.size) {
                             this.allLoaded = true
                             this.showLoading = false
+                        } else {
+                            this.showLoading = true
                         }
                     } else {
                         this.allLoaded = true

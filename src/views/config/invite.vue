@@ -191,7 +191,7 @@
                 list: [],
                 allLoaded: false,
                 loadingList: false,
-                showLoading: true,
+                showLoading: false,
                 popup: false,
                 popupImgSrc: null,
                 popupImgWidth: 0,
@@ -315,6 +315,8 @@
                         if (data.length < this.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
+                        } else {
+                            this.showLoading = true
                         }
                     } else {
                         this.allLoaded = true

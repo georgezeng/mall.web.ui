@@ -100,7 +100,7 @@
                     property: 'updateTime'
                 },
                 init: false,
-                showLoading: true,
+                showLoading: false,
                 loadingList: false
             }
         },
@@ -180,6 +180,8 @@
                             if (data.length < this.pageInfo.size) {
                                 this.allLoaded = true
                                 this.showLoading = false
+                            } else {
+                                this.showLoading = true
                             }
                         } else {
                             this.$vux.toast.show({text: "找不到结算信息，请返回重新下单", type: 'text'})

@@ -209,7 +209,7 @@
                 itemWidth: 0,
                 itemImageWidth: 0,
                 loadingList: false,
-                showLoading: true,
+                showLoading: false,
                 list: [],
                 categoryStyle: {},
                 banners: [],
@@ -294,6 +294,8 @@
                         if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
+                        } else {
+                            this.showLoading = true
                         }
                         // setTimeout(() => {
                         //     new Masonry(this.$refs.grid, {});

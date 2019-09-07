@@ -240,7 +240,7 @@
                 list: [],
                 showSpin: true,
                 isSmallDevice: false,
-                showLoading: true,
+                showLoading: false,
                 loadingList: false,
                 type: null
             }
@@ -315,6 +315,8 @@
                         if (data.length < this.queryInfo.page.size) {
                             this.allLoaded = true
                             this.showLoading = false
+                        } else {
+                            this.showLoading = true
                         }
                         this.showSpin = false
                         // setTimeout(() => {
