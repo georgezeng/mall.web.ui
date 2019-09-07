@@ -46,7 +46,7 @@
         position: absolute;
         width: 60px;
         top: 25px;
-        right: -25px;
+        right: -20px;
     }
 
     .invite-bg {
@@ -164,7 +164,7 @@
                 <div class="invite-bg" :style="{height: inviteBgHeight + 'px'}">
                     <div style="padding: 20px; font-size: 14px;">我的邀请成绩</div>
                     <div class="qrcode" @click="showPoster"></div>
-                    <div style="margin-top: 5px;" align="center">
+                    <div :style="{marginTop: numsMarginTop}" align="center">
                         <div style="display: inline-block; margin-right: 20px;">
                             <div>
                                 <span style="font-size: 14pt; font-weight: bold;">{{totalPeople}}</span> <span
@@ -191,7 +191,7 @@
             </div>
 
 
-            <div style="background-color: #F2F2F2; padding: 20px; font-size: 14px; position: relative; top: -40px; ">
+            <div :style="{fontSize: tipFontSize}" style="background-color: #F2F2F2; padding: 20px; position: relative; top: -40px; ">
                 <div>现在分享邀请好友注册多呗商城</div>
                 <div>立即奖励{{registrationBonus}}元优惠券和{{invitePointsBonus}}DBB多呗积分</div>
                 <div @click="showSharePopup" class="share-btn"></div>
@@ -249,6 +249,7 @@
         components: {},
         data() {
             return {
+                tipFontSize: '14px',
                 invitePointsBonus: 0,
                 registrationBonus: 0,
                 totalPeople: 0,
@@ -290,6 +291,7 @@
                 popupHeight: 500,
                 minHeight: 0,
                 borderLeft: 0,
+                numsMarginTop: '15px'
             }
         },
         computed: {
@@ -427,6 +429,8 @@
             let height = 550
             if (document.documentElement.clientHeight < 650) {
                 height = 450
+                this.tipFontSize = '10px'
+                this.numsMarginTop = '5px'
             }
             this.noRecordTop = ((document.documentElement.clientHeight - height) - 150) / 2
             window.addEventListener('scroll', this.scrollHandler)
