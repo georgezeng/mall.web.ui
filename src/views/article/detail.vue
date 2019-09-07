@@ -17,6 +17,12 @@
         </Header>
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="showSpin"></Spin>
+            <div align="center">
+                <video ref="vedio"
+                       v-if="data.vedioPath != null" playsinline preload controls
+                       :src="config.publicBucketDomain + data.vedioPath"
+                       width="100%" height="100%"></video>
+            </div>
             <div ref="htmlContent" v-html="data.content" style="padding: 0 10px; margin-bottom: 40px;"></div>
         </Content>
     </Layout>
@@ -43,7 +49,8 @@
                 showSpin: true,
                 data: {
                     title: null,
-                    content: null
+                    content: null,
+                    vedioPath: null
                 }
             }
         },

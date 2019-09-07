@@ -372,7 +372,7 @@
             <video ref="vedio" v-show="vedio"
                    v-if="item.vedioPath != null" playsinline preload controls
                    :poster="config.publicBucketDomain + item.photos[0]"
-                   :src="config.publicBucketDomain + this.item.vedioPath"
+                   :src="config.publicBucketDomain + item.vedioPath"
                    :width="itemImgSize" :height="itemImgSize">
             </video>
             <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
