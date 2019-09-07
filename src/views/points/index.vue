@@ -49,39 +49,32 @@
         background-image: url("../../images/points-list.png");
         background-repeat: no-repeat;
         background-size: contain;
-        width: 18%;
-        display: inline-block;
-    }
-
-    .points-text {
-        width: 18%;
-        display: inline-block;
-        text-align: center;
-        font-size: 14px;
+        width: 60%;
+        margin-bottom: 5px;
     }
 
     .points-union-btn {
         background-image: url("../../images/points-union.png");
         background-repeat: no-repeat;
         background-size: contain;
-        width: 18%;
-        display: inline-block;
+        width: 60%;
+        margin-bottom: 5px;
     }
 
     .points-instruction-btn {
         background-image: url("../../images/points-instruction.png");
         background-repeat: no-repeat;
         background-size: contain;
-        width: 18%;
-        display: inline-block;
+        width: 60%;
+        margin-bottom: 5px;
     }
 
     .points-item-btn {
         background-image: url("../../images/points-item.png");
         background-repeat: no-repeat;
         background-size: contain;
-        width: 18%;
-        display: inline-block;
+        width: 60%;
+        margin-bottom: 5px;
     }
 
     .invite-bg {
@@ -89,7 +82,6 @@
         background-image: url("../../images/points-invite-bg.png");
         background-repeat: no-repeat;
         background-size: contain;
-        width: 100%;
     }
 
     .share-btn {
@@ -163,7 +155,7 @@
             <div v-if="showShareTip"
                  @click="closeShareTipPopup"
                  style="position: fixed; top: 0px; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
-                 :style="{height: minHeight}">
+                 :style="{height: popupHeight}">
                 <img :src="ShareTipArrow" width="111" height="99" style="position: absolute; right: 20px;"/>
                 <div style="color: #fff; position: relative; top: 100px; left: 30px;">
                     点击右上角的"..."，分享给您的好友吧
@@ -178,18 +170,10 @@
                     如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
-            <div v-show="popup" :style="popupStyle" style="position: fixed; top: 50px;">
-                <img :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
-                <div class="save-to-local-btn" :style="saveBtnStyle"
-                     style="position: absolute; bottom: 10px; left: 10px;">
-                </div>
-                <div class="invite-btn" @click="showSharePopup" :style="inviteBtnStyle"
-                     style="position: absolute; bottom: 10px; right: 10px;">
-                </div>
-            </div>
+
             <div style="padding: 10px 10px 10px; position: relative;">
                 <div class="main-bg" :style="{height: mainBgHeight + 'px'}">
-                    <div @click="goInstruction" class="get-instruction-btn"
+                    <div @click="goHowToGetPoints" class="get-instruction-btn"
                          :style="{height: instructionBtnHeight + 'px'}"></div>
                     <div style="position: relative; color: #fff" :style="{top: amountTop + 'px'}">
                         <div style="font-size: 28pt; font-weight: bold;">{{currentAmount ? currentAmount : 0}}</div>
@@ -198,27 +182,36 @@
                     <div @click="showFailTip1" class="qrcode"></div>
                 </div>
             </div>
-            <div style="padding: 10px; position: relative;" align="center">
-                <div @click="goPointsList" class="points-list-btn"
-                     :style="{height: btnHeight + 'px', margin: btnMargin}">
+            <div align="center" style="width: 100%;">
+                <div @click="goPointsList" align="center" style="display: inline-block; width: 20%;">
+                    <div class="points-list-btn"
+                         :style="{height: btnHeight + 'px'}">
+                    </div>
+                    <div style="font-size: 12px;">积分明细</div>
                 </div>
-                <div @click="showFailTip2" class="points-union-btn"
-                     :style="{height: btnHeight + 'px', margin: btnMargin}"></div>
-                <div @click="goItemList" class="points-item-btn"
-                     :style="{height: btnHeight + 'px', margin: btnMargin}"></div>
-                <div @click="goInstruction" class="points-instruction-btn"
-                     :style="{height: btnHeight + 'px', margin: btnMargin}"></div>
-            </div>
-            <div style="padding: 0 10px; position: relative; top: -10px;" align="center">
-                <div @click="goPointsList" class="points-text" :style="{margin: btnMargin}">积分明细</div>
-                <div @click="showFailTip2" class="points-text" :style="{margin: btnMargin}">联盟商家</div>
-                <div @click="goItemList" class="points-text" :style="{margin: btnMargin}">积分商城</div>
-                <div @click="goInstruction" class="points-text" :style="{margin: btnMargin}">积分说明</div>
+                <div @click="showFailTip2" align="center" style="display: inline-block; width: 20%;">
+                    <div class="points-union-btn"
+                         :style="{height: btnHeight + 'px'}">
+                    </div>
+                    <div style="font-size: 12px;">联盟商家</div>
+                </div>
+                <div @click="goItemList" align="center" style="display: inline-block; width: 20%;">
+                    <div class="points-item-btn"
+                         :style="{height: btnHeight + 'px'}">
+                    </div>
+                    <div style="font-size: 12px;">积分商城</div>
+                </div>
+                <div @click="goInstruction" align="center" style="display: inline-block; width: 20%;">
+                    <div class="points-instruction-btn"
+                         :style="{height: btnHeight + 'px'}">
+                    </div>
+                    <div style="font-size: 12px;">积分说明</div>
+                </div>
             </div>
             <div style="padding: 10px;">积分活动</div>
             <div style="padding: 10px 10px 10px; position: relative; color: #8F7A5B; font-size: 14px;">
                 <div class="invite-bg" :style="{height: inviteBgHeight + 'px'}">
-                    <div style="position: relative; top: 10px; " :style="{left: inviteTextLeft + 'px'}">
+                    <div style="position: absolute; top: 20px;" :style="{left: inviteTextLeft + 'px'}">
                         <div>邀请好友注册多呗商城奖励 {{invitePoints ? invitePoints : 0}} DBB</div>
                         <div>多呗积分</div>
                     </div>
@@ -235,7 +228,6 @@
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import ShareTipArrow from '../../images/tip-arrow.png'
-    import wx from 'weixin-js-sdk'
     import NativeShare from 'nativeshare'
     import ProfileAPI from '../../api/profile.js'
 
@@ -250,12 +242,11 @@
                 showShare: false,
                 nativeShare: new NativeShare(),
                 inviteBgHeight: '',
-                btnMargin: '0 10px',
                 btnHeight: 0,
                 amountTop: 0,
                 instructionBtnHeight: 0,
                 mainBgHeight: 0,
-                inviteTextLeft: 110,
+                inviteTextLeft: 120,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -273,6 +264,14 @@
         },
         computed: {},
         methods: {
+            goHowToGetPoints() {
+                Util.putForNav({
+                    from: 'MyPoints'
+                })
+                Util.go('ArticleDetail', {
+                    key: '积分获得'
+                })
+            },
             share(type) {
                 try {
                     this.nativeShare.call(type)
@@ -370,7 +369,7 @@
             }
             this.popupHeight = document.documentElement.clientHeight + 'px'
             this.inviteBgHeight = 119 * document.documentElement.clientWidth / 543
-            this.btnHeight = document.documentElement.clientWidth * 0.18
+            this.btnHeight = document.documentElement.clientWidth * 0.12
             this.instructionBtnHeight = 41 * document.documentElement.clientWidth * 0.3 / 174
             this.mainBgHeight = 226 * document.documentElement.clientWidth / 540
             this.amountTop = (this.mainBgHeight - 60) / 2;
