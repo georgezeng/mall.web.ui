@@ -368,7 +368,7 @@
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 130) + "px"
-            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 150) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 180) / 2
             this.orderId = this.$router.currentRoute.params.id
             this.status = this.$router.currentRoute.params.status
             this.reload()

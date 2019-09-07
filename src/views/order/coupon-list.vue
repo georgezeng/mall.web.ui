@@ -243,7 +243,7 @@
             this.popupHeight = document.documentElement.clientHeight
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.key = this.$router.currentRoute.params.key
-            this.noRecordTop = ((document.documentElement.clientHeight - 60) - 150) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - 60) - 180) / 2
             this.load()
         }
     }
