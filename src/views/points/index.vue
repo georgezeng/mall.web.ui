@@ -182,26 +182,26 @@
                     <div @click="showFailTip1" class="qrcode"></div>
                 </div>
             </div>
-            <div align="center" style="width: 100%;">
-                <div @click="goPointsList" align="center" style="display: inline-block; width: 20%;">
+            <div align="center" style="margin: 20px 0;">
+                <div @click="goPointsList" align="center" style="display: inline-block; width: 23%;">
                     <div class="points-list-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">积分明细</div>
                 </div>
-                <div @click="showFailTip2" align="center" style="display: inline-block; width: 20%;">
+                <div @click="showFailTip2" align="center" style="display: inline-block; width: 23%;">
                     <div class="points-union-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">联盟商家</div>
                 </div>
-                <div @click="goItemList" align="center" style="display: inline-block; width: 20%;">
+                <div @click="goItemList" align="center" style="display: inline-block; width: 23%;">
                     <div class="points-item-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">积分商城</div>
                 </div>
-                <div @click="goInstruction" align="center" style="display: inline-block; width: 20%;">
+                <div @click="goInstruction" align="center" style="display: inline-block; width: 23%;">
                     <div class="points-instruction-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
@@ -230,6 +230,7 @@
     import ShareTipArrow from '../../images/tip-arrow.png'
     import NativeShare from 'nativeshare'
     import ProfileAPI from '../../api/profile.js'
+    import wx from 'weixin-js-sdk'
 
     export default {
         components: {},
