@@ -52,7 +52,8 @@
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle">
             <Spin size="large" fix v-if="show"></Spin>
-            <div v-if="showEmpty && !show" align="center" style="padding-top: 150px; background-color: #F5F5F5;">
+            <div v-if="showEmpty && !show" align="center" :style="{top: cartTop + 'px'}"
+                 style="position: relative; background-color: #F5F5F5;">
                 <div>
                     <img :src="Cart" width="200px" height="200"/>
                 </div>
@@ -167,6 +168,7 @@
         },
         data() {
             return {
+                cartTop: 0,
                 config,
                 Cart,
                 trash,
@@ -337,10 +339,11 @@
         },
         mounted() {
             this.isSmallDevice = document.documentElement.clientWidth < 400
-            this.contentStyle.marginBottom = '100px'
+            this.cartTop = (document.documentElement.clientHeight - 120 - 300) / 2
+            this.contentStyle.marginBottom = '60px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             const wrapperHeight = document.documentElement.clientHeight - 120
-            this.contentStyle.minHeight = wrapperHeight + 'px'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + 'px'
             this.load()
         }
     }
