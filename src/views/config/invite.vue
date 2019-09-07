@@ -9,30 +9,64 @@
     }
 
     .bg {
-        background-image: url("../../images/invite-share-bg.png");
+        background-color: #AD9979;
+        color: #fff;
+        font-weight: bold;
+        height: 160px;
+        position: relative;
+        font-size: 14px;
+    }
+
+    .member-rules-btn {
+        position: absolute;
+        right: 0px;
+        top: 20px;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        padding: 5px 10px 5px 20px;
+        font-size: 12px;
+    }
+
+    .qrcode {
+        background-image: url("../../images/goods-share-logo.png");
         background-repeat: no-repeat;
         background-size: contain;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 30px;
+        top: 10px;
+    }
+
+    .qrcode:after {
+        content: '分享海报';
+        color: #251F17;
+        font-size: 10px;
+        position: absolute;
+        width: 60px;
+        top: 25px;
+        right: -25px;
+    }
+
+    .invite-bg {
+        background-image: url("../../images/invite-bg.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 90%;
+        text-align: left;
         position: relative;
     }
 
-    .save-to-local-btn {
-        background-image: url("../../images/invite-save-btn.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-
-    .invite-btn {
-        background-image: url("../../images/invite-share-btn.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-
     .share-btn {
+        position: absolute;
+        right: 10px;
+        top: 30px;
+        background-image: url("../../images/points-share-btn.png");
         background-repeat: no-repeat;
         background-size: contain;
-        background-image: url("../../images/invite-share-btn2.png");
-        position: absolute;
-        bottom: 20px;
+        width: 100px;
+        height: 25px;
     }
 
     .wechat-friend {
@@ -79,9 +113,9 @@
     <Layout :style="commonStyles.layout">
         <Header class="header">
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
-            <div align="center" style="position: relative; top: 0px;">我的邀请</div>
+            <div align="center" style="position: relative; top: 0px;">邀请好友</div>
         </Header>
-        <Content :style="contentStyle" style="margin-top: 40px;">
+        <Content :style="contentStyle" style="margin-top: 60px;">
             <div v-transfer-dom>
                 <popup v-model="showShare" style="background-color: #fff; z-index: 1000000;">
                     <div style="height: 88px; position: relative;" align="center">
@@ -92,6 +126,7 @@
                     </div>
                 </popup>
             </div>
+
             <div v-if="showShareTip"
                  @click="closeShareTipPopup"
                  style="position: fixed; top: 0px; background-color: rgba(0, 0, 0, 0.8); width: 100%; z-index: 100000;"
@@ -112,49 +147,86 @@
             </div>
             <div v-show="popup" :style="popupStyle" style="position: fixed; top: 50px;">
                 <img :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
-                <div class="save-to-local-btn" :style="saveBtnStyle"
-                     style="position: absolute; bottom: 10px; left: 10px;">
-                </div>
-                <div class="invite-btn" @click="showSharePopup" :style="inviteBtnStyle"
-                     style="position: absolute; bottom: 10px; right: 10px;">
-                </div>
             </div>
             <Modal :value="showModal" @on-visible-change="popupChange" footer-hide fullscreen>
             </Modal>
-            <div class="bg" :style="bgStyle">
-                <div @click="showPoster" class="share-btn" :style="shareBtnStyle"></div>
-            </div>
-            <div style="padding: 10px;">累积邀请获得: {{totalPoints}} DBB</div>
-            <div align="center">
-                <div style="width: 100px; text-align: center; padding: 10px; border-bottom: 3px solid lightgray; margin-bottom: 40px;">
-                    分享动态
+
+            <div class="bg">
+                <div style="padding: 20px 0 20px 30px;">
+                    <div style="margin-bottom: 10px;">注册多呗家居连锁品牌会员</div>
+                    <div>线上线下购物享受超级优惠折扣</div>
+                </div>
+                <div @click="goMemberRules" class="member-rules-btn">
+                    会员制度
                 </div>
             </div>
-            <div v-for="item in list" :key="item.id">
-                <div style="margin-top: 20px;"></div>
-                <mt-cell style="border-bottom: 1px solid #F5F5F5; overflow: auto;">
-                    <div slot="title">
-                        <div style="display: inline-block; margin-right: 5px;">
-                            <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
+            <div align="center" style="position: relative; top: -60px; color: #251F17;">
+                <div class="invite-bg" :style="{height: inviteBgHeight + 'px'}">
+                    <div style="padding: 20px; font-size: 14px;">我的邀请成绩</div>
+                    <div class="qrcode" @click="showPoster"></div>
+                    <div style="margin-top: 5px;" align="center">
+                        <div style="display: inline-block; margin-right: 20px;">
+                            <div>
+                                <span style="font-size: 14pt; font-weight: bold;">{{totalPeople}}</span> <span
+                                    style="font-size: 12px;">人</span>
+                            </div>
+                            <div style="font-size: 12px;">邀请人数</div>
                         </div>
-                        <div style="position: relative; top: 8px; display: inline-block;">
-                            <div style="margin-bottom: 10px;">{{item.nickname}}</div>
-                            <div>{{item.username}}</div>
+                        <div style="display: inline-block; margin-right: 20px;">
+                            <div>
+                                <span style="font-size: 14pt; font-weight: bold;">{{totalCoupons}}</span> <span
+                                    style="font-size: 12px;">张</span>
+                            </div>
+                            <div style="font-size: 12px;">获得优惠券奖励</div>
+                        </div>
+                        <div style="display: inline-block;">
+                            <div>
+                                <span style="font-size: 14pt; font-weight: bold;">{{totalAmount}}</span> <span
+                                    style="font-size: 12px;">DBB</span>
+                            </div>
+                            <div style="font-size: 12px;">获得积分奖励</div>
                         </div>
                     </div>
-                    <div style="font-size: 14px;">
-                        <div style="color: orangered; margin-bottom: 10px; text-align: right;">+ {{item.invitePoints ?
-                            item.invitePoints : 0}} DBB
-                        </div>
-                        <div>{{item.createTime}}</div>
-                    </div>
-                </mt-cell>
+                </div>
             </div>
-            <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center"
-                 style="position: relative; color: gray;">
-                <img :src="NoRecord" width="30%" height="30%"/>
-                <div>暂无分享动态</div>
+
+
+            <div style="background-color: #F2F2F2; padding: 20px; font-size: 14px; position: relative; top: -40px; ">
+                <div>现在分享邀请好友注册多呗商城</div>
+                <div>立即奖励{{registrationBonus}}元优惠券和{{invitePointsBonus}}DBB多呗积分</div>
+                <div @click="showSharePopup" class="share-btn"></div>
+            </div>
+
+            <div style="padding: 10px; position: relative; top: -20px;">
+                <div style="border-bottom: 1px solid #f0f0f0; margin-bottom: 40px;">
+                    分享动态
+                </div>
+                <div v-for="item in list" :key="item.id">
+                    <div style="margin-top: 20px;"></div>
+                    <mt-cell style="border-bottom: 1px solid #F5F5F5; overflow: auto;">
+                        <div slot="title">
+                            <div style="display: inline-block; margin-right: 5px;">
+                                <Avatar style="position: relative; top: -8px;" size="large" :src="avatar(item.avatar)"/>
+                            </div>
+                            <div style="position: relative; top: 8px; display: inline-block;">
+                                <div style="margin-bottom: 10px;">{{item.nickname}}</div>
+                                <div>{{item.username}}</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 14px;">
+                            <div style="color: orangered; margin-bottom: 10px; text-align: right;">+ {{item.invitePoints ?
+                                item.invitePoints : 0}} DBB
+                            </div>
+                            <div>{{item.createTime}}</div>
+                        </div>
+                    </mt-cell>
+                </div>
+                <load-more v-if="showLoading" tip="正在加载"></load-more>
+                <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center"
+                     style="position: relative; color: gray;">
+                    <img :src="NoRecord" width="20%" height="20%"/>
+                    <div>暂无分享动态</div>
+                </div>
             </div>
         </Content>
     </Layout>
@@ -177,6 +249,12 @@
         components: {},
         data() {
             return {
+                invitePointsBonus: 0,
+                registrationBonus: 0,
+                totalPeople: 0,
+                totalAmount: 0,
+                totalCoupons: 0,
+                inviteBgHeight: 0,
                 NoRecord,
                 noRecordTop: 0,
                 config,
@@ -220,6 +298,14 @@
             }
         },
         methods: {
+            goMemberRules() {
+                Util.putForNav({
+                    from: 'MyInvite'
+                })
+                Util.go('ArticleDetail', {
+                    key: '会员制度'
+                })
+            },
             popupChange(value) {
                 if (!value && !this.showShareTip && !this.showShareTipInBrowser) {
                     this.closePoster()
@@ -235,14 +321,14 @@
                 }
             },
             closeShareTipPopup() {
-                this.showPoster()
+                // this.showPoster()
                 this.showShareTip = false
                 this.showShareTipInBrowser = false
                 this.showShare = false
             },
             showSharePopup() {
                 // this.closePoster()
-                this.popupStyle.zIndex = 1
+                // this.popupStyle.zIndex = 1
                 const token = Util.getToken()
                 if (!token) {
                     Util.go('Login')
@@ -337,11 +423,12 @@
             },
         },
         mounted() {
+            this.inviteBgHeight = 228 * document.documentElement.clientWidth * 0.9 / 541
             let height = 550
             if (document.documentElement.clientHeight < 650) {
                 height = 450
             }
-            this.noRecordTop = ((document.documentElement.clientHeight - height) - 200) / 2
+            this.noRecordTop = ((document.documentElement.clientHeight - height) - 150) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
             this.load()

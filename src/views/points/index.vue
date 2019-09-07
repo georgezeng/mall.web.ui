@@ -335,7 +335,7 @@
                     from: 'MyPoints'
                 })
                 Util.go('ArticleDetail', {
-                    key: '积分说明'
+                    key: '多呗积分'
                 })
             },
             back() {
