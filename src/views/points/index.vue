@@ -45,36 +45,26 @@
         right: -20px;
     }
 
+    .points-btn {
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 60%;
+        margin-bottom: 5px;
+        position: relative;
+        left: 2px;
+    }
+
     .points-list-btn {
         background-image: url("../../images/points-list.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 60%;
-        margin-bottom: 5px;
     }
-
     .points-union-btn {
         background-image: url("../../images/points-union.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 60%;
-        margin-bottom: 5px;
     }
-
     .points-instruction-btn {
         background-image: url("../../images/points-instruction.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 60%;
-        margin-bottom: 5px;
     }
-
     .points-item-btn {
         background-image: url("../../images/points-item.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 60%;
-        margin-bottom: 5px;
     }
 
     .invite-bg {
@@ -184,25 +174,25 @@
             </div>
             <div align="center" style="margin: 20px 0;">
                 <div @click="goPointsList" align="center" style="display: inline-block; width: 23%;">
-                    <div class="points-list-btn"
+                    <div class="points-btn points-list-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">积分明细</div>
                 </div>
                 <div @click="showFailTip2" align="center" style="display: inline-block; width: 23%;">
-                    <div class="points-union-btn"
+                    <div class="points-btn points-union-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">联盟商家</div>
                 </div>
                 <div @click="goItemList" align="center" style="display: inline-block; width: 23%;">
-                    <div class="points-item-btn"
+                    <div class="points-btn points-item-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">积分商城</div>
                 </div>
                 <div @click="goInstruction" align="center" style="display: inline-block; width: 23%;">
-                    <div class="points-instruction-btn"
+                    <div class="points-btn points-instruction-btn"
                          :style="{height: btnHeight + 'px'}">
                     </div>
                     <div style="font-size: 12px;">积分说明</div>
