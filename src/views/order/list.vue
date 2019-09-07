@@ -176,6 +176,10 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无订单</div>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -191,6 +195,7 @@
     import trash from '../../images/trash.png'
     import WechatLogo from '../../images/wechat-logo.png'
     import AlipayLogo from '../../images/alipay-logo.png'
+    import NoRecord from '../../images/norecord-order.png'
 
     export default {
         components: {
@@ -198,6 +203,8 @@
         },
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 AlipayLogo,
                 WechatLogo,
                 trash,
@@ -512,6 +519,7 @@
             this.contentStyle.backgroundColor = '#F5F5F5'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.type = this.$router.currentRoute.params.type
+            this.noRecordTop = ((document.documentElement.clientHeight - 125) - 300) / 2
             this.reload()
             if (Util.isInWechat()) {
                 Util.wxConfig([

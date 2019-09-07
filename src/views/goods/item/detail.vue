@@ -473,7 +473,7 @@
                 contentStyle: {
                     ...commonStyles.content
                 },
-                nums: 0,
+                nums: 1,
                 values: [],
                 totalProperty: {
                     price: 0,

@@ -151,6 +151,10 @@
                 </mt-cell>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无分享动态</div>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -166,11 +170,14 @@
     import UrlParams from 'get-url-param'
     import ProfileAPI from '../../api/profile.js'
     import md5 from 'md5'
+    import NoRecord from '../../images/norecord-invite.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 config,
                 ShareTipArrow,
                 commonStyles,
@@ -329,6 +336,7 @@
             },
         },
         mounted() {
+            this.noRecordTop = ((document.documentElement.clientHeight - 400) - 300) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
             this.load()

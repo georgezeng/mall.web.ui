@@ -179,6 +179,10 @@
                 <div class="clearfix"></div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无优惠券</div>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -188,11 +192,14 @@
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import {MessageBox} from 'mint-ui';
+    import NoRecord from '../../images/norecord-coupon.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -356,6 +363,7 @@
             this.popupHeight = document.documentElement.clientHeight
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 125) + "px"
             this.type = this.$router.currentRoute.params.type
+            this.noRecordTop = ((document.documentElement.clientHeight - 125) - 300) / 2
             this.reload()
             // this.count()
         },

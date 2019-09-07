@@ -113,6 +113,10 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无优惠券</div>
+            </div>
         </Content>
         <Footer :style="footerStyle">
             <div style="font-size: 12pt; display: inline-block;color: orangered; padding: 10px 10px;">抵扣金额:
@@ -131,11 +135,14 @@
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import {MessageBox} from 'mint-ui';
+    import NoRecord from '../../images/norecord-coupon.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -236,6 +243,7 @@
             this.popupHeight = document.documentElement.clientHeight
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + "px"
             this.key = this.$router.currentRoute.params.key
+            this.noRecordTop = ((document.documentElement.clientHeight - 60) - 300) / 2
             this.load()
         }
     }

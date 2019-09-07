@@ -5,6 +5,6 @@ export default {
         return axios.post('/client/list/sub', page)
     },
     loadTotalPoints() {
-        return axios.get('/client/points/totalInvite', page)
+        return axios.get('/client/points/totalInvite')
     }
 }

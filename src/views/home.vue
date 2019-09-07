@@ -121,7 +121,7 @@
             <div class="logo" :style="{backgroundImage: logoImg}"></div>
             <div class="search">
                 <Icon type="ios-search"/>
-                <input @focus="goSearch" class="searchInput" value="搜索商品"/>
+                <input readonly @focus="goSearch" class="searchInput" value="搜索商品"/>
             </div>
         </Header>
         <Content :style="contentStyle">
@@ -209,7 +209,7 @@
                 itemWidth: 0,
                 itemImageWidth: 0,
                 loadingList: false,
-                showLoading: false,
+                showLoading: true,
                 list: [],
                 categoryStyle: {},
                 banners: [],

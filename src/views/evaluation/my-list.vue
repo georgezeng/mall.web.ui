@@ -148,6 +148,11 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div v-if="status == 'UnComment'">暂无商品可评价</div>
+                <div v-else>暂无评价记录</div>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -157,11 +162,14 @@
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import {MessageBox} from 'mint-ui';
+    import NoRecord from '../../images/norecord-evaluation.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -177,6 +185,7 @@
                     order: 'DESC',
                     property: 'createTime'
                 },
+                init: false,
                 list: [],
                 uncommentList: [],
                 uncommentTotal: 0,
@@ -292,9 +301,10 @@
                         } else {
                             this.allLoaded = true
                             this.showLoading = false
-                            if (this.uncommentList.length == 0) {
+                            if (this.uncommentList.length == 0 && !this.init) {
                                 this.status = 'All'
                                 this.reload()
+                                this.init = true
                                 return
                             }
                         }
@@ -358,6 +368,7 @@
             // this.headerStyle.height = '90px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 130) + "px"
+            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 300) / 2
             this.orderId = this.$router.currentRoute.params.id
             this.status = this.$router.currentRoute.params.status
             this.reload()

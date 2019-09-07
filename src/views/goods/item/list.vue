@@ -101,8 +101,8 @@
         <Header :style="headerStyle">
             <Icon ref="backIcon" size="24" class="backArrow" type="ios-arrow-back" @click="back"/>
             <div :style="{width: searchInputWidth + 'px'}" class="search">
-                <Icon style="color: gray;" type="ios-search" />
-                <input @focus="goSearch" class="searchInput" :placeholder="keyword"/>
+                <Icon style="color: gray;" type="ios-search"/>
+                <input readonly @focus="goSearch" class="searchInput" :placeholder="keyword"/>
             </div>
             <div v-if="!isSmallDevice" style="position: relative; top: -25px;">
                 <span class="orderTab" :class="{selected: isSelected.default}"
@@ -165,6 +165,10 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无商品信息</div>
+            </div>
             <!--<div ref="wrapper" class="wrapper" :style="{height: wrapperHeight + 'px'}">-->
             <!--<mt-loadmore :bottom-method="load"
                          :bottom-all-loaded="allLoaded"
@@ -199,16 +203,17 @@
 </template>
 <script>
     import API from '../../../api/goods-item-list.js'
+    import NoRecord from '../../../images/norecord-item.png'
     import config from '../../../config/index.js'
     import Util from '../../../libs/util.js'
     import {Message} from 'iview'
     import commonStyles from '../../../styles/common.js'
-    import Masonry from 'masonry-layout'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -242,7 +247,8 @@
                 isSmallDevice: false,
                 showLoading: false,
                 loadingList: false,
-                type: null
+                type: null,
+                noRecordTop: 0,
             }
         },
         computed: {
@@ -409,6 +415,7 @@
             this.type = this.$router.currentRoute.params.type
             this.categoryId = this.categoryId > 0 ? this.categoryId : 0
             this.queryInfo.data = this.$router.currentRoute.params.key
+            this.noRecordTop = ((document.documentElement.clientHeight - 90) - 300) / 2
             this.orderBy('default', true)
         },
         destroyed() {

@@ -113,6 +113,10 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无评价记录</div>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -122,11 +126,14 @@
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
     import defaultAvatar from '../../images/avatar.png'
+    import NoRecord from '../../images/norecord-evaluation.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -243,6 +250,7 @@
             },
         },
         mounted() {
+            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 300) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 330
             this.popupImgWidth = document.documentElement.clientWidth

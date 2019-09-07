@@ -40,6 +40,10 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无积分记录</div>
+            </div>
         </Content>
     </Layout>
 </template>
@@ -48,11 +52,14 @@
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
+    import NoRecord from '../../images/norecord-points.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -128,6 +135,7 @@
             this.contentStyle.marginTop = '160px'
             this.contentStyle.backgroundColor = '#F5F5F5'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 160) + "px"
+            this.noRecordTop = ((document.documentElement.clientHeight - 160) - 300) / 2
             this.load()
             API.baseInfo().then(data => {
                 this.data = data
