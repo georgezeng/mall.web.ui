@@ -41,7 +41,6 @@
         }
     }
 
-
     .finance {
         .gradient {
             display: inline-block;
@@ -140,7 +139,11 @@
                     <Avatar ref="avatar" size="large" class="avatar" :src="avatar"/>
                     <div v-if="isLogin" style="display: inline-block; position: relative; top: -15px;">
                         <div class="nickname">{{nickname}}</div>
-                        <div class="level">{{level}}</div>
+                        <div class="level">
+                            <img :src="config.publicBucketDomain + level.imgPath" width="18" height="18"
+                                 style="margin-right: 5px; position: relative; top: 3px;"/>
+                            <span style="position: relative; top: -1px;">{{level.name}}</span>
+                        </div>
                     </div>
                     <div v-else style="display: inline-block; position: relative; top: 5px;">
                         立即登录
@@ -209,7 +212,8 @@
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box class="optionPanel" is-link @click.native="goAboutUs">
-                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle" /> 关于我们
+                        <Icon size="24" style="color: #7C502E; margin-right: 10px;" type="md-information-circle"/>
+                        关于我们
                         <Icon type="ios-arrow-forward" size="20" class="goArrow"/>
                     </cell-box>
                     <cell-box v-if="isLogin" class="optionPanel" is-link @click.native="exit">
@@ -270,6 +274,7 @@
         },
         data() {
             return {
+                config,
                 contact,
                 exitImg,
                 dfk,
@@ -302,7 +307,10 @@
                 titleFont: '14px',
                 couponNums: 0,
                 points: 0,
-                level: null
+                level: {
+                    name: null,
+                    imgPath: null
+                }
             }
         },
         computed: {
@@ -484,7 +492,7 @@
                     this.couponNums = data
                 })
                 ClientAPI.currentLevel().then(data => {
-                    this.level = data.name
+                    this.level = data
                 })
                 this.getDfkNums()
                 this.getDfhNums()
