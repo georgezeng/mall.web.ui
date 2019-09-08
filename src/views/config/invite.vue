@@ -46,7 +46,7 @@
         position: absolute;
         width: 60px;
         top: 25px;
-        right: -20px;
+        right: -23px;
     }
 
     .invite-bg {
@@ -125,6 +125,16 @@
                         <div class="qq-zone" @click="share('qZone')"></div>
                     </div>
                 </popup>
+                <popup v-model="posterPopup" style="background-color: #fff; z-index: 1000000;">
+                    <div style="height: 100px; position: relative; color: orangered; font-size: 14px;">
+                        <div align="center" style="padding-top: 10px; font-weight: bold;">
+                            海报分享提示
+                        </div>
+                        <div style="padding: 10px;">
+                            长按图片保存海报到本地相册，把图片发送到好友或者朋友圈，好友可以扫描二维码进入商城购物！
+                        </div>
+                    </div>
+                </popup>
             </div>
 
             <div v-if="showShareTip"
@@ -137,6 +147,10 @@
                 </div>
             </div>
 
+            <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed;">
+                <img :src="popupImgSrc" :width="posterWidth" :height="posterHeight"/>
+            </div>
+
             <div v-if="showShareTipInBrowser"
                  @click="closeShareTipPopup"
                  style="position: fixed; top: 0px; width: 100%; z-index: 1000;"
@@ -145,11 +159,6 @@
                     如果不成功请打开浏览器的菜单进行分享
                 </div>
             </div>
-            <div v-show="popup" :style="popupStyle" style="position: fixed; top: 50px;">
-                <img :src="popupImgSrc" :width="popupImgWidth" :height="popupImgHeight"/>
-            </div>
-            <Modal :value="showModal" @on-visible-change="popupChange" footer-hide fullscreen>
-            </Modal>
 
             <div class="bg">
                 <div style="padding: 20px 0 20px 30px;">
@@ -292,7 +301,11 @@
                 popupHeight: 500,
                 minHeight: 0,
                 borderLeft: 0,
-                numsMarginTop: '25px'
+                numsMarginTop: '25px',
+                posterPopup: false,
+                posterPopupStyle: {},
+                posterWidth: 0,
+                posterHeight: 0,
             }
         },
         computed: {
@@ -379,10 +392,10 @@
             closePoster() {
                 this.popup = false
             },
-            showPoster() {
-                this.popupStyle.zIndex = 100000
-                this.popup = true
-            },
+            // showPoster() {
+            //     this.popupStyle.zIndex = 100000
+            //     this.popup = true
+            // },
             back() {
                 Util.go('MyCenter')
             },
@@ -424,6 +437,10 @@
             scrollHandler(e) {
                 Util.scrollHandler(e, this)
             },
+            showPoster() {
+                this.posterPopupStyle.zIndex = 100000
+                this.posterPopup = true
+            },
         },
         mounted() {
             this.inviteBgHeight = 228 * document.documentElement.clientWidth * 0.9 / 541
@@ -462,6 +479,25 @@
             }
             if (document.documentElement.clientWidth < 330) {
                 this.popupStyle.fontSize = '14px'
+            }
+            if (document.documentElement.clientHeight < 610) {
+                this.posterWidth = document.documentElement.clientWidth * 0.7
+                this.posterHeight = document.documentElement.clientWidth * 0.7 * 1161 / 750
+                this.posterPopupStyle = {
+                    left: document.documentElement.clientWidth * 0.15 + 'px',
+                    width: this.posterWidth + 'px',
+                    height: this.posterHeight + 'px',
+                    top: '20px'
+                }
+            } else {
+                this.posterWidth = document.documentElement.clientWidth * 0.8
+                this.posterHeight = document.documentElement.clientWidth * 0.8 * 1161 / 750
+                this.posterPopupStyle = {
+                    left: document.documentElement.clientWidth * 0.1 + 'px',
+                    width: this.posterWidth + 'px',
+                    height: this.posterHeight + 'px',
+                    top: '50px'
+                }
             }
             this.contentStyle.backgroundColor = '#fff'
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + 'px'
