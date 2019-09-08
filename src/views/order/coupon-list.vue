@@ -183,7 +183,7 @@
         methods: {
             confirmItems() {
                 const data = Util.getJson('settleAccountData')
-                data.coupons = this.list.filter(it => it.selected)
+                data.coupons = this.list.filter(it => it.selected).map(it => {return {...it, eventType: it.eventType.name};})
                 Util.putJson('settleAccountData', data)
                 const nav = Util.getForNav()
                 Util.go(nav.from, nav)
