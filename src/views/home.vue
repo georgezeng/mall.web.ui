@@ -350,7 +350,7 @@
             this.load()
             if (this.isLogin) {
                 ClientAPI.registrationBonus().then(data => {
-                    if (amount) {
+                    if (data) {
                         this.bonus = data
                         this.bonusPopup = true
                     }
