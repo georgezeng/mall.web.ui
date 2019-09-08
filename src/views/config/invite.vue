@@ -167,21 +167,21 @@
                     <div :style="{marginTop: numsMarginTop}" align="center">
                         <div style="display: inline-block; margin-right: 20px;">
                             <div>
-                                <span style="font-size: 14pt; font-weight: bold;">{{totalPeople}}</span> <span
+                                <span style="font-size: 14pt; font-weight: bold;">{{data.totalPeople}}</span> <span
                                     style="font-size: 12px;">人</span>
                             </div>
                             <div style="font-size: 12px;">邀请人数</div>
                         </div>
                         <div style="display: inline-block; margin-right: 20px;">
                             <div>
-                                <span style="font-size: 14pt; font-weight: bold;">{{totalCoupons}}</span> <span
+                                <span style="font-size: 14pt; font-weight: bold;">{{data.totalCoupons}}</span> <span
                                     style="font-size: 12px;">张</span>
                             </div>
                             <div style="font-size: 12px;">获得优惠券奖励</div>
                         </div>
                         <div style="display: inline-block;">
                             <div>
-                                <span style="font-size: 14pt; font-weight: bold;">{{totalAmount}}</span> <span
+                                <span style="font-size: 14pt; font-weight: bold;">{{data.totalPoints}}</span> <span
                                     style="font-size: 12px;">DBB</span>
                             </div>
                             <div style="font-size: 12px;">获得积分奖励</div>
@@ -252,9 +252,11 @@
                 tipFontSize: '14px',
                 invitePointsBonus: 0,
                 registrationBonus: 0,
-                totalPeople: 0,
-                totalAmount: 0,
-                totalCoupons: 0,
+                data: {
+                    totalPeople: 0,
+                    totalPoints: 0,
+                    totalCoupons: 0,
+                },
                 inviteBgHeight: 0,
                 NoRecord,
                 noRecordTop: 0,
@@ -265,7 +267,6 @@
                 shareBtnStyle: null,
                 saveBtnStyle: null,
                 inviteBtnStyle: null,
-                totalPoints: 0,
                 contentStyle: {
                     ...commonStyles.content
                 },
@@ -477,7 +478,7 @@
             })
             API.loadTotalPoints().then(data => {
                 if (data) {
-                    this.totalPoints = data
+                    this.data = data
                 }
             })
         },
