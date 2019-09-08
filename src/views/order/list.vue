@@ -143,9 +143,11 @@
                             style="border-color: #B69C7D; color: #B69C7D; float: right; margin-left: 10px;">
                         确认收货
                     </Button>
+                    <!--
                     <Button @click="goRefundOnly(item.id)" style="float: right; margin-left: 10px;">
                         退款售后
                     </Button>
+                    -->
                     <Button @click="goExpress(item.id)" style="float: right;">查看物流</Button>
                     <div class="clearfix"></div>
                 </div>
