@@ -464,7 +464,7 @@
                 this.popupStyle.fontSize = '14px'
             }
             this.contentStyle.backgroundColor = '#fff'
-            this.contentStyle.minHeight = (document.documentElement.clientHeight - 40) + 'px'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + 'px'
             this.minHeight = document.documentElement.clientHeight + 'px'
             this.popupHeight = document.documentElement.clientHeight + 'px'
             if (Util.isInWechat()) {
