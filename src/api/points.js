@@ -4,8 +4,8 @@ export default {
     current() {
         return axios.get('/client/points/current')
     },
-    baseInfo() {
-        return axios.get('/client/points')
+    accInAmount() {
+        return axios.get('/client/points/accInAmount')
     },
     journals(queryInfo) {
         return axios.post('/client/points/journals', queryInfo)
