@@ -112,7 +112,7 @@
         <div v-if="bonusPopup" align="center" class="bonusModal">
             <div class="bonusImg"
                  :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
-                <div class="bonusTip" :style="{top: bonusTipTop + 'px'}">{{bonus}}元优惠券</div>
+                <div class="bonusTip" :style="{top: bonusTipTop + 'px'}">{{bonus.coupon}}元优惠券 + {{bonus.points}}积分</div>
                 <div @click="goMyCoupon" class="bonusBtn"
                      :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
             </div>
@@ -192,7 +192,10 @@
                 bonusBtnWidth: null,
                 bonusBtnHeight: null,
                 bonusTipTop: null,
-                bonus: null,
+                bonus: {
+                    coupon: null,
+                    points: null
+                },
                 commonStyles,
                 contentStyle: {
                     ...commonStyles.content
@@ -346,9 +349,9 @@
             })
             this.load()
             if (this.isLogin) {
-                ClientAPI.registrationBonus().then(amount => {
+                ClientAPI.registrationBonus().then(data => {
                     if (amount) {
-                        this.bonus = amount
+                        this.bonus = data
                         this.bonusPopup = true
                     }
                 })
