@@ -131,6 +131,7 @@
             this.load()
             API.accInAmount().then(data => {
                 this.accInAmount = data
+                
             })
         },
         destroyed() {
