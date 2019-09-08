@@ -18,8 +18,9 @@
         <Content :style="commonStyles.content" style="margin-top: 60px;">
             <div style="margin-bottom: 10px; padding: 10px 15px 0;" v-for="express in data.expressList"
                  :key="express.id">
-                <div>物流公司: {{express.company}}</div>
-                <div>物流单号: {{express.number}}</div>
+                <div>物流方式: {{express.type.text}}</div>
+                <div v-if="express.type == 'Delivery'">物流公司: {{express.company}}</div>
+                <div v-if="express.type == 'Delivery'">物流单号: {{express.number}}</div>
             </div>
         </Content>
     </Layout>
