@@ -345,8 +345,8 @@
                 MerchantAPI.loadClientPointsBonus().then(data => {
                     this.invitePoints = this.data.invite
                 })
-                API.baseInfo().then(data => {
-                    this.currentAmount = data.currentAmount
+                API.current().then(data => {
+                    this.currentAmount = data
                 })
                 ProfileAPI.load().then(data => {
                     this.updateShare(data)
