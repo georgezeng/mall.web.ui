@@ -476,10 +476,8 @@
             ProfileAPI.load().then(data => {
                 this.updateShare(data)
             })
-            API.loadTotalPoints().then(data => {
-                if (data) {
-                    this.data = data
-                }
+            API.loadTotalInfo().then(data => {
+                this.data = data
             })
         },
         destroyed() {
