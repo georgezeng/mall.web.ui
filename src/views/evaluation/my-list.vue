@@ -148,10 +148,13 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div :style="{top: noRecordTop + 'px'}" v-if="init && uncommentList.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无商品可评价</div>
+            </div>
             <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
-                <div v-if="status == 'UnComment'">暂无商品可评价</div>
-                <div v-else>暂无评价记录</div>
+                <div>暂无评价记录</div>
             </div>
         </Content>
     </Layout>
