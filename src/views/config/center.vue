@@ -141,7 +141,7 @@
                         <div class="nickname">{{nickname}}</div>
                         <div class="level">
                             <img :src="config.publicBucketDomain + level.imgPath" width="18" height="18"
-                                 style="margin-right: 5px; position: relative; top: 4px;"/>
+                                 style="position: relative; top: 4px;"/>
                             <span style="position: relative; top: -1px;">{{level.name}}</span>
                         </div>
                     </div>

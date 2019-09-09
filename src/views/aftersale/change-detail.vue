@@ -15,6 +15,15 @@
             <div align="center" style="color: #fff;">售后详情</div>
         </Header>
         <Content :style="contentStyle">
+            <div v-if="popup" :style="modalStyle" style="position: absolute; z-index: 10000000;">
+                <swiper :aspect-ratio="1" auto loop :show-dots="false">
+                    <swiper-item v-for="(url, index) in popupImgs" :key="index">
+                        <img :src="config.publicBucketDomain + url" :width="popupImgWidth" :height="popupImgWidth">
+                    </swiper-item>
+                </swiper>
+            </div>
+            <Modal v-model="popup" footer-hide fullscreen>
+            </Modal>
             <div style="background-color: #fff; padding: 10px;">
                 <img :src="config.publicBucketDomain + item.subOrder.thumbnail" width="72" height="72">
                 <div style="display: inline-block; margin-left: 10px;">
@@ -28,6 +37,69 @@
                         <span style="color: orangered;margin-right: 10px;">价格: ￥{{item.subOrder.unitPrice}}</span>
                         <span>x{{item.subOrder.nums}}</span>
                     </div>
+                </div>
+            </div>
+            <div v-if="item.pickupTime != null" style="font-size: 14px;">
+                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
+                    {{item.pickupTime}}
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    用户已确认收货
+                </div>
+                <div style="background-color: #fff; padding: 10px;">
+                    期待您的下一次惠顾
+                </div>
+            </div>
+            <div v-if="item.sendTime != null" style="font-size: 14px;">
+                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
+                    {{item.sendTime}}
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    商城已将商品寄出
+                </div>
+                <div style="background-color: #fff; padding: 10px;">
+                    <div style="margin-top: 5px;">物流公司: {{item.merchantExpressCompany}}</div>
+                    <div style="margin-top: 5px;">物流单号: {{item.merchantExpressNumber}}</div>
+                    <div style="margin-top: 5px;">备注: {{item.remark}}</div>
+                </div>
+            </div>
+            <div v-if="item.receiveTime != null" style="font-size: 14px;">
+                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
+                    {{item.receiveTime}}
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    商城确认收货
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    即将为您寄出新的物品，请耐心等待...
+                </div>
+            </div>
+            <div v-if="item.returnTime != null" style="font-size: 14px;">
+                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
+                    {{item.returnTime}}
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    用户寄回商品
+                </div>
+                <div style="background-color: #fff; padding: 10px;">
+                    <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>
+                    <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
+                </div>
+            </div>
+            <div v-if="item.rejectTime != null" style="font-size: 14px;">
+                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
+                    {{item.rejectTime}}
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    {{item.rejectReason}}
+                </div>
+            </div>
+            <div v-if="item.processedTime != null" style="font-size: 14px;">
+                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
+                    {{item.processedTime}}
+                </div>
+                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
+                    商城同意换货，请尽快回寄商品
                 </div>
             </div>
             <div v-if="item.postTime != null" style="font-size: 14px;">
@@ -45,72 +117,9 @@
                     <div style="margin-top: 5px;">售后原因: {{item.reason}}</div>
                     <div style="margin-top: 5px;">售后说明: {{item.description}}</div>
                     <div style="margin-top: 5px;">
-                        <img v-for="(path, index) in item.photos" :key="index" :src="config.publicBucketDomain + path"
-                             width="42" height="42"/>
+                        <img @click="showBigImg(item.photos)" style="margin-right: 5px;" v-for="(path, index) in item.photos" :key="index"
+                             :src="config.publicBucketDomain + path" width="42" height="42"/>
                     </div>
-                </div>
-            </div>
-            <div v-if="item.processedTime != null" style="font-size: 14px;">
-                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
-                    {{item.processedTime}}
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    商城同意换货，请尽快回寄商品
-                </div>
-            </div>
-            <div v-if="item.rejectTime != null" style="font-size: 14px;">
-                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
-                    {{item.rejectTime}}
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    商城拒绝换货，不在换货规则内
-                </div>
-            </div>
-            <div v-if="item.returnTime != null" style="font-size: 14px;">
-                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
-                    {{item.returnTime}}
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    用户寄回商品
-                </div>
-                <div style="background-color: #fff; padding: 10px;">
-                    <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>
-                    <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
-                </div>
-            </div>
-            <div v-if="item.receiveTime != null" style="font-size: 14px;">
-                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
-                    {{item.receiveTime}}
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    商城确认收货
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    即将为您寄出新的物品，请耐心等待...
-                </div>
-            </div>
-            <div v-if="item.sendTime != null" style="font-size: 14px;">
-                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
-                    {{item.sendTime}}
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    商城已将商品寄出
-                </div>
-                <div style="background-color: #fff; padding: 10px;">
-                    <div style="margin-top: 5px;">物流公司: {{item.merchantExpressCompany}}</div>
-                    <div style="margin-top: 5px;">物流单号: {{item.merchantExpressNumber}}</div>
-                    <div style="margin-top: 5px;">备注: {{item.remark}}</div>
-                </div>
-            </div>
-            <div v-if="item.pickupTime != null" style="font-size: 14px;">
-                <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
-                    {{item.pickupTime}}
-                </div>
-                <div style="background-color: #fff; padding: 10px; border-bottom: 1px solid #f5f5f5;">
-                    用户已确认收货
-                </div>
-                <div style="background-color: #fff; padding: 10px;">
-                    期待您的下一次惠顾
                 </div>
             </div>
         </Content>
@@ -158,6 +167,7 @@
                     serviceId: null,
                     status: {},
                     postTime: null,
+                    rejectReason: null,
                     processedTime: null,
                     refundTime: null,
                     returnTime: null,
@@ -173,11 +183,18 @@
                         nums: 0
                     }
                 },
+                popupImgs: [],
                 isSmallDevice: false,
+                popup: false,
+                modalStyle: {}
             }
         },
         computed: {},
         methods: {
+            showBigImg(urls) {
+                this.popupImgs = urls
+                this.popup = true
+            },
             pickupConfirm() {
                 MessageBox.confirm('您确定已经收到商品吗?').then(action => {
                     this.$vux.loading.show({
@@ -230,7 +247,14 @@
         },
         mounted() {
             this.contentStyle.marginTop = '60px'
-            this.isSmallDevice = document.documentElement.clientWidth < 400
+            this.contentStyle.marginBottom = '40px'
+            this.isSmallDevice = document.documentElement.clientHeight < 620
+            this.popupImgWidth = document.documentElement.clientWidth
+            this.modalStyle = {
+                width: '100%',
+                height: this.popupImgWidth + 'px',
+                top: this.isSmallDevice ? '50px' : '100px'
+            }
             this.item.id = this.$router.currentRoute.params.id
             this.load()
         }

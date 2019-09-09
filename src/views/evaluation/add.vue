@@ -19,6 +19,15 @@
             <div align="center" style="position: relative; top: 0px;">{{title}}</div>
         </Header>
         <Content :style="contentStyle" style="margin-top: 60px;">
+            <div v-if="popup" :style="modalStyle" style="position: absolute; z-index: 10000000;">
+                <swiper :aspect-ratio="1" auto loop :show-dots="false">
+                    <swiper-item v-for="(url, index) in popupImgs" :key="index">
+                        <img :src="config.publicBucketDomain + url" :width="popupImgWidth" :height="popupImgWidth">
+                    </swiper-item>
+                </swiper>
+            </div>
+            <Modal v-model="popup" footer-hide fullscreen>
+            </Modal>
             <div style="padding: 10px; margin-bottom: 10px; background-color: #fff; position: relative;">
                 <img :src="form.itemThumbnail ? config.publicBucketDomain + form.itemThumbnail : ''" width="72" height="72">
                 <div style="display: inline-block; margin-left: 10px; position: relative; top: -25px;">
@@ -55,7 +64,7 @@
                                     v-model="form.remark"></x-textarea>
                     </group>
                 </div>
-                <img style="margin-right: 5px;" v-for="(filePath, index) in form.photos" :key="index"
+                <img @click="showBigImg(form.photos)" style="margin-right: 5px;" v-for="(filePath, index) in form.photos" :key="index"
                      :src="config.publicBucketDomain + filePath" width="42" height="42"/>
                 <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
                 <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
@@ -103,6 +112,10 @@
                     photos: []
                 },
                 loading: false,
+                popupImgs: [],
+                isSmallDevice: false,
+                popup: false,
+                modalStyle: {}
             }
         },
         computed: {
@@ -185,9 +198,20 @@
                         })
                     }
                 }
-            }
+            },
+            showBigImg(urls) {
+                this.popupImgs = urls
+                this.popup = true
+            },
         },
         mounted() {
+            this.isSmallDevice = document.documentElement.clientWidth < 620
+            this.popupImgWidth = document.documentElement.clientWidth
+            this.modalStyle = {
+                width: '100%',
+                height: this.popupImgWidth + 'px',
+                top: this.isSmallDevice ? '50px' : '100px'
+            }
             this.contentStyle.backgroundColor = '#f5f5f5'
             this.form.id = this.$router.currentRoute.params.id
             this.type = this.$router.currentRoute.params.type

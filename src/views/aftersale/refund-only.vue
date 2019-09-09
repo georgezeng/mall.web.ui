@@ -16,6 +16,15 @@
             <div align="center" style="position: relative; top: 0px;">售后申请</div>
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 60px; margin-bottom: 40px; font-size: 14px;">
+            <div v-if="popup" :style="modalStyle" style="position: absolute; z-index: 10000000;">
+                <swiper :aspect-ratio="1" auto loop :show-dots="false">
+                    <swiper-item v-for="(url, index) in popupImgs" :key="index">
+                        <img :src="config.publicBucketDomain + url" :width="popupImgWidth" :height="popupImgWidth">
+                    </swiper-item>
+                </swiper>
+            </div>
+            <Modal v-model="popup" footer-hide fullscreen>
+            </Modal>
             <div v-transfer-dom>
                 <popup v-model="reasonPopup" style="background-color: #fff; z-index: 100000;">
                     <div style="position: relative;">
@@ -62,12 +71,14 @@
                                 v-model="form.description"></x-textarea>
                 </group>
             </div>
-            <img style="margin-right: 5px;" v-for="(path, index) in form.photos" :key="index"
-                 :src="config.publicBucketDomain + path" width="42" height="42"/>
-            <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
-            <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
-                <input ref="uploadFile" type="file" accept='image/*' multiple @change="fileChange"/>
-            </form>
+            <div style="padding: 10px;">
+                <img @click="showBigImg(form.photos)" style="margin-right: 5px;" v-for="(path, index) in form.photos" :key="index"
+                     :src="config.publicBucketDomain + path" width="42" height="42"/>
+                <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
+                <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
+                    <input ref="uploadFile" type="file" accept='image/*' multiple @change="fileChange"/>
+                </form>
+            </div>
         </Content>
         <Footer :style="footerStyle">
             <x-button action-type="button" :disabled="loading" style="width: 100%; background-color: #008CEB;"
@@ -107,20 +118,30 @@
                 },
                 reasonPopup: false,
                 reasonValue: [],
-                reasonList: []
+                reasonList: [],
+                popupImgs: [],
+                isSmallDevice: false,
+                popup: false,
+                modalStyle: {}
             }
         },
         computed: {},
         methods: {
+            showBigImg(urls) {
+                this.popupImgs = urls
+                this.popup = true
+            },
             save() {
                 this.loading = true
                 API.save(this.form).then(res => {
                     this.loading = false
-                    const nav = Util.getForNav()
-                    Util.go('AfterSaleList', {
-                        id: nav.id ? nav.id : 0,
-                        status: 'Processing'
-                    })
+                    let nav = Util.getForNav()
+                    if (nav.from != 'AfterSaleList') {
+                        nav = Util.getForNav()
+                    } else {
+                        nav.params.status = 'All'
+                    }
+                    Util.go(nav.from, nav)
                 }).catch(e => {
                     this.loading = false
                 })
@@ -200,6 +221,13 @@
             this.form.id = this.$router.currentRoute.params.id
         },
         mounted() {
+            this.isSmallDevice = document.documentElement.clientHeight < 620
+            this.popupImgWidth = document.documentElement.clientWidth
+            this.modalStyle = {
+                width: '100%',
+                height: this.popupImgWidth + 'px',
+                top: this.isSmallDevice ? '50px' : '100px'
+            }
             this.load()
         }
     }

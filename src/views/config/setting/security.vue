@@ -181,6 +181,9 @@
                         this.loading = false
                         this.closePasswordPopup()
                         this.$vux.toast.show({text: '保存成功'})
+                        Util.getForNav()
+                        Util.setToken(null)
+                        Util.go('Login')
                     }).catch(e => {
                         this.loading = false
                     })
@@ -189,6 +192,9 @@
                         this.loading = false
                         this.closePasswordPopup()
                         this.$vux.toast.show({text: '保存成功'})
+                        Util.getForNav()
+                        Util.setToken(null)
+                        Util.go('Login')
                     }).catch(e => {
                         this.loading = false
                     })

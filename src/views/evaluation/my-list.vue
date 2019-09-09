@@ -103,7 +103,7 @@
                             <span>数量: x{{item.itemNums}}</span>
                         </div>
                     </div>
-                    <Button v-if="item.additionalEvaluation == null"
+                    <Button v-if="item.passed && item.additionalEvaluation == null"
                             @click="goAddAdditional(item.id, $event)"
                             style="position: absolute; bottom: 0px; right: 10px;"
                             type="primary">
@@ -148,11 +148,11 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="init && uncommentList.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="uncommentList.length == 0 && status == 'UnComment'" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无商品可评价</div>
             </div>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0 && status == 'All'" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无评价记录</div>
             </div>
@@ -307,7 +307,6 @@
                             if (this.uncommentList.length == 0 && !this.init) {
                                 this.status = 'All'
                                 this.reload()
-                                this.init = true
                                 return
                             }
                         }
@@ -318,6 +317,7 @@
                         this.loadingList = false
                     })
                 } else {
+                    this.init = true
                     API.listComment({
                         data: this.orderId,
                         page: this.page
@@ -360,7 +360,7 @@
         },
         mounted() {
             window.addEventListener('scroll', this.scrollHandler)
-            this.isSmallDevice = document.documentElement.clientWidth < 400
+            this.isSmallDevice = document.documentElement.clientHeight < 620
             this.popupImgWidth = document.documentElement.clientWidth
             this.modalStyle = {
                 width: '100%',
