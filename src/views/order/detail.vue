@@ -131,6 +131,8 @@
                 <div>下单时间: {{form.createTime}}</div>
                 <div>支付方式: {{form.payment.text}}</div>
                 <div>支付时间: {{form.payTime}}</div>
+                <div v-if="form.refundTime != null">退款单号: {{form.orderId}}</div>
+                <div v-if="form.refundTime != null">退款时间: {{form.refundTime}}</div>
             </div>
             <div style="background-color: #f5f5f5; height: 10px;"></div>
             <div style="background-color: #fff; padding: 15px; font-size: 14px;" v-if="form.invoice != null">
@@ -249,6 +251,7 @@
                     id: null,
                     orderId: null,
                     coupons: [],
+                    refundTime: null,
                     address: {
                         name: '',
                         phone: '',
