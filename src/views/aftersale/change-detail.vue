@@ -84,6 +84,7 @@
                 <div style="background-color: #fff; padding: 10px;">
                     <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>
                     <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
+                    <div style="margin-top: 5px;">换货数量: {{item.nums}}</div>
                 </div>
             </div>
             <div v-if="item.rejectTime != null" style="font-size: 14px;">
@@ -94,7 +95,7 @@
                     {{item.rejectReason}}
                 </div>
             </div>
-            <div v-if="item.processedTime != null" style="font-size: 14px;">
+            <div v-if="item.rejectTime == null && item.processedTime != null" style="font-size: 14px;">
                 <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
                     {{item.processedTime}}
                 </div>

@@ -60,7 +60,7 @@
                     {{item.rejectReason}}
                 </div>
             </div>
-            <div v-if="item.processedTime != null" style="font-size: 14px;">
+            <div v-if="item.rejectTime == null && item.processedTime != null" style="font-size: 14px;">
                 <div style="background-color: #f5f5f5; padding: 10px; text-align: center;">
                     {{item.processedTime}}
                 </div>
