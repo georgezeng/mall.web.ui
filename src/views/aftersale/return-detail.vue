@@ -150,6 +150,8 @@
                     order: {
                         orderId: null
                     },
+                    amount: null,
+                    nums: null,
                     serviceId: null,
                     status: null,
                     postTime: null,

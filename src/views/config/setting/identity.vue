@@ -14,7 +14,7 @@
             <Icon size="24" style="left: 10px; position: absolute; top: 20px;" type="ios-arrow-back" @click="back"/>
             <div align="center" style="position: relative; top: 0px;">实名认证</div>
         </Header>
-        <Content v-if="isInit" :style="commonStyles.content" style="margin-top: 40px;">
+        <Content v-if="isInit" :style="contentStyle" style="margin-top: 40px;">
             <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                 <input ref="uploadFile" type="file" accept='image/*' name="file" @change="fileChange"/>
             </form>
@@ -41,16 +41,14 @@
                 </x-button>
             </div>
         </Content>
-        <Content v-if="isChecking" :style="commonStyles.content">
-            <div class="blockLine"></div>
+        <Content v-if="isChecking" :style="contentStyle" style="margin-top: 60px;">
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #4090F7;" type="ios-information-circle-outline"/>
                 <div>上传完成，请等待审核</div>
                 <div style="font-size: 11px; color: #9BA5B7;">身份认证信息已上传完成，我们会在1-3个工作日完成审核，请等待审核结果</div>
             </div>
         </Content>
-        <Content v-if="isUnPassed" :style="commonStyles.content">
-            <div class="blockLine"></div>
+        <Content v-if="isUnPassed" :style="contentStyle" style="margin-top: 60px;">
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #E23C39;" type="ios-close-circle-outline"/>
                 <div>实名认证失败</div>
@@ -63,8 +61,7 @@
                 </x-button>
             </div>
         </Content>
-        <Content v-if="isPassed" :style="commonStyles.content">
-            <div class="blockLine"></div>
+        <Content v-if="isPassed" :style="contentStyle" style="margin-top: 60px;">
             <div style="margin: 20px;" align="center">
                 <Icon size="50" style="color: #72C040;" type="ios-checkmark-circle-outline"/>
                 <div>实名认证审核通过</div>
@@ -92,6 +89,9 @@
                 defaultFaceIdentity,
                 defaultPeopleIdentity,
                 commonStyles,
+                contentStyle: {
+                    ...commonStyles
+                },
                 loading: false,
                 data: {
                     name: null,
@@ -224,6 +224,8 @@
             }
         },
         mounted() {
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 60) + 'px'
+            this.contentStyle.backgroundColor = '#fff'
             this.load()
             // if (this.isWechat) {
             //     Util.wxConfig([

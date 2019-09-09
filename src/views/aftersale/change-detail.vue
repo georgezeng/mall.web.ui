@@ -82,7 +82,7 @@
                     用户寄回商品
                 </div>
                 <div style="background-color: #fff; padding: 10px;">
-                    <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>
+                    <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>j
                     <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
                     <div style="margin-top: 5px;">换货数量: {{item.nums}}</div>
                 </div>
@@ -176,6 +176,7 @@
                     receiveTime: null,
                     expressCompany: null,
                     expressNumber: null,
+                    nums: null,
                     subOrder: {
                         itemName: null,
                         thumbnail: null,
