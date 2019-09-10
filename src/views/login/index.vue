@@ -130,16 +130,16 @@
                         + encodeURIComponent(window.location.protocol + "//" + window.location.host + "/" + (uid ? "?uid=" + uid : '') + "#/Login")
                     return
                 }
-                let code = Util.get('wechat_authorize_code')
-                if (!code) {
-                    code = UrlParams(window.location.href, "code")
+                let auth = Util.getJson('wechat_authorize')
+                if (!auth) {
+                    const code = UrlParams(window.location.href, "code")
                     if (!code) {
                         this.authorize()
                     } else {
-                        let state = UrlParams(window.location.href, "state").replace(/#.+/, '')
-                        alert('1: ' + state)
-                        Util.put('wechat_authorize_state', state)
-                        Util.put('wechat_authorize_code', code)
+                        auth = {code}
+                        auth.state = UrlParams(window.location.href, "state")
+                        alert('1: ' + auth.state)
+                        Util.putJson('wechat_authorize', auth)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {
                             query += '&eruda=true'
@@ -147,11 +147,9 @@
                         window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
                     }
                 } else {
-                    let state = Util.get('wechat_authorize_state')
-                    alert('2: ' + state)
-                    Util.put('wechat_authorize_state', null)
-                    Util.put('wechat_authorize_code', null)
-                    this.loadWechatInfo({code, state})
+                    alert('2: ' + auth.state)
+                    Util.putJson('wechat_authorize', null)
+                    this.loadWechatInfo(auth)
                 }
             } else {
                 this.show = true
