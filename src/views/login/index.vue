@@ -137,7 +137,7 @@
                     if (!code) {
                         this.authorize()
                     } else {
-                        let state = Cookies.get('wechat_authorize_state')
+                        let state = UrlParams(window.location.href, "state")
                         Cookies.set('wechat_authorize_state', state, {expires: new Date(new Date().getTime() + 5 * 60 * 1000)})
                         Cookies.set('wechat_authorize_code', code, {expires: new Date(new Date().getTime() + 5 * 60 * 1000)})
                         let query = uid ? '?uid=' + uid : ''
@@ -147,6 +147,7 @@
                         window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
                     }
                 } else {
+                    let state = Cookies.get('wechat_authorize_state')
                     this.loadWechatInfo({code, state})
                     Cookies.set('wechat_authorize_state', null)
                     Cookies.set('wechat_authorize_code', null)
