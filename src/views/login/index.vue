@@ -96,7 +96,6 @@
                 WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
                     window.location.href = url
-                    alert(url)
                 }).catch(e => {
                     this.loading = false
                 })
@@ -117,7 +116,7 @@
                 this.logo = config.publicBucketDomain + data.loginLogo
             })
         },
-        mounted() {
+        mounted() {alert(window.location.href)
             this.tab = this.$router.currentRoute.params.tab
             this.tab = this.tab ? this.tab : 'verify'
             if (this.isWechat) {
@@ -136,7 +135,7 @@
                     const code = UrlParams(window.location.href, "code")
                     if (!code) {
                         this.authorize()
-                    } else {
+                    } else {alert(window.location.href)
                         auth = {code}
                         auth.state = UrlParams(window.location.href, "state").replace('/Login', '')
                         Util.putJson('wechat_authorize', auth)
