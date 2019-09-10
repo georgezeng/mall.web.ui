@@ -331,7 +331,8 @@
             this.modalStyle = {
                 width: '100%',
                 height: this.popupImgWidth + 'px',
-                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px'
+                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px',
+                position: 'fixed'
             }
             this.load()
             this.loadReasons()

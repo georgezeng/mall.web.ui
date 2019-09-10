@@ -178,7 +178,8 @@
             this.modalStyle = {
                 width: '100%',
                 height: this.popupImgWidth + 'px',
-                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px'
+                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px',
+                position: 'fixed'
             }
             this.item.id = this.$router.currentRoute.params.id
             this.load()

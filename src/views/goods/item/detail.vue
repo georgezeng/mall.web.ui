@@ -556,7 +556,7 @@
             avatar() {
                 if (this.item.topEvaluation) {
                     const avatar = this.item.topEvaluation.clientAvatar
-                    return avatar ?
+                    return !this.item.topEvaluation.anonymous && avatar ?
                         (avatar.startsWith('http') ?
                             avatar
                             : config.publicBucketDomain + avatar)
@@ -957,7 +957,7 @@
                     left: document.documentElement.clientWidth * 0.1 + 'px',
                     width: this.posterWidth + 'px',
                     height: this.posterHeight + 'px',
-                    top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px'
+                    top: '50px'
                 }
             }
             this.vedioHeight = this.itemImgSize

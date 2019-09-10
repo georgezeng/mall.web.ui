@@ -372,7 +372,8 @@
             this.modalStyle = {
                 width: '100%',
                 height: this.popupImgWidth + 'px',
-                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px'
+                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px',
+                position: 'fixed'
             }
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'
