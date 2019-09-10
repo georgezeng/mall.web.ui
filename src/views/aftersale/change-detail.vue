@@ -84,7 +84,6 @@
                 <div style="background-color: #fff; padding: 10px;">
                     <div style="margin-top: 5px;">物流公司: {{item.clientExpressCompany}}</div>j
                     <div style="margin-top: 5px;">物流单号: {{item.clientExpressNumber}}</div>
-                    <div style="margin-top: 5px;">换货数量: {{item.nums}}</div>
                 </div>
             </div>
             <div v-if="item.rejectTime != null" style="font-size: 14px;">
@@ -115,6 +114,7 @@
                     <div style="margin-top: 5px;">服务单号: {{item.serviceId}}</div>
                     <div style="margin-top: 5px;">原订单号: {{item.order.orderId}}</div>
                     <div style="margin-top: 5px;">货物状态: 已收到货</div>
+                    <div style="margin-top: 5px;">退换数量: {{item.nums}}</div>
                     <div style="margin-top: 5px;">售后原因: {{item.reason}}</div>
                     <div style="margin-top: 5px;">售后说明: {{item.description}}</div>
                     <div style="margin-top: 5px;">
