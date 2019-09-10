@@ -171,6 +171,7 @@
         mounted() {
             this.contentStyle.marginTop = '60px'
             this.contentStyle.marginBottom = '40px'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 100) + "px"
             this.isSmallDevice = document.documentElement.clientHeight < 620
             this.popupImgWidth = document.documentElement.clientWidth
             this.modalStyle = {
