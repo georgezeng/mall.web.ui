@@ -16,9 +16,9 @@
                 <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
             </div>
             <div align="center" style="padding-top: 30px;">
-                <img :src="logo" />
+                <img :src="logo"/>
             </div>
-            <Tabs ref="tabs" style="margin-top: 10px;" value="verify">
+            <Tabs v-model="tab" ref="tabs" style="margin-top: 10px;">
                 <TabPane label="验证码登录" name="verify">
                     <PhoneVerifyPanel/>
                 </TabPane>
@@ -32,7 +32,8 @@
                     <div class="gradient"></div>
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
                     <div class="gradient"></div>
-                    <div @click="goWechatLogin" style="margin-top: 20px; background-color: #B69C7D; border-radius: 50px; height: 50px; width: 50px;">
+                    <div @click="goWechatLogin"
+                         style="margin-top: 20px; background-color: #B69C7D; border-radius: 50px; height: 50px; width: 50px;">
                         <Icon size="30" type="ios-chatbubbles" style="color: #fff; position: relative; top: 10px;"/>
                     </div>
                 </div>
@@ -69,19 +70,18 @@
                 commonStyles,
                 loading: false,
                 wechatLoginInfo: null,
-                show: false
+                show: false,
+                tab: null
             }
         },
         methods: {
             back() {
                 window.location.href = '/#/MyCenter'
             },
-            loadWechatInfo() {
+            loadWechatInfo({code, state}) {
                 this.loading = true
-                let code = UrlParams(window.location.href, "code").replace(/#.+/, '')
-                this.token = UrlParams(window.location.href, "state").replace(/#.+/, '')
                 WechatAPI.loginInfo({
-                    username: this.token,
+                    username: state,
                     password: code,
                 }).then(info => {
                     this.loading = false
@@ -117,19 +117,38 @@
             })
         },
         mounted() {
+            this.tab = this.$router.currentRoute.params.tab
+            this.tab = this.tab ? this.tab : 'verify'
             if (this.isWechat) {
+                let uid = UrlParams(window.location.href, 'uid')
+                if (uid) {
+                    uid = uid.replace(/#.+/, '')
+                }
                 const from = UrlParams(window.location.href, 'from')
                 if (from) {
-                    const uid = UrlParams(window.location.href, 'uid')
                     window.location.href = config.baseUrl + '/index?url='
                         + encodeURIComponent(window.location.protocol + "//" + window.location.host + "/" + (uid ? "?uid=" + uid : '') + "#/Login")
                     return
                 }
-                const code = UrlParams(window.location.href, "code")
-                if (!code) {window.alert(window.location.href)
-                    this.authorize()
-                } else {window.alert(window.location.href)
-                    this.loadWechatInfo()
+                let auth = Util.getJson('wechat_authorize')
+                if (!auth) {
+                    const code = UrlParams(window.location.href, "code")
+                    if (!code) {
+                        this.authorize()
+                    } else {
+                        alert('test: ' + window.location.href)
+                        auth = {code}
+                        auth.state = UrlParams(window.location.href, "state").replace('/Login', '')
+                        Util.putJson('wechat_authorize', auth)
+                        let query = uid ? '?uid=' + uid : ''
+                        if (config.env == 'uat' && config.debug) {
+                            query += '&eruda=true'
+                        }
+                        window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
+                    }
+                } else {
+                    Util.putJson('wechat_authorize', null)
+                    this.loadWechatInfo(auth)
                 }
             } else {
                 this.show = true
