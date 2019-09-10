@@ -90,17 +90,17 @@
                     </div>
                 </div>
                 <div style="padding: 10px 10px 10px;" v-if="item.status.name == 'NotYet'">
-                    <Button @click="goApply(item.id)" style="float: right;" type="primary">
+                    <Button @click="goApply(item.id)" style="float: right;">
                         申请售后
                     </Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="padding: 10px 10px 10px;" v-if="item.status.name == 'WaitForReturn'">
-                    <Button @click="goExpress(item.id)" style="float: right;" type="primary">填写运单</Button>
+                    <Button @click="goExpress(item.id)" style="float: right;">填写运单</Button>
                     <div class="clearfix"></div>
                 </div>
                 <div style="padding: 10px 10px 10px;" v-if="item.status.name == 'WaitForPickup'">
-                    <Button @click="pickupConfirm(item.id)" style="float: right;" type="primary">确认收货</Button>
+                    <Button @click="pickupConfirm(item.id)" style="float: right;">确认收货</Button>
                     <div class="clearfix"></div>
                 </div>
             </div>
