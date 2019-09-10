@@ -24,7 +24,7 @@
                     <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
                     <div v-if="express.type.name == 'Delivery'">
                         物流单号: {{express.number}}
-                        <input :ref="'numberText' + index" readonly :value="express.number"
+                        <input ref="numberText" readonly :value="express.number"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyNumber(index)"
                              style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px; bottom: 15px;">
@@ -66,8 +66,8 @@
                     })
                 }
             },
-            copyNumber() {
-                Util.copyText(this.$refs['numberText' + index])
+            copyNumber(index) {
+                Util.copyText(this.$refs.numberText[index])
             },
         },
         created() {
