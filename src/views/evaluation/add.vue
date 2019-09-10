@@ -64,8 +64,8 @@
                                     v-model="form.remark"></x-textarea>
                     </group>
                 </div>
-                <img @click="showBigImg(form.photos)" style="margin-right: 5px;" v-for="(filePath, index) in form.photos" :key="index"
-                     :src="config.publicBucketDomain + filePath" width="42" height="42"/>
+                <img @click="showBigImg(form.photos)" style="margin-right: 10px;" v-for="(filePath, index) in form.photos" :key="index"
+                     :src="config.publicBucketDomain + filePath" width="60" height="60"/>
                 <Icon size="30" style="margin: 0px 15px 10px;" @click="getPhotos" type="md-camera"/>
                 <form style="display: none;" ref="uploadform" method="POST" enctype="multipart/form-data">
                     <input ref="uploadFile" type="file" accept='image/*' multiple @change="fileChange"/>

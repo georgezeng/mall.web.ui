@@ -165,7 +165,7 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无商品信息</div>
             </div>
@@ -249,6 +249,7 @@
                 loadingList: false,
                 type: null,
                 noRecordTop: 0,
+                showNoRecord: false
             }
         },
         computed: {
@@ -333,6 +334,7 @@
                         //     // }
                         // }, 100)
                     } else {
+                        this.showNoRecord = true
                         this.allLoaded = true
                         this.showLoading = false
                     }
@@ -345,6 +347,7 @@
                 })
             },
             reload() {
+                this.showNoRecord = false
                 this.queryInfo.page.num = 1
                 this.show = true
                 this.allLoaded = false

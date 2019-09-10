@@ -231,7 +231,7 @@
                     </mt-cell>
                 </div>
                 <load-more v-if="showLoading" tip="正在加载"></load-more>
-                <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center"
+                <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center"
                      style="position: relative; color: gray;">
                     <img :src="NoRecord" width="20%" height="20%"/>
                     <div>暂无分享动态</div>
@@ -258,6 +258,7 @@
         components: {},
         data() {
             return {
+                showNoRecord: false
                 tipFontSize: '14px',
                 invitePointsBonus: 0,
                 registrationBonus: 0,
@@ -429,6 +430,7 @@
                             this.showLoading = true
                         }
                     } else {
+                        this.showNoRecord = true
                         this.allLoaded = true
                         this.showLoading = false
                     }

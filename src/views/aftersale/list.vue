@@ -105,7 +105,7 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div v-if="status == 'NotYet'">暂无商品可申请</div>
                 <div v-else>暂无申请记录</div>
@@ -125,6 +125,7 @@
         components: {},
         data() {
             return {
+                showNoRecord: false,
                 init: false,
                 NoRecord,
                 noRecordTop: 0,
@@ -228,6 +229,7 @@
                 this.reload()
             },
             reload() {
+                this.showNoRecord = false
                 this.allLoaded = false
                 this.page.num = 1
                 this.list = []
@@ -276,6 +278,7 @@
                             this.showLoading = true
                         }
                     } else {
+                        this.showNoRecord = true
                         this.allLoaded = true
                         this.showLoading = false
                         if (this.list.length == 0 && this.status == 'NotYet' && !this.init) {

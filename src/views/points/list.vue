@@ -38,7 +38,7 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无积分记录</div>
             </div>
@@ -56,6 +56,7 @@
         components: {},
         data() {
             return {
+                showNoRecord: false,
                 NoRecord,
                 noRecordTop: 0,
                 config,
@@ -112,6 +113,7 @@
                             this.showLoading = true
                         }
                     } else {
+                        this.showNoRecord = true
                         this.allLoaded = true
                         this.showLoading = false
                     }

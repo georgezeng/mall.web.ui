@@ -179,7 +179,7 @@
                 <div class="clearfix"></div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无优惠券</div>
             </div>
@@ -198,6 +198,7 @@
         components: {},
         data() {
             return {
+                showNoRecord: false,
                 NoRecord,
                 noRecordTop: 0,
                 config,
@@ -308,6 +309,7 @@
                 this.reload()
             },
             reload() {
+                this.showNoRecord = false
                 this.allLoaded = false
                 this.queryInfo.page.num = 1
                 this.list = []
@@ -339,6 +341,7 @@
                             this.showLoading = true
                         }
                     } else {
+                        this.showNoRecord = true
                         this.allLoaded = true
                         this.showLoading = false
                     }

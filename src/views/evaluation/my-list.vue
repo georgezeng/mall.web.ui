@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div style="padding: 10px 10px 10px;">
-                    <Button @click="goAdd(item.id)" style="float: right;" type="primary">
+                    <Button @click="goAdd(item.id)" style="float: right;">
                         评价
                     </Button>
                     <div class="clearfix"></div>
@@ -105,8 +105,7 @@
                     </div>
                     <Button v-if="item.passed && item.additionalEvaluation == null"
                             @click="goAddAdditional(item.id, $event)"
-                            style="position: absolute; bottom: 0px; right: 10px;"
-                            type="primary">
+                            style="position: absolute; bottom: 0px; right: 10px;">
                         追加评价
                     </Button>
                 </div>
@@ -148,11 +147,14 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="uncommentList.length == 0 && status == 'UnComment'" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}"
+                 v-if="showNoRecord && uncommentList.length == 0 && status == 'UnComment'" align="center"
+                 style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无商品可评价</div>
             </div>
-            <div :style="{top: noRecordTop + 'px'}" v-if="list.length == 0 && status == 'All'" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0 && status == 'All'"
+                 align="center" style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无评价记录</div>
             </div>
@@ -171,6 +173,7 @@
         components: {},
         data() {
             return {
+                showNoRecord: false,
                 NoRecord,
                 noRecordTop: 0,
                 config,
@@ -252,6 +255,7 @@
                 this.reload()
             },
             reload() {
+                this.showNoRecord = false
                 this.allLoaded = false
                 this.page.num = 1
                 this.list = []
@@ -304,10 +308,14 @@
                         } else {
                             this.allLoaded = true
                             this.showLoading = false
-                            if (this.uncommentList.length == 0 && !this.init) {
-                                this.status = 'All'
-                                this.reload()
-                                return
+                            if (this.uncommentList.length == 0) {
+                                if (!this.init) {
+                                    this.status = 'All'
+                                    this.reload()
+                                    return
+                                } else {
+                                    this.showNoRecord = true
+                                }
                             }
                         }
                         this.showSpin = false
@@ -332,6 +340,7 @@
                                 this.showLoading = false
                             }
                         } else {
+                            this.showNoRecord = true
                             this.allLoaded = true
                             this.showLoading = false
                         }
