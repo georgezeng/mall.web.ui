@@ -96,6 +96,7 @@
                 WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
                     window.location.href = url
+                    alert(url)
                 }).catch(e => {
                     this.loading = false
                 })
@@ -116,13 +117,13 @@
                 this.logo = config.publicBucketDomain + data.loginLogo
             })
         },
-        mounted() {alert(window.location.href)
+        mounted() {
             this.tab = this.$router.currentRoute.params.tab
             this.tab = this.tab ? this.tab : 'verify'
             if (this.isWechat) {
                 let uid = UrlParams(window.location.href, 'uid')
                 if (uid) {
-                    uid = uid.replace(/#.+/, '')
+                    uid = uid.replace(/#?\/[^\/]+/, '')
                 }
                 const from = UrlParams(window.location.href, 'from')
                 if (from) {
@@ -135,13 +136,19 @@
                     const code = UrlParams(window.location.href, "code")
                     if (!code) {
                         this.authorize()
-                    } else {alert(window.location.href)
+                    } else {
                         auth = {code}
-                        auth.state = UrlParams(window.location.href, "state").replace('/Login', '')
+                        auth.state = UrlParams(window.location.href, "state").replace(/#?\/[^\/]+/, '')
+                        alert(auth.state)
                         Util.putJson('wechat_authorize', auth)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {
-                            query += '&eruda=true'
+                            if (query == '') {
+                                query += '?'
+                            } else {
+                                query += '&'
+                            }
+                            query += 'eruda=true'
                         }
                         window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
                     }
