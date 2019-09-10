@@ -339,34 +339,7 @@
                 })
             },
             copyContact() {
-                const isIOSDevice = window.navigator.userAgent.match(/ipad|iphone/i);
-                if (isIOSDevice) {
-                    let el = this.$refs.contactText
-
-                    let oldContentEditable = el.contentEditable,
-                        oldReadOnly = el.readOnly,
-                        range = document.createRange();
-
-                    el.contentEditable = true;
-                    el.readOnly = false;
-                    range.selectNodeContents(el);
-
-                    let s = window.getSelection();
-                    s.removeAllRanges();
-                    s.addRange(range);
-
-                    el.setSelectionRange(0, 999999); // A big number, to cover anything that could be inside the element.
-
-                    el.contentEditable = oldContentEditable;
-                    el.readOnly = oldReadOnly;
-
-                } else {
-                    this.$refs.contactText.select()
-                }
-
-                document.execCommand('copy');
-                this.$vux.toast.show('复制成功')
-
+                Util.copyText(this.$refs.contactText)
             },
             getDfkNums() {
                 OrderAPI.count('UnPay').then(nums => {

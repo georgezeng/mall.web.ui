@@ -28,7 +28,8 @@
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle" style="margin-bottom: 60px;">
             <div class="info">
-                <Icon size="24" style="left: 10px; position: absolute; top: 20px;color: #fff;z-index: 100000;" type="ios-arrow-back"
+                <Icon size="24" style="left: 10px; position: absolute; top: 20px;color: #fff;z-index: 100000;"
+                      type="ios-arrow-back"
                       @click="back"/>
                 <div align="center" style="position: relative; top: 20px;color: #fff; margin-bottom: 20px;">订单详情</div>
                 <div style="width: 90%; margin: 0 auto; color: #fff; padding: 20px 0 10px;">
@@ -111,7 +112,9 @@
                     </div>
                     <div style="margin-top: 5px;">
                         <span>会员折扣 ({{level.name}}):</span>
-                        <div style="float: right;">{{level.discount < 100 ? (level.discount / 10).toFixed(1) + '折' : '无优惠'}}</div>
+                        <div style="float: right;">{{level.discount < 100 ? (level.discount / 10).toFixed(1) + '折' :
+                            '无优惠'}}
+                        </div>
                     </div>
                 </div>
                 <div style="text-align: right; font-size: 14px; margin-right: 15px; padding-bottom: 10px;">实付: <span
@@ -131,10 +134,19 @@
                 <div>下单时间: {{form.createTime}}</div>
                 <div>支付方式: {{form.payment.text}}</div>
                 <div>支付时间: {{form.payTime}}</div>
+                <div>收货时间: {{form.pickupTime}}</div>
                 <div v-if="form.refundTime != null">退款单号: {{form.orderId}}</div>
                 <div v-if="form.refundTime != null">退款时间: {{form.refundTime}}</div>
             </div>
             <div style="background-color: #f5f5f5; height: 10px;"></div>
+            <div v-if="form.pickupTime != null" v-for="express in form.expressList" :key="express.id">
+                <div style="background-color: #fff; padding: 15px; font-size: 14px;">
+                    <div>取货方式: {{express.type.text}}</div>
+                    <div v-if="express.type.name == 'Delivery'">物流单号: {{express.number}}</div>
+                    <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
+                </div>
+                <div style="background-color: #f5f5f5; height: 10px;"></div>
+            </div>
             <div style="background-color: #fff; padding: 15px; font-size: 14px;" v-if="form.invoice != null">
                 <div>发票类型: {{form.invoice.type.text}}</div>
                 <div>发票抬头: {{form.invoice.title}}</div>
@@ -252,6 +264,8 @@
                     orderId: null,
                     coupons: [],
                     refundTime: null,
+                    pickupTime: null,
+                    expressList: [],
                     address: {
                         name: '',
                         phone: '',

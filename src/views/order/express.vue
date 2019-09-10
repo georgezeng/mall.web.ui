@@ -20,7 +20,15 @@
                  :key="express.id">
                 <div>物流方式: {{express.type.text}}</div>
                 <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
-                <div v-if="express.type.name == 'Delivery'">物流单号: {{express.number}}</div>
+                <div v-if="express.type.name == 'Delivery'">
+                    物流单号: {{express.number}}
+                    <input ref="numberText" readonly :value="express.number"
+                           style="width: 1px; opacity: 0; border:none; outline: none;"/>
+                    <div @click="copyNumber"
+                         style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px;">
+                        复制单号
+                    </div>
+                </div>
             </div>
         </Content>
     </Layout>
@@ -53,7 +61,10 @@
                         this.data = data
                     })
                 }
-            }
+            },
+            copyNumber() {
+                Util.copyText(this.$refs.numberText)
+            },
         },
         created() {
             this.data.id = this.$router.currentRoute.params.id

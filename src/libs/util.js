@@ -261,4 +261,31 @@ util.goLogin = () => {
         window.location.href = '/#/Login'
     }
 }
+
+util.copyText = (el) => {
+    const isIOSDevice = window.navigator.userAgent.match(/ipad|iphone/i);
+    if (isIOSDevice) {
+        let oldContentEditable = el.contentEditable,
+            oldReadOnly = el.readOnly,
+            range = document.createRange();
+
+        el.contentEditable = true;
+        el.readOnly = false;
+        range.selectNodeContents(el);
+
+        let s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(range);
+
+        el.setSelectionRange(0, 999999); // A big number, to cover anything that could be inside the element.
+
+        el.contentEditable = oldContentEditable;
+        el.readOnly = oldReadOnly;
+
+    } else {
+        el.select()
+    }
+    document.execCommand('copy');
+    Vue.$vux.toast.show('复制成功')
+}
 export default util;
