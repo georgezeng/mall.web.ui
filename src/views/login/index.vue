@@ -96,6 +96,7 @@
                 WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
                     window.location.href = url
+                    alert(url)
                 }).catch(e => {
                     this.loading = false
                 })
@@ -136,7 +137,6 @@
                     if (!code) {
                         this.authorize()
                     } else {
-                        alert('test: ' + window.location.href)
                         auth = {code}
                         auth.state = UrlParams(window.location.href, "state").replace('/Login', '')
                         Util.putJson('wechat_authorize', auth)
