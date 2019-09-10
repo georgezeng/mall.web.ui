@@ -447,18 +447,16 @@
                 })
             }
         },
-        beforeCreate() {
-            const uid = UrlParams(window.location.href, 'uid')
-            if (this.isLogin && (uid == null || uid == '')) {
-                let query = '?uid=' + Util.get('userId')
-                if (config.env == 'uat' && config.debug) {
-                    query += '&eruda=true'
-                }
-                window.location.href = '/' + query + '#/MyCenter'
-            }
-        },
         created() {
             if (this.isLogin) {
+                const uid = UrlParams(window.location.href, 'uid')
+                if (uid == null || uid == '') {
+                    let query = '?uid=' + Util.get('userId')
+                    if (config.env == 'uat' && config.debug) {
+                        query += '&eruda=true'
+                    }
+                    window.location.href = '/' + query + '#/MyCenter'
+                }
                 const docWidth = document.documentElement.clientWidth
                 if (docWidth < 375 && docWidth > 330) {
                     this.badgeItemStyle.left = '40px'
