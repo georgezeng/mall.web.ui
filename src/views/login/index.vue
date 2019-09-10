@@ -136,9 +136,7 @@
                     if (!code) {
                         this.authorize()
                     } else {
-                        code = code.replace(/#.+/, '')
-                        let state = UrlParams(window.location.href, "state")
-                        state = state.replace(/#.+/, '')
+                        let state = UrlParams(window.location.href, "state").replace(/#.+/, '')
                         Util.put('wechat_authorize_state', state)
                         Util.put('wechat_authorize_code', code)
                         let query = uid ? '?uid=' + uid : ''
