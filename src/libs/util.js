@@ -222,7 +222,7 @@ util.wepayForMweb = (orderId) => {
             util.goLogin()
         }
         uid = uid.replace(/#.+/, '')
-        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '?uid=' + uid + '/#/Order/List/All')
+        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '/?uid=' + uid + '#/Order/List/All')
         Vue.$vux.loading.hide()
     }).catch(e => {
         Vue.$vux.loading.hide()
