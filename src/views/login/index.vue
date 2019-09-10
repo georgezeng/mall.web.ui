@@ -18,7 +18,7 @@
             <div align="center" style="padding-top: 30px;">
                 <img :src="logo" />
             </div>
-            <Tabs ref="tabs" style="margin-top: 10px;" value="verify">
+            <Tabs v-model="tab" ref="tabs" style="margin-top: 10px;">
                 <TabPane label="验证码登录" name="verify">
                     <PhoneVerifyPanel/>
                 </TabPane>
@@ -69,7 +69,8 @@
                 commonStyles,
                 loading: false,
                 wechatLoginInfo: null,
-                show: false
+                show: false,
+                tab: null
             }
         },
         methods: {
@@ -117,6 +118,8 @@
             })
         },
         mounted() {
+            this.tab = this.$router.currentRoute.params.tab
+            this.tab = this.tab ? this.tab : 'verify'
             if (this.isWechat) {
                 const from = UrlParams(window.location.href, 'from')
                 if (from) {

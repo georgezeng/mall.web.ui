@@ -184,7 +184,9 @@
                         setTimeout(() => {
                             Util.getForNav()
                             Util.setToken(null)
-                            Util.go('Login')
+                            Util.go('Login', {
+                                tab: 'password'
+                            })
                         }, 3000)
                     }).catch(e => {
                         this.loading = false
@@ -197,7 +199,9 @@
                         setTimeout(() => {
                             Util.getForNav()
                             Util.setToken(null)
-                            Util.go('Login')
+                            Util.go('Login', {
+                                tab: 'password'
+                            })
                         }, 3000)
                     }).catch(e => {
                         this.loading = false
