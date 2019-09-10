@@ -22,7 +22,7 @@
             <div align="center" style="position: relative; top: 0px;">选择发票</div>
         </Header>
         <Content :style="contentStyle">
-            <mt-cell title="不开发票" style="margin-bottom: 10px;" @click.native="getItem(null)"></mt-cell>
+            <mt-cell title="不开发票" style="margin-top: 10px; margin-bottom: 10px;" @click.native="getItem(null)"></mt-cell>
             <swipeout>
                 <swipeout-item @click.native="getItem(item)" :key="item.id" v-for="(item, index) in list"
                                transition-mode="follow">
@@ -45,26 +45,10 @@
                 </swipeout-item>
             </swipeout>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <!--<div class="wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">-->
-            <!--<mt-loadmore :bottom-method="load"-->
-            <!--:bottom-all-loaded="allLoaded"-->
-            <!--:bottom-distance="10"-->
-            <!--ref="loadmore">-->
-            <!--<mt-cell-swipe-->
-            <!--style="margin-bottom: 10px;"-->
-            <!--@click.native="getItem(item)"-->
-            <!--v-for="(item, index) in list"-->
-            <!--:right="swipeButtons(item.id)">-->
-            <!--<div slot="title" style="font-size: 12pt;">-->
-            <!--<div>{{item.title}} ({{item.content}})</div>-->
-            <!--</div>-->
-            <!--<div>-->
-            <!--<Icon @click.stop="goEdit(item.id)" size="30" type="ios-create-outline"/>-->
-            <!--</div>-->
-            <!--</mt-cell-swipe>-->
-            <!--</mt-loadmore>-->
-            <!--<div v-if="allLoaded" class="loadMoreBaseLine">已到底部</div>-->
-            <!--</div>-->
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无发票模板</div>
+            </div>
         </Content>
         <Footer :style="footerStyle">
             <x-button action-type="button" style="width: 100%; background-color: #008CEB;" @click.native="goEdit(0)">
@@ -77,11 +61,15 @@
     import API from '../../../api/invoice.js'
     import Util from '../../../libs/util.js'
     import commonStyles from '../../../styles/common.js'
+    import NoRecord from '../../../images/norecord-evaluation.png'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                showNoRecord: false,
+                noRecordTop: 0,
                 commonStyles,
                 footerStyle: {
                     ...commonStyles.footer
@@ -151,6 +139,10 @@
                     this.list = []
                     this.isSelected = []
                     this.pageInfo.num = 1
+                    this.showLoading = true
+                    this.allLoaded = false
+                    this.loadingList = false
+                    this.showNoRecord = false
                     this.load()
                 })
             },
@@ -187,6 +179,7 @@
                             this.$vux.toast.show({text: "找不到结算信息，请返回重新下单", type: 'text'})
                         }
                     } else {
+                        this.showNoRecord = true
                         this.allLoaded = true
                         this.showLoading = false
                     }
@@ -211,9 +204,11 @@
         },
         created() {
             this.footerStyle.padding = "20px"
-            this.contentStyle.marginTop = "60px"
-            this.contentStyle.backgroundColor = '#F5F5F5'
+            this.contentStyle.marginTop = "50px"
             this.contentStyle.marginBottom = "80px"
+            this.contentStyle.backgroundColor = '#f5f5f5'
+            this.contentStyle.minHeight = (document.documentElement.clientHeight - 130) + 'px'
+            this.noRecordTop = ((document.documentElement.clientHeight - 130) - 200) / 2
         },
         mounted() {
             // this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 80

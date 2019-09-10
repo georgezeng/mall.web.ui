@@ -176,7 +176,7 @@ util.alipay = (orderId, from) => {
     let uid = UrlParams(window.location.href, 'uid')
     if (!uid) {
         util.setToken(null)
-        util.go('Login')
+        util.goLogin()
     }
     uid = uid.replace(/#.+/, '')
     window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '/' + from
