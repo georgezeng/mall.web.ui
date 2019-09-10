@@ -936,7 +936,7 @@
         created() {
             this.uid = UrlParams(window.location.href, 'uid')
             if (this.uid) {
-                this.uid = this.uid.replace(/#.+/, '')
+                this.uid = this.uid.replace(/#?\/[^\/]+/, '')
             } else {
                 this.uid = 0
             }

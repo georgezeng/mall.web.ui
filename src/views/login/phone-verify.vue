@@ -109,7 +109,7 @@
         mounted() {
             const uid = UrlParams(window.location.href, 'uid')
             if (uid) {
-                this.form.pid = uid.replace(/#.+/, '')
+                this.form.pid = uid.replace(/#?\/[^\/]+/, '')
             }
             setTimeout(() => {
                 $(this.$refs.verifyCode.$el).find('.ivu-input-search').css('cssText', 'background-color: #B69C7D !important; border-color: #B69C7D !important;')

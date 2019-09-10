@@ -54,7 +54,7 @@ util.loginSuccess = (data, target) => {
     if (link.indexOf('?') == -1) {
         window.location.href = link.replace(/#.+/, params + '#' + target)
     } else {
-        window.location.href = link.replace(/\?.+/, params).replace(/#.+/, '') + '#' + target
+        window.location.href = link.replace(/\?.+/, params).replace(/#?\/[^\/]+/, '') + '#' + target
     }
 }
 
@@ -178,7 +178,7 @@ util.alipay = (orderId, from) => {
         util.setToken(null)
         util.goLogin()
     }
-    uid = uid.replace(/#.+/, '')
+    uid = uid.replace(/#?\/[^\/]+/, '')
     let query = '?uid=' + uid
     if (config.env == 'uat' && config.debug) {
         query += '&eruda=true'
@@ -226,7 +226,7 @@ util.wepayForMweb = (orderId) => {
             util.setToken(null)
             util.goLogin()
         }
-        uid = uid.replace(/#.+/, '')
+        uid = uid.replace(/#?\/[^\/]+/, '')
         let query = '?uid=' + uid
         if (config.env == 'uat' && config.debug) {
             query += '&eruda=true'
@@ -264,7 +264,7 @@ util.getLongLocation = (data) => {
 util.goLogin = () => {
     let uid = UrlParams(window.location.href, 'uid')
     if (uid) {
-        uid = uid.replace(/#.+/, '')
+        uid = uid.replace(/#?\/[^\/]+/, '')
         window.location.href = '/?uid=' + uid + '#/Login'
     } else {
         window.location.href = '/#/Login'
