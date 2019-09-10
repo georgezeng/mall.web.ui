@@ -260,7 +260,7 @@
             this.modalStyle = {
                 width: '100%',
                 height: this.popupImgWidth + 'px',
-                top: '50px'
+                top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px'
             }
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'

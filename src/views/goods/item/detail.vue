@@ -957,7 +957,7 @@
                     left: document.documentElement.clientWidth * 0.1 + 'px',
                     width: this.posterWidth + 'px',
                     height: this.posterHeight + 'px',
-                    top: '50px'
+                    top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px'
                 }
             }
             this.vedioHeight = this.itemImgSize
