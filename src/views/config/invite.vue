@@ -258,7 +258,7 @@
         components: {},
         data() {
             return {
-                showNoRecord: false
+                showNoRecord: false,
                 tipFontSize: '14px',
                 invitePointsBonus: 0,
                 registrationBonus: 0,
