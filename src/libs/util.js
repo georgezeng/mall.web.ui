@@ -173,7 +173,12 @@ util.peekForNav = function () {
 }
 
 util.alipay = (orderId, from) => {
-    const uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
+    let uid = UrlParams(window.location.href, 'uid')
+    if (!uid) {
+        util.setToken(null)
+        util.go('Login')
+    }
+    uid = uid.replace(/#.+/, '')
     window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '/' + from
 }
 
@@ -211,7 +216,13 @@ util.wepayForMweb = (orderId) => {
         id: orderId,
         type: 'MWEB'
     }).then(data => {
-        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '/#/Order/List/All')
+        let uid = UrlParams(window.location.href, 'uid')
+        if (!uid) {
+            util.setToken(null)
+            util.goLogin()
+        }
+        uid = uid.replace(/#.+/, '')
+        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '?uid=' + uid + '/#/Order/List/All')
         Vue.$vux.loading.hide()
     }).catch(e => {
         Vue.$vux.loading.hide()
