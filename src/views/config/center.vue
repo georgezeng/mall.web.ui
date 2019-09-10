@@ -447,7 +447,7 @@
                 })
             }
         },
-        created() {
+        created() {alert(window.location.href)
             if (this.isLogin) {
                 const uid = UrlParams(window.location.href, 'uid')
                 if (uid == null || uid == '') {
