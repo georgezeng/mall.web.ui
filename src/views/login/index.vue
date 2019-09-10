@@ -138,7 +138,7 @@
                     } else {
                         auth = {code}
                         auth.state = UrlParams(window.location.href, "state")
-                        alert('1: ' + auth.state)
+                        alert('1: ' + window.location.href)
                         Util.putJson('wechat_authorize', auth)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {
@@ -147,7 +147,7 @@
                         window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
                     }
                 } else {
-                    alert('2: ' + auth.state)
+                    alert('2: ' + window.location.href)
                     Util.putJson('wechat_authorize', null)
                     this.loadWechatInfo(auth)
                 }
