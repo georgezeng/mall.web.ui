@@ -109,6 +109,9 @@
                 },
                 loading: false,
                 item: {
+                    order: {
+                      discount: 1
+                    },
                     subOrder: {
                         unitPrice: 0
                     }
@@ -133,7 +136,7 @@
         },
         computed: {
             amount() {
-                return (this.item.subOrder.unitPrice * this.form.nums).toFixed(2)
+                return (this.item.subOrder.unitPrice * this.form.nums * this.item.order.discount * 0.01).toFixed(2)
             }
         },
         methods: {
@@ -149,7 +152,7 @@
                     if (nav.from != 'AfterSaleList') {
                         nav = Util.getForNav()
                     } else {
-                        nav.params.status = 'All'
+                        nav.status = 'All'
                     }
                     Util.go(nav.from, nav)
                 }).catch(e => {

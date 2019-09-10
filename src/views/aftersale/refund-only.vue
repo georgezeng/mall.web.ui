@@ -139,7 +139,7 @@
                     if (nav.from != 'AfterSaleList') {
                         nav = Util.getForNav()
                     } else {
-                        nav.params.status = 'All'
+                        nav.status = 'All'
                     }
                     Util.go(nav.from, nav)
                 }).catch(e => {
