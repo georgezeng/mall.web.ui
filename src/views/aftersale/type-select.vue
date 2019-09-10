@@ -60,10 +60,6 @@
                 })
             },
             goSalesReturn() {
-                Util.putForNav({
-                    from: 'AfterSaleTypeSelect',
-                    id: this.id
-                })
                 Util.go('AfterSaleSalesReturn', {
                     id: this.id
                 })

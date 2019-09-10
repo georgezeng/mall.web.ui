@@ -101,8 +101,9 @@
                 <div style="margin: 0 10px 10px; border: 1px solid #F5F5F5;"></div>
                 <div @click="goDetail(item.id)">
                     <div style="padding: 0 10px 15px;" v-for="sub in item.subList" :key="sub.id">
-                        <img :src="config.publicBucketDomain + sub.thumbnail" width="72" height="72">
-                        <div style="display: inline-block; margin-left: 10px;">
+                        <img :src="config.publicBucketDomain + sub.thumbnail" width="72" height="72"
+                             style="display: inline-block; vertical-align: top;"/>
+                        <div style="display: inline-block; margin-left: 10px;" :style="{width: itemInfoWidth + 'px'}">
                             <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                                 {{itemName(sub.itemName)}}
                             </div>
@@ -205,6 +206,7 @@
         },
         data() {
             return {
+                itemInfoWidth: 0,
                 showNoRecord: false,
                 NoRecord,
                 noRecordTop: 0,
@@ -465,16 +467,10 @@
                 })
             },
             itemName(name) {
-                if (!this.isSmallDevice) {
-                    return name.length > 18 ? name.substring(0, 18) + '...' : name
-                }
-                return name.length > 12 ? name.substring(0, 12) + '...' : name
+                return name ? (name.length > 16 ? name.substring(0, 16) + '...' : name) : ''
             },
             specText(values) {
-                if (!this.isSmallDevice) {
-                    return values.length > 20 ? values.substring(0, 20) + '...' : values
-                }
-                return values.length > 14 ? values.substring(0, 14) + '...' : values
+                return values ? (values.length > 20 ? values.substring(0, 20) + '...' : values) : ''
             },
             back() {
                 Util.go('MyCenter')
@@ -517,6 +513,7 @@
             },
         },
         mounted() {
+            this.itemInfoWidth = document.documentElement.clientWidth - 108
             window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientWidth < 400
             this.contentStyle.marginTop = '125px'

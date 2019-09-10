@@ -82,7 +82,7 @@
                         </div>
                         <div @click="goItem(cartItem.item.id)"
                              style="display: inline-block; position: relative; left: -10px;">
-                            <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
+                            <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;" :style="{width: itemInfoWidth + 'px'}">
                                 {{cartItemName(cartItem)}}
                             </div>
                             <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 5px;">
@@ -101,40 +101,6 @@
                     </div>
                 </swipeout-item>
             </swipeout>
-
-            <!--<div :key="cartItem.id" v-for="(cartItem, index) in items" style="padding-bottom: 10px; background-color: #F5F5F5;">
-                <mt-cell-swipe
-                        :right="swipeButtons(cartItem.id)" style="padding: 10px; position: relative;">
-                    <div slot="title">
-                        <div style="display: inline-block; margin-right: 10px; vertical-align: top; position: relative; top: 30px; left: -10px;">
-                            <check-icon class="checker" :value.sync="cartItem.selected"></check-icon>
-                        </div>
-                        <div @click="goItem(cartItem.item.id)"
-                             style="display: inline-block; margin-right: 10px; vertical-align: bottom; position: relative; left: -20px;">
-                            <img :src="config.publicBucketDomain + cartItem.item.thumbnail" width="72" height="72"/>
-                            <div class="disabledTitle" v-if="cartItem.item.enabled">
-                                商品已下架
-                            </div>
-                        </div>
-                        <div @click="goItem(cartItem.item.id)"
-                             style="display: inline-block; position: relative; left: -20px;">
-                            <div style="color: #505A6D; font-size: 11pt; margin-bottom: 10px;">
-                                {{cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
-                                cartItem.item.name}}
-                            </div>
-                            <div style="background-color: #F5F5F5;display: inline-block; padding: 5px; font-size: 12px; color: gray; margin-bottom: 10px;">
-                                {{specText(cartItem.attrs)}}
-                            </div>
-                            <div style="font-size: 11pt; color: orangered;">￥{{cartItem.property.price}}</div>
-                        </div>
-                    </div>
-                    <div style="float: right; position: absolute; top: 52px; right: 10px;">
-                        <wv-number-spinner @change="updateNums(cartItem)" :min="1" :max="99" input-width="30px"
-                                           v-model="cartItem.nums"></wv-number-spinner>
-                    </div>
-                </mt-cell-swipe>
-            </div>-->
-
         </Content>
         <div class="cartFooter" v-if="!showEmpty">
             <div style="display: inline-block; padding: 10px 20px 10px 10px;">
@@ -168,6 +134,7 @@
         },
         data() {
             return {
+                itemInfoWidth: 0,
                 cartTop: 0,
                 config,
                 Cart,
@@ -230,13 +197,8 @@
                 })
             },
             cartItemName(cartItem) {
-                if (!this.isSmallDevice) {
-                    return cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
-                        cartItem.item.name
-                } else {
-                    return cartItem.item.name.length > 8 ? cartItem.item.name.substring(0, 8) + '...' :
-                        cartItem.item.name
-                }
+                return cartItem.item.name.length > 12 ? cartItem.item.name.substring(0, 12) + '...' :
+                    cartItem.item.name
             },
             selectItem(cartItem) {
                 if (!cartItem.item.enabled) {
@@ -338,6 +300,7 @@
             }
         },
         mounted() {
+            this.itemInfoWidth = document.documentElement.clientWidth - 158
             this.isSmallDevice = document.documentElement.clientWidth < 400
             this.cartTop = (document.documentElement.clientHeight - 120 - 300) / 2
             this.contentStyle.marginBottom = '60px'

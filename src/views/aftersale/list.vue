@@ -75,8 +75,9 @@
                     <span style="float: right; color: orangered;">{{item.status.clientText}}</span>
                 </div>
                 <div @click="goDetail(item)" style="padding: 10px;">
-                    <img :src="config.publicBucketDomain + item.subOrder.thumbnail" width="72" height="72">
-                    <div style="display: inline-block; margin-left: 10px;">
+                    <img :src="config.publicBucketDomain + item.subOrder.thumbnail" width="72" height="72"
+                         style="display: inline-block; vertical-align: top;"/>
+                    <div style="display: inline-block; margin-left: 10px;" :style="{width: itemInfoWidth + 'px'}">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                             {{itemName(item.subOrder.itemName)}}
                         </div>
@@ -125,6 +126,7 @@
         components: {},
         data() {
             return {
+                itemInfoWidth: 0,
                 showNoRecord: false,
                 init: false,
                 NoRecord,
@@ -238,16 +240,10 @@
                 this.load()
             },
             itemName(name) {
-                if (!this.isSmallDevice) {
-                    return name.length > 18 ? name.substring(0, 18) + '...' : name
-                }
-                return name.length > 12 ? name.substring(0, 12) + '...' : name
+                return name ? (name.length > 16 ? name.substring(0, 16) + '...' : name) : ''
             },
             specText(values) {
-                if (!this.isSmallDevice) {
-                    return values.length > 20 ? values.substring(0, 20) + '...' : values
-                }
-                return values.length > 14 ? values.substring(0, 14) + '...' : values
+                return values ? (values.length > 20 ? values.substring(0, 20) + '...' : values) : ''
             },
             back() {
                 const nav = Util.getForNav()
@@ -297,6 +293,7 @@
             },
         },
         mounted() {
+            this.itemInfoWidth = document.documentElement.clientWidth - 108
             this.isSmallDevice = document.documentElement.clientWidth < 400
             this.contentStyle.marginTop = '125px'
             // this.headerStyle.height = '90px'

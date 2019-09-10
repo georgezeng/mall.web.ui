@@ -64,8 +64,9 @@
             <div style="background-color: #fff; margin-top: 10px;" v-for="item in uncommentList"
                  :key="item.id">
                 <div @click="goItem(item.itemId)" style="padding: 10px;">
-                    <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
-                    <div style="display: inline-block; margin-left: 10px;">
+                    <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72"
+                         style="display: inline-block; vertical-align: top;"/>
+                    <div style="display: inline-block; margin-left: 10px;" :style="{width: itemInfoWidth + 'px'}">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                             {{itemName(item.itemName)}}
                         </div>
@@ -91,8 +92,9 @@
                     <span style="float: right; color: orangered;">{{item.value.text}}</span>
                 </div>
                 <div @click="goItem(item.itemId)" style="padding: 10px; position: relative;">
-                    <img :src="config.publicBucketDomain + item.itemThumbnail" width="72" height="72">
-                    <div style="display: inline-block; margin-left: 10px;">
+                    <img :src="config.publicBucketDomain + item.itemThumbnail" width="72" height="72"
+                         style="display: inline-block; vertical-align: top;"/>
+                    <div style="display: inline-block; margin-left: 10px;" :style="{width: itemInfoWidth + 'px'}">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                             {{itemName(item.itemName)}}
                         </div>
@@ -173,6 +175,7 @@
         components: {},
         data() {
             return {
+                itemInfoWidth: 0,
                 showNoRecord: false,
                 NoRecord,
                 noRecordTop: 0,
@@ -265,16 +268,10 @@
                 this.load()
             },
             itemName(name) {
-                if (!this.isSmallDevice) {
-                    return name ? (name.length > 16 ? name.substring(0, 16) + '...' : name) : ''
-                }
-                return name ? (name.length > 12 ? name.substring(0, 12) + '...' : name) : ''
+                return name ? (name.length > 16 ? name.substring(0, 16) + '...' : name) : ''
             },
             specText(values) {
-                if (!this.isSmallDevice) {
-                    return values ? (values.length > 22 ? values.substring(0, 22) + '...' : values) : ''
-                }
-                return values ? (values.length > 16 ? values.substring(0, 16) + '...' : values) : ''
+                return values ? (values.length > 20 ? values.substring(0, 20) + '...' : values) : ''
             },
             back() {
                 const nav = Util.getForNav()
@@ -368,6 +365,7 @@
             }
         },
         mounted() {
+            this.itemInfoWidth = document.documentElement.clientWidth - 108
             window.addEventListener('scroll', this.scrollHandler)
             this.isSmallDevice = document.documentElement.clientHeight < 620
             this.popupImgWidth = document.documentElement.clientWidth

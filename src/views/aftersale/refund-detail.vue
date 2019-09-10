@@ -24,9 +24,10 @@
             </div>
             <Modal v-model="popup" footer-hide fullscreen>
             </Modal>
-            <div style="background-color: #fff; padding: 10px;">
-                <img :src="config.publicBucketDomain + item.subOrder.thumbnail" width="72" height="72">
-                <div style="display: inline-block; margin-left: 10px;">
+            <div style="background-color: #fff; padding: 20px 10px 10px;">
+                <img :src="config.publicBucketDomain + item.subOrder.thumbnail" width="72" height="72"
+                     style="display: inline-block; vertical-align: top;">
+                <div style="display: inline-block; margin-left: 10px;" :style="{width: itemInfoWidth + 'px'}">
                     <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                         {{itemName(item.subOrder.itemName)}}
                     </div>
@@ -104,6 +105,7 @@
         components: {},
         data() {
             return {
+                itemInfoWidth: 0,
                 config,
                 commonStyles,
                 headerStyle: {
@@ -118,7 +120,9 @@
                         orderId: null
                     },
                     serviceId: null,
-                    status: null,
+                    status: {
+                        name: null
+                    },
                     postTime: null,
                     processedTime: null,
                     refundTime: null,
@@ -145,16 +149,10 @@
                 this.popup = true
             },
             itemName(name) {
-                if (!this.isSmallDevice) {
-                    return name.length > 18 ? name.substring(0, 18) + '...' : name
-                }
-                return name.length > 12 ? name.substring(0, 12) + '...' : name
+                return name
             },
             specText(values) {
-                if (!this.isSmallDevice) {
-                    return values.length > 20 ? values.substring(0, 20) + '...' : values
-                }
-                return values.length > 14 ? values.substring(0, 14) + '...' : values
+                return values
             },
             back() {
                 const nav = Util.getForNav()
@@ -170,9 +168,11 @@
         },
         mounted() {
             this.contentStyle.marginTop = '60px'
-            this.contentStyle.marginBottom = '40px'
+            this.contentStyle.paddingBottom = '40px'
+            this.itemInfoWidth = document.documentElement.clientWidth - 108
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 100) + "px"
-            this.isSmallDevice = document.documentElement.clientHeight < 620
+            this.contentStyle.backgroundColor = '#f5f5f5'
+            this.isSmallDevice = document.documentElement.clientWidth < 400
             this.popupImgWidth = document.documentElement.clientWidth
             this.modalStyle = {
                 width: '100%',

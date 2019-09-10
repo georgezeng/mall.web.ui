@@ -64,8 +64,9 @@
             <div style="background-color: #fff;">
                 <div @click="goDetail(item.itemId)" style="padding: 15px 15px 0;" v-for="item in form.subList"
                      :key="item.id">
-                    <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72">
-                    <div style="display: inline-block; margin-left: 10px;">
+                    <img :src="config.publicBucketDomain + item.thumbnail" width="72" height="72"
+                         style="display: inline-block; vertical-align: top;"/>
+                    <div style="display: inline-block; margin-left: 10px;" :style="{width: itemInfoWidth + 'px'}">
                         <div style="color: #505A6D; font-size: 11pt; margin-bottom: 5px;">
                             {{itemName(item.itemName)}}
                         </div>
@@ -243,6 +244,7 @@
         },
         data() {
             return {
+                itemInfoWidth: 0,
                 Util,
                 trash,
                 config,
@@ -379,16 +381,10 @@
                 })
             },
             itemName(name) {
-                if (!this.isSmallDevice) {
-                    return name.length > 16 ? name.substring(0, 16) + '...' : name
-                }
-                return name.length > 11 ? name.substring(0, 11) + '...' : name
+                return name
             },
             specText(values) {
-                if (!this.isSmallDevice) {
-                    return values.length > 18 ? values.substring(0, 18) + '...' : values
-                }
-                return values.length > 13 ? values.substring(0, 13) + '...' : values
+                return values
             },
             goEvaluate(id, status) {
                 Util.putForNav({
@@ -479,6 +475,7 @@
         created() {
         },
         mounted() {
+            this.itemInfoWidth = document.documentElement.clientWidth - 118
             this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             this.contentStyle.backgroundColor = '#f5f5f5';
             this.isSmallDevice = document.documentElement.clientWidth < 370
