@@ -183,7 +183,7 @@ util.alipay = (orderId, from) => {
     if (config.env == 'uat' && config.debug) {
         query += '&eruda=true'
     }
-    let to = from == 'system' ? encodeURIComponent(window.location.protocol + '//' + window.location.host + '/' + query + '#/Order/List/All') : encodeURIComponent(window.location.protocol + '//' + window.location.host + '/')
+    let to = encodeURIComponent(window.location.protocol + '//' + window.location.host + '/')//from == 'system' ? encodeURIComponent(window.location.protocol + '//' + window.location.host + '/' + query + '#/Order/List/All') : encodeURIComponent(window.location.protocol + '//' + window.location.host + '/')
     window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '?url=' + to
 }
 
@@ -227,7 +227,11 @@ util.wepayForMweb = (orderId) => {
             util.goLogin()
         }
         uid = uid.replace(/#.+/, '')
-        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '/?uid=' + uid + '#/Order/List/All')
+        let query = '?uid=' + uid
+        if (config.env == 'uat' && config.debug) {
+            query += '&eruda=true'
+        }
+        window.location.href = data.mweb_url + '&redirect_url=' + encodeURIComponent(window.location.protocol + '//' + window.location.host + '/' + query + '#/Order/List/All')
         Vue.$vux.loading.hide()
     }).catch(e => {
         Vue.$vux.loading.hide()
