@@ -9,5 +9,5 @@ export default {
     },
     currentLevel() {
         return axios.get('/client/currentLevel')
-    }
+    },
 }

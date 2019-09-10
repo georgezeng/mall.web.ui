@@ -267,6 +267,7 @@
     import evaluate from '../../images/evaluate.png'
     import tuihuo from '../../images/tuihuo.png'
     import MerchantAPI from '../../api/merchant'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {
@@ -444,6 +445,16 @@
                 PointsAPI.current().then(data => {
                     this.points = data
                 })
+            }
+        },
+        beforeCreate() {
+            const uid = UrlParams(window.location.href, 'uid')
+            if (this.isLogin && (uid == null || uid == '')) {
+                let query = '?uid=' + Util.get('userId')
+                if (config.env == 'uat' && config.debug) {
+                    query += '&eruda=true'
+                }
+                window.location.href = '/' + query + '#/MyCenter'
             }
         },
         created() {

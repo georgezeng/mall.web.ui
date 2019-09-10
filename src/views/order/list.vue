@@ -520,9 +520,8 @@
             const tradeNo = UrlParams(window.location.href, 'out_trade_no')
             if (tradeNo != null && tradeNo != '') {
                 let query = '?uid=' + UrlParams(window.location.href, 'uid')
-                const eruda = UrlParams(window.location.href, 'eruda')
-                if (eruda != null && eruda != '') {
-                    query += '&eruda=' + eruda
+                if (config.env == 'uat' && config.debug) {
+                    query += '&eruda=true'
                 }
                 window.location.href = '/' + query + '#/Order/List/All'
             }
