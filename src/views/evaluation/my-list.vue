@@ -111,7 +111,7 @@
                         追加评价
                     </Button>
                 </div>
-                <div style="padding: 10px 10px 10px;">
+                <div style="padding: 10px 10px 10px; position: relative;">
                     <div style="margin-bottom: 10px;">
                         <span>评价:</span>
                         <span>{{item.remark}}</span>
@@ -128,6 +128,7 @@
                         <div style="float: right;">{{item.replyTime}}</div>
                         <div class="clearfix"></div>
                     </div>
+                    <img v-if="!item.passed && item.hasAudit" :src="UnPass" width="32" height="32" style="position: absolute; bottom: 20px; right: 10px;"></img>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
                     <div style="margin-bottom: 10px;">
@@ -170,11 +171,13 @@
     import commonStyles from '../../styles/common.js'
     import {MessageBox} from 'mint-ui';
     import NoRecord from '../../images/norecord-evaluation.png'
+    import UnPass from '../../images/img_stamp_unpass.png'
 
     export default {
         components: {},
         data() {
             return {
+                UnPass,
                 itemInfoWidth: 0,
                 showNoRecord: false,
                 NoRecord,
