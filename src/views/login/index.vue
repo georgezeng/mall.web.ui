@@ -58,7 +58,6 @@
     import config from '../../config/index'
     import UrlParams from 'get-url-param'
     import MerchantAPI from '../../api/merchant'
-    import Cookies from 'js-cookie'
 
     export default {
         components: {
@@ -131,26 +130,28 @@
                         + encodeURIComponent(window.location.protocol + "//" + window.location.host + "/" + (uid ? "?uid=" + uid : '') + "#/Login")
                     return
                 }
-                let code = Cookies.get('wechat_authorize_code')
+                let code = Util.get('wechat_authorize_code')
                 if (!code) {
                     code = UrlParams(window.location.href, "code")
                     if (!code) {
                         this.authorize()
                     } else {
                         let state = UrlParams(window.location.href, "state")
-                        Cookies.set('wechat_authorize_state', state, {expires: new Date(new Date().getTime() + 5 * 60 * 1000)})
-                        Cookies.set('wechat_authorize_code', code, {expires: new Date(new Date().getTime() + 5 * 60 * 1000)})
+                        Util.put('wechat_authorize_state', state)
+                        Util.put('wechat_authorize_code', code)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {
                             query += '&eruda=true'
                         }
+                        alert(code + ',' + state)
                         window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
                     }
                 } else {
-                    let state = Cookies.get('wechat_authorize_state')
+                    let state = Util.get('wechat_authorize_state')
+                    alert(code + ',' + state)
                     this.loadWechatInfo({code, state})
-                    Cookies.set('wechat_authorize_state', null)
-                    Cookies.set('wechat_authorize_code', null)
+                    Util.put('wechat_authorize_state', null)
+                    Util.put('wechat_authorize_code', null)
                 }
             } else {
                 this.show = true
