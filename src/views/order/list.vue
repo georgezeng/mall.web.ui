@@ -179,7 +179,8 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center"
+                 style="position: relative; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无订单</div>
             </div>
@@ -199,6 +200,7 @@
     import WechatLogo from '../../images/wechat-logo.png'
     import AlipayLogo from '../../images/alipay-logo.png'
     import NoRecord from '../../images/norecord-order.png'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {
@@ -326,6 +328,7 @@
                 item.payment = payment
                 this.closePaymentPopup()
                 const _this = this
+
                 function pay() {
                     const id = item.id
                     if (Util.isInWechat()) {
@@ -361,6 +364,7 @@
                         }
                     }
                 }
+
                 this.$vux.loading.show({
                     text: '加载中...'
                 })
@@ -513,7 +517,15 @@
             },
         },
         beforeCreate() {
-            
+            const tradeNo = UrlParams(window.location.href, 'out_trade_no')
+            if (tradeNo != null && tradeNo != '') {
+                let query = '?uid=' + UrlParams(window.location.href, 'uid')
+                const eruda = UrlParams(window.location.href, 'eruda')
+                if (eruda != null && eruda != '') {
+                    query += '&eruda=' + eruda
+                }
+                window.location.href = '/' + query + '#/Order/List/All'
+            }
         },
         mounted() {
             this.itemInfoWidth = document.documentElement.clientWidth - 108
