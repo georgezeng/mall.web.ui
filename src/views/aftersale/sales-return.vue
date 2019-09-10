@@ -57,7 +57,7 @@
                 <span style="font-size: 14px;">{{form.reason}}</span>
             </mt-cell>
             <div style="padding: 10px; border-top: 2px solid #f5f5f5;">
-                退还数量:
+                退货数量:
                 <span style="float: right">
                     <wv-number-spinner :min="1" :max="maxNums" input-width="30px"
                                        v-model="form.nums"></wv-number-spinner>
