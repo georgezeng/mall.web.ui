@@ -179,7 +179,12 @@ util.alipay = (orderId, from) => {
         util.goLogin()
     }
     uid = uid.replace(/#.+/, '')
-    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '/' + from
+    let query = '?uid=' + uid
+    if (config.env == 'uat' && config.debug) {
+        query += '&eruda=true'
+    }
+    let to = from == 'system' ? encodeURIComponent(window.location.protocol + '//' + window.location.host + '/' + query + '#/Order/List/All') : encodeURIComponent(window.location.protocol + '//' + window.location.host + '/')
+    window.location.href = config.baseUrl + '/client/alipay/prepare/params/' + uid + '/' + orderId + '?url=' + to
 }
 
 util.wepayForJsApi = (orderId, callback) => {

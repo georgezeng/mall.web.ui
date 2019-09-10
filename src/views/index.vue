@@ -20,6 +20,9 @@
             if (host.split('.').length == 2) {
                 host = 'www.' + host
             }
+            if(config.debug && config.env == 'uat') {
+                host += '?eruda=true'
+            }
             window.location.href = config.baseUrl + "/index?url=" + encodeURIComponent(window.location.protocol + "//" + host + "/#/Home")
         }
     }
