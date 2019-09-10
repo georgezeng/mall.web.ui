@@ -133,7 +133,7 @@
                 let auth = Util.getJson('wechat_authorize')
                 if (!auth) {
                     const code = UrlParams(window.location.href, "code")
-                    if (!code) {
+                    if (!code) {alert(1)
                         this.authorize()
                     } else {
                         auth = {code}
@@ -147,7 +147,6 @@
                     }
                 } else {
                     Util.putJson('wechat_authorize', null)
-                    alert(auth.code + ' : ' + auth.state)
                     this.loadWechatInfo(auth)
                 }
             } else {
