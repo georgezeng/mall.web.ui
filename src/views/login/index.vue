@@ -96,7 +96,6 @@
                 WechatAPI.authorize(window.location.href).then(url => {
                     this.loading = false
                     window.location.href = url
-                    alert(url)
                 }).catch(e => {
                     this.loading = false
                 })
@@ -139,7 +138,6 @@
                     } else {
                         auth = {code}
                         auth.state = UrlParams(window.location.href, "state").replace(/#?\/[^\/]+/, '')
-                        alert(auth.state)
                         Util.putJson('wechat_authorize', auth)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {
