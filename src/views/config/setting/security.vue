@@ -180,10 +180,12 @@
                     }).then(res => {
                         this.loading = false
                         this.closePasswordPopup()
-                        this.$vux.toast.show({text: '保存成功'})
-                        Util.getForNav()
-                        Util.setToken(null)
-                        Util.go('Login')
+                        this.$vux.toast.show({text: '设置成功，重置密码，须重新登录', width: '200px', time: 3000})
+                        setTimeout(() => {
+                            Util.getForNav()
+                            Util.setToken(null)
+                            Util.go('Login')
+                        }, 3000)
                     }).catch(e => {
                         this.loading = false
                     })
@@ -191,10 +193,12 @@
                     API.updatePassword(this.passwordModal.form).then(res => {
                         this.loading = false
                         this.closePasswordPopup()
-                        this.$vux.toast.show({text: '保存成功'})
-                        Util.getForNav()
-                        Util.setToken(null)
-                        Util.go('Login')
+                        this.$vux.toast.show({text: '设置成功，修改密码，须重新登录', width: '200px', time: 3000})
+                        setTimeout(() => {
+                            Util.getForNav()
+                            Util.setToken(null)
+                            Util.go('Login')
+                        }, 3000)
                     }).catch(e => {
                         this.loading = false
                     })
