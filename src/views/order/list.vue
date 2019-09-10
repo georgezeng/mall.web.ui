@@ -512,6 +512,9 @@
                 Util.scrollHandler(e, this)
             },
         },
+        beforeCreate() {
+            
+        },
         mounted() {
             this.itemInfoWidth = document.documentElement.clientWidth - 108
             window.addEventListener('scroll', this.scrollHandler)
