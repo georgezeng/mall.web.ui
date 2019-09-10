@@ -62,18 +62,25 @@
                     {{item}}
                 </div>
             </div>
+            <div :style="{top: noRecordTop + 'px'}" v-if="keys.length == 0" align="center" style="position: relative; color: gray;">
+                <img :src="NoRecord" width="30%" height="30%"/>
+                <div>暂无搜索历史</div>
+            </div>
         </Content>
     </Layout>
 </template>
 <script>
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
+    import NoRecord from '../../images/norecord-evaluation.png'
     import $ from 'jquery'
 
     export default {
         components: {},
         data() {
             return {
+                NoRecord,
+                noRecordTop: 0,
                 commonStyles,
                 headerStyle: {
                     ...commonStyles.header
@@ -139,6 +146,7 @@
             }
         },
         mounted() {
+            this.noRecordTop = ((document.documentElement.clientHeight - 120) - 200) / 2
             this.searchInputWidth = document.documentElement.clientWidth - this.$refs.backIcon.$el.getBoundingClientRect().left - 60
             this.contentStyle.backgroundColor = '#fff'
             this.headerStyle.backgroundColor = '#fff'
