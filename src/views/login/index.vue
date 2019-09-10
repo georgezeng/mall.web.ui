@@ -136,19 +136,19 @@
                     if (!code) {
                         this.authorize()
                     } else {
+                        code = code.replace(/#.+/, '')
                         let state = UrlParams(window.location.href, "state")
+                        state = state.replace(/#.+/, '')
                         Util.put('wechat_authorize_state', state)
                         Util.put('wechat_authorize_code', code)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {
                             query += '&eruda=true'
                         }
-                        alert(code + ',' + state)
                         window.location.href = window.location.protocol + "//" + window.location.host + "/" + query + "#/Login"
                     }
                 } else {
                     let state = Util.get('wechat_authorize_state')
-                    alert(code + ',' + state)
                     this.loadWechatInfo({code, state})
                     Util.put('wechat_authorize_state', null)
                     Util.put('wechat_authorize_code', null)
