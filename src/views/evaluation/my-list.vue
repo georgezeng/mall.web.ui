@@ -118,7 +118,7 @@
                         <img @click="showBigImg(item.photos)" style="margin-right: 10px;"
                              v-for="(path, index) in item.photos" :key="index"
                              :src="config.publicBucketDomain + path"
-                             width="160" height="160"/>
+                             width="60" height="60"/>
                     </div>
                     <div v-if="item.replyTime != null"
                          style="padding: 10px; background-color: #f5f5f5; font-size: 14px; color: gray;">
@@ -374,7 +374,7 @@
             this.modalStyle = {
                 width: '100%',
                 height: this.popupImgWidth + 'px',
-                top: this.isSmallDevice ? '50px' : '100px'
+                top: '50px'
             }
             this.contentStyle.marginTop = '130px'
             // this.headerStyle.height = '90px'

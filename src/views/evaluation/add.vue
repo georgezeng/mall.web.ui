@@ -210,7 +210,7 @@
             this.modalStyle = {
                 width: '100%',
                 height: this.popupImgWidth + 'px',
-                top: this.isSmallDevice ? '50px' : '100px'
+                top: '50px'
             }
             this.contentStyle.backgroundColor = '#f5f5f5'
             this.form.id = this.$router.currentRoute.params.id
