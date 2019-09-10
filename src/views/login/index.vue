@@ -133,9 +133,10 @@
                 let auth = Util.getJson('wechat_authorize')
                 if (!auth) {
                     const code = UrlParams(window.location.href, "code")
-                    if (!code) {alert(1)
+                    if (!code) {alert(window.location.href)
                         this.authorize()
                     } else {
+                        alert(window.location.href)
                         auth = {code}
                         auth.state = UrlParams(window.location.href, "state").replace('/Login', '')
                         Util.putJson('wechat_authorize', auth)
