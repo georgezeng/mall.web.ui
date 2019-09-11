@@ -112,10 +112,10 @@
 <template>
     <Layout :style="commonStyles.layout">
         <div v-if="bonusPopup" align="center" class="bonusModal">
-            <div v-images-loaded="bonusTipLoaded" style="position: relative; width: 100%;"
+            <div v-images-loaded:on.loaded="bonusTipLoaded" style="position: relative; width: 100%;"
                  :style="{height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
                 <div v-show="bonusText" class="bonusTip"
-                     :style="{top: bonusTipTop + 'px', left: bonusTipLeft + 'px'}">
+                     :style="{top: bonusTipTop + 'px'}">
                     {{bonus.coupon}}元优惠券 + {{bonus.points}}积分
                 </div>
                 <img :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
