@@ -112,7 +112,7 @@
         <div v-if="bonusPopup" align="center" class="bonusModal">
             <div class="bonusImg"
                  :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
-                <div class="bonusTip" :style="{top: bonusTipTop + 'px'}">{{bonus.coupon}}元优惠券 + {{bonus.points}}积分</div>
+                <div v-show="bonusText" class="bonusTip" :style="{top: bonusTipTop + 'px'}">{{bonus.coupon}}元优惠券 + {{bonus.points}}积分</div>
                 <div @click="goMyCoupon" class="bonusBtn"
                      :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
             </div>
@@ -141,7 +141,7 @@
                 <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                      @click="goDetail(item.id)">
                     <div style="margin: 8px" align="center">
-                        <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
+                        <img @load="showBonusText" :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
                              :height="itemImageWidth"/>
                     </div>
                     <div class="realPrice">￥{{priceRange(item)}}</div>
@@ -182,6 +182,7 @@
             return {
                 Util,
                 config,
+                bonusText: false,
                 logoImg: null,
                 bonusPopup: false,
                 bonusBtnBottom: null,
@@ -226,6 +227,9 @@
             },
         },
         methods: {
+            showBonusText() {
+              this.bonusText = true
+            },
             goPage(link) {
                 if(link) {
                     Util.putForNav({
