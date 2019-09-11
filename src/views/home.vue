@@ -97,7 +97,7 @@
     .bonusTip {
         color: red;
         font-size: 20px;
-        position: relative;
+        position: absolute;
     }
 
     .bonusBtn {
@@ -110,9 +110,13 @@
 <template>
     <Layout :style="commonStyles.layout">
         <div v-if="bonusPopup" align="center" class="bonusModal">
-            <div class="bonusImg"
-                 :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
-                <div v-show="bonusText" class="bonusTip" :style="{top: bonusTipTop + 'px'}">{{bonus.coupon}}元优惠券 + {{bonus.points}}积分</div>
+            <div v-images-loaded="bonusTipLoaded" style="position: relative; width: 100%;"
+                 :style="{height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
+                <div v-show="bonusText" class="bonusTip"
+                     :style="{width: bonusTipWidth + 'px', top: bonusTipTop + 'px', left: bonusTipLeft + 'px'}">
+                    {{bonus.coupon}}元优惠券 + {{bonus.points}}积分
+                </div>
+                <img :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
                 <div @click="goMyCoupon" class="bonusBtn"
                      :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
             </div>
@@ -141,7 +145,7 @@
                 <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                      @click="goDetail(item.id)">
                     <div style="margin: 8px" align="center">
-                        <img @load="showBonusText" :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
+                        <img :src="config.publicBucketDomain + item.thumbnail" :width="itemImageWidth"
                              :height="itemImageWidth"/>
                     </div>
                     <div class="realPrice">￥{{priceRange(item)}}</div>
@@ -172,14 +176,22 @@
     import config from '../config/index'
     // import Masonry from 'masonry-layout'
     import Util from '../libs/util.js'
+    import BonusImg from '../images/registration_bonus.png'
     import MerchantAPI from '../api/merchant'
+    import imagesLoaded from 'vue-images-loaded'
 
     export default {
+        directives: {
+            imagesLoaded,
+        },
         components: {
             Footer
         },
         data() {
             return {
+                bonusTipWidth: 200,
+                bonusTipLeft: 0,
+                BonusImg,
                 Util,
                 config,
                 bonusText: false,
@@ -227,11 +239,11 @@
             },
         },
         methods: {
-            showBonusText() {
-              this.bonusText = true
+            bonusTipLoaded() {
+                this.bonusText = true
             },
             goPage(link) {
-                if(link) {
+                if (link) {
                     Util.putForNav({
                         from: 'Home'
                     })
@@ -363,14 +375,15 @@
         },
         mounted() {
             if (this.isLogin) {
+                this.bonusTipLeft = (document.documentElement.clientWidth - this.bonusTipWidth) / 2
                 this.bonusImgWidth = document.documentElement.clientWidth * 0.9
                 this.bonusImgHeight = this.bonusImgWidth * 972 / 750
                 this.bonusBtnWidth = document.documentElement.clientWidth * 0.5
                 this.bonusBtnHeight = this.bonusBtnWidth * 118 / 432
-                this.bonusTipTop = 180 * this.bonusImgHeight / 972
+                this.bonusTipTop = 190 * this.bonusImgHeight / 972
                 this.bonusImgTop = (document.documentElement.clientHeight - this.bonusImgHeight) / 2
                 this.bonusBtnBottom = 60 * this.bonusImgHeight / 972
-                this.bonusBtnLeft = (this.bonusImgWidth - this.bonusBtnWidth) / 2
+                this.bonusBtnLeft = (document.documentElement.clientWidth - this.bonusBtnWidth) / 2
             }
         },
         destroyed() {
