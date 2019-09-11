@@ -135,7 +135,7 @@
                 <div>下单时间: {{form.createTime}}</div>
                 <div>支付方式: {{form.payment.text}}</div>
                 <div>支付时间: {{form.payTime}}</div>
-                <div>收货时间: {{form.pickupTime}}</div>
+                <div v-if="form.pickupTime != null">收货时间: {{form.pickupTime}}</div>
                 <div v-if="form.refundTime != null">退款单号: {{form.orderId}}</div>
                 <div v-if="form.refundTime != null">退款时间: {{form.refundTime}}</div>
             </div>
