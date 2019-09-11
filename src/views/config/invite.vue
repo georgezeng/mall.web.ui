@@ -523,7 +523,7 @@
             API.loadTotalInfo().then(data => {
                 this.data = data
             })
-            MerchantAPI.loadClientInviteBonus().then(data => {
+            MerchantAPI.loadClientBonusInfo().then(data => {
                 this.bonus = data
             })
         },

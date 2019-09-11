@@ -51,10 +51,7 @@ export default {
     searchArticle(title) {
         return axios.get('/article/search/' + title)
     },
-    loadClientPointsBonus() {
-        return axios.get('/merchant/clientPointsBonus')
-    },
-    loadClientInviteBonus() {
-        return axios.get('merchant/clientInviteBonus')
+    loadClientBonusInfo() {
+        return axios.get('merchant/clientBonusInfo')
     }
 }

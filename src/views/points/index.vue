@@ -343,7 +343,7 @@
                 Util.go('MyCenter')
             },
             load() {
-                MerchantAPI.loadClientInviteBonus().then(data => {
+                MerchantAPI.loadClientBonusInfo().then(data => {
                     this.bonus = data.invitePoints
                 })
                 API.current().then(data => {
