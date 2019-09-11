@@ -46,16 +46,18 @@ util.loginSuccess = (data, target) => {
     util.clear()
     util.setToken(data.token)
     util.put('userId', data.userId)
-    const link = window.location.href
+    let link = window.location.href
     let params = '?uid=' + data.userId
     if (config.env == 'uat' && config.debug) {
         params += '&eruda=true'
     }
     if (link.indexOf('?') == -1) {
-        window.location.href = link.replace(/#?\/[^\/]+/, params + '#' + target)
+        link = link.replace(/#?\/[^\/]+/, params + '#' + target)
     } else {
-        window.location.href = link.replace(/\?.+/, params).replace(/#?\/[^\/]+/, '') + '#' + target
+        link= link.replace(/\?.+/, params).replace(/#?\/[^\/]+/, '') + '#' + target
     }
+    alert(link)
+    window.location.href = link
 }
 
 util.isInWechat = function () {
