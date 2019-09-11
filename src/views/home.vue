@@ -119,7 +119,7 @@
                     {{bonus.coupon}}元优惠券 + {{bonus.points}}积分
                 </div>
                 <img :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
-                <div v-show="bonusEls" @click="goMyCoupon" class="bonusBtn"
+                <div @click="goMyCoupon" class="bonusBtn"
                      :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
             </div>
         </div>
