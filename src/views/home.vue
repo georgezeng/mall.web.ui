@@ -98,6 +98,7 @@
         color: red;
         font-size: 20px;
         position: absolute;
+        text-align: center;
     }
 
     .bonusBtn {
@@ -189,7 +190,7 @@
         },
         data() {
             return {
-                bonusTipWidth: 210,
+                bonusTipWidth: 300,
                 bonusTipLeft: 0,
                 BonusImg,
                 Util,
