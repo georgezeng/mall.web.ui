@@ -42,10 +42,11 @@ util.go = function (name, params) {
     }
 }
 
-util.loginSuccess = (data, target) => {
+util.loginSuccess = (data) => {
     util.clear()
     util.setToken(data.token)
     util.put('userId', data.userId)
+    const target = '/Home'
     let link = window.location.href
     let params = '?uid=' + data.userId
     if (config.env == 'uat' && config.debug) {
@@ -54,7 +55,7 @@ util.loginSuccess = (data, target) => {
     if (link.indexOf('?') == -1) {
         link = link.replace(/#?\/[^\/]+/, params + '#' + target)
     } else {
-        link = link.replace(/\?.+/, params).replace(/#?\/[^\/]+/, '') + '#' + target
+        link = link.replace(/\?.+/, params) + '#' + target
     }
     window.location.href = link
 }

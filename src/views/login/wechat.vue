@@ -81,7 +81,7 @@
                     type: 'Wechat'
                 }).then(data => {
                     this.loading = false
-                    Util.loginSuccess(data, '/Home')
+                    Util.loginSuccess(data)
                 }).catch(ex => {
                     this.loading = false
                 })

@@ -47,7 +47,7 @@
                         this.loading = true
                         API.login(this.form).then(data => {
                             this.loading = false
-                            Util.loginSuccess(data, '/Home')
+                            Util.loginSuccess(data)
                         }).catch(ex => {
                             this.loading = false
                         })
