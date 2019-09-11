@@ -211,7 +211,7 @@
                         优惠券
                     </div>
                     <div style="font-size: 11pt;">
-                        <span>{{data.coupons && data.coupons.length > 0 ? `使用${data.coupons.length}张` : '尚未使用'}}</span>
+                        <span>{{data.coupons && data.coupons.length > 0 ? `使用${data.coupons.length}张` : '请选择'}}</span>
                         <img :src="More" width="32" height="32"/>
                     </div>
                 </mt-cell>

@@ -500,7 +500,7 @@
                     left: document.documentElement.clientWidth * 0.1 + 'px',
                     width: this.posterWidth + 'px',
                     height: this.posterHeight + 'px',
-                    top: (document.documentElement.clientHeight - this.popupImgWidth) / 2 + 'px',
+                    top: '50px',
                     position: 'fixed'
                 }
             }
