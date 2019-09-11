@@ -114,12 +114,12 @@
         <div v-show="bonusPopup" align="center" class="bonusModal">
             <div v-images-loaded="bonusTipLoaded" style="position: relative; width: 100%;"
                  :style="{height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
-                <div v-show="bonusText" class="bonusTip"
+                <div v-show="bonusEls" class="bonusTip"
                      :style="{top: bonusTipTop + 'px'}">
                     {{bonus.coupon}}元优惠券 + {{bonus.points}}积分
                 </div>
                 <img :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
-                <div @click="goMyCoupon" class="bonusBtn"
+                <div v-show="bonusEls" @click="goMyCoupon" class="bonusBtn"
                      :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
             </div>
         </div>
@@ -194,7 +194,7 @@
                 BonusImg,
                 Util,
                 config,
-                bonusText: false,
+                bonusEls: false,
                 logoImg: null,
                 bonusPopup: false,
                 bonusBtnBottom: null,
@@ -241,7 +241,7 @@
         methods: {
             bonusTipLoaded() {
                 setTimeout(() => {
-                    this.bonusText = true
+                    this.bonusEls = true
                 }, 500)
             },
             goPage(link) {
