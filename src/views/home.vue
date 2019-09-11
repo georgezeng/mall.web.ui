@@ -111,7 +111,7 @@
 </style>
 <template>
     <Layout :style="commonStyles.layout">
-        <div v-if="bonusPopup" align="center" class="bonusModal">
+        <div v-show="bonusPopup" align="center" class="bonusModal">
             <div v-images-loaded="bonusTipLoaded" style="position: relative; width: 100%;"
                  :style="{height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
                 <div v-show="bonusText" class="bonusTip"
