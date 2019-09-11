@@ -189,7 +189,7 @@
         },
         data() {
             return {
-                bonusTipWidth: 200,
+                bonusTipWidth: 210,
                 bonusTipLeft: 0,
                 BonusImg,
                 Util,
