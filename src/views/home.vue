@@ -99,6 +99,7 @@
         font-size: 20px;
         position: absolute;
         text-align: center;
+        width: 100%;
     }
 
     .bonusBtn {
@@ -114,7 +115,7 @@
             <div v-images-loaded="bonusTipLoaded" style="position: relative; width: 100%;"
                  :style="{height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
                 <div v-show="bonusText" class="bonusTip"
-                     :style="{width: bonusTipWidth + 'px', top: bonusTipTop + 'px', left: bonusTipLeft + 'px'}">
+                     :style="{top: bonusTipTop + 'px', left: bonusTipLeft + 'px'}">
                     {{bonus.coupon}}元优惠券 + {{bonus.points}}积分
                 </div>
                 <img :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
