@@ -191,8 +191,6 @@
         },
         data() {
             return {
-                bonusTipWidth: 300,
-                bonusTipLeft: 0,
                 BonusImg,
                 Util,
                 config,
@@ -379,7 +377,6 @@
         },
         mounted() {
             if (this.isLogin) {
-                this.bonusTipLeft = (document.documentElement.clientWidth - this.bonusTipWidth) / 2
                 this.bonusImgWidth = document.documentElement.clientWidth * 0.9
                 this.bonusImgHeight = this.bonusImgWidth * 972 / 750
                 this.bonusBtnWidth = document.documentElement.clientWidth * 0.5
