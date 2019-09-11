@@ -183,7 +183,6 @@
                         this.closePasswordPopup()
                         this.$vux.toast.show({text: '设置成功，重置密码须重新登录', width: '200px', time: delay})
                         setTimeout(() => {
-                            Util.getForNav()
                             Util.clear()
                             Util.go('Login', {
                                 tab: 'password'
@@ -198,7 +197,6 @@
                         this.closePasswordPopup()
                         this.$vux.toast.show({text: '设置成功，修改密码须重新登录', width: '200px', time: delay})
                         setTimeout(() => {
-                            Util.getForNav()
                             Util.clear()
                             Util.go('Login', {
                                 tab: 'password'
