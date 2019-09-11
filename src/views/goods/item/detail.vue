@@ -556,7 +556,7 @@
             avatar() {
                 if (this.item.topEvaluation) {
                     const avatar = this.item.topEvaluation.clientAvatar
-                    return !this.item.topEvaluation.anonymous && avatar ?
+                    return avatar ?
                         (avatar.startsWith('http') ?
                             avatar
                             : config.publicBucketDomain + avatar)
