@@ -128,7 +128,7 @@
                         <div style="float: right;">{{item.replyTime}}</div>
                         <div class="clearfix"></div>
                     </div>
-                    <img v-if="!item.passed && item.hasAudit" :src="UnPass" width="32" height="32" style="position: absolute; bottom: 20px; right: 10px;"></img>
+                    <img v-if="!item.passed && item.hasAudit" :src="UnPass" width="40" height="40" style="position: absolute; bottom: 20px; right: 10px;"></img>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px;">
                     <div style="margin-bottom: 10px;">
