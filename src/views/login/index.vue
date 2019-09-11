@@ -33,8 +33,8 @@
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
                     <div class="gradient"></div>
                     <div @click="goWechatLogin"
-                         style="margin-top: 20px; background-color: #B69C7D; border-radius: 50px; height: 50px; width: 50px;">
-                        <Icon size="30" type="ios-chatbubbles" style="color: #fff; position: relative; top: 10px;"/>
+                         style="margin-top: 20px;">
+                        <img :src="WeChat" width="50" heiht="50"/>
                     </div>
                 </div>
                 <!--
@@ -58,6 +58,7 @@
     import config from '../../config/index'
     import UrlParams from 'get-url-param'
     import MerchantAPI from '../../api/merchant'
+    import WeChat from '../../images/wechat.png'
 
     export default {
         components: {
@@ -66,6 +67,7 @@
         },
         data() {
             return {
+                WeChat,
                 logo: null,
                 commonStyles,
                 loading: false,
