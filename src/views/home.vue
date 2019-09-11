@@ -153,8 +153,8 @@
                         '...' : item.name}}
                     </div>
                     <div class="stat">
-                        <span>{{item.orderNums}}人已购买, </span>
-                        <span>好评率: {{item.goodEvaluationRate}}%</span>
+                        <div style="margin-bottom: 5px;">{{item.orderNums}}人已购买</div>
+                        <div>好评率: {{item.goodEvaluationRate}}%</div>
                     </div>
                 </div>
             </div>
