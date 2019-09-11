@@ -62,7 +62,8 @@
                     {{item}}
                 </div>
             </div>
-            <div :style="{top: noRecordTop + 'px'}" v-if="keys.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="keys.length == 0" align="center"
+                 style="position: absolute; color: gray; width: 100%;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无搜索历史</div>
             </div>

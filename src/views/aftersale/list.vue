@@ -106,7 +106,7 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="width: 100%; position: absolute; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div v-if="status == 'NotYet'">暂无商品可申请</div>
                 <div v-else>暂无申请记录</div>

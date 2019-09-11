@@ -155,7 +155,7 @@
             <load-more v-if="showLoading" tip="正在加载"></load-more>
             <div :style="{top: noRecordTop + 'px'}"
                  v-if="showNoRecord && uncommentList.length == 0 && status == 'UnComment'" align="center"
-                 style="position: relative; color: gray;">
+                 style="width: 100%; position: absolute; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无商品可评价</div>
             </div>

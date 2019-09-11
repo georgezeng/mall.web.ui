@@ -231,7 +231,7 @@
                 </div>
                 <load-more v-if="showLoading" tip="正在加载"></load-more>
                 <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center"
-                     style="position: relative; color: gray;">
+                     style="width: 100%; position: absolute; color: gray;">
                     <img :src="NoRecord" width="20%" height="20%"/>
                     <div>暂无分享动态</div>
                 </div>

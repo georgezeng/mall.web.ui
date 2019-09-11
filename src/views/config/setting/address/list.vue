@@ -73,7 +73,7 @@
                 </swipeout-item>
             </swipeout>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="position: relative; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="width: 100%; position: absolute; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无地址记录</div>
             </div>

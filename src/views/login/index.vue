@@ -11,7 +11,7 @@
 </style>
 <template>
     <Layout v-if="show" :style="commonStyles.layout">
-        <Content :style="commonStyles.content">
+        <Content :style="contentStyle">
             <div align="center" style="height: 40px;">
                 <Icon type="ios-arrow-back" size="30" :style="commonStyles.backArrow" @click="back"/>
             </div>
@@ -73,7 +73,10 @@
                 loading: false,
                 wechatLoginInfo: null,
                 show: false,
-                tab: null
+                tab: null,
+                contentStyle: {
+                    ...commonStyles.content
+                }
             }
         },
         methods: {
@@ -114,6 +117,7 @@
             }
         },
         created() {
+            this.contentStyle.minHeight = document.documentElement.clientHeight + 'px'
             MerchantAPI.loadSiteInfo().then(data => {
                 this.logo = config.publicBucketDomain + data.loginLogo
             })
