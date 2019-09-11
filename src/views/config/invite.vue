@@ -200,7 +200,8 @@
             </div>
 
 
-            <div :style="{fontSize: tipFontSize}" style="background-color: #F2F2F2; padding: 20px; position: relative; top: -40px; ">
+            <div :style="{fontSize: tipFontSize}"
+                 style="background-color: #F2F2F2; padding: 20px; position: relative; top: -40px; ">
                 <div>现在分享邀请好友注册多呗商城</div>
                 <div>立即奖励{{registrationBonus}}元优惠券和{{invitePointsBonus}}DBB多呗积分</div>
                 <div @click="showSharePopup" class="share-btn"></div>
@@ -223,7 +224,8 @@
                             </div>
                         </div>
                         <div style="font-size: 14px;">
-                            <div style="color: orangered; margin-bottom: 10px; text-align: right;">+ {{item.invitePoints ?
+                            <div style="color: orangered; margin-bottom: 10px; text-align: right;">+ {{item.invitePoints
+                                ?
                                 item.invitePoints : 0}} DBB
                             </div>
                             <div>{{item.createTime}}</div>
@@ -454,7 +456,7 @@
             }
             this.noRecordTop = ((document.documentElement.clientHeight - height) - 150) / 2
             window.addEventListener('scroll', this.scrollHandler)
-            this.popupImgSrc = config.baseUrl + '/client/' + Util.get('userId') + '/poster/invite.png'
+            this.popupImgSrc = config.baseUrl + '/client/' + UrlParams(window.location.href, 'uid').replace(/#?\/[^\/]+/, '') + '/poster/invite.png'
             this.load()
             this.bgStyle = {
                 width: document.documentElement.clientWidth + 'px',

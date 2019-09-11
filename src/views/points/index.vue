@@ -221,6 +221,7 @@
     import NativeShare from 'nativeshare'
     import ProfileAPI from '../../api/profile.js'
     import wx from 'weixin-js-sdk'
+    import UrlParams from 'get-url-param'
 
     export default {
         components: {},
@@ -286,7 +287,7 @@
                 }
             },
             updateShare(item) {
-                let uid = Util.get('userId')
+                let uid = UrlParams(window.location.href, 'uid').replace(/#?\/[^\/]+/, '')
                 let nickname = item.nickname
                 if (!nickname || nickname == '') {
                     nickname = '********' + item.username.substring(7)

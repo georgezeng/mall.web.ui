@@ -149,6 +149,8 @@ util.putForNav = function (navObj) {
 util.clear = function () {
     util.putJson('NavigateArrObj', null)
     util.putJson('settleAccountData', null)
+    util.put('userId', null)
+    util.setToken(null)
 }
 
 util.getForNav = function () {
@@ -177,7 +179,7 @@ util.peekForNav = function () {
 util.alipay = (orderId, from) => {
     let uid = UrlParams(window.location.href, 'uid')
     if (!uid) {
-        util.setToken(null)
+        util.clear()
         util.goLogin()
     }
     uid = uid.replace(/#?\/[^\/]+/, '')
@@ -225,7 +227,7 @@ util.wepayForMweb = (orderId) => {
     }).then(data => {
         let uid = UrlParams(window.location.href, 'uid')
         if (!uid) {
-            util.setToken(null)
+            util.clear()
             util.goLogin()
         }
         uid = uid.replace(/#?\/[^\/]+/, '')
