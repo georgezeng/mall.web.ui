@@ -52,9 +52,9 @@ util.loginSuccess = (data, target) => {
         params += '&eruda=true'
     }
     if (link.indexOf('?') == -1) {
-        link = link.replace(/#?\/[^\/]+/, params + '#' + target)
+        link += link.replace(/#?\/[^\/]+/, params + '#' + target)
     } else {
-        link= link.replace(/\?.+/, params).replace(/#?\/[^\/]+/, '') + '#' + target
+        link += link.replace(/\?.+/, params).replace(/#?\/[^\/]+/, '') + '#' + target
     }
     alert(link)
     window.location.href = link
