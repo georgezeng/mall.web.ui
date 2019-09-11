@@ -167,7 +167,8 @@
                 <div class="invite-bg" :style="{height: inviteBgHeight + 'px'}">
                     <div style="padding: 20px; font-size: 14px;">我的邀请成绩</div>
                     <div @click="showPoster" class="qrcode_wrapper" align="center">
-                        <div><img :src="ShareLogo" width="20" height="20" style="display: inline-block; vertical-align: bottom;" /></div>
+                        <div><img :src="ShareLogo" width="20" height="20"
+                                  style="display: inline-block; vertical-align: bottom;"/></div>
                         <div style="font-size: 10px;">分享海报</div>
                     </div>
                     <div :style="{marginTop: numsMarginTop}" align="center">
@@ -200,7 +201,7 @@
             <div :style="{fontSize: tipFontSize}"
                  style="background-color: #F2F2F2; padding: 20px; position: relative; top: -40px; ">
                 <div>现在分享邀请好友注册多呗商城</div>
-                <div>立即奖励{{registrationBonus}}元优惠券和{{invitePointsBonus}}DBB多呗积分</div>
+                <div>立即奖励{{bonus.coupon}}元优惠券和{{bonus.points}}DBB多呗积分</div>
                 <div @click="showSharePopup" class="share-btn"></div>
             </div>
 
@@ -241,6 +242,7 @@
 </template>
 <script>
     import API from '../../api/invite.js'
+    import MerchantAPI from '../../api/merchant'
     import config from '../../config/index.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
@@ -261,8 +263,10 @@
                 ShareLogo,
                 showNoRecord: false,
                 tipFontSize: '14px',
-                invitePointsBonus: 0,
-                registrationBonus: 0,
+                bonus: {
+                    coupon: 0,
+                    points: 0
+                },
                 data: {
                     totalPeople: 0,
                     totalPoints: 0,
@@ -453,7 +457,7 @@
                 this.tipFontSize = '10px'
                 this.numsMarginTop = '5px'
             }
-            this.noRecordTop = ((document.documentElement.clientHeight - height) - 150) / 2
+            this.noRecordTop = (document.documentElement.clientHeight - height) / 2
             window.addEventListener('scroll', this.scrollHandler)
             this.popupImgSrc = config.baseUrl + '/client/' + UrlParams(window.location.href, 'uid').replace(/#?\/[^\/]+/, '') + '/poster/invite.png'
             this.load()
@@ -518,6 +522,9 @@
             })
             API.loadTotalInfo().then(data => {
                 this.data = data
+            })
+            MerchantAPI.loadClientInviteBonus().then(data => {
+                this.bonus = data
             })
         },
         destroyed() {

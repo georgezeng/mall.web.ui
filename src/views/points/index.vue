@@ -202,7 +202,7 @@
             <div style="padding: 10px 10px 10px; position: relative; color: #8F7A5B; font-size: 14px;">
                 <div class="invite-bg" :style="{height: inviteBgHeight + 'px'}">
                     <div style="position: absolute; top: 20px;" :style="{left: inviteTextLeft + 'px'}">
-                        <div>邀请好友注册多呗商城奖励 {{invitePoints ? invitePoints : 0}} DBB</div>
+                        <div>邀请好友注册多呗商城奖励 {{bonus ? bonus : 0}} DBB</div>
                         <div>多呗积分</div>
                     </div>
                     <div @click="showSharePopup" class="share-btn"></div>
@@ -227,6 +227,7 @@
         components: {},
         data() {
             return {
+                bonus: 0,
                 popupHeight: 500,
                 ShareTipArrow,
                 showShareTip: false,
@@ -251,7 +252,6 @@
                     ...commonStyles.content
                 },
                 currentAmount: 0,
-                invitePoints: 0,
             }
         },
         computed: {},
@@ -343,8 +343,8 @@
                 Util.go('MyCenter')
             },
             load() {
-                MerchantAPI.loadClientPointsBonus().then(data => {
-                    this.invitePoints = this.data.invite
+                MerchantAPI.loadClientInviteBonus().then(data => {
+                    this.bonus = data.points
                 })
                 API.current().then(data => {
                     this.currentAmount = data

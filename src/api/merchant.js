@@ -53,5 +53,8 @@ export default {
     },
     loadClientPointsBonus() {
         return axios.get('/merchant/clientPointsBonus')
+    },
+    loadClientInviteBonus() {
+        return axios.get('merchant/clientInviteBonus')
     }
 }
