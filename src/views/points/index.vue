@@ -344,7 +344,7 @@
             },
             load() {
                 MerchantAPI.loadClientInviteBonus().then(data => {
-                    this.bonus = data.points
+                    this.bonus = data.invitePoints
                 })
                 API.current().then(data => {
                     this.currentAmount = data

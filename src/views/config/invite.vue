@@ -201,7 +201,7 @@
             <div :style="{fontSize: tipFontSize}"
                  style="background-color: #F2F2F2; padding: 20px; position: relative; top: -40px; ">
                 <div>现在分享邀请好友注册多呗商城</div>
-                <div>立即奖励{{bonus.coupon}}元优惠券和{{bonus.points}}DBB多呗积分</div>
+                <div>立即奖励{{bonus.inviteCoupon}}元优惠券和{{bonus.invitePoints}}DBB多呗积分</div>
                 <div @click="showSharePopup" class="share-btn"></div>
             </div>
 
@@ -264,8 +264,8 @@
                 showNoRecord: false,
                 tipFontSize: '14px',
                 bonus: {
-                    coupon: 0,
-                    points: 0
+                    inviteCoupon: 0,
+                    invitePoints: 0
                 },
                 data: {
                     totalPeople: 0,
