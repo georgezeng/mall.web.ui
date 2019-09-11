@@ -369,7 +369,7 @@
             },
             exit() {
                 API.logout().then(res => {
-                    Util.setToken('')
+                    Util.clear()
                     // window.location.href = '/#/MyCenter'
                     window.location.reload(true)
                 })

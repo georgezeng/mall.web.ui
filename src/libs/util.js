@@ -21,7 +21,11 @@ util.log = function (msg) {
 }
 
 util.setToken = function (token) {
-    Cookies.set(config.tokenKey, token, {expires: 14})
+    if (token) {
+        Cookies.set(config.tokenKey, token, {expires: 14})
+    } else {
+        Cookies.remove(config.tokenKey)
+    }
 }
 
 util.getToken = function () {
