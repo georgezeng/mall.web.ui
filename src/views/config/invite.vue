@@ -28,25 +28,19 @@
         font-size: 12px;
     }
 
+    .qrcode_wrapper {
+        position: absolute;
+        right: 30px;
+        top: 10px;
+        text-align: center;
+    }
+
     .qrcode {
         background-image: url("../../images/goods-share-logo.png");
         background-repeat: no-repeat;
         background-size: contain;
         width: 20px;
         height: 20px;
-        position: absolute;
-        right: 30px;
-        top: 10px;
-    }
-
-    .qrcode:after {
-        content: '分享海报';
-        color: #251F17;
-        font-size: 10px;
-        position: absolute;
-        width: 60px;
-        top: 25px;
-        right: -23px;
     }
 
     .invite-bg {
@@ -172,7 +166,10 @@
             <div align="center" style="position: relative; top: -60px; color: #251F17;">
                 <div class="invite-bg" :style="{height: inviteBgHeight + 'px'}">
                     <div style="padding: 20px; font-size: 14px;">我的邀请成绩</div>
-                    <div class="qrcode" @click="showPoster"></div>
+                    <div @click="showPoster" class="qrcode_wrapper" align="center">
+                        <div><img :src="ShareLogo" width="20" height="20" style="display: inline-block; vertical-align: bottom;" /></div>
+                        <div style="font-size: 10px;">分享海报</div>
+                    </div>
                     <div :style="{marginTop: numsMarginTop}" align="center">
                         <div style="display: inline-block; margin-right: 20px;">
                             <div>
@@ -255,11 +252,13 @@
     import ProfileAPI from '../../api/profile.js'
     import md5 from 'md5'
     import NoRecord from '../../images/norecord-invite.png'
+    import ShareLogo from '../../images/goods-share-logo.png'
 
     export default {
         components: {},
         data() {
             return {
+                ShareLogo,
                 showNoRecord: false,
                 tipFontSize: '14px',
                 invitePointsBonus: 0,
