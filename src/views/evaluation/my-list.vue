@@ -129,7 +129,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <img v-if="!item.passed && item.hasAudit" :src="UnPass" width="40" height="40"
-                         style="position: absolute; bottom: 15px; right: 10px;"></img>
+                         style="position: absolute; bottom: 10px; right: 10px;"></img>
                 </div>
                 <div v-if="item.additionalEvaluation != null" style="padding: 10px 10px 10px; position: relative;">
                     <div style="margin-bottom: 10px;">
@@ -149,7 +149,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <img v-if="!item.additionalEvaluation.passed && item.additionalEvaluation.hasAudit" :src="UnPass"
-                         width="40" height="40" style="position: absolute; bottom: 15px; right: 10px;"></img>
+                         width="40" height="40" style="position: absolute; bottom: 10px; right: 10px;"></img>
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
