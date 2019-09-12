@@ -278,7 +278,7 @@
                                   :class="{selected: value.checked}"
                                   class="value"
                                   :key="value.id"
-                                  v-for="value in definition.values">{{value.name}}</span>
+                                  v-for="value in definition.attrs">{{value.name}}</span>
                             </div>
                         </div>
                         <group>
@@ -724,8 +724,8 @@
             },
             toggleValue(definition, value) {
                 definition.selected = null
-                for (let i in definition.values) {
-                    const current = definition.values[i]
+                for (let i in definition.attrs) {
+                    const current = definition.attrs[i]
                     if (current.id != value.id) {
                         current.checked = false
                     }
@@ -832,6 +832,7 @@
                             return
                         }
                         this.item = item
+                        this.definitions = item.definitions
                         this.vedio = item.vedioPath != null
                         this.resetPosterTip()
                         this.property.price = item.minPrice
@@ -839,21 +840,11 @@
                             for (let i in item.properties) {
                                 this.property.inventory += item.properties[i].inventory
                             }
-                            const values = item.properties[0].values
-                            for (let i in values) {
-                                const value = values[i]
-                                this.definitionIds.push(value.parent.id)
-                            }
-                            API.loadDefinitions(item.id, this.definitionIds).then(definitions => {
-                                if (definitions.length > 0) {
-                                    for (let i in definitions) {
-                                        const definition = definitions[i]
-                                        // definition.values = this.filterValues(definition)
-                                        definition.values = definition.attrs
-                                    }
-                                    this.definitions = definitions
-                                }
-                            })
+                            // const values = item.properties[0].values
+                            // for (let i in values) {
+                            //     const value = values[i]
+                            //     this.definitionIds.push(value.parent.id)
+                            // }
                         }
                         this.totalProperty.price = this.property.price
                         this.totalProperty.inventory = this.property.inventory
