@@ -459,7 +459,7 @@
             }
             this.noRecordTop = (document.documentElement.clientHeight - height) / 2
             window.addEventListener('scroll', this.scrollHandler)
-            this.popupImgSrc = config.baseUrl + '/client/' + UrlParams(window.location.href, 'uid').replace(/#?\/[^\/]+/, '') + '/poster/invite.png'
+            this.popupImgSrc = config.baseUrl + '/client/' + UrlParams(window.location.href, 'uid').replace(/#.+/, '') + '/poster/invite.png'
             this.load()
             this.bgStyle = {
                 width: document.documentElement.clientWidth + 'px',

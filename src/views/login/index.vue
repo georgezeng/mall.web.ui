@@ -128,7 +128,7 @@
             if (this.isWechat) {
                 let uid = UrlParams(window.location.href, 'uid')
                 if (uid) {
-                    uid = uid.replace(/#?\/[^\/]+/, '')
+                    uid = uid.replace(/#.+/, '')
                 }
                 const from = UrlParams(window.location.href, 'from')
                 if (from) {
@@ -143,7 +143,7 @@
                         this.authorize()
                     } else {
                         auth = {code}
-                        auth.state = UrlParams(window.location.href, "state").replace(/#?\/[^\/]+/, '')
+                        auth.state = UrlParams(window.location.href, "state").replace(/#.+/, '')
                         Util.putJson('wechat_authorize', auth)
                         let query = uid ? '?uid=' + uid : ''
                         if (config.env == 'uat' && config.debug) {

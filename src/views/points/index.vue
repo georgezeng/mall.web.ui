@@ -287,7 +287,7 @@
                 }
             },
             updateShare(item) {
-                let uid = UrlParams(window.location.href, 'uid').replace(/#?\/[^\/]+/, '')
+                let uid = UrlParams(window.location.href, 'uid').replace(/#.+/, '')
                 let nickname = item.nickname
                 if (!nickname || nickname == '') {
                     nickname = '********' + item.username.substring(7)

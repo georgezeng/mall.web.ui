@@ -138,7 +138,7 @@
             this.token = this.loginInfo.password
             const uid = UrlParams(window.location.href, 'uid')
             if (uid) {
-                this.form.pid = uid.replace(/#?\/[^\/]+/, '')
+                this.form.pid = uid.replace(/#.+/, '')
                 Util.log('pid: ' + uid)
             }
             this.load()

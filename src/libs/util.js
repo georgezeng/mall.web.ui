@@ -57,7 +57,7 @@ util.loginSuccess = (data) => {
         params += '&eruda=true'
     }
     if (link.indexOf('?') == -1) {
-        link = link.replace(/#?\/[^\/]+/, params + '#' + target)
+        link = link.replace(/#.+/, params + '#' + target)
     } else {
         link = link.replace(/\?.+/, params) + '#' + target
     }
@@ -186,7 +186,7 @@ util.alipay = (orderId, from) => {
         util.clear()
         util.goLogin()
     }
-    uid = uid.replace(/#?\/[^\/]+/, '')
+    uid = uid.replace(/#.+/, '')
     let query = '?uid=' + uid
     if (config.env == 'uat' && config.debug) {
         query += '&eruda=true'
@@ -234,7 +234,7 @@ util.wepayForMweb = (orderId) => {
             util.clear()
             util.goLogin()
         }
-        uid = uid.replace(/#?\/[^\/]+/, '')
+        uid = uid.replace(/#.+/, '')
         let query = '?uid=' + uid
         if (config.env == 'uat' && config.debug) {
             query += '&eruda=true'
@@ -272,7 +272,7 @@ util.getLongLocation = (data) => {
 util.goLogin = () => {
     let uid = UrlParams(window.location.href, 'uid')
     if (uid) {
-        uid = uid.replace(/#?\/[^\/]+/, '')
+        uid = uid.replace(/#.+/, '')
         window.location.href = '/?uid=' + uid + '#/Login'
     } else {
         window.location.href = '/#/Login'
