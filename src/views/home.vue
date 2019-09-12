@@ -112,13 +112,13 @@
 <template>
     <Layout :style="commonStyles.layout">
         <div v-show="bonusPopup" align="center" class="bonusModal">
-            <div v-images-loaded="bonusTipLoaded" style="position: relative; width: 100%;"
+            <div style="position: relative; width: 100%;"
                  :style="{height: bonusImgHeight + 'px', top: bonusImgTop + 'px'}">
                 <div v-show="bonusEls" class="bonusTip"
                      :style="{top: bonusTipTop + 'px'}">
                     {{bonus.coupon}}元优惠券 + {{bonus.points}}积分
                 </div>
-                <img :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
+                <img @load="bonusTipLoaded" :src="BonusImg" :style="{width: bonusImgWidth + 'px', height: bonusImgHeight + 'px'}"/>
                 <div @click="goMyCoupon" class="bonusBtn"
                      :style="{width: bonusBtnWidth + 'px', height: bonusBtnHeight + 'px', bottom: bonusBtnBottom + 'px', left: bonusBtnLeft + 'px'}"></div>
             </div>
@@ -180,12 +180,8 @@
     import Util from '../libs/util.js'
     import BonusImg from '../images/registration_bonus.png'
     import MerchantAPI from '../api/merchant'
-    import imagesLoaded from 'vue-images-loaded'
 
     export default {
-        directives: {
-            imagesLoaded,
-        },
         components: {
             Footer
         },
@@ -242,7 +238,7 @@
             bonusTipLoaded() {
                 setTimeout(() => {
                     this.bonusEls = true
-                }, 500)
+                }, 300)
             },
             goPage(link) {
                 if (link) {
