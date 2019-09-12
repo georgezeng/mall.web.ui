@@ -328,9 +328,9 @@
                 </div>
             </div>
 
-            <div v-show="!posterPopup" :style="posterPopupStyle" style="position: fixed;">
+            <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed;">
                 <swiper ref="posterSwiper" loop dots-position="center">
-                    <swiper-item v-for="(photo, index) in item.photos" :key="index">
+                    <swiper-item v-for="index in item.photos.length" :key="index">
                         <img :src="getPosterSrc(index)" :width="posterWidth"
                              :height="posterHeight"/>
                     </swiper-item>
@@ -603,7 +603,9 @@
                 this.resetPosterTip()
             },
             getPosterSrc(index) {
-                return config.baseUrl + '/goods/item/' + this.item.id + "/" + index + "/" + this.uid + '/poster/share.png'
+                const url = config.baseUrl + '/goods/item/' + this.item.id + "/" + index + "/" + this.uid + '/poster/share.png'
+                alert(url)
+                return url
             },
             showPoster() {
                 this.posterPopupStyle.zIndex = 100000
