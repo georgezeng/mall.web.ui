@@ -16,11 +16,16 @@
             <div align="center" style="position: relative; top: 0px;">物流信息</div>
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 60px;">
-            <div
-                 v-for="(express,index) in data.expressList"
-                 :key="express.id">
+            <div v-for="(express,index) in data.expressList"
+                    :key="express.id">
                 <div style="padding: 10px 15px 10px; position: relative;">
                     <div>物流方式: {{express.type.text}}</div>
+                    <div>
+                        <span>物流商品: </span>
+                        <span v-for="sub in express.subList">
+                            <img :src="config.publicBucketDomain + sub.thumbnail" width="60" height="60"/>
+                        </span>
+                    </div>
                     <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
                     <div v-if="express.type.name == 'Delivery'">
                         物流单号: {{express.number}}
