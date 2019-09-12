@@ -32,9 +32,8 @@
                     <div class="gradient"></div>
                     <div style="display: inline-block; color: gray; width: 30%; text-align: center;">快捷登录</div>
                     <div class="gradient"></div>
-                    <div @click="goWechatLogin"
-                         style="margin-top: 20px;">
-                        <img :src="WeChat" width="50" heiht="50"/>
+                    <div style="margin-top: 20px;">
+                        <img @click="goWechatLogin" :src="WeChat" width="50" heiht="50"/>
                     </div>
                 </div>
                 <!--
