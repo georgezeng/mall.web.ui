@@ -17,7 +17,7 @@
         </Header>
         <Content :style="commonStyles.content" style="margin-top: 60px;">
             <div v-for="(express,index) in data.expressList"
-                    :key="express.id">
+                 :key="express.id">
                 <div style="padding: 10px 15px 10px; position: relative;">
                     <div>物流方式: {{express.type.text}}</div>
                     <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
@@ -26,7 +26,7 @@
                         <input ref="numberText" readonly :value="express.number"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyNumber(index)"
-                             style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px; bottom: 15px;">
+                             style="border-radius 20px; border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px; bottom: 15px;">
                             复制单号
                         </div>
                     </div>
