@@ -198,6 +198,27 @@
                 this.list = []
                 this.showSpin = true
                 this.load()
+                API.countForGoodsItem({
+                    ...this.queryInfo,
+                    data: {
+                        id: this.queryInfo.data.id,
+                        value: 'Good'
+                    }
+                }).then(total => total ? this.goodTotal = total : this.goodTotal = 0)
+                API.countForGoodsItem({
+                    ...this.queryInfo,
+                    data: {
+                        id: this.queryInfo.data.id,
+                        value: 'Neutrality'
+                    }
+                }).then(total => total ? this.neutralityTotal = total : this.neutralityTotal = 0)
+                API.countForGoodsItem({
+                    ...this.queryInfo,
+                    data: {
+                        id: this.queryInfo.data.id,
+                        value: 'Bad'
+                    }
+                }).then(total => total ? this.badTotal = total : this.badTotal = 0)
             },
             itemName(name) {
                 if (!this.isSmallDevice) {
@@ -269,27 +290,6 @@
             this.contentStyle.minHeight = (document.documentElement.clientHeight - 130) + "px"
             this.queryInfo.data.id = this.$router.currentRoute.params.id
             this.reload()
-            API.countForGoodsItem({
-                ...this.queryInfo,
-                data: {
-                    id: this.queryInfo.data.id,
-                    value: 'Good'
-                }
-            }).then(total => total ? this.goodTotal = total : this.goodTotal = 0)
-            API.countForGoodsItem({
-                ...this.queryInfo,
-                data: {
-                    id: this.queryInfo.data.id,
-                    value: 'Neutrality'
-                }
-            }).then(total => total ? this.neutralityTotal = total : this.neutralityTotal = 0)
-            API.countForGoodsItem({
-                ...this.queryInfo,
-                data: {
-                    id: this.queryInfo.data.id,
-                    value: 'Bad'
-                }
-            }).then(total => total ? this.badTotal = total : this.badTotal = 0)
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
