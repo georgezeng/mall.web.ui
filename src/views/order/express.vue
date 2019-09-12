@@ -22,7 +22,7 @@
                     <div>物流方式: {{express.type.text}}</div>
                     <div>
                         <span>物流商品: </span>
-                        <span v-for="sub in express.subList">
+                        <span v-for="sub in express.subList" :key="sub.id">
                             <img :src="config.publicBucketDomain + sub.thumbnail" width="60" height="60"/>
                         </span>
                     </div>
@@ -46,11 +46,13 @@
     import API from '../../api/order.js'
     import Util from '../../libs/util.js'
     import commonStyles from '../../styles/common.js'
+    import config from '../../config/index.js'
 
     export default {
         components: {},
         data() {
             return {
+                config,
                 commonStyles,
                 data: {
                     id: null,
