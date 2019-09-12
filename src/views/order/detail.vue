@@ -143,6 +143,12 @@
             <div v-if="form.pickupTime != null" v-for="express in form.expressList" :key="express.id">
                 <div style="background-color: #fff; padding: 15px; font-size: 14px;">
                     <div>取货方式: {{express.type.text}}</div>
+                    <div>
+                        <span>物流商品: </span>
+                        <span v-for="sub in express.subList">
+                            <img :src="config.publicBucketDomain + sub.thumbnail" width="60" height="60"/>
+                        </span>
+                    </div>
                     <div v-if="express.type.name == 'Delivery'">物流单号: {{express.number}}</div>
                     <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
                 </div>
