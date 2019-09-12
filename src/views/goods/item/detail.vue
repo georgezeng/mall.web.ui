@@ -848,7 +848,8 @@
                                 if (definitions.length > 0) {
                                     for (let i in definitions) {
                                         const definition = definitions[i]
-                                        definition.values = this.filterValues(definition)
+                                        // definition.values = this.filterValues(definition)
+                                        definition.values = definition.attrs
                                     }
                                     this.definitions = definitions
                                 }
