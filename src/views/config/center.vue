@@ -227,7 +227,7 @@
                         <input ref="contactText" readonly :value="wechatService"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyContact"
-                             style="border-radius 20px; border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px;">
+                             style="border-radius: 20px; border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px;">
                             复制微信号
                         </div>
                     </cell-box>

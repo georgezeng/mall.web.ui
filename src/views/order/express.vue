@@ -27,7 +27,7 @@
                         <input ref="numberText" readonly :value="express.number"
                                style="width: 1px; opacity: 0; border:none; outline: none;"/>
                         <div @click="copyNumber(index)"
-                             style="border-radius 20px; border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px; bottom: 15px;">
+                             style="border-radius: 20px; border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px; bottom: 15px;">
                             复制单号
                         </div>
                     </div>
