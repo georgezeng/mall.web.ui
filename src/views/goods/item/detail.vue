@@ -328,7 +328,7 @@
                 </div>
             </div>
 
-            <div v-show="posterPopup" :style="posterPopupStyle" style="position: fixed;">
+            <div v-show="!posterPopup" :style="posterPopupStyle" style="position: fixed;">
                 <swiper ref="posterSwiper" loop dots-position="center">
                     <swiper-item v-for="(photo, index) in item.photos" :key="index">
                         <img :src="getPosterSrc(index)" :width="posterWidth"
