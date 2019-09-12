@@ -146,7 +146,7 @@
                     <div>
                         <span>物流商品: </span>
                         <span v-for="sub in express.subList">
-                            <img :src="config.publicBucketDomain + sub.thumbnail" width="60" height="60"/>
+                            <img :src="config.publicBucketDomain + sub.thumbnail" width="42" height="42"/>
                         </span>
                     </div>
                     <div v-if="express.type.name == 'Delivery'">物流单号: {{express.number}}</div>
