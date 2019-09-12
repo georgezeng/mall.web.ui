@@ -142,6 +142,7 @@
             <div style="background-color: #f5f5f5; height: 10px;"></div>
             <div v-if="form.pickupTime != null" v-for="express in form.expressList" :key="express.id">
                 <div style="background-color: #fff; padding: 15px; font-size: 14px;">
+                    <div>发货时间: {{express.expressTime}}</div>
                     <div>取货方式: {{express.type.text}}</div>
                     <div v-if="express.type.name == 'Delivery'">物流单号: {{express.number}}</div>
                     <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
