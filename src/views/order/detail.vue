@@ -104,7 +104,7 @@
                         <div style="float: right;">￥{{form.totalPrice}}</div>
                     </div>
                     <div style="margin-top: 5px;">
-                        <span style="margin-left: 28px;">运费:</span>
+                        <span>运费:</span>
                         <div style="float: right;">￥0.00</div>
                     </div>
                     <div style="margin-top: 5px;">
