@@ -604,7 +604,6 @@
             },
             getPosterSrc(index) {
                 const url = config.baseUrl + '/goods/item/' + this.item.id + "/" + index + "/" + this.uid + '/poster/share.png'
-                alert(url)
                 return url
             },
             showPoster() {
@@ -938,7 +937,9 @@
         created() {
             this.uid = UrlParams(window.location.href, 'uid')
             if (this.uid) {
+                alert(this.uid)
                 this.uid = this.uid.replace(/#?\/[^\/]+/, '')
+                alert(this.uid)
             } else {
                 this.uid = 0
             }
