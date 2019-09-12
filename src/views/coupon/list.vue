@@ -144,8 +144,8 @@
                                     </div>
                                     <div v-if="coupon.hxType.name == 'Item'">
                                         <span>限购买</span>
-                                        <span  v-for="(item,index) in coupon.items"
-                                               :key="index">
+                                        <span v-for="(item,index) in coupon.items"
+                                              :key="index">
                                             {{item.name}}{{index < coupon.items.length - 1 ? ', ' : ''}}
                                         </span>
                                     </div>
@@ -179,7 +179,8 @@
                 <div class="clearfix"></div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
-            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center" style="width: 100%; position: absolute; color: gray;">
+            <div :style="{top: noRecordTop + 'px'}" v-if="showNoRecord && list.length == 0" align="center"
+                 style="width: 100%; position: absolute; color: gray;">
                 <img :src="NoRecord" width="30%" height="30%"/>
                 <div>暂无优惠券</div>
             </div>
@@ -243,7 +244,13 @@
         computed: {},
         methods: {
             title(item) {
-                return this.isSmallDevice && item.title.length > 10 ? item.title.substring(0, 8) + '...' : item.title
+                if (document.documentElement.clientWidth < 350) {
+                    return item.title.length > 6 ? item.title.substring(0, 6) + '...' : (item.title)
+                } else if (document.documentElement.clientWidth < 400) {
+                    return item.title.length > 10 ? item.title.substring(0, 10) + '...' : (item.title)
+                } else {
+                    return item.title.length > 14 ? item.title.substring(0, 14) + '...' : (item.title)
+                }
             },
             closePopup() {
                 this.popup = false
