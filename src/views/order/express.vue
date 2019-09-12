@@ -20,12 +20,6 @@
                     :key="express.id">
                 <div style="padding: 10px 15px 10px; position: relative;">
                     <div>物流方式: {{express.type.text}}</div>
-                    <div>
-                        <span>物流商品: </span>
-                        <span v-for="sub in express.subList" :key="sub.id">
-                            <img :src="config.publicBucketDomain + sub.thumbnail" width="60" height="60"/>
-                        </span>
-                    </div>
                     <div v-if="express.type.name == 'Delivery'">物流公司: {{express.company}}</div>
                     <div v-if="express.type.name == 'Delivery'">
                         物流单号: {{express.number}}
@@ -35,6 +29,12 @@
                              style="border: 1px solid #B69C7D; color: #B69C7D; padding: 5px; position: absolute; right: 10px; bottom: 15px;">
                             复制单号
                         </div>
+                    </div>
+                    <div>
+                        <span style="vertical-align: top;">物流商品: </span>
+                        <span v-for="sub in express.subList" :key="sub.id">
+                            <img :src="config.publicBucketDomain + sub.thumbnail" width="60" height="60"/>
+                        </span>
                     </div>
                 </div>
                 <div style="background-color: #f5f5f5; height: 10px;"></div>
