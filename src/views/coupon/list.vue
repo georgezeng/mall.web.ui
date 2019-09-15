@@ -247,9 +247,9 @@
                 if (document.documentElement.clientWidth < 350) {
                     return item.title.length > 6 ? item.title.substring(0, 6) + '...' : (item.title)
                 } else if (document.documentElement.clientWidth < 400) {
-                    return item.title.length > 10 ? item.title.substring(0, 10) + '...' : (item.title)
+                    return item.title.length > 8 ? item.title.substring(0, 8) + '...' : (item.title)
                 } else {
-                    return item.title.length > 14 ? item.title.substring(0, 14) + '...' : (item.title)
+                    return item.title.length > 12 ? item.title.substring(0, 12) + '...' : (item.title)
                 }
             },
             closePopup() {
