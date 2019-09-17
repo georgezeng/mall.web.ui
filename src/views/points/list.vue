@@ -34,7 +34,7 @@
                     <div v-if="item.type.name == 'RefundDeduction'">扣除金额: ￥{{item.amount.toFixed(2)}}</div>
                     <div v-if="item.type.name == 'Invite'">备注: 邀请好友注册奖励</div>
                     <div v-if="item.type.name == 'Registration'">备注: 新人奖励</div>
-                    <div v-if="remark != null">备注: {{item.remark}}</div>
+                    <div v-if="item.type.name != 'Invite' && remark != null">备注: {{item.remark}}</div>
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
