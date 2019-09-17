@@ -546,9 +546,11 @@
                 Util.go('Home')
                 return
             }
-            ClientAPI.currentLevel().then(data => {
-                this.level = data
-            })
+            setInterval(() => {
+                ClientAPI.currentLevel().then(data => {
+                    this.level = data
+                })
+            }, 1000)
             const data = Util.getJson('settleAccountData')
             if (data) {
                 this.data = data
