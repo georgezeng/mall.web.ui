@@ -165,6 +165,10 @@
                 </div>
             </div>
             <load-more v-if="showLoading" tip="正在加载"></load-more>
+            <div align="center" style="margin: 5px 0px;">
+                <a v-if="config.env != 'production'" href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备17125109号-1</a>
+                <a v-else href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备17125109号-2</a>
+            </div>
         </Content>
         <Footer selection="home" :style="commonStyles.footer"/>
     </Layout>
