@@ -19,7 +19,7 @@ switch (internalConfig.env) {
         break
 
     default:
-        config.baseUrl = 'https://mall-server.bsxkj.com'
+        config.baseUrl = 'https://mall-server.dbjiaju.cn'
         config.debug = false
         config.publicBucketDomain = 'https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/'
 }
