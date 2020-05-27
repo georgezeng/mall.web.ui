@@ -256,6 +256,26 @@
         border-radius: 20px;
         font-size: 14px;
     }
+
+    .slt-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .slt-list img{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-right: 20px;
+        border: 1px solid #a8a8a8;
+        border-radius: 5px;
+    }
+    .slt-list img:last-child {
+        margin-right: 0;
+    }
+    .slt-list .active {
+        border-color: red;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -378,9 +398,16 @@
             <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
                     :show-dots="false">
                 <swiper-item v-for="(photo, index) in item.photos" :key="index">
-                    <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
+                    <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize" @click="previewImg(index)"/>
                 </swiper-item>
             </swiper>
+
+            <div class="slt-list">
+                <img src="https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/goods/item/2/86/photo/1_1573700359005.png" class="slt active">
+                <img src="https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/goods/item/2/86/photo/2_1573700359005.png" class="slt">
+                <img src="https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/goods/item/2/86/photo/7_1573700359005.png" class="slt">
+            </div>
+
             <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex, left: vedioLeft + 'px'}" style="margin-top: -50px; position: absolute; width: 120px;"
                  align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
@@ -447,9 +474,12 @@
     import NativeShare from 'nativeshare'
     import $ from "jquery"
     import UrlParams from 'get-url-param'
+    import { ImagePreview} from 'vant'
+    import 'vant/lib/image-preview/style'
 
     export default {
-        components: {},
+        components: {
+        },
         data() {
             return {
                 vedioLeft: 0,
@@ -902,7 +932,7 @@
             },
             resetPosterTip() {
                 // if (!this.vedio) {
-                this.posterTipTop = this.itemImgSize + 6
+                this.posterTipTop = this.itemImgSize + 6+40
                 // } else {
                 //     this.posterTipTop = this.itemImgSize * 480 / 640 + 6
                 // }
@@ -924,6 +954,12 @@
                 } else {
                     setTimeout(this.initVedio, 100)
                 }
+            },
+            previewImg(index){
+                ImagePreview({
+                    images:this.item.photos.map(item=>this.config.publicBucketDomain+item),
+                    startPosition:index
+                })
             }
         },
         created() {
