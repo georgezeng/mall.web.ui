@@ -391,22 +391,16 @@
                  :style="{width: itemImgSize + 'px', height: vedioHeight + 'px', zIndex: vedioPanelzIndex}"></div>-->
             <video ref="vedio" v-show="vedio"
                    v-if="item.vedioPath != null" playsinline preload controls
-                   :poster="config.publicBucketDomain + item.photos[0]"
+                   :poster="config.publicBucketDomain + item.groups[0].photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
                    :width="itemImgSize" :height="itemImgSize">
             </video>
             <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
                     :show-dots="false">
-                <swiper-item v-for="(photo, index) in item.photos" :key="index">
+                <swiper-item v-for="(photo, index) in item.groups[currentIndex].photos" :key="index">
                     <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize" @click="previewImg(index)"/>
                 </swiper-item>
             </swiper>
-
-            <div class="slt-list">
-                <img src="https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/goods/item/2/86/photo/1_1573700359005.png" class="slt active">
-                <img src="https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/goods/item/2/86/photo/2_1573700359005.png" class="slt">
-                <img src="https://mall-public-prod.oss-cn-zhangjiakou.aliyuncs.com/goods/item/2/86/photo/7_1573700359005.png" class="slt">
-            </div>
 
             <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex, left: vedioLeft + 'px'}" style="margin-top: -50px; position: absolute; width: 120px;"
                  align="center">
@@ -415,6 +409,17 @@
                 <span :class="{'unselected-swiper-btn': vedio, 'selected-swiper-btn': !vedio}"
                       @click="showVedio(false)">图片</span>
             </div>
+
+            <div class="slt-list">
+                <img 
+                :src="config.publicBucketDomain+slt.photos[0]" 
+                v-for="(slt,index) in item.groups" 
+                class="slt" 
+                :class="{active:currentIndex===index}"
+                @click="changeSlt(index)">
+            </div>
+
+            
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
             </div>
@@ -524,7 +529,9 @@
                     minPrice: 0,
                     maxPrice: 0,
                     marketPrice: 0,
-                    photos: [],
+                    groups: [{
+                        photos:[]
+                    }],
                     properties: [],
                     topEvaluation: null,
                     totalEvaluations: 0
@@ -542,7 +549,9 @@
                 nativeShare: new NativeShare(),
                 isBigDevice: false,
                 menuVisible: false,
-                uid: 0
+                uid: 0,
+                currentIndex:0,
+                normalThumbnail:''
             }
         },
         computed: {
@@ -797,6 +806,9 @@
                 if (found) {
                     this.tempValues = values
                     this.property = property
+                    this.item.thumbnail=this.property.path?this.property.path:this.normalThumbnail
+                }else{
+                    this.item.thumbnail=this.normalThumbnail
                 }
 
                 this.refreshPopup()
@@ -863,6 +875,7 @@
                         }
                         this.item = item
                         this.definitions = item.definitions
+                        this.normalThumbnail=item.thumbnail
                         this.vedio = item.vedioPath != null
                         this.resetPosterTip()
                         this.property.price = item.minPrice
@@ -957,9 +970,13 @@
             },
             previewImg(index){
                 ImagePreview({
-                    images:this.item.photos.map(item=>this.config.publicBucketDomain+item),
+                    // images:this.item.photos.map(item=>this.config.publicBucketDomain+item),
+                    images:this.item.groups[this.currentIndex].photos.map(item=>this.config.publicBucketDomain+item),
                     startPosition:index
                 })
+            },
+            changeSlt(index){
+                this.currentIndex=index
             }
         },
         created() {
