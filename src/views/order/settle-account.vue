@@ -225,7 +225,7 @@
                         商品金额
                     </div>
                     <div style="font-size: 11pt;">
-                        <span>{{totalPrice}}</span>
+                        <span>{{data.totalPrice}}</span>
                     </div>
                 </mt-cell>
                 <mt-cell class="couponPrice">
@@ -242,6 +242,14 @@
                     </div>
                     <div style="font-size: 11pt;">
                         <span style="color: orangered;">{{memberDiscount}}</span>
+                    </div>
+                </mt-cell>
+                <mt-cell class="couponPrice">
+                    <div slot="title" style="font-size: 11pt;">
+                        运费
+                    </div>
+                    <div style="font-size: 11pt;">
+                        <span style="color: orangered;">+{{data.expressFee?data.expressFee:0}}</span>
                     </div>
                 </mt-cell>
             </div>
@@ -317,7 +325,10 @@
                     },
                     fromCart: false,
                     items: [],
-                    remark: null
+                    remark: null,
+                    expressFee:0,
+                    totalPrice:0,
+                    realPrice:0
                 },
                 loading: false,
             }
@@ -327,7 +338,7 @@
                 return this.level.discount < 100 ? (this.level.discount / 10).toFixed(1) + '折' : '无优惠'
             },
             finalPrice() {
-                const price = this.totalPrice * this.level.discount / 100 - this.couponPrice
+                const price = this.data.realPrice-this.couponPrice
                 return price.toFixed(2)
             },
             couponPrice() {
@@ -513,6 +524,9 @@
                         }
                         this.data.items = data.items
                         this.data.fromCart = data.fromCart
+                        this.data.expressFee=data.expressFee
+                        this.data.totalPrice=data.totalPrice
+                        this.data.realPrice=data.realPrice
                         Util.putJson('settleAccountData', this.data)
                         this.show = false
                     })

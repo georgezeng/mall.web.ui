@@ -276,35 +276,41 @@
     .slt-list .active {
         border-color: red;
     }
+    .my-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle">
             <div v-transfer-dom>
                 <popup v-model="show" style="background-color: #fff;">
-                    <div class="popup wrapper" :style="{height: popupHeight + 'px'}">
+                    <div class="popup wrapper my-wrapper" :style="{height: popupHeight + 'px'}">
                         <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
                         <img style="vertical-align: bottom;" :src="thumbnail"
                              width="80"
                              height="80"/>
-                        <div style="display: inline-block; margin-left: 10px;">
-                            <div class="price">￥{{popupPriceRange}}</div>
-                            <div class="inventory">库存{{property.inventory}}件</div>
-                        </div>
-                        <div style="margin: 10px;" :key="definition.id" v-for="(definition, index) in definitions">
-                            <div class="definition">{{definition.name}}</div>
-                            <div>
-                            <span @click="toggleValue(definition, value)"
-                                  :class="{selected: value.checked}"
-                                  class="value"
-                                  :key="value.id"
-                                  v-for="value in definition.attrs">{{value.name}}</span>
+                             <div style="display: inline-block; margin-left: 10px;">
+                                    <div class="price">￥{{popupPriceRange}}</div>
+                                    <div class="inventory">库存{{property.inventory}}件</div>
                             </div>
-                        </div>
-                        <group>
-                            <x-number title="数量" fillable v-model="nums" :max="99" :min="1"></x-number>
-                        </group>
-                        <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
+                       <div style="flex:1;overflow:auto">
+                            <div style="margin: 10px;" :key="definition.id" v-for="(definition, index) in definitions">
+                                <div class="definition">{{definition.name}}</div>
+                                <div>
+                                <span @click="toggleValue(definition, value)"
+                                    :class="{selected: value.checked}"
+                                    class="value"
+                                    :key="value.id"
+                                    v-for="value in definition.attrs">{{value.name}}</span>
+                                </div>
+                            </div>
+                            <group>
+                                <x-number title="数量" fillable v-model="nums" :max="99" :min="1"></x-number>
+                            </group>
+                       </div>
+                        <div style="width: 100%; padding:0; margin:0;">
                             <div class="confirmBtn" @click="confirmSpec">确定</div>
                         </div>
                     </div>
@@ -429,6 +435,7 @@
             </div>
             <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
+            <img src="../../../images/seven.png" alt="" height="14" style="margin-left:15px">
             <div class="blockLine"></div>
             <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择">
                 <div slot="title">
@@ -1030,6 +1037,15 @@
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
+        },
+        watch:{
+            show(n,o){
+                if(n){
+                    document.querySelector('html').classList.add('no-scroll')
+                }else{
+                    document.querySelector('html').classList.remove('no-scroll')
+                }
+            }
         }
     }
 </script>
