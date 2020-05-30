@@ -222,7 +222,7 @@
                 </group>
                 <mt-cell class="coupon">
                     <div slot="title" style="font-size: 11pt;">
-                        尊敬的{{level.name}}，您购物可享{{memberDiscount}}折（特价商品除外）
+                        尊敬的{{level.name}}，您购物可享{{memberDiscount}}(特价商品除外)
                     </div>
                 </mt-cell>
                 <mt-cell class="totalPrice">
