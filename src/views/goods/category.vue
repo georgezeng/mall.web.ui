@@ -85,10 +85,10 @@
                         <img @click="goPage(banner.link)" :src="config.publicBucketDomain + banner.path" width="100%">
                     </swiper-item>
                 </swiper>
-                <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;">推荐品牌</div>
+                <div style="margin: 20px 10px 20px; font-weight: bold; font-size: 12pt;" v-if="recommendList.length>0">推荐产品</div>
                 <div align="center">
-                    <img v-for="(brand,index) in brands" :key="index" @click="goPage(brand.link)"
-                         :src="config.publicBucketDomain + brand.path" width="27%"/>
+                    <img v-for="(brand,index) in recommendList" :key="index" @click="goPage(brand.link)"
+                         :src="config.publicBucketDomain + brand.logo" width="27%"/>
                 </div>
                 <div :key="item.id" v-for="item in level2Categories">
                     <div class="secondCategory">{{item.name}}</div>
@@ -132,7 +132,8 @@
                 level2Categories: [],
                 bannerWidth: 0,
                 brands: [],
-                banners: []
+                banners: [],
+                recommendList:[]
             }
         },
         computed: {},
@@ -188,6 +189,9 @@
                 this.isSelect[index] = true
                 API.level2(id).then(data => {
                     this.level2Categories = data
+                })
+                API.recommends(id).then(res=>{
+                    this.recommendList=res
                 })
             }
         },

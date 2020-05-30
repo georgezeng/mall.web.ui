@@ -256,35 +256,61 @@
         border-radius: 20px;
         font-size: 14px;
     }
+
+    .slt-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .slt-list img{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        margin-right: 20px;
+        border: 1px solid #a8a8a8;
+        border-radius: 5px;
+    }
+    .slt-list img:last-child {
+        margin-right: 0;
+    }
+    .slt-list .active {
+        border-color: red;
+    }
+    .my-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
         <Content :style="contentStyle">
             <div v-transfer-dom>
                 <popup v-model="show" style="background-color: #fff;">
-                    <div class="popup wrapper" :style="{height: popupHeight + 'px'}">
+                    <div class="popup wrapper my-wrapper" :style="{height: popupHeight + 'px'}">
                         <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
                         <img style="vertical-align: bottom;" :src="thumbnail"
                              width="80"
                              height="80"/>
-                        <div style="display: inline-block; margin-left: 10px;">
-                            <div class="price">￥{{popupPriceRange}}</div>
-                            <div class="inventory">库存{{property.inventory}}件</div>
-                        </div>
-                        <div style="margin: 10px;" :key="definition.id" v-for="(definition, index) in definitions">
-                            <div class="definition">{{definition.name}}</div>
-                            <div>
-                            <span @click="toggleValue(definition, value)"
-                                  :class="{selected: value.checked}"
-                                  class="value"
-                                  :key="value.id"
-                                  v-for="value in definition.attrs">{{value.name}}</span>
+                             <div style="display: inline-block; margin-left: 10px;">
+                                    <div class="price">￥{{popupPriceRange}}</div>
+                                    <div class="inventory">库存{{property.inventory}}件</div>
                             </div>
-                        </div>
-                        <group>
-                            <x-number title="数量" fillable v-model="nums" :max="99" :min="1"></x-number>
-                        </group>
-                        <div style="position: absolute; bottom: 0px; width: 100%; padding:0; margin:0;">
+                       <div style="flex:1;overflow:auto">
+                            <div style="margin: 10px;" :key="definition.id" v-for="(definition, index) in definitions">
+                                <div class="definition">{{definition.name}}</div>
+                                <div>
+                                <span @click="toggleValue(definition, value)"
+                                    :class="{selected: value.checked}"
+                                    class="value"
+                                    :key="value.id"
+                                    v-for="value in definition.attrs">{{value.name}}</span>
+                                </div>
+                            </div>
+                            <group>
+                                <x-number title="数量" fillable v-model="nums" :max="99" :min="1"></x-number>
+                            </group>
+                       </div>
+                        <div style="width: 100%; padding:0; margin:0;">
                             <div class="confirmBtn" @click="confirmSpec">确定</div>
                         </div>
                     </div>
@@ -371,16 +397,17 @@
                  :style="{width: itemImgSize + 'px', height: vedioHeight + 'px', zIndex: vedioPanelzIndex}"></div>-->
             <video ref="vedio" v-show="vedio"
                    v-if="item.vedioPath != null" playsinline preload controls
-                   :poster="config.publicBucketDomain + item.photos[0]"
+                   :poster="config.publicBucketDomain + item.groups[0].photos[0]"
                    :src="config.publicBucketDomain + item.vedioPath"
                    :width="itemImgSize" :height="itemImgSize">
             </video>
             <swiper style="margin-bottom: 7px;" v-show="!vedio || item.vedioPath == null" :aspect-ratio="1" auto loop
                     :show-dots="false">
-                <swiper-item v-for="(photo, index) in item.photos" :key="index">
-                    <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize"/>
+                <swiper-item v-for="(photo, index) in item.groups[currentIndex].photos" :key="index">
+                    <img :src="config.publicBucketDomain + photo" :width="itemImgSize" :height="itemImgSize" @click="previewImg(index)"/>
                 </swiper-item>
             </swiper>
+
             <div v-if="item.vedioPath != null" :style="{zIndex: vedioZIndex, left: vedioLeft + 'px'}" style="margin-top: -50px; position: absolute; width: 120px;"
                  align="center">
                 <span :class="{'selected-swiper-btn': vedio, 'unselected-swiper-btn': !vedio}"
@@ -388,6 +415,17 @@
                 <span :class="{'unselected-swiper-btn': vedio, 'selected-swiper-btn': !vedio}"
                       @click="showVedio(false)">图片</span>
             </div>
+
+            <div class="slt-list">
+                <img 
+                :src="config.publicBucketDomain+slt.photos[0]" 
+                v-for="(slt,index) in item.groups" 
+                class="slt" 
+                :class="{active:currentIndex===index}"
+                @click="changeSlt(index)">
+            </div>
+
+            
             <div>
                 <span class="realPrice">￥{{priceRange}}</span>
             </div>
@@ -397,6 +435,7 @@
             </div>
             <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
+            <img src="../../../images/seven.png" alt="" height="14" style="margin-left:15px">
             <div class="blockLine"></div>
             <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择">
                 <div slot="title">
@@ -447,9 +486,12 @@
     import NativeShare from 'nativeshare'
     import $ from "jquery"
     import UrlParams from 'get-url-param'
+    import { ImagePreview} from 'vant'
+    import 'vant/lib/image-preview/style'
 
     export default {
-        components: {},
+        components: {
+        },
         data() {
             return {
                 vedioLeft: 0,
@@ -494,7 +536,9 @@
                     minPrice: 0,
                     maxPrice: 0,
                     marketPrice: 0,
-                    photos: [],
+                    groups: [{
+                        photos:[]
+                    }],
                     properties: [],
                     topEvaluation: null,
                     totalEvaluations: 0
@@ -512,7 +556,9 @@
                 nativeShare: new NativeShare(),
                 isBigDevice: false,
                 menuVisible: false,
-                uid: 0
+                uid: 0,
+                currentIndex:0,
+                normalThumbnail:''
             }
         },
         computed: {
@@ -767,6 +813,9 @@
                 if (found) {
                     this.tempValues = values
                     this.property = property
+                    this.item.thumbnail=this.property.path?this.property.path:this.normalThumbnail
+                }else{
+                    this.item.thumbnail=this.normalThumbnail
                 }
 
                 this.refreshPopup()
@@ -833,6 +882,7 @@
                         }
                         this.item = item
                         this.definitions = item.definitions
+                        this.normalThumbnail=item.thumbnail
                         this.vedio = item.vedioPath != null
                         this.resetPosterTip()
                         this.property.price = item.minPrice
@@ -902,7 +952,7 @@
             },
             resetPosterTip() {
                 // if (!this.vedio) {
-                this.posterTipTop = this.itemImgSize + 6
+                this.posterTipTop = this.itemImgSize + 6+40
                 // } else {
                 //     this.posterTipTop = this.itemImgSize * 480 / 640 + 6
                 // }
@@ -924,6 +974,16 @@
                 } else {
                     setTimeout(this.initVedio, 100)
                 }
+            },
+            previewImg(index){
+                ImagePreview({
+                    // images:this.item.photos.map(item=>this.config.publicBucketDomain+item),
+                    images:this.item.groups[this.currentIndex].photos.map(item=>this.config.publicBucketDomain+item),
+                    startPosition:index
+                })
+            },
+            changeSlt(index){
+                this.currentIndex=index
             }
         },
         created() {
@@ -977,6 +1037,15 @@
         },
         destroyed() {
             window.removeEventListener('scroll', this.scrollHandler)
+        },
+        watch:{
+            show(n,o){
+                if(n){
+                    document.querySelector('html').classList.add('no-scroll')
+                }else{
+                    document.querySelector('html').classList.remove('no-scroll')
+                }
+            }
         }
     }
 </script>

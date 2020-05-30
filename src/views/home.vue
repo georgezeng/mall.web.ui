@@ -142,7 +142,7 @@
                      :class="`category${(index+1)}`" :style="categoryStyle"
                      :src="config.publicBucketDomain + recommend.path"/>
             </div>
-            <div style="font-size: 14px; text-align: center; position: relative; top: -10px;">新品推荐</div>
+            <div style="font-size: 14px; text-align: center; position: relative; top: -10px;">全部商品</div>
             <div ref="grid" style="padding-left: 8px;">
                 <div :key="item.id" v-for="item in list" class="item" :style="{width: itemWidth + 'px'}"
                      @click="goDetail(item.id)">
