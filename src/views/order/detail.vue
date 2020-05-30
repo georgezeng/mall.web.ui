@@ -105,7 +105,7 @@
                     </div>
                     <div style="margin-top: 5px;">
                         <span>运费:</span>
-                        <div style="float: right;">￥{{form.expressFee ? form.expressFee : '0.00'}}}</div>
+                        <div style="float: right;">￥{{form.expressFee ? form.expressFee : '0.00'}}</div>
                     </div>
                     <div style="margin-top: 5px;">
                         <span>优惠券抵扣:</span>
