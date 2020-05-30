@@ -280,6 +280,16 @@
         display: flex;
         flex-direction: column;
     }
+    .num {
+        display: inline-block;
+        padding: 0 10px;
+        border:  solid 1px;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-top: 10px;
+        margin-left: 5px;
+        color: #E55138;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -426,8 +436,9 @@
             </div>
 
             
-            <div>
+            <div style="display:flex;align-items: center;">
                 <span class="realPrice">￥{{priceRange}}</span>
+                <span class="num" v-if="item.discount<100||item.specialDiscount">{{item.discount<100?item.discount/10+' 折':'特价'}}</span>
             </div>
             <div style="margin-left: 10px;" v-if="item.marketPrice != null">
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
@@ -436,6 +447,10 @@
             <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
             <img src="../../../images/seven.png" alt="" height="14" style="margin-left:15px">
+            <div style="font-size:14px;margin-left:15px;display:flex;align-items: center;" v-if="fee.totalAmount" class="sellingPoints">
+                <img src="../../../images/fee.png" height="16" style="margin-right:2px">
+                全场满{{fee.totalAmount}}元包邮
+            </div>
             <div class="blockLine"></div>
             <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择">
                 <div slot="title">
@@ -558,7 +573,8 @@
                 menuVisible: false,
                 uid: 0,
                 currentIndex:0,
-                normalThumbnail:''
+                normalThumbnail:'',
+                fee:{}
             }
         },
         computed: {
@@ -908,6 +924,9 @@
                         // setting share
                         document.title = item.name
                         this.updateShare()
+                    })
+                    API.fee().then(res=>{
+                        this.fee=JSON.parse(res)
                     })
                 }
             },
