@@ -345,7 +345,7 @@
                 return this.level.discount < 100 ? (this.level.discount / 10).toFixed(1) + '折' : '无优惠'
             },
             finalPrice() {
-                const price = this.data.realPrice-this.couponPrice
+                const price = this.data.realPrice-this.couponPrice+this.data.expressFee
                 return price.toFixed(2)
             },
             couponPrice() {
