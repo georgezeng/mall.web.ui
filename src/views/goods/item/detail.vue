@@ -447,7 +447,7 @@
             <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
             <img src="../../../images/seven.png" alt="" height="14" style="margin-left:15px">
-            <div style="font-size:14px;margin-left:15px;display:flex;align-items: center;" v-if="fee.totalAmount" class="sellingPoints">
+            <div style="font-size:14px;margin-left:15px;display:flex;align-items: center;" v-if="fee && fee.totalAmount" class="sellingPoints">
                 <img src="../../../images/fee.png" height="16" style="margin-right:2px">
                 全场满{{fee.totalAmount}}元包邮
             </div>
