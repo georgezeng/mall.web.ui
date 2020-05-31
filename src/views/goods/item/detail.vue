@@ -427,10 +427,11 @@
             </div>
 
             <div class="slt-list">
-                <img 
-                :src="config.publicBucketDomain+slt.photos[0]" 
-                v-for="(slt,index) in item.groups" 
-                class="slt" 
+                <img
+                v-if="slt && slt.photos.length > 0"
+                :src="config.publicBucketDomain+slt.photos[0]"
+                v-for="(slt,index) in item.groups"
+                class="slt"
                 :class="{active:currentIndex===index}"
                 @click="changeSlt(index)">
             </div>
@@ -582,7 +583,7 @@
                 return this.isBigDevice ? 375 : document.documentElement.clientWidth
             },
             thumbnail() {
-                return config.publicBucketDomain + this.item.thumbnail
+                return this.item && this.item.thumbnail ? (config.publicBucketDomain + this.item.thumbnail) : ''
             },
             isSinglePrice() {
                 return this.item.minPrice == this.item.maxPrice
@@ -997,7 +998,9 @@
             previewImg(index){
                 ImagePreview({
                     // images:this.item.photos.map(item=>this.config.publicBucketDomain+item),
-                    images:this.item.groups[this.currentIndex].photos.map(item=>this.config.publicBucketDomain+item),
+                    images:this.item.groups[this.currentIndex].photos.map(item=>{
+                        return this.config.publicBucketDomain+item
+                    }),
                     startPosition:index
                 })
             },
