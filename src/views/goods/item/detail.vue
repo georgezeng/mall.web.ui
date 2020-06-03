@@ -290,7 +290,7 @@
                         <Icon size="30" type="ios-close" class="close" @click="closePopup"/>
                         <img style="vertical-align: bottom;" :src="thumbnail"
                              width="80"
-                             height="80"/>
+                             height="80" @click="perviewThumbnail"/>
                              <div style="display: inline-block; margin-left: 10px;">
                                     <div class="price">￥{{popupPriceRange}}</div>
                                     <div class="inventory">库存{{property.inventory}}件</div>
@@ -984,6 +984,12 @@
             },
             changeSlt(index){
                 this.currentIndex=index
+            },
+            perviewThumbnail(){
+                ImagePreview({
+                    images:[this.thumbnail],
+                    startPosition:0
+                })
             }
         },
         created() {
