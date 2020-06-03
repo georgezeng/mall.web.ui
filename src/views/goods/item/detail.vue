@@ -280,6 +280,16 @@
         display: flex;
         flex-direction: column;
     }
+    .num {
+        display: inline-block;
+        padding: 0 10px;
+        border:  solid 1px;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-top: 10px;
+        margin-left: 5px;
+        color: #E55138;
+    }
 </style>
 <template>
     <Layout :style="commonStyles.layout">
@@ -417,17 +427,19 @@
             </div>
 
             <div class="slt-list">
-                <img 
-                :src="config.publicBucketDomain+slt.photos[0]" 
-                v-for="(slt,index) in item.groups" 
-                class="slt" 
+                <img
+                v-if="slt && slt.photos.length > 0"
+                :src="config.publicBucketDomain+slt.photos[0]"
+                v-for="(slt,index) in item.groups"
+                class="slt"
                 :class="{active:currentIndex===index}"
                 @click="changeSlt(index)">
             </div>
 
             
-            <div>
+            <div style="display:flex;align-items: center;">
                 <span class="realPrice">￥{{priceRange}}</span>
+                <span class="num" v-if="item.discount<100||item.specialDiscount">{{item.discount<100?item.discount/10+' 折':'特价'}}</span>
             </div>
             <div style="margin-left: 10px;" v-if="item.marketPrice != null">
                 <span class="marketPrice" v-if="isSinglePrice">{{item.marketPrice ? '￥' + item.marketPrice : ''}}</span>
@@ -436,6 +448,10 @@
             <div style="z-index:1000000000;" class="name">{{item.name}}</div>
             <div class="sellingPoints">{{sellingPoints}}</div>
             <img src="../../../images/seven.png" alt="" height="14" style="margin-left:15px">
+            <div style="font-size:14px;margin-left:15px;display:flex;align-items: center;" v-if="fee && fee.totalAmount" class="sellingPoints">
+                <img src="../../../images/fee.png" height="16" style="margin-right:2px">
+                全场满{{fee.totalAmount}}元包邮
+            </div>
             <div class="blockLine"></div>
             <cell @click.native="showPopup" style="height: 50px; font-size: 14px;" is-link value="请选择">
                 <div slot="title">
@@ -558,7 +574,8 @@
                 menuVisible: false,
                 uid: 0,
                 currentIndex:0,
-                normalThumbnail:''
+                normalThumbnail:'',
+                fee:{}
             }
         },
         computed: {
@@ -566,7 +583,7 @@
                 return this.isBigDevice ? 375 : document.documentElement.clientWidth
             },
             thumbnail() {
-                return config.publicBucketDomain + this.item.thumbnail
+                return this.item && this.item.thumbnail ? (config.publicBucketDomain + this.item.thumbnail) : ''
             },
             isSinglePrice() {
                 return this.item.minPrice == this.item.maxPrice
@@ -909,6 +926,9 @@
                         document.title = item.name
                         this.updateShare()
                     })
+                    API.fee().then(res=>{
+                        this.fee=JSON.parse(res)
+                    })
                 }
             },
             filterValues(definition) {
@@ -978,7 +998,9 @@
             previewImg(index){
                 ImagePreview({
                     // images:this.item.photos.map(item=>this.config.publicBucketDomain+item),
-                    images:this.item.groups[this.currentIndex].photos.map(item=>this.config.publicBucketDomain+item),
+                    images:this.item.groups[this.currentIndex].photos.map(item=>{
+                        return this.config.publicBucketDomain+item
+                    }),
                     startPosition:index
                 })
             },

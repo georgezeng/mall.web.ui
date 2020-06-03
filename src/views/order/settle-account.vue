@@ -220,6 +220,11 @@
                                 placeholder="选填(限30字)" title="买家留言"
                                 v-model="data.remark"></x-textarea>
                 </group>
+                <mt-cell class="coupon">
+                    <div slot="title" style="font-size: 11pt;">
+                        尊敬的{{level.name}}，您购物可享{{memberDiscount}}(特价商品除外)
+                    </div>
+                </mt-cell>
                 <mt-cell class="totalPrice">
                     <div slot="title" style="font-size: 11pt;">
                         商品金额
@@ -236,6 +241,7 @@
                         <span style="color: orangered;">-￥{{couponPrice}}</span>
                     </div>
                 </mt-cell>
+                <!--
                 <mt-cell class="couponPrice">
                     <div slot="title" style="font-size: 11pt;">
                         会员折扣 ({{level.name}})
@@ -244,6 +250,7 @@
                         <span style="color: orangered;">{{memberDiscount}}</span>
                     </div>
                 </mt-cell>
+                -->
                 <mt-cell class="couponPrice">
                     <div slot="title" style="font-size: 11pt;">
                         运费
@@ -338,7 +345,7 @@
                 return this.level.discount < 100 ? (this.level.discount / 10).toFixed(1) + '折' : '无优惠'
             },
             finalPrice() {
-                const price = this.data.realPrice-this.couponPrice
+                const price = this.data.realPrice-this.couponPrice+this.data.expressFee
                 return price.toFixed(2)
             },
             couponPrice() {
