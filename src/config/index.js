@@ -14,7 +14,7 @@ switch (internalConfig.env) {
         break
 
     case 'uat':
-        config.baseUrl = 'https://uat.mall-server.bsxkj.com'
+        config.baseUrl = 'https://uat.mall-server.dobaishop.com'
         config.debug = true
         config.publicBucketDomain = 'https://mall-public-uat.oss-cn-zhangjiakou.aliyuncs.com/'
         break
